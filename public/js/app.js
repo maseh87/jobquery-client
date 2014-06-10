@@ -1,4 +1,4 @@
-var app = angular.module('jobquery', ['ngRoute', 'ui.router']);
+var app = angular.module('jobQuery', ['ui.router']);
 
 app.config(function($httpProvider) {
   $httpProvider.defaults.useXDomain = true; //Enable cross domain calls
