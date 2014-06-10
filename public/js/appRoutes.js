@@ -8,12 +8,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 			controller: 'MainController'
 		})
 		.state('route1', {
-			url: '/route1'
+			url: '/route1',
 			templateUrl: 'views/routeOne.html',
 			controller: 'RouteOneController'
 		})
 		.state('route2', {
-			url: '/route2'
+			url: '/route2',
 			templateUrl: 'views/routeTwo.html',
 			controller: 'RouteTwoController'	
 		});
