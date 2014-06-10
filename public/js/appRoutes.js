@@ -1,19 +1,19 @@
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-	$routeProvider
-
+	$stateProvider
 		// home page
-		.when('/', {
+		.state('home', {
+			url: '',
 			templateUrl: 'views/home.html',
 			controller: 'MainController'
 		})
-
-		.when('/routeOne', {
+		.state('route1', {
+			url: '/route1'
 			templateUrl: 'views/routeOne.html',
 			controller: 'RouteOneController'
 		})
-
-		.when('/routeTwo', {
+		.state('route2', {
+			url: '/route2'
 			templateUrl: 'views/routeTwo.html',
 			controller: 'RouteTwoController'	
 		});
