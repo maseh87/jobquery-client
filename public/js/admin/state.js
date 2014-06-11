@@ -6,11 +6,11 @@ app.config(['$stateProvider', function($stateProvider){
       url: '/admin',
       views: {
         'sidebar': {
-          templateUrl: '/js/admin/core/templates/sidebar.tpl.html',
+          templateUrl: '/js/admin/templates/sidebar.tpl.html',
           controller: 'AdminSidebarCtrl'
         },
         'main': {
-          templateUrl: '/js/admin/core/templates/admin.tpl.html',
+          templateUrl: '/js/admin/templates/admin.tpl.html',
           controller: 'AdminCtrl'
         }
       }

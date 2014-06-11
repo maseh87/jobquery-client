@@ -6,11 +6,11 @@ app.config(['$stateProvider', function($stateProvider) {
       url: '/user',
       views: {
         'sidebar': {
-          templateUrl: '/js/user/core/templates/sidebar.tpl.html',
+          templateUrl: '/js/user/templates/sidebar.tpl.html',
           controller: 'UserSidebarCtrl'
         },
         'main': {
-          templateUrl: '/js/user/core/templates/user.tpl.html',
+          templateUrl: '/js/user/templates/user.tpl.html',
           controller: 'UserCtrl'
         }
       }
