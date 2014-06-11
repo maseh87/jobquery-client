@@ -9,7 +9,7 @@ describe('AdminSchedulingCtrl', function(){
 
     createController = function(){
       return $controller('AdminSchedulingCtrl', {$scope: $rootScope.$new()});
-    }
+    };
 
   }));
 

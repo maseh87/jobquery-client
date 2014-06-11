@@ -9,7 +9,7 @@ describe('AppCtrl', function(){
 
     createController = function(){
       return $controller('AppCtrl', {$scope: $rootScope.$new()});
-    }
+    };
 
   }));
 

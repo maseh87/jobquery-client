@@ -9,7 +9,7 @@ describe('UserAccountCtrl', function(){
 
     createController = function(){
       return $controller('UserAccountCtrl', {$scope: $rootScope.$new()});
-    }
+    };
 
   }));
 

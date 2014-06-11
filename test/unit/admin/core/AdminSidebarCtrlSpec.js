@@ -9,7 +9,7 @@ describe('AdminSidebarCtrl', function(){
 
     createController = function(){
       return $controller('AdminSidebarCtrl', {$scope: $rootScope.$new()});
-    }
+    };
 
   }));
 

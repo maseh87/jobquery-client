@@ -9,7 +9,7 @@ describe('UserSidebarCtrl', function(){
 
     createController = function(){
       return $controller('UserSidebarCtrl', {$scope: $rootScope.$new()});
-    }
+    };
 
   }));
 
