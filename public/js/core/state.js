@@ -1,11 +1,12 @@
 //Application Level State
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 
+  $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/404');
 
   $stateProvider
     .state('home', {
-      url: '',
+      url: '/',
       templateUrl: '/js/core/templates/home.tpl.html',
       controller: 'AppCtrl'
     })
