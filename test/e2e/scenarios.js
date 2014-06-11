@@ -1,5 +1,32 @@
 describe('jobQuery application', function(){
 
+  describe('states', function(){
+
+    it('should be accessible using ui-srefs', function(){
+      browser.get('');
+
+      element(by.css('a[href*="user"]')).click();
+
+      browser.getLocationAbsUrl().then(function(url){
+        expect(url).toBe('http://localhost:8000/#/user');
+      });
+
+      element(by.css('a[href*="user/account"]')).click();
+
+      browser.getLocationAbsUrl().then(function(url){
+        expect(url).toBe('http://localhost:8000/#/user/account');
+      });
+
+      element(by.css('a[href*="admin"]')).click();
+
+      browser.getLocationAbsUrl().then(function(url){
+        expect(url).toBe('http://localhost:8000/#/admin');
+      });
+
+    });
+
+  });
+
   describe('home state', function(){
 
     it('should exist', function(){
