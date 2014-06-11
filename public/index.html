@@ -31,6 +31,31 @@
 	<!-- admin -->
 	<script src="js/admin/core/state.js"></script>
 	<script src="js/admin/core/controllers/AdminCtrl.js"></script>
+	<script src="js/admin/core/controllers/AdminSidebarCtrl.js"></script>
+
+	<!-- admin.candidates -->
+	<script src="js/admin/candidates/core/state.js"></script>
+	<script src="js/admin/candidates/core/controllers/AdminCandidatesCtrl.js"></script>
+
+	<!-- admin.companies -->
+	<script src="js/admin/companies/core/state.js"></script>
+	<script src="js/admin/companies/core/controllers/AdminCompaniesCtrl.js"></script>
+
+	<!-- admin.messages -->
+	<script src="js/admin/messages/core/state.js"></script>
+	<script src="js/admin/messages/core/controllers/AdminMessagesCtrl.js"></script>
+
+	<!-- admin.opportunities -->
+	<script src="js/admin/opportunities/core/state.js"></script>
+	<script src="js/admin/opportunities/core/controllers/AdminOpportunitiesCtrl.js"></script>
+
+	<!-- admin.scheduling -->
+	<script src="js/admin/scheduling/core/state.js"></script>
+	<script src="js/admin/scheduling/core/controllers/AdminSchedulingCtrl.js"></script>
+
+	<!-- admin.tags -->
+	<script src="js/admin/tags/core/state.js"></script>
+	<script src="js/admin/tags/core/controllers/AdminTagsCtrl.js"></script>
 
 </head>
 <body ng-app="jobQuery" ng-controller="AppCtrl">
@@ -49,8 +74,9 @@
 		</ul>
 	</nav>
 
+	<div ui-view="sidebar"></div>
 	<!-- ANGULAR DYNAMIC CONTENT -->
-	<div ui-view></div>
+	<div ui-view="main"></div>
 
 </div>
 </body>
