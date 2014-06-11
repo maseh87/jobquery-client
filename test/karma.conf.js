@@ -5,14 +5,12 @@ module.exports = function(config){
 
     files : [
       'public/bower_components/angular/angular.js',
-      'public/bower_components/angular-route/angular-route.js',
+      'public/bower_components/angular-ui-router/release/angular-ui-router.js',
       'public/bower_components/angular-resource/angular-resource.js',
       'public/bower_components/angular-animate/angular-animate.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
       'public/js/app.js',
-      'public/js/core/**/*.js',
-      'public/js/admin/**/*.js',
-      'public/js/user/**/*.js',
+      'public/js/**/*.js',
       'test/unit/**/*.js'
     ],
 
