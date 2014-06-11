@@ -14,9 +14,9 @@
 
     "update-webdriver": "webdriver-manager update",
 
-    "serve": "http-server -p 8000",
+    "server": "http-server -p 8000",
 
-    "protractor": "protractor test/protractor-conf.js"
+    "ee": "protractor test/protractor-conf.js"
   },
   "repository": {
     "type": "git",
