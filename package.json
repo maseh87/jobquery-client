@@ -12,7 +12,7 @@
     "http-server" : "^0.6.1"
   },
   "scripts": {
-    "start"            : "node server.js",
+    "start"            : "nodemon server.js",
     "test"             : "karma start test/karma.conf.js",
     "test-single-run"  : "karma start test/karma.conf.js  --single-run",
     "update-webdriver" : "webdriver-manager update",
