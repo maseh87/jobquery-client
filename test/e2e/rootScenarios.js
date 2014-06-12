@@ -23,6 +23,42 @@ describe('jobQuery application', function(){
         expect(url).toBe('http://localhost:8000/admin');
       });
 
+      element(by.css('a[href*="admin/candidates"]')).click();
+
+      browser.getLocationAbsUrl().then(function(url){
+        expect(url).toBe('http://localhost:8000/admin/candidates');
+      });
+
+      element(by.css('a[href*="admin/companies"]')).click();
+
+      browser.getLocationAbsUrl().then(function(url){
+        expect(url).toBe('http://localhost:8000/admin/companies');
+      });
+
+      element(by.css('a[href*="admin/messages"]')).click();
+
+      browser.getLocationAbsUrl().then(function(url){
+        expect(url).toBe('http://localhost:8000/admin/messages');
+      });
+
+      element(by.css('a[href*="admin/opportunities"]')).click();
+
+      browser.getLocationAbsUrl().then(function(url){
+        expect(url).toBe('http://localhost:8000/admin/opportunities');
+      });
+
+      element(by.css('a[href*="admin/scheduling"]')).click();
+
+      browser.getLocationAbsUrl().then(function(url){
+        expect(url).toBe('http://localhost:8000/admin/scheduling');
+      });
+
+      element(by.css('a[href*="admin/tags"]')).click();
+
+      browser.getLocationAbsUrl().then(function(url){
+        expect(url).toBe('http://localhost:8000/admin/tags');
+      });
+
     });
 
   });
