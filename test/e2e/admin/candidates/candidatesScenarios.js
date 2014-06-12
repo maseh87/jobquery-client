@@ -8,3 +8,14 @@ describe ('admin.candidates state', function(){
   });
 
 });
+
+describe ('admin.candidates.detail state', function(){
+
+  it('should exist', function(){
+    browser.get('/admin/candidates/1');
+    browser.getLocationAbsUrl().then(function(url){
+      expect(url).toBe('http://localhost:8000/admin/candidates/1');
+    });
+  });
+
+});
