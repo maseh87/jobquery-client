@@ -59,6 +59,12 @@ describe('jobQuery application', function(){
         expect(url).toBe('http://localhost:8000/admin/tags');
       });
 
+      element(by.css('a[href*="admin/account"]')).click();
+
+      browser.getLocationAbsUrl().then(function(url){
+        expect(url).toBe('http://localhost:8000/admin/account');
+      });
+
     });
 
   });
