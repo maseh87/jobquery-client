@@ -19,3 +19,14 @@ describe ('admin.messages.detail state', function(){
   });
 
 });
+
+describe ('admin.messages.new state', function(){
+
+  it('should exist', function(){
+    browser.get('/admin/messages/new');
+    browser.getLocationAbsUrl().then(function(url){
+      expect(url).toBe('http://localhost:8000/admin/messages/new');
+    });
+  });
+
+});
