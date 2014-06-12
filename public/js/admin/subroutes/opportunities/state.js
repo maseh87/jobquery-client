@@ -5,6 +5,11 @@ app.config(['$stateProvider', function($stateProvider){
       url: '/opportunities',
       templateUrl: '/js/admin/subroutes/opportunities/templates/opportunities.tpl.html',
       controller: 'AdminOpportunitiesCtrl'
+    })
+    .state('admin.opportunities.detail', {
+      url: '/:id',
+      templateUrl: '/js/admin/subroutes/opportunities/templates/detail.tpl.html',
+      controller: 'AdminOpportunitiesDetailCtrl'
     });
 
 }]);

@@ -8,3 +8,14 @@ describe ('admin.companies state', function(){
   });
 
 });
+
+describe ('admin.companies.detail state', function(){
+
+  it('should exist', function(){
+    browser.get('/admin/companies/1');
+    browser.getLocationAbsUrl().then(function(url){
+      expect(url).toBe('http://localhost:8000/admin/companies/1');
+    });
+  });
+
+});

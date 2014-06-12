@@ -8,3 +8,14 @@ describe ('admin.messages state', function(){
   });
 
 });
+
+describe ('admin.messages.detail state', function(){
+
+  it('should exist', function(){
+    browser.get('/admin/messages/1');
+    browser.getLocationAbsUrl().then(function(url){
+      expect(url).toBe('http://localhost:8000/admin/messages/1');
+    });
+  });
+
+});
