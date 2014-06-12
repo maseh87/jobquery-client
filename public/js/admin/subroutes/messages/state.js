@@ -10,6 +10,11 @@ app.config(['$stateProvider', function($stateProvider){
       url: '/:id',
       templateUrl: '/js/admin/subroutes/messages/templates/detail.tpl.html',
       controller: 'AdminMessagesDetailCtrl'
+    })
+    .state('admin.messages.new', {
+      url: '/new',
+      templateUrl: '/js/admin/subroutes/messages/templates/new.tpl.html',
+      controller: 'AdminMessagesNewCtrl'
     });
 
 }]);

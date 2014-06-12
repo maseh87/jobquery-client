@@ -19,3 +19,14 @@ describe ('admin.opportunities.detail state', function(){
   });
 
 });
+
+describe ('admin.opportunities.new state', function(){
+
+  it('should exist', function(){
+    browser.get('/admin/opportunities/new');
+    browser.getLocationAbsUrl().then(function(url){
+      expect(url).toBe('http://localhost:8000/admin/opportunities/new');
+    });
+  });
+
+});
