@@ -12,7 +12,7 @@ app.config(['$stateProvider', function($stateProvider){
       controller: 'ResourceCtrl'
     })
     .state('admin.opportunities.detail', {
-      url: '/:id',
+      url: '/:_id',
       templateUrl: '/js/admin/subroutes/opportunities/templates/detail.tpl.html',
       controller: 'ResourceDetailCtrl'
     })
