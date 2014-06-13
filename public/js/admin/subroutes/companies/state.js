@@ -11,25 +11,25 @@ app.config(['$stateProvider', function($stateProvider){
         }]
       }
     })
-    .state('admin.companies.all', {
-      url: '',
-      templateUrl: '/js/admin/subroutes/companies/templates/companies.tpl.html',
-      controller: 'ResourceCtrl'
-    })
-    .state('admin.companies.detail', {
-      url: '/:_id',
-      templateUrl: '/js/admin/subroutes/companies/templates/detail.tpl.html',
-      controller: 'ResourceDetailCtrl'
-    })
-    .state('admin.companies.edit', {
-      url: '/:_id/edit',
-      templateUrl: '/js/admin/subroutes/companies/templates/edit.tpl.html',
-      controller: 'ResourceEditCtrl'
-    })
-    .state('admin.companies.new', {
-      url: '/new',
-      templateUrl: '/js/admin/subroutes/companies/templates/new.tpl.html',
-      controller: 'ResourceNewCtrl'
-    });
+      .state('admin.companies.all', {
+        url: '',
+        templateUrl: '/js/admin/subroutes/companies/templates/companies.tpl.html',
+        controller: 'ResourceCtrl'
+      })
+      .state('admin.companies.detail', {
+        url: '/:_id',
+        templateUrl: '/js/admin/subroutes/companies/templates/detail.tpl.html',
+        controller: 'ResourceDetailCtrl'
+      })
+      .state('admin.companies.edit', {
+        url: '/:_id/edit',
+        templateUrl: '/js/admin/subroutes/companies/templates/edit.tpl.html',
+        controller: 'ResourceEditCtrl'
+      })
+      .state('admin.companies.new', {
+        url: '/new',
+        templateUrl: '/js/admin/subroutes/companies/templates/new.tpl.html',
+        controller: 'ResourceNewCtrl'
+      });
 
 }]);
