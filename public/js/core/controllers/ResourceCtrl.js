@@ -1,5 +1,7 @@
 app.controller('ResourceCtrl', ['Resource', '$scope', function(Resource, $scope){
 
-  $scope.resources = Resource.query();
+  Resource.query().$promise.then(function(resources){
+    $scope.resources = resources;
+  });
 
 }]);
