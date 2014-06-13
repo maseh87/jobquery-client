@@ -1,24 +1,35 @@
 describe('ResourceCtrl', function(){
+  var $httpBackend, $rootScope, createController, User;
 
   beforeEach(module('jobQuery'));
 
   beforeEach(inject(function($injector){
+    $httpBackend = $injector.get('$httpBackend');
 
-    var $rootScope = $injector.get('$rootScope');
+    $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
+
+    User = $injector.get('User');
 
     createController = function(Resource){
       return $controller('ResourceCtrl', {
-        $scope: $rootScope.$new(),
+        '$scope': $rootScope,
         Resource: Resource
       });
     };
 
   }));
 
-  it('should exist', function(){
-    var controller = createController({});
-    expect(typeof controller).toBe('object');
+  afterEach(function(){
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
+
+  it('should fetch a list of resources', function(){
+    $httpBackend.expectGET('http://localhost:9000/api/users')
+    .respond([{},{}]);
+    var controller = createController(User);
+    $httpBackend.flush();
   });
 
 });
