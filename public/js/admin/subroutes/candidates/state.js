@@ -21,8 +21,8 @@ app.config(['$stateProvider', function($stateProvider){
       templateUrl: '/js/admin/subroutes/candidates/templates/detail.tpl.html',
       controller: 'ResourceDetailCtrl'
     })
-    .state('admin.candidates.detail.edit', {
-      url: '/edit',
+    .state('admin.candidates.edit', {
+      url: '/:_id/edit',
       templateUrl: '/js/admin/subroutes/candidates/templates/edit.tpl.html',
       controller: 'ResourceEditCtrl'
     })
