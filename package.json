@@ -1,31 +1,35 @@
 {
-  "name"        : "jobquery-client",
-  "version"     : "0.0.0",
-  "description" : "Less work, more jobs.",
-  "main"        : "index.js",
+  "name": "jobquery-client",
+  "version": "0.0.0",
+  "description": "Less work, more jobs.",
+  "main": "index.js",
   "dependencies": {
-    "express"   : "*"
+    "express": "*"
   },
   "devDependencies": {
-    "karma"       : "~0.10",
-    "protractor"  : "~0.20.1",
-    "http-server" : "^0.6.1"
+    "karma": "~0.10",
+    "protractor": "~0.20.1",
+    "http-server": "^0.6.1",
+    "gulp": "^3.8.0",
+    "gulp-jshint": "^1.6.2",
+    "gulp-nodemon": "^1.0.4",
+    "gulp-processhtml": "0.0.4"
   },
   "scripts": {
-    "test"             : "karma start test/karma.conf.js",
-    "test-single-run"  : "karma start test/karma.conf.js  --single-run",
-    "update-webdriver" : "webdriver-manager update",
-    "server"           : "node server.js",
-    "ee"               : "protractor test/protractor-conf.js"
+    "test": "karma start test/karma.conf.js",
+    "test-single-run": "karma start test/karma.conf.js  --single-run",
+    "update-webdriver": "webdriver-manager update",
+    "server": "node server.js",
+    "ee": "protractor test/protractor-conf.js"
   },
   "repository": {
-    "type"  : "git",
-    "url"   : "https://github.com/JobQuery/jobquery-client.git"
+    "type": "git",
+    "url": "https://github.com/JobQuery/jobquery-client.git"
   },
-  "author"  : "",
-  "license" : "MIT",
-  "bugs"    : {
-    "url"   : "https://github.com/JobQuery/jobquery-client/issues"
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JobQuery/jobquery-client/issues"
   },
   "homepage": "https://github.com/JobQuery/jobquery-client"
 }
