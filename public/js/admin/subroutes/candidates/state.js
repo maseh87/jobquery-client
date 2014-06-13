@@ -5,8 +5,8 @@ app.config(['$stateProvider', function($stateProvider){
       url: '/candidates',
       templateUrl: '/js/admin/subroutes/candidates/templates/candidates.tpl.html',
       resolve: {
-        Resource: ['Candidate', function(Candidate){
-          return Candidate;
+        Resource: ['User', function(User){
+          return User;
         }]
       },
       controller: 'ResourceCtrl'
