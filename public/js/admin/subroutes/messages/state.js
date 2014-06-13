@@ -7,7 +7,7 @@ app.config(['$stateProvider', function($stateProvider){
       controller: 'AdminMessagesCtrl'
     })
     .state('admin.messages.detail', {
-      url: '/:id',
+      url: '/:_id',
       templateUrl: '/js/admin/subroutes/messages/templates/detail.tpl.html',
       controller: 'AdminMessagesDetailCtrl'
     })
