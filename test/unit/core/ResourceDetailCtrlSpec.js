@@ -1,16 +1,20 @@
 describe('ResourceDetailCtrl', function(){
-  var $httpBackend, $rootScope, createController, User, $stateParams;
+  var $controller,
+      $httpBackend,
+      $rootScope,
+      $stateParams,
+      createController,
+      User;
 
   beforeEach(module('jobQuery'));
 
   beforeEach(inject(function($injector){
     $httpBackend = $injector.get('$httpBackend');
-
     $stateParams = $injector.get('$stateParams');
     $stateParams._id = 1;
 
     $rootScope = $injector.get('$rootScope');
-    var $controller = $injector.get('$controller');
+    $controller = $injector.get('$controller');
 
     User = $injector.get('User');
 
@@ -37,4 +41,3 @@ describe('ResourceDetailCtrl', function(){
   });
 
 });
-

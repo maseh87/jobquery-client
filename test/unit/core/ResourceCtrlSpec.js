@@ -1,5 +1,8 @@
 describe('ResourceCtrl', function(){
-  var $httpBackend, $rootScope, createController, User;
+  var $httpBackend,
+      $rootScope,
+      createController,
+      User;
 
   beforeEach(module('jobQuery'));
 
@@ -33,4 +36,3 @@ describe('ResourceCtrl', function(){
   });
 
 });
-
