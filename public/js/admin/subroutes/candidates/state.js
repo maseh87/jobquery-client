@@ -11,25 +11,25 @@ app.config(['$stateProvider', function($stateProvider){
         }]
       }
     })
-    .state('admin.candidates.all', {
-      url: '',
-      templateUrl: '/js/admin/subroutes/candidates/templates/candidates.tpl.html',
-      controller: 'ResourceCtrl'
-    })
-    .state('admin.candidates.detail', {
-      url: '/:_id',
-      templateUrl: '/js/admin/subroutes/candidates/templates/detail.tpl.html',
-      controller: 'ResourceDetailCtrl'
-    })
-    .state('admin.candidates.edit', {
-      url: '/:_id/edit',
-      templateUrl: '/js/admin/subroutes/candidates/templates/edit.tpl.html',
-      controller: 'ResourceEditCtrl'
-    })
-    .state('admin.candidates.new', {
-      url: '/new',
-      templateUrl: '/js/admin/subroutes/candidates/templates/new.tpl.html',
-      controller: 'ResourceCandidateCtrl'
-    });
+      .state('admin.candidates.all', {
+        url: '',
+        templateUrl: '/js/admin/subroutes/candidates/templates/candidates.tpl.html',
+        controller: 'ResourceCtrl'
+      })
+      .state('admin.candidates.detail', {
+        url: '/:_id',
+        templateUrl: '/js/admin/subroutes/candidates/templates/detail.tpl.html',
+        controller: 'ResourceDetailCtrl'
+      })
+      .state('admin.candidates.edit', {
+        url: '/:_id/edit',
+        templateUrl: '/js/admin/subroutes/candidates/templates/edit.tpl.html',
+        controller: 'ResourceEditCtrl'
+      })
+      .state('admin.candidates.new', {
+        url: '/new',
+        templateUrl: '/js/admin/subroutes/candidates/templates/new.tpl.html',
+        controller: 'ResourceCandidateCtrl'
+      });
 
 }]);
