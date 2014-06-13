@@ -2,13 +2,18 @@ app.config(['$stateProvider', function($stateProvider){
 
   $stateProvider
     .state('admin.opportunities', {
+      abstract: true,
       url: '/opportunities',
-      templateUrl: '/js/admin/subroutes/opportunities/templates/opportunities.tpl.html',
+      template: '<ui-view/>',
       resolve: {
         Resource: ['Opportunity', function(Opportunity){
           return Opportunity;
         }]
-      },
+      }
+    })
+    .state('admin.opportunities.all', {
+      url: '',
+      templateUrl: '/js/admin/subroutes/opportunities/templates/opportunities.tpl.html',
       controller: 'ResourceCtrl'
     })
     .state('admin.opportunities.detail', {

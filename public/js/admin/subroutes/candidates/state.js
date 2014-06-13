@@ -2,13 +2,18 @@ app.config(['$stateProvider', function($stateProvider){
 
   $stateProvider
     .state('admin.candidates', {
+      abstract: true,
       url: '/candidates',
-      templateUrl: '/js/admin/subroutes/candidates/templates/candidates.tpl.html',
+      template: '<ui-view/>',
       resolve: {
         Resource: ['User', function(User){
           return User;
         }]
-      },
+      }
+    })
+    .state('admin.candidates.all', {
+      url: '',
+      templateUrl: '/js/admin/subroutes/candidates/templates/candidates.tpl.html',
       controller: 'ResourceCtrl'
     })
     .state('admin.candidates.detail', {

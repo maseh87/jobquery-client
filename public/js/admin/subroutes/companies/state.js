@@ -2,13 +2,18 @@ app.config(['$stateProvider', function($stateProvider){
 
   $stateProvider
     .state('admin.companies', {
+      abstract: true,
       url: '/companies',
-      templateUrl: '/js/admin/subroutes/companies/templates/companies.tpl.html',
+      template: '<ui-view/>',
       resolve: {
         Resource: ['Company', function(Company){
           return Company;
         }]
-      },
+      }
+    })
+    .state('admin.companies.all', {
+      url: '',
+      templateUrl: '/js/admin/subroutes/companies/templates/companies.tpl.html',
       controller: 'ResourceCtrl'
     })
     .state('admin.companies.detail', {
