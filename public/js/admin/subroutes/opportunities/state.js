@@ -4,22 +4,27 @@ app.config(['$stateProvider', function($stateProvider){
     .state('admin.opportunities', {
       url: '/opportunities',
       templateUrl: '/js/admin/subroutes/opportunities/templates/opportunities.tpl.html',
-      controller: 'AdminOpportunitiesCtrl'
+      resolve: {
+        Resource: ['Opportunity', function(Opportunity){
+          return Opportunity;
+        }]
+      },
+      controller: 'ResourceCtrl'
     })
     .state('admin.opportunities.detail', {
       url: '/:id',
       templateUrl: '/js/admin/subroutes/opportunities/templates/detail.tpl.html',
-      controller: 'AdminOpportunitiesDetailCtrl'
+      controller: 'ResourceDetailCtrl'
     })
     .state('admin.opportunities.detail.edit', {
       url: '/edit',
       templateUrl: '/js/admin/subroutes/opportunities/templates/edit.tpl.html',
-      controller: 'AdminOpportunitiesEditCtrl'
+      controller: 'ResourceEditCtrl'
     })
     .state('admin.opportunities.new', {
       url: '/new',
       templateUrl: '/js/admin/subroutes/opportunities/templates/new.tpl.html',
-      controller: 'AdminOpportunitiesNewCtrl'
+      controller: 'ResourceNewCtrl'
     });
 
 }]);
