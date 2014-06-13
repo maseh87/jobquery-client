@@ -2,6 +2,8 @@ var appDev = angular.module('jobQueryDev', ['jobQuery', 'ngMockE2E']);
 
 appDev.run(function($httpBackend){
 
+  $httpBackend.whenPOST(/api/).respond(['201']);
+  $httpBackend.whenPUT(/api/).respond(['201']);
   $httpBackend.whenGET(/api/).respond(function(request, url){
 
     var route = url.split('/').slice(4);
