@@ -1,41 +1,22 @@
-var user1 = {
-  _id: 1,
-  email: 'test1@email.com',
-  name: 'Test One',
-  isAdmin: false,
-  isRegistered: true,
-  searchStage: 'interviewing',
-  tags: [],
-  city: 'San Francisco',
-  state: 'CA',
-  country: 'United States'
+var users = [];
+
+for(var i = 1; i <= 50; i++){
+  var date = faker.Date.recent(5);
+  users.push({
+    _id: i,
+    email: faker.Internet.email(),
+    name: faker.Name.findName(),
+    isAdmin: false,
+    isRegistered: true,
+    searchStage: 'early',
+    tags: [],
+    city: 'San Francisco',
+    state: 'CA',
+    country: 'United States',
+    geo: [],
+    createdAt: date,
+    updatedAt: date
+  });
 }
 
-var user2 = {
-  _id: 1,
-  email: 'test2@email.com',
-  name: 'Test Two',
-  isAdmin: false,
-  isRegistered: true,
-  searchStage: 'interviewing',
-  tags: [],
-  city: 'San Francisco',
-  state: 'CA',
-  country: 'United States'
-}
-
-var user3 = {
-  _id: 1,
-  email: 'test3@email.com',
-  name: 'Test Three',
-  isAdmin: false,
-  isRegistered: true,
-  searchStage: 'interviewing',
-  tags: [],
-  city: 'San Francisco',
-  state: 'CA',
-  country: 'United States'
-}
-
-var user = user1;
-var users = [user1, user2, user3];
+var user = users[0];
