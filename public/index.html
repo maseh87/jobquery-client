@@ -126,34 +126,6 @@
 <body ng-app="jobQueryDev" ng-controller="AppCtrl">
 <div class="container-fluid">
 
-	<!-- HEADER -->
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="navbar-header">
-			<a class="navbar-brand" ui-sref="home">Developer Toolbar</a>
-		</div>
-		<ul class="nav navbar-nav">
-	    <li class="dropdown">
-        <a ui-sref="user" class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a ui-sref="user.account">Account</a></li>
-        </ul>
-      </li>
-
-	    <li class="dropdown">
-        <a ui-sref="admin" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-        	<li><a ui-sref="admin.account">Account</a></li>
-        	<li><a ui-sref="admin.candidates.all">Candidates</a></li>
-        	<li><a ui-sref="admin.companies.all">Companies</a></li>
-        	<li><a ui-sref="admin.messages.all">Messages</a></li>
-        	<li><a ui-sref="admin.opportunities.all">Opportunities</a></li>
-        	<li><a ui-sref="admin.scheduling">Scheduling</a></li>
-        	<li><a ui-sref="admin.tags.all">Tags</a></li>
-        </ul>
-      </li>
-		</ul>
-	</nav>
-
 	<div class="row">
 		<div class="col-md-2">
 			<div ui-view="sidebar"></div>
