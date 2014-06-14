@@ -1,6 +1,6 @@
 var companies = [];
 
-for(var i = 1; i < 35; i++){
+for(var i = 1; i < 50; i++){
   var date = faker.Date.recent(5);
   companies.push({
     _id: i,
