@@ -20,17 +20,6 @@ describe ('admin.companies.detail state', function(){
 
 });
 
-describe ('admin.companies.detail.edit state', function(){
-
-  it('should exist', function(){
-    browser.get('/admin/companies/1/edit');
-    browser.getLocationAbsUrl().then(function(url){
-      expect(url).toBe('http://localhost:8000/admin/companies/1/edit');
-    });
-  });
-
-});
-
 describe ('admin.companies.new state', function(){
 
   it('should exist', function(){

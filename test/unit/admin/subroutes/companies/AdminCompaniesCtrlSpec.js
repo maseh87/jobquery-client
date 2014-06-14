@@ -6,9 +6,13 @@ describe('AdminCompaniesCtrl', function(){
 
     var $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
+    var Resource = $injector.get('Company');
 
     createController = function(){
-      return $controller('AdminCompaniesCtrl', {$scope: $rootScope.$new()});
+      return $controller('AdminCompaniesCtrl', {
+        $scope: $rootScope.$new(),
+        Resource: Resource
+      });
     };
 
   }));
@@ -28,9 +32,13 @@ describe('AdminCompaniesDetailCtrl', function(){
 
     var $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
+    var Resource = $injector.get('Company');
 
     createController = function(){
-      return $controller('AdminCompaniesDetailCtrl', {$scope: $rootScope.$new()});
+      return $controller('AdminCompaniesDetailCtrl', {
+        $scope: $rootScope.$new(),
+        Resource: Resource
+      });
     };
 
   }));
@@ -41,29 +49,6 @@ describe('AdminCompaniesDetailCtrl', function(){
   });
 
 });
-
-describe('AdminCompaniesEditCtrl', function(){
-
-  beforeEach(module('jobQuery'));
-
-  beforeEach(inject(function($injector){
-
-    var $rootScope = $injector.get('$rootScope');
-    var $controller = $injector.get('$controller');
-
-    createController = function(){
-      return $controller('AdminCompaniesEditCtrl', {$scope: $rootScope.$new()});
-    };
-
-  }));
-
-  it('should exist', function(){
-    var controller = createController();
-    expect(typeof controller).toBe('object');
-  });
-
-});
-
 
 describe('AdminCompaniesNewCtrl', function(){
 
@@ -73,9 +58,13 @@ describe('AdminCompaniesNewCtrl', function(){
 
     var $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
+    var Resource = $injector.get('Company');
 
     createController = function(){
-      return $controller('AdminCompaniesNewCtrl', {$scope: $rootScope.$new()});
+      return $controller('AdminCompaniesNewCtrl', {
+        $scope: $rootScope.$new(),
+        Resource: Resource
+      });
     };
 
   }));
