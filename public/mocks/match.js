@@ -4,7 +4,7 @@ for(var i = 1; i < 50; i++){
   for(var j = 0; j < 25; j++){
     var date = faker.Date.recent(5);
     var usedIds = {};
-    var index = Math.floor(Math.random() * 50);
+    var index = Math.floor((Math.random() * 50) + 1);
     if(!usedIds[index]){
       usedIds[index] = true;
       matches.push({
