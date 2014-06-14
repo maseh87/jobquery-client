@@ -9,7 +9,7 @@ describe('jobQuery application', function(){
       });
 
     });
-    
+
   });
 
   describe('404 state', function(){
@@ -17,7 +17,7 @@ describe('jobQuery application', function(){
     it('should exist', function(){
       browser.get('/404');
       browser.getLocationAbsUrl().then(function(url){
-        expect(url).toBe('http://localhost:8000/404')
+        expect(url).toBe('http://localhost:8000/404');
       });
     });
 
