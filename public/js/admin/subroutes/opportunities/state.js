@@ -20,7 +20,7 @@ app.config(['$stateProvider', function($stateProvider){
         url: '/new',
         templateUrl: '/js/admin/subroutes/opportunities/templates/new.tpl.html',
         controller: 'ResourceNewCtrl'
-      });
+      })
       .state('admin.opportunities.detail', {
         url: '/:_id',
         templateUrl: '/js/admin/subroutes/opportunities/templates/detail.tpl.html',
