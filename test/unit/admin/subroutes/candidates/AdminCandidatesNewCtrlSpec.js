@@ -1,16 +1,18 @@
-describe('AdminCandidatesCtrl', function(){
+describe('AdminCandidatesNewCtrl', function(){
+  var User,
+      $rootScope,
+      $controller;
 
   beforeEach(module('jobQuery'));
 
   beforeEach(inject(function($injector){
 
-    var $rootScope = $injector.get('$rootScope');
-    var $controller = $injector.get('$controller');
-    var User = $injector.get('User');
-
+    $rootScope  = $injector.get('$rootScope');
+    $controller = $injector.get('$controller');
+    User        = $injector.get('User');
 
     createController = function(){
-      return $controller('AdminCandidatesCtrl', {
+      return $controller('AdminCandidatesNewCtrl', {
           Resource    : User,
           $controller : $controller,
           $scope      : $rootScope.$new()

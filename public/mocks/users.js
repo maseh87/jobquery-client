@@ -6,6 +6,7 @@ for(var i = 1; i <= 50; i++){
     _id: i,
     email: faker.Internet.email(),
     name: faker.Name.findName(),
+    github: 'https://github.com/' + faker.Name.firstName(),
     isAdmin: false,
     isRegistered: true,
     searchStage: 'early',

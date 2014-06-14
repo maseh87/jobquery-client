@@ -11,7 +11,6 @@ describe('Rest', function(){
       User = $injector.get('User');
       localStorageService = $injector.get('localStorageService');
       $httpBackend = $injector.get('$httpBackend');
-
     }));
 
     it('should have test-token set on the authorization header', function(){
@@ -33,7 +32,6 @@ describe('Rest', function(){
       User.query();
       $httpBackend.flush();
     });
-
 
   });
 

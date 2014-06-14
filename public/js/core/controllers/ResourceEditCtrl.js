@@ -9,4 +9,6 @@ app.controller('ResourceEditCtrl', ['Resource', '$scope', '$stateParams', functi
       });
   };
 
+  $scope.readOnly = true;
+
 }]);
