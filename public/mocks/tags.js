@@ -1,6 +1,6 @@
 var tags = [];
 
-for(var i = 1; i < 25; i++){
+for(var i = 1; i < 50; i++){
   var date = faker.Date.recent(5);
   tags.push({
     _id: i,

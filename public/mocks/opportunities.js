@@ -13,6 +13,7 @@ for(var i = 1; i < 50; i++){
     internalNotes: [],
     questions: [],
     survey: [],
+    company: companies[Math.floor(Math.random() * 50)],
     createdAt: date,
     updatedAt: date
   });

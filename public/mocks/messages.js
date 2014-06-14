@@ -1,6 +1,6 @@
 var messages = [];
 
-for(var i = 1; i < 20; i++){
+for(var i = 1; i < 50; i++){
   var date = faker.Date.recent(5);
   messages.push({
     _id: i,

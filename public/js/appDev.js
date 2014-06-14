@@ -25,6 +25,24 @@ appDev.run(function($httpBackend){
       case 'opportunities':
         return id ? ['200', opportunities[id - 1]] : ['200', opportunities];
         break;
+      case 'matches':
+        var subroute = route[1];
+        var id = route[2];
+        if(!subroute){
+          return ['200', matches];
+        } else if (subroute === 'users') {
+          var filteredMatches = matches.filter(function(match){
+            return id === match.userId;
+          });
+          return ['200', filteredMatches];
+        } else if (subroute === 'opportunities') {
+          var filteredMatches = matches.filter(function(match){
+            return id === match.oppId;
+          });
+        } else {
+          return ['404'];
+        }
+        break;
       default:
         return ['404'];
     }
