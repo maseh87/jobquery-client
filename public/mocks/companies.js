@@ -14,6 +14,7 @@ for(var i = 1; i < 50; i++){
     geo: [],
     media: [],
     links: [],
+    url: faker.Internet.domainName(),
     opportunities: [],
     createdAt: date,
     updatedAt: date

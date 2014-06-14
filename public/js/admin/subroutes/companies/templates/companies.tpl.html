@@ -1,3 +1,23 @@
 <h3>Admin.Companies Template</h3>
-{{resources}}
-<div ui-view></div>
+
+  <a ui-sref="admin.companies.new">Add New Company</a>
+  <table class="table table-striped table-condensed table-hover">
+    <thead>
+      <tr>
+        <th class="detail"></th>
+        <th class="name">Name</th>
+        <th class="opportunities">Opportunities</th>
+        <th class="url">URL</th>
+        <th class="location">Location</th>
+        <th class="brief-description">Brief Description</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="resource in resources">
+      <td class="detail"><a ui-sref="admin.companies.detail({_id: resource._id})">detail<a/></td>
+      <td class="name" >{{resource.name}}</td>
+      <td class="opportunities" >{{resource.opportunities.length}}</td>
+      <td class="url" >{{resource.url}}</td>
+      <td class="location" >{{resource.city}}</td>
+      <td class="brief-description" >{{resource.briefDescription}}</td>
+    </tr>
+  </table>

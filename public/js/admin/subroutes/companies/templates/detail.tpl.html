@@ -1,3 +1,32 @@
 <h3>Admin.Companies.Detail Template</h3>
-{{resource}}
-<div ui-view></div>
+
+<table class="table table-striped table-condensed table-hover">
+  <thead>
+    <tr>
+      <th class="detail"></th>
+      <th class="name">Name</th>
+      <th class="opportunities">Opportunities</th>
+      <th class="url">URL</th>
+      <th class="location">Location</th>
+      <th class="brief-description">Brief Description</th>
+    </tr>
+  </thead>
+  <tr>
+    <td class="readOnly">
+      <button ng-init="readOnly = true" ng-click="readOnly=!readOnly">Edit</button>
+    </td>
+    <td class="name">
+      <input type="text" ng-readonly="readOnly" value="{{resource.name}}">
+    </td>
+    <td class="opportunities">{{resource.opportunities.length}}</td>
+    <td class="url">
+      <input type="text" ng-readonly="readOnly" value="{{resource.url}}">
+    </td>
+    <td class="location">
+      <input type="text" ng-readonly="readOnly" value="{{resource.city}}">
+    </td>
+    <td class="brief-description">
+      <input type="text" ng-readonly="readOnly" value="{{resource.briefDescription}}">
+    </td>
+  </tr>
+</table>
