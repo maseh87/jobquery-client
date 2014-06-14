@@ -2,6 +2,41 @@ describe('Rest', function(){
 
   beforeEach(module('jobQuery'));
 
+  describe('AuthHttpInterceptor', function(){
+    var localStorageService,
+        User,
+        $httpBackend;
+
+    beforeEach(inject(function($injector){
+      User = $injector.get('User');
+      localStorageService = $injector.get('localStorageService');
+      $httpBackend = $injector.get('$httpBackend');
+
+    }));
+
+    it('should have test-token set on the authorization header', function(){
+      $httpBackend.expectGET('http://localhost:9000/api/users',function(headers) {
+        return headers.Authorization === 'Bearer test-token';
+      } ).respond([{_id: 1},{_id: 2}]);
+
+      localStorageService.set('token', 'test-token');
+      User.query();
+      $httpBackend.flush();
+    });
+
+    it('should not have authorization header set', function(){
+      $httpBackend.expectGET('http://localhost:9000/api/users',function(headers) {
+        return headers.Authorization === undefined;
+      } ).respond(401);
+
+      localStorageService.set('token', undefined);
+      User.query();
+      $httpBackend.flush();
+    });
+
+
+  });
+
   describe('User', function(){
     var User, $httpBackend;
 
@@ -107,7 +142,7 @@ describe('Rest', function(){
       var result = Tag.query();
       $httpBackend.flush();
       expect(Array.isArray(result)).toBe(true);
-      expect(result[0]._id).toBe(1);      
+      expect(result[0]._id).toBe(1);
     });
 
     it('should make a POST request to create a new tag', function(){
@@ -139,7 +174,7 @@ describe('Rest', function(){
       var result = Company.query();
       $httpBackend.flush();
       expect(Array.isArray(result)).toBe(true);
-      expect(result[0]._id).toBe(1);    
+      expect(result[0]._id).toBe(1);
     });
 
     it('should make a POST request to add a new company', function(){
@@ -194,7 +229,7 @@ describe('Rest', function(){
       var result = Opportunity.query();
       $httpBackend.flush();
       expect(Array.isArray(result)).toBe(true);
-      expect(result[0]._id).toBe(1);    
+      expect(result[0]._id).toBe(1);
     });
 
     it('should make a POST request to add a new opportunity', function(){
@@ -233,4 +268,3 @@ describe('Rest', function(){
   });
 
 });
-
