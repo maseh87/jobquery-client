@@ -7,10 +7,14 @@ describe ('admin.opportunities state', function(){
     });
   });
 
+  it('should display an element with an NG-repeat directive', function () {
+    browser.get('/admin/opportunities');
+    expect(element.all(by.repeater('opportunity in resources')).toExist();
+  });
+
 });
 
 describe ('admin.opportunities.detail state', function(){
-
   it('should exist', function(){
     browser.get('/admin/opportunities/1');
     browser.getLocationAbsUrl().then(function(url){
