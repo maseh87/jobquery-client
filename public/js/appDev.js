@@ -11,19 +11,19 @@ appDev.run(function($httpBackend){
     var id = route[1];
     switch(resource){
       case 'users':
-        return id ? ['200', user] : ['200', users];
+        return id ? ['200', users[id - 1]] : ['200', users];
         break;
       case 'messages':
-        return id ? ['200', message] : ['200', messages];
+        return id ? ['200', messages[id - 1]] : ['200', messages];
         break;
       case 'tags':
-        return id ? ['200', tag] : ['200', tags];
+        return id ? ['200', tags[id - 1]] : ['200', tags];
         break;
       case 'companies':
-        return id ? ['200', company] : ['200', companies];
+        return id ? ['200', companies[id - 1]] : ['200', companies];
         break;
       case 'opportunities':
-        return id ? ['200', opportunity] : ['200', opportunities];
+        return id ? ['200', opportunities[id - 1]] : ['200', opportunities];
         break;
       default:
         return ['404'];
