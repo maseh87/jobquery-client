@@ -24,15 +24,10 @@
                 <tr ng-repeat="opportunity in resources">
                     <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
                     <td>{{ opportunity.company.name }}</td>
-                    <td>Interested #</td>
+                    <td>{{ opportunity.userInterest }}</td>
                     <td>{{ opportunity.links[0] }}</td>
                     <td>{{ opportunity.jobTitle }}</td>
                     <td>{{ opportunity.company.city }}</td>
-                </tr>
-                <tr ng-repeat="match in matches.data">
-                    <td>{{match.userId}}</td>
-                    <td>{{match.oppId}}</td>
-                    <td>{{match.userInterest}}</td>
                 </tr>
             </tbody>
             </table>
