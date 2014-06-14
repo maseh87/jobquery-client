@@ -1,26 +1,16 @@
-var tag1 = {
-  _id: 1,
-  name: 'Tag1',
-  label: 'UI/UX',
-  scaleDescription: [],
-  isPublic: true
-};
+var tags = [];
 
-var tag2 = {
-  _id: 2,
-  name: 'Tag2',
-  label: 'UI/UX',
-  scaleDescription: [],
-  isPublic: true
-};
+for(var i = 1; i < 25; i++){
+  var date = faker.Date.recent(5);
+  tags.push({
+    _id: i,
+    name: faker.random.bs_adjective(),
+    label: faker.random.bs_adjective(),
+    scaleDescription: [],
+    isPublic: true,
+    createdAt: date,
+    updatedAt: date
+  });
+}
 
-var tag3 = {
-  _id: 1,
-  name: 'Tag3',
-  label: 'UI/UX',
-  scaleDescription: [],
-  isPublic: true
-};
-
-var tag = tag1;
-var tags = [tag1, tag2, tag3];
+var tag = tags[0];
