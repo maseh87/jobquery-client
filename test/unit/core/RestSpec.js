@@ -104,6 +104,14 @@ describe('Rest', function(){
       expect(Message).toBeDefined();
     });
 
+    it('should make GET requests for all messages', function(){
+      $httpBackend.expectGET('http://localhost:9000/api/messages').respond([{_id: 1},{_id: 2}]);
+      var result = Message.query();
+      $httpBackend.flush();
+      expect(Array.isArray(result)).toBe(true);
+      expect(result[0]._id).toBe(1);
+    });
+
     it('should make POST requests to add new messages', function(){
       var message = new Message({test: 'data'});
       $httpBackend.expectPOST('http://localhost:9000/api/messages').respond(201, '');
@@ -143,12 +151,35 @@ describe('Rest', function(){
       expect(result[0]._id).toBe(1);
     });
 
+    it('should make GET requests for individual tags', function(){
+      $httpBackend.expectGET('http://localhost:9000/api/tags/1').respond({_id: 1});
+      var result = Tag.get({_id: 1});
+      $httpBackend.flush();
+      expect(typeof result).toBe('object');
+      expect(result._id).toBe(1);
+    });
+
     it('should make a POST request to create a new tag', function(){
       var tag = new Tag({test: 'data'});
       $httpBackend.expectPOST('http://localhost:9000/api/tags').respond(201, '');
       var postRequest = tag.$save();
       $httpBackend.flush();
       postRequest.then(function(response){
+        expect(response).toBe(201);
+      });
+    });
+
+    it('should make PUT requests to update tags by _id', function(){
+      $httpBackend.expectGET('http://localhost:9000/api/tags/1').respond({_id: 1});
+      var tag = Tag.get({_id: 1});
+      $httpBackend.flush();
+
+      $httpBackend.expectPUT('http://localhost:9000/api/tags/1').respond(201, '');
+      tag.test = 'data';
+      var putRequest = Tag.update({_id: 1}, tag);
+      $httpBackend.flush();
+
+      putRequest.$promise.then(function(response){
         expect(response).toBe(201);
       });
     });
