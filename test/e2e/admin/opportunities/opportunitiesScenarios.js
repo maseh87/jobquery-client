@@ -13,6 +13,15 @@ describe ('admin.opportunities state', function(){
         expect(element.getText()).not.toBe('');
       });
   });
+
+  xit('should reload matches on update or load', function () {
+  });
+
+  xit('should jump to the new opportunity page on clicking New Opportunity', function () {
+  });
+
+  xit('should jump to a detailed view of the opportunity on clicking Detail', function () {
+  });
 });
 
 describe ('admin.opportunities.detail state', function(){
