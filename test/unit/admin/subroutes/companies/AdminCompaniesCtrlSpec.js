@@ -6,12 +6,12 @@ describe('AdminCompaniesCtrl', function(){
 
     var $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
-    var Resource = $injector.get('Company');
+    var Company = $injector.get('Company');
 
     createController = function(){
       return $controller('AdminCompaniesCtrl', {
         $scope: $rootScope.$new(),
-        Resource: Resource
+        Company: Company
       });
     };
 
@@ -32,12 +32,12 @@ describe('AdminCompaniesDetailCtrl', function(){
 
     var $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
-    var Resource = $injector.get('Company');
+    var Company = $injector.get('Company');
 
     createController = function(){
       return $controller('AdminCompaniesDetailCtrl', {
         $scope: $rootScope.$new(),
-        Resource: Resource
+        Company: Company
       });
     };
 
@@ -58,12 +58,12 @@ describe('AdminCompaniesNewCtrl', function(){
 
     var $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
-    var Resource = $injector.get('Company');
+    var Company = $injector.get('Company');
 
     createController = function(){
       return $controller('AdminCompaniesNewCtrl', {
         $scope: $rootScope.$new(),
-        Resource: Resource
+        Company: Company
       });
     };
 

@@ -200,43 +200,43 @@ describe('Rest', function(){
 
     it('should make GET requests for all companies', function(){
       $httpBackend.expectGET('http://localhost:9000/api/companies').respond([{_id: 1},{_id: 2}]);
-      var result = Company.query();
+      Company.getAll().then(function(companies){
+        expect(Array.isArray(companies)).toBe(true);
+        expect(companies[0]._id).toBe(1);
+      });
       $httpBackend.flush();
-      expect(Array.isArray(result)).toBe(true);
-      expect(result[0]._id).toBe(1);
     });
 
     it('should make a POST request to add a new company', function(){
-      var company = new Company({test: 'data'});
-      $httpBackend.expectPOST('http://localhost:9000/api/companies').respond(201, '');
-      var postRequest = company.$save();
-      $httpBackend.flush();
-      postRequest.then(function(response){
-        expect(response).toBe(201);
+      $httpBackend.expectPOST('http://localhost:9000/api/companies').respond({_id: 1});
+      Company.create({test: 'data'}).then(function(response){
+        expect(response._id).toBe(1);
       });
+      $httpBackend.flush();
     });
 
     it('should make a GET request to fetch one company by _id', function(){
       $httpBackend.expectGET('http://localhost:9000/api/companies/1').respond({_id: 1});
-      var result = Company.get({_id: 1});
+      Company.get(1).then(function(company){
+        expect(typeof company).toBe('object');
+        expect(company._id).toBe(1);
+      });
       $httpBackend.flush();
-      expect(typeof result).toBe('object');
-      expect(result._id).toBe(1);
     });
 
     it('should make a PUT request to update a single company by _id', function(){
       $httpBackend.expectGET('http://localhost:9000/api/companies/1').respond({_id: 1});
-      var company = Company.get({_id: 1});
-      $httpBackend.flush();
-
-      $httpBackend.expectPUT('http://localhost:9000/api/companies/1').respond(201, '');
-      company.test = 'data';
-      var putRequest = Company.update({_id: 1}, company);
-      $httpBackend.flush();
-
-      putRequest.$promise.then(function(response){
-        expect(response).toBe(201);
+      var company;
+      Company.get(1).then(function(data){
+        company = data;
       });
+      $httpBackend.flush();
+      
+      $httpBackend.expectPUT('http://localhost:9000/api/companies/1').respond({_id: 1});
+      Company.update(company).then(function(data){
+        expect(data._id).toBe(1);
+      });
+      $httpBackend.flush();
     });
 
   });

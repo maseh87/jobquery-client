@@ -1,4 +1,3 @@
-app.controller('AdminCompaniesNewCtrl', ['$scope', '$controller', 'Resource', function($scope, $controller, Resource){
-  $controller('ResourceNewCtrl', {$scope: $scope, Resource: Resource});
+app.controller('AdminCompaniesNewCtrl', ['$scope', 'Company', function($scope, Company){
 
 }]);
