@@ -16,17 +16,17 @@
       <button ng-init="readOnly = true" ng-click="readOnly=!readOnly">Edit</button>
     </td>
     <td class="name">
-      <input type="text" ng-readonly="readOnly" value="{{resource.name}}">
+      <input type="text" ng-readonly="readOnly" value="{{company.name}}">
     </td>
-    <td class="opportunities">{{resource.opportunities.length}}</td>
+    <td class="opportunities">{{company.opportunities.length}}</td>
     <td class="url">
-      <input type="text" ng-readonly="readOnly" value="{{resource.url}}">
+      <input type="text" ng-readonly="readOnly" value="{{company.url}}">
     </td>
     <td class="location">
-      <input type="text" ng-readonly="readOnly" value="{{resource.city}}">
+      <input type="text" ng-readonly="readOnly" value="{{company.city}}">
     </td>
     <td class="brief-description">
-      <input type="text" ng-readonly="readOnly" value="{{resource.briefDescription}}">
+      <input type="text" ng-readonly="readOnly" value="{{company.briefDescription}}">
     </td>
   </tr>
 </table>
