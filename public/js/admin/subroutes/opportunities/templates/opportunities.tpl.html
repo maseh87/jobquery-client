@@ -1,18 +1,35 @@
-<h3>Admin.Opportunities Template</h3>
 <div ui-view>
-    <!--
-    Title
-    Tagline
+    <h3 class="body-heading">Opportunities</h3><br>
+    <h4 class="body-tagline">View, create or edit job opportunities</h4>
 
-    Div Module
-    Title bar
-    Headings
-    Row
-    -->
-
-
-
-    <ul>
-        <li ng-repeat="resource in resources">{{ resource }}</li>
-    </ul>
+    <div class="section container-fluid">
+        <div class="row">
+            <span><a ui-sref="admin.opportunities.new()">+ New Opportunity</a></span>
+            <span>All Opportunities</span>
+        </div>
+        <div class="row">
+            <table>
+            <thead>
+                <tr>
+                    <th></th><!-- empty table header -->
+                    <th>Name</th>
+                    <th>Interested Candidates</th>
+                    <th>URL</th>
+                    <th>Title</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="opportunity in resources">
+                    <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
+                    <td>{{ opportunity.company.name }}</td>
+                    <td>{{ opportunity.userInterest }}</td>
+                    <td>{{ opportunity.links[0] }}</td>
+                    <td>{{ opportunity.jobTitle }}</td>
+                    <td>{{ opportunity.company.city }}</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
 </div>
