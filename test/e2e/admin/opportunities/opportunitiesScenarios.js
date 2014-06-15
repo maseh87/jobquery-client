@@ -7,11 +7,12 @@ describe ('admin.opportunities state', function(){
     });
   });
 
-  it('should display an element with an NG-repeat directive', function () {
-    browser.get('/admin/opportunities');
-    expect(element.all(by.repeater('opportunity in resources')).toExist();
+  it('should display rows of opportunities with an NG-repeat directive', function () {
+      browser.get('/admin/opportunities');
+      element.all(by.repeater('opportunity in resources')).each(function(element) {
+        expect(element.getText()).not.toBe('');
+      });
   });
-
 });
 
 describe ('admin.opportunities.detail state', function(){
