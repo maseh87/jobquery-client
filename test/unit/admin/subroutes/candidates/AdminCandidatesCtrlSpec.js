@@ -1,27 +1,42 @@
 describe('AdminCandidatesCtrl', function(){
+  var User,
+      $scope,
+      $rootScope,
+      $controller,
+      $httpBackend,
+      $stateParams,
+      controller;
 
   beforeEach(module('jobQuery'));
 
   beforeEach(inject(function($injector){
+    $httpBackend = $injector.get('$httpBackend');
+    $rootScope   = $injector.get('$rootScope');
+    $controller  = $injector.get('$controller');
+    User         = $injector.get('User');
 
-    var $rootScope = $injector.get('$rootScope');
-    var $controller = $injector.get('$controller');
-    var User = $injector.get('User');
-
-
-    createController = function(){
-      return $controller('AdminCandidatesCtrl', {
+    $scope = $rootScope.$new();
+    controller = $controller('AdminCandidatesCtrl', {
           Resource    : User,
           $controller : $controller,
-          $scope      : $rootScope.$new()
+          $scope      : $scope
         });
-    };
-
   }));
 
+  afterEach(function(){
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
+
   it('should exist', function(){
-    var controller = createController();
+    $httpBackend.expectGET('http://localhost:9000/api/users').respond([]);
     expect(typeof controller).toBe('object');
+    $httpBackend.flush();
+  });
+
+  it('User.get function should be invoked', function() {
+    $httpBackend.expectGET('http://localhost:9000/api/users').respond([]);
+    $httpBackend.flush();
   });
 
 });
