@@ -4,12 +4,7 @@ app.config(['$stateProvider', function($stateProvider){
     .state('admin.opportunities', {
       abstract: true,
       url: '/opportunities',
-      template: '<ui-view/>',
-      resolve: {
-        Resource: ['Opportunity', function(Opportunity){
-          return Opportunity;
-        }]
-      }
+      template: '<ui-view/>'
     })
     .state('admin.opportunities.all', {
       url: '',

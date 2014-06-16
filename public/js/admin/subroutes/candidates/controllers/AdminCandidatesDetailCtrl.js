@@ -1,5 +1,16 @@
-app.controller('AdminCandidatesDetailCtrl', ['Resource','$controller', '$scope', function(Resource, $controller , $scope){
-  $controller('ResourceDetailCtrl', {$scope: $scope, Resource : Resource});
-  $controller('ResourceEditCtrl', {$scope: $scope, Resource : Resource});
+app.controller('AdminCandidatesDetailCtrl', ['User', '$scope', '$stateParams', function(User, $scope, $stateParams){
+
+  User.get($stateParams._id).then(function(user){
+    $scope.user = user;
+  });
+
+  $scope.create = function(user){
+    User.create(user)
+    .then(function(user){
+      $scope.saved = true;
+    }, function(error){
+      $scope.saveError = true;
+    });
+  };
 
 }]);

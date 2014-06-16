@@ -1,4 +1,4 @@
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', function($scope){
+app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', function($scope, $stateParams){
 
 
 }]);

@@ -13,13 +13,13 @@
         <th class="stage" >Job Search Stage</th>
       </tr>
     </thead>
-    <tr ng-repeat="resource in resources">
-      <td class="detail"><a ng-href="/admin/candidates/{{resource._id}}">detail<a/></td>
-      <td class="name" >{{resource.name}}</td>
-      <td class="github" ><a ng-href="{{resource.github}}"a>{{resource.github}}</a></td>
-      <td class="email" ><a ng-href="mailto:{{resource.email}}">{{resource.email}}</a></td>
-      <td class="location" >{{resource.city}}</td>
-      <td class="stage" >{{resource.searchStage}}</td>
+    <tr ng-repeat="user in users">
+      <td class="detail"><a ng-href="/admin/candidates/{{user._id}}">detail<a/></td>
+      <td class="name" >{{user.name}}</td>
+      <td class="github" ><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
+      <td class="email" ><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
+      <td class="location" >{{user.city}}</td>
+      <td class="stage" >{{user.searchStage}}</td>
     </tr>
   </table>
 <div ui-view></div>

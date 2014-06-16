@@ -4,12 +4,7 @@ app.config(['$stateProvider', function($stateProvider){
     .state('admin.companies', {
       abstract: true,
       url: '/companies',
-      template: '<ui-view/>',
-      resolve: {
-        Resource: ['Company', function(Company){
-          return Company;
-        }]
-      }
+      template: '<ui-view/>'
     })
       .state('admin.companies.all', {
         url: '',

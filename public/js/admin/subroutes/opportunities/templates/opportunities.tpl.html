@@ -4,7 +4,7 @@
 
     <div class="section container-fluid">
         <div class="row">
-            <span><a ui-sref="admin.opportunities.new()">+ New Opportunity</a></span>
+            <span><a ui-sref="admin.opportunities.new">+ New Opportunity</a></span>
             <span>All Opportunities</span>
         </div>
         <div class="row">
@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="opportunity in resources">
+                <tr ng-repeat="opportunity in opportunities">
                     <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
                     <td>{{ opportunity.company.name }}</td>
                     <td>{{ opportunity.userInterest }}</td>
