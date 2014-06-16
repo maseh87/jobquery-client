@@ -3,7 +3,6 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
   Opportunity.get($stateParams._id).then(function(opportunity){
     $scope.opportunity = opportunity;
-    console.log(opportunity);
   });
 
   Match.getAll().then(function(matches){

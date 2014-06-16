@@ -25,15 +25,27 @@
             <tr>
                 <td>Questions:</td>
                 <td>
+                    <div ng-repeat="question in opportunity.questions">
+                        {{question.text}}
+                    </div>
+
                 </td>
             </tr>
             <tr>
                 <td>Media:</td>
-                <td></td>
+                <td>
+                    <div ng-repeat="link in opportunity.links">
+                    {{link.title}}: {{link.url}}
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td>Tags Associated:</td>
-                <td></td>
+                <td>
+                    <div ng-repeat="tag in opportunity.tags">
+                    {{tag}}
+                    </div>
+                </td>
             </tr>
             </table>
         </div>
