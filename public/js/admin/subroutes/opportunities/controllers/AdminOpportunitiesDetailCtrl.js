@@ -1,5 +1,5 @@
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 
-  function($scope, $stateParams, Opportunity, Match) {
+app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag',
+  function($scope, $stateParams, Opportunity, Match, Tag) {
 
   Opportunity.get($stateParams._id).then(function(opportunity){
     $scope.opportunity = opportunity;
@@ -7,6 +7,10 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
   Match.getAll().then(function(matches){
     $scope.matches = matches;
+  });
+
+  Tag.getAll().then(function(tags) {
+    $scope.tagNames = tags.map(function(tag) { return tag.name; });
   });
 
   $scope.$watch('matches', function(matches) {
@@ -24,13 +28,17 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     });
   });
 
-  $scope.addNew = function (attribute) {
-    
+  $scope.readOnly = false;
+  $scope.editButtonText = "+ Edit Opportunity";
+  $scope.toggleEdit = function () {
+    $scope.readOnly = !$scope.readOnly;
+    $scope.editButtonText = $scope.readOnly ? "+ Edit Opportunity" : "Save Opportunity";
+  }; 
+
+  $scope.save = function () {
+    // patch to opportunity
   };
 
-  // need to inject user
   // need to add user.interest on inject
-
-  // need to inject tags
 
 }]);

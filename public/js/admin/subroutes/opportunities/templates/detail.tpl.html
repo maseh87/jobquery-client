@@ -3,7 +3,7 @@
 
 <div class="section container-fluid">
     <div class="row">
-        <span ng-init="readOnly = true" ng-click="readOnly = !readOnly">+ Edit Opportunity</span>
+        <span ng-click="toggleEdit()">{{ editButtonText }}</span>
         <span>{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</span>
     </div>
     <div class="row">
@@ -28,23 +28,26 @@
                     <div ng-repeat="question in opportunity.questions">
                         {{question.text}}
                     </div>
-
+                    <span ng-click="addNew(question)">+ Add New</span>
                 </td>
             </tr>
             <tr>
                 <td>Media:</td>
                 <td>
                     <div ng-repeat="link in opportunity.links">
-                    {{link.title}}: {{link.url}}
+                        {{link.title}}: {{link.url}}
                     </div>
+                    <span ng-click="addNew(link)">+ Add New</span>
                 </td>
             </tr>
             <tr>
                 <td>Tags Associated:</td>
                 <td>
                     <div ng-repeat="tag in opportunity.tags">
-                    {{tag.tagId.name}} {{tag.value}}
+                        {{tag.tagId.name}} {{tag.value}}
                     </div>
+                    <span ng-click="addNew(tag)">+ Add New</span>
+                    {{ tagNames }}
                 </td>
             </tr>
             </table>
