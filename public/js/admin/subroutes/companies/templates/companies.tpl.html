@@ -1,23 +1,23 @@
 <h3>Admin.Companies Template</h3>
 
-  <a ui-sref="admin.companies.new">Add New Company</a>
-  <table class="table table-striped table-condensed table-hover">
-    <thead>
-      <tr>
-        <th class="detail"></th>
-        <th class="name">Name</th>
-        <th class="opportunities">Opportunities</th>
-        <th class="url">URL</th>
-        <th class="location">Location</th>
-        <th class="brief-description">Brief Description</th>
-      </tr>
-    </thead>
-    <tr ng-repeat="company in companies">
-      <td class="detail"><a ui-sref="admin.companies.detail({_id: company._id})">detail<a/></td>
-      <td class="name" >{{company.name}}</td>
-      <td class="opportunities" >{{company.opportunities.length}}</td>
-      <td class="url" >{{company.url}}</td>
-      <td class="location" >{{company.city}}</td>
-      <td class="brief-description" >{{company.briefDescription}}</td>
-    </tr>
-  </table>
+    <a ui-sref="admin.companies.new">Add New Company</a>
+    <table class="table table-striped table-condensed table-hover">
+        <thead>
+            <tr>
+                <th class="detail"></th>
+                <th class="name">Name</th>
+                <th class="opportunities">Opportunities</th>
+                <th class="url">URL</th>
+                <th class="location">Location</th>
+                <th class="brief-description">Brief Description</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="company in companies">
+            <td class="detail"><a ui-sref="admin.companies.detail({_id: company._id})">detail<a/></td>
+            <td class="name" >{{company.name}}</td>
+            <td class="opportunities" >{{company.opportunities.length}}</td>
+            <td class="url" >{{company.url}}</td>
+            <td class="location" >{{company.city}}</td>
+            <td class="brief-description" >{{company.briefDescription}}</td>
+        </tr>
+    </table>
