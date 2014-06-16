@@ -1,27 +1,31 @@
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$controller', 'Match', 
-  function($scope, $controller, Match) {
+app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 
+  function($scope, Opportunity, Match) {
 
-  $controller('ResourceDetailCtrl', {$scope: $scope, Resource: Resource});
-  $controller('ResourceEditCtrl', {$scope: $scope, Resource: Resource});
-  $controller('MatchCtrl', {$scope: $scope, Match: Match});
+  Opportunity.getAll().then(function(opportunities){
+    $scope.opportunities = opportunities;
+  });
+
+  Match.getAll().then(function(matches){
+    $scope.matches = matches;
+  });
 
   $scope.$watch('matches', function(matches) {
     var interest = {};
     if (!matches) return null;
-    if (!$scope.resources) return null;
+    if (!$scope.opportunities) return null;
 
     matches.data.forEach(function (match) {
       if (!interest[match.oppId]) { interest[match.oppId] = 0; }
       if (match.userInterest >= 3) { interest[match.oppId]++; }
     });
 
-    $scope.resources.forEach(function (opportunity) {
+    $scope.opportunities.forEach(function (opportunity) {
       opportunity.userInterest = interest[opportunity._id];
     });
   });
 
   $scope.addNew = function (attribute) {
-
+    
   };
 
   // need to inject user
