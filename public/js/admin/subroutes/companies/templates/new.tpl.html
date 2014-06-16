@@ -1,3 +1,58 @@
 <h3>Admin.Companies.New Template</h3>
 
-<div ui-view></div>
+<form ng-submit="create()">
+  <table>
+    <tr>
+      <th>Company Name</th>
+      <td><input type="text" ng-model="newCompany.name"></td>
+    </tr>
+    <tr>
+      <th>Location</th>
+      <td><input type="text" ng-model="newCompany.location"></td>
+    </tr>
+    <tr>
+      <th>URL</th>
+      <td><input type="text" ng-model="newCompany.url"></td>
+    </tr>
+    <tr>
+      <th>Tagline</th>
+      <td><input type="text" ng-model="newCompany.tagline"></td>
+    </tr>
+    <tr>
+      <th>Brief Description</th>
+      <td><input type="text" ng-model="newCompany.briefDescription"></td>
+    </tr>
+    <tr>
+      <th>Media</th>
+      <td>
+        <button type="button" ng-click="addMedia()">+ Add New</button>
+      </td>
+    </tr>
+    <tr ng-repeat="media in newCompany.media track by $index">
+      <th></th>
+      <td><input type="text" ng-model="media.text"></td>
+      <td>
+        <button type="button" ng-click="removeMedia($index)">Remove</button>
+      </td>
+    </tr>
+    <tr>
+      <th>Learn More</th>
+      <td>
+        <button type="button" ng-click="addLink()">+ Add New</button>
+      </td>
+    </tr>
+    <tr ng-repeat="link in newCompany.links track by $index">
+      <th></th>
+      <td><input type="text" ng-model="link.text"></td>
+      <td>
+        <button type="button" ng-click="removeLink($index)">Remove</button>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <input type="submit">
+      </td>
+    </tr>
+  </table>
+</form>
