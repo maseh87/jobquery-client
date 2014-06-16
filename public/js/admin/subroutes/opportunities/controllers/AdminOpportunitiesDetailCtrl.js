@@ -1,4 +1,4 @@
-app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 
+app.controller('AdminOpportunitiesDetailCtrl', ['$scope', 'Opportunity', 'Match', 
   function($scope, Opportunity, Match) {
 
   Opportunity.getAll().then(function(opportunities){
