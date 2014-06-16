@@ -1,6 +1,6 @@
 app.factory('CompanyResource', ['$resource', 'SERVER_URL', function($resource, SERVER_URL){
   return $resource(SERVER_URL + '/api/companies/:_id', null, {update: {method: 'PUT'}});
-}])
+}]);
 
 app.factory('Company', ['CompanyResource', function(CompanyResource){
   var companyMethods = {};
@@ -23,4 +23,4 @@ app.factory('Company', ['CompanyResource', function(CompanyResource){
   };
 
   return companyMethods;
-}])
+}]);

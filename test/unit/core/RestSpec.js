@@ -16,20 +16,20 @@ describe('Rest', function(){
     it('should have test-token set on the authorization header', function(){
       $httpBackend.expectGET('http://localhost:9000/api/users',function(headers) {
         return headers.Authorization === 'Bearer test-token';
-      } ).respond([{_id: 1},{_id: 2}]);
+      }).respond([{_id: 1},{_id: 2}]);
 
       localStorageService.set('token', 'test-token');
-      User.query();
+      User.getAll();
       $httpBackend.flush();
     });
 
     it('should not have authorization header set', function(){
       $httpBackend.expectGET('http://localhost:9000/api/users',function(headers) {
         return headers.Authorization === undefined;
-      } ).respond(401);
+      }).respond(401);
 
       localStorageService.set('token', undefined);
-      User.query();
+      User.getAll();
       $httpBackend.flush();
     });
 
@@ -51,43 +51,43 @@ describe('Rest', function(){
 
     it('should make GET requests for all users', function(){
       $httpBackend.expectGET('http://localhost:9000/api/users').respond([{_id: 1},{_id: 2}]);
-      var result = User.query();
+      User.getAll().then(function(users){
+        expect(Array.isArray(users)).toBe(true);
+        expect(users[0]._id).toBe(1);
+      });
       $httpBackend.flush();
-      expect(Array.isArray(result)).toBe(true);
-      expect(result[0]._id).toBe(1);
-    });
-
-    it('should make GET requests for individual users', function(){
-      $httpBackend.expectGET('http://localhost:9000/api/users/1').respond({_id: 1});
-      var result = User.get({_id: 1});
-      $httpBackend.flush();
-      expect(typeof result).toBe('object');
-      expect(result._id).toBe(1);
     });
 
     it('should make a POST request to add a new user', function(){
-      var user = new User({test: 'data'});
-      $httpBackend.expectPOST('http://localhost:9000/api/users').respond(201, '');
-      var postRequest = user.$save();
-      $httpBackend.flush();
-      postRequest.then(function(response){
-        expect(response).toBe(201);
+      $httpBackend.expectPOST('http://localhost:9000/api/users').respond({_id: 1});
+      User.create({test: 'data'}).then(function(response){
+        expect(response._id).toBe(1);
       });
+      $httpBackend.flush();
     });
 
-    it('should make PUT requests to update users by _id', function(){
+    it('should make a GET request to fetch one user by _id', function(){
       $httpBackend.expectGET('http://localhost:9000/api/users/1').respond({_id: 1});
-      var user = User.get({_id: 1});
-      $httpBackend.flush();
-
-      $httpBackend.expectPUT('http://localhost:9000/api/users/1').respond(201, '');
-      user.test = 'data';
-      var putRequest = User.update({_id: 1}, user);
-      $httpBackend.flush();
-
-      putRequest.$promise.then(function(response){
-        expect(response).toBe(201);
+      User.get(1).then(function(user){
+        expect(typeof user).toBe('object');
+        expect(user._id).toBe(1);
       });
+      $httpBackend.flush();
+    });
+
+    it('should make a PUT request to update a single user by _id', function(){
+      $httpBackend.expectGET('http://localhost:9000/api/users/1').respond({_id: 1});
+      var user;
+      User.get(1).then(function(data){
+        user = data;
+      });
+      $httpBackend.flush();
+      
+      $httpBackend.expectPUT('http://localhost:9000/api/users/1').respond({_id: 1});
+      User.update(user).then(function(data){
+        expect(data._id).toBe(1);
+      });
+      $httpBackend.flush();
     });
 
   });
@@ -145,43 +145,43 @@ describe('Rest', function(){
 
     it('should make GET requests for all tags', function(){
       $httpBackend.expectGET('http://localhost:9000/api/tags').respond([{_id: 1},{_id: 2}]);
-      var result = Tag.query();
-      $httpBackend.flush();
-      expect(Array.isArray(result)).toBe(true);
-      expect(result[0]._id).toBe(1);
-    });
-
-    it('should make GET requests for individual tags', function(){
-      $httpBackend.expectGET('http://localhost:9000/api/tags/1').respond({_id: 1});
-      var result = Tag.get({_id: 1});
-      $httpBackend.flush();
-      expect(typeof result).toBe('object');
-      expect(result._id).toBe(1);
-    });
-
-    it('should make a POST request to create a new tag', function(){
-      var tag = new Tag({test: 'data'});
-      $httpBackend.expectPOST('http://localhost:9000/api/tags').respond(201, '');
-      var postRequest = tag.$save();
-      $httpBackend.flush();
-      postRequest.then(function(response){
-        expect(response).toBe(201);
+      Tag.getAll().then(function(tags){
+        expect(Array.isArray(tags)).toBe(true);
+        expect(tags[0]._id).toBe(1);
       });
+      $httpBackend.flush();
     });
 
-    it('should make PUT requests to update tags by _id', function(){
-      $httpBackend.expectGET('http://localhost:9000/api/tags/1').respond({_id: 1});
-      var tag = Tag.get({_id: 1});
-      $httpBackend.flush();
-
-      $httpBackend.expectPUT('http://localhost:9000/api/tags/1').respond(201, '');
-      tag.test = 'data';
-      var putRequest = Tag.update({_id: 1}, tag);
-      $httpBackend.flush();
-
-      putRequest.$promise.then(function(response){
-        expect(response).toBe(201);
+    it('should make a POST request to add a new tag', function(){
+      $httpBackend.expectPOST('http://localhost:9000/api/tags').respond({_id: 1});
+      Tag.create({test: 'data'}).then(function(response){
+        expect(response._id).toBe(1);
       });
+      $httpBackend.flush();
+    });
+
+    it('should make a GET request to fetch one tag by _id', function(){
+      $httpBackend.expectGET('http://localhost:9000/api/tags/1').respond({_id: 1});
+      Tag.get(1).then(function(tag){
+        expect(typeof tag).toBe('object');
+        expect(tag._id).toBe(1);
+      });
+      $httpBackend.flush();
+    });
+
+    it('should make a PUT request to update a single tag by _id', function(){
+      $httpBackend.expectGET('http://localhost:9000/api/tags/1').respond({_id: 1});
+      var tag;
+      Tag.get(1).then(function(data){
+        tag = data;
+      });
+      $httpBackend.flush();
+      
+      $httpBackend.expectPUT('http://localhost:9000/api/tags/1').respond({_id: 1});
+      Tag.update(tag).then(function(data){
+        expect(data._id).toBe(1);
+      });
+      $httpBackend.flush();
     });
 
   });
@@ -255,43 +255,43 @@ describe('Rest', function(){
 
     it('should make GET requests for all opportunities', function(){
       $httpBackend.expectGET('http://localhost:9000/api/opportunities').respond([{_id: 1},{_id: 2}]);
-      var result = Opportunity.query();
+      Opportunity.getAll().then(function(opportunities){
+        expect(Array.isArray(opportunities)).toBe(true);
+        expect(opportunities[0]._id).toBe(1);
+      });
       $httpBackend.flush();
-      expect(Array.isArray(result)).toBe(true);
-      expect(result[0]._id).toBe(1);
     });
 
     it('should make a POST request to add a new opportunity', function(){
-      var opportunity = new Opportunity({test: 'data'});
-      $httpBackend.expectPOST('http://localhost:9000/api/opportunities').respond(201, '');
-      var postRequest = opportunity.$save();
-      $httpBackend.flush();
-      postRequest.then(function(response){
-        expect(response).toBe(201);
+      $httpBackend.expectPOST('http://localhost:9000/api/opportunities').respond({_id: 1});
+      Opportunity.create({test: 'data'}).then(function(response){
+        expect(response._id).toBe(1);
       });
+      $httpBackend.flush();
     });
 
     it('should make a GET request to fetch one opportunity by _id', function(){
       $httpBackend.expectGET('http://localhost:9000/api/opportunities/1').respond({_id: 1});
-      var result = Opportunity.get({_id: 1});
+      Opportunity.get(1).then(function(opportunity){
+        expect(typeof opportunity).toBe('object');
+        expect(opportunity._id).toBe(1);
+      });
       $httpBackend.flush();
-      expect(typeof result).toBe('object');
-      expect(result._id).toBe(1);
     });
 
     it('should make a PUT request to update a single opportunity by _id', function(){
       $httpBackend.expectGET('http://localhost:9000/api/opportunities/1').respond({_id: 1});
-      var opportunity = Opportunity.get({_id: 1});
-      $httpBackend.flush();
-
-      $httpBackend.expectPUT('http://localhost:9000/api/opportunities/1').respond(201, '');
-      opportunity.test = 'data';
-      var putRequest = Opportunity.update({_id: 1}, opportunity);
-      $httpBackend.flush();
-
-      putRequest.$promise.then(function(response){
-        expect(response).toBe(201);
+      var opportunity;
+      Opportunity.get(1).then(function(data){
+        opportunity = data;
       });
+      $httpBackend.flush();
+      
+      $httpBackend.expectPUT('http://localhost:9000/api/opportunities/1').respond({_id: 1});
+      Opportunity.update(opportunity).then(function(data){
+        expect(data._id).toBe(1);
+      });
+      $httpBackend.flush();
     });
 
   });
