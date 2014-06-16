@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', function($scope, $stateParams){
-=======
 app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$controller', 'Match', 
   function($scope, $controller, Match) {
->>>>>>> Edit and detail prelim templates
 
   $controller('ResourceDetailCtrl', {$scope: $scope, Resource: Resource});
   $controller('ResourceEditCtrl', {$scope: $scope, Resource: Resource});
