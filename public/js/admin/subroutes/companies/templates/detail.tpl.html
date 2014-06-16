@@ -1,9 +1,12 @@
-<h3>Admin.Companies.Detail Template</h3>
+<h1>Company Dossier</h1>
+<h2>View or edit companies in detail</h2>
+
+<button ng-init="readOnly = true" ng-click="readOnly=!readOnly">+ Edit Company</button>
+<p>Company Information</p>
 
 <table class="table table-striped table-condensed table-hover">
     <thead>
         <tr>
-            <th class="detail"></th>
             <th class="name">Name</th>
             <th class="opportunities">Opportunities</th>
             <th class="url">URL</th>
@@ -12,9 +15,6 @@
         </tr>
     </thead>
     <tr>
-        <td class="readOnly">
-            <button ng-init="readOnly = true" ng-click="readOnly=!readOnly">Edit</button>
-        </td>
         <td class="name">
             <input type="text" ng-readonly="readOnly" value="{{company.name}}">
         </td>
@@ -30,3 +30,32 @@
         </td>
     </tr>
 </table>
+
+<p>Associated Opportunities</p>
+
+<div class="section container-fluid" ng-show="opportunities">
+    <div class="row">
+        <table>
+        <thead>
+            <tr>
+                <th></th><!-- empty table header -->
+                <th>Name</th>
+                <th>Interested Candidates</th>
+                <th>URL</th>
+                <th>Title</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="opportunity in opportunities">
+                <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
+                <td>{{ opportunity.company.name }}</td>
+                <td>{{ opportunity.userInterest }}</td>
+                <td>{{ opportunity.links[0] }}</td>
+                <td>{{ opportunity.jobTitle }}</td>
+                <td>{{ opportunity.company.city }}</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
