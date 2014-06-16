@@ -43,7 +43,7 @@
                 <td>Tags Associated:</td>
                 <td>
                     <div ng-repeat="tag in opportunity.tags">
-                    {{tag}}
+                    {{tag.tagId.name}} {{tag.value}}
                     </div>
                 </td>
             </tr>
