@@ -4,10 +4,10 @@
 <div class="section container-fluid">
     <div class="row">
         <span ng-init="readOnly = true" ng-click="readOnly = !readOnly">+ Edit Opportunity</span>
-        <span>{{ opportunity.company.name }}: {{ opportunity.company.jobTitle }}</span>
+        <span>{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</span>
     </div>
     <div class="row">
-        <div class="col-xs-6">{{ opportunity.company.longDescription }}</div>
+        <div class="col-xs-6">{{ opportunity.description }}</div>
         <div class="col-xs-6">
             <table>
             <tr>
@@ -16,15 +16,16 @@
             </tr>
             <tr>
                 <td>Title:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{opportunity.company.jobTitle}}"></td>
+                <td><input type="text" ng-readonly="readOnly" value="{{opportunity.jobTitle}}"></td>
             </tr>
             <tr>
                 <td>URL:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{opportunity.company.links[0]}}"></td>
+                <td><input type="text" ng-readonly="readOnly" value="{{opportunity.company.url}}"></td>
             </tr>
             <tr>
                 <td>Questions:</td>
-                <td></td>
+                <td>
+                </td>
             </tr>
             <tr>
                 <td>Media:</td>

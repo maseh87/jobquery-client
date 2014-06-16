@@ -14,11 +14,11 @@ app.config(['$stateProvider', function($stateProvider){
     .state('admin.opportunities.new', {
       url: '/new',
       templateUrl: '/js/admin/subroutes/opportunities/templates/new.tpl.html',
-      controller: 'AdminOpportunitiesDetailCtrl'
+      controller: 'AdminOpportunitiesNewCtrl'
     })
     .state('admin.opportunities.detail', {
       url: '/:_id',
       templateUrl: '/js/admin/subroutes/opportunities/templates/detail.tpl.html',
-      controller: 'AdminOpportunitiesNewCtrl'
+      controller: 'AdminOpportunitiesDetailCtrl'
     });
 }]);
