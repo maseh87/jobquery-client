@@ -4,8 +4,8 @@ app.controller('AdminCandidatesDetailCtrl', ['User', '$scope', '$stateParams', f
     $scope.user = user;
   });
 
-  $scope.create = function(user){
-    User.create(user)
+  $scope.update = function(user){
+    User.update(user)
     .then(function(user){
       $scope.saved = true;
     }, function(error){
