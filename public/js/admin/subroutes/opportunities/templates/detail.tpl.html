@@ -1,3 +1,67 @@
-<h3>Admin.Opportunities.Detail Template</h3>
+<div ui-view>
+    <h3 class="body-heading">Opportunity Dossier</h3><br>
+    <h4 class="body-tagline">View or edit opportunity dossier</h4>
 
-<div ui-view></div>
+    <div class="section container-fluid">
+        <div class="row">
+            <span ng-init="readOnly = true" ng-click="readOnly = !readOnly">+ Edit Opportunity</span>
+            <span>{{ resource.company.name }}: {{ resource.company.jobTitle }}</span>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">{{ resource.company.longDescription }}</div>
+            <div class="col-xs-6">
+                <table>
+                <tr>
+                    <td>Company:</td>
+                    <td><input type="text" ng-readonly="readOnly" value="{{resource.company.name}}"></td>
+                </tr>
+                <tr>
+                    <td>Title:</td>
+                    <td><input type="text" ng-readonly="readOnly" value="{{resource.company.jobTitle}}"></td>
+                </tr>
+                <tr>
+                    <td>URL:</td>
+                    <td><input type="text" ng-readonly="readOnly" value="{{resource.company.links[0]}}"></td>
+                </tr>
+                <tr>
+                    <td>Questions:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Media:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Tags Associated:</td>
+                    <td></td>
+                </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="section container-fluid">
+        <div class="row">
+            <span>Candidates</span>
+        </div>
+        <div class="row">
+            <table>
+            <thead>
+                <th></th><!-- Empty table header-->
+                <th>Name</th>
+                <th>E-mail</th> 
+                <th>Interest</th>
+                <th ng-repeat="tag in tags">{{ tag.name }}</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                <td>Detail</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.interest }}</td>
+                <td ng-repeat="attribute in userAttributes">{{ attribute.name }}</td>
+                </tr>
+            </tbody>
+        </div>
+    </div>
+</div>

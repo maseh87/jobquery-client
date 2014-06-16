@@ -32,6 +32,13 @@ describe ('admin.opportunities.detail state', function(){
     });
   });
 
+  xit('it should have an edit button that turns read-only mode off', function() {
+
+  });
+  xit('it should have an add new button that adds input fields', function () {
+
+  });
+
 });
 
 describe ('admin.opportunities.new state', function(){
