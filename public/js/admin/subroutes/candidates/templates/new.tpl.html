@@ -1,4 +1,16 @@
-<h3>Admin.Candidates.New Template</h3>
-
-
+<form name="emailForm" novalidate="novalidate" >
+    <table class="table table-striped table-condensed table-hover">
+      <tr>
+        <td width="50%" class="detail">
+          <textarea name="emails" ng-Model="emails" ng-pattern="emailCSVPattern()"> </textarea>
+          </td>
+        <td width="50%" class="name">
+          <p>Invite candidates here</p>
+          <p>Copy and paste one or more e-mail addresses directly from an Excel file and press invite</p>
+          <span ng-show="false">Not a valid number!</span>
+          <button ng-disabled="emailForm.$invalid" ng-click="sendEmails(emails)" class="btn btn-primary" >Invite</button>
+        </td>
+      </tr>
+    </table>
+  </form>
 <div ui-view></div>

@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tr ng-repeat="user in users">
-      <td class="detail"><a ng-href="/admin/candidates/{{user._id}}">detail<a/></td>
+      <td class="detail"><a ui-sref="admin.candidates.detail({_id: user._id})">detail<a/></td>
       <td class="name" >{{user.name}}</td>
       <td class="github" ><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
       <td class="email" ><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
