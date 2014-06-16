@@ -13,8 +13,8 @@ app.factory('User', ['UserResource', function(UserResource){
     return UserResource.get({_id: id}).$promise;
   };
 
-  userMethods.create = function(user){
-    var user = new UserResource(user);
+  userMethods.create = function(newUser){
+    var user = new UserResource(newUser);
     return user.$save();
   };
 
