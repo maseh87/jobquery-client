@@ -8,42 +8,21 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   // *****
   // I have to do this crazy ugly logic until we come up with a better way on the backend!
   // *****
-  Match.getAll().then(function(matches){
-    $scope.matches = matches.data.filter(function(match) {
-      return match.oppId.toString() === $stateParams._id.toString();
-    });
-    User.getAll().then(function(users) {
-      $scope.users = [];
-      $scope.matches.forEach(function(match) {
-        var user = users.filter(function(user) { 
-          return match.userId.toString() === user._id.toString(); 
-        })[0];
-        $scope.users.push(user);
-      });
-      users.forEach(function(user) {
-        // user._interest = $scope.matches.filter(function(match) {
-        //   return match.userId.toString() === user._id.toString();
-        // })[0];
-      });
-    });
-  });
-
   Tag.getAll().then(function(tags) {
     $scope.tagCollection = tags;
-  });
-
-  $scope.$watch('matches', function(matches) {
-    var interest = {};
-    if (!matches) return null;
-    if (!$scope.opportunities) return null;
-
-    matches.data.forEach(function (match) {
-      if (!interest[match.oppId]) { interest[match.oppId] = 0; }
-      if (match.userInterest >= 3) { interest[match.oppId]++; }
-    });
-
-    $scope.opportunities.forEach(function (opportunity) {
-      opportunity.userInterest = interest[opportunity._id];
+    Match.getAll().then(function(matches){
+      $scope.users = [];
+      $scope.matches = matches.data.filter(function (match) {
+        return match.oppId.toString() === $stateParams._id.toString();
+      });
+      $scope.matches.forEach(function (match) {
+        var user = {};
+        user._name = match.userId.name;
+        user._email = match.userId.email;
+        user._interest = match.userInterest;
+        user.attributes = [];
+        $scope.users.push(user);
+      });
     });
   });
 

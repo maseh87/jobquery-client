@@ -73,12 +73,12 @@
             <th ng-repeat="tag in opportunity.tags">{{ tag.tagId.name }}</th>
         </thead>
         <tbody>
-            <tr ng-repeat="user in users">
+            <tr ng-repeat="user in interestedUsers">
             <td>Detail</td>
-            <td>{{ user }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user._interest }}</td>
-            <td ng-repeat="attribute in userAttributes">{{ attribute.name }}</td>
+            <td>{{ user._name }}</td>
+            <td>{{ user._email }}</td>
+            <td>{{ user._attributes }}</td>
+            <td ng-repeat="attribute in user._attributes">{{ attribute.score }}</td>
             <div>BLANK</div>
             </tr>
         </tbody>
