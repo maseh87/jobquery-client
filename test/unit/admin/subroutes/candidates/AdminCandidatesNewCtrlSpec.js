@@ -40,17 +40,20 @@ describe('AdminCandidatesNewCtrl', function(){
     expect(typeof $scope.emailCSVPattern).toBe('function');
   });
 
+  it('sendEmails should make no post request when undefined passed in', function() {
+    $scope.sendEmails(undefined);
+  });
+
   it('sendEmails should make one post request when one email address passed in', function() {
     var email = 'test@test.com';
-    $httpBackend.expectPOST('http://localhost:9000/api/users', {email : 'test@test.com' }).respond({});
+    $httpBackend.expectPOST('http://localhost:9000/api/users', {'0':'test@test.com'}).respond({});
     $scope.sendEmails(email);
     $httpBackend.flush();
   });
 
   it('sendEmails should make two post request when two email address passed in', function() {
     var email = 'test@test.com,test1@test.com';
-    $httpBackend.expectPOST('http://localhost:9000/api/users', {email : 'test@test.com' }).respond({});
-    $httpBackend.expectPOST('http://localhost:9000/api/users', {email : 'test1@test.com' }).respond({});
+    $httpBackend.expectPOST('http://localhost:9000/api/users', {'0':'test@test.com', '1': 'test1@test.com'}).respond({});
     $scope.sendEmails(email);
     $httpBackend.flush();
   });
@@ -58,12 +61,11 @@ describe('AdminCandidatesNewCtrl', function(){
   it('sendEmails should reset $scope.emails to empty string', function() {
     $scope.emails = 'test@test.com,test1@test.com';
     var email = 'test@test.com,test1@test.com';
-    $httpBackend.expectPOST('http://localhost:9000/api/users', {email : 'test@test.com' }).respond({});
-    $httpBackend.expectPOST('http://localhost:9000/api/users', {email : 'test1@test.com' }).respond({});
+    $httpBackend.expectPOST('http://localhost:9000/api/users', {'0':'test@test.com', '1': 'test1@test.com'}).respond({});
     $scope.sendEmails(email);
     $httpBackend.flush();
 
-    expect($scope.emails === '').toBe(true);
+    expect($scope.emailStrings === '').toBe(true);
   });
 
   it('invoking emailCSVPattern should return a object', function(){

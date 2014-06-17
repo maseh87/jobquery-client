@@ -6,9 +6,9 @@ app.controller('AdminCandidatesDetailCtrl', ['User', '$scope', '$stateParams', f
 
   $scope.update = function(user){
     User.update(user)
-    .then(function(user){
-      $scope.saved = true;
-    }, function(error){
+    .then(function(updated){
+      $scope.updated = true;
+    },function(updated){
       $scope.saveError = true;
     });
   };
