@@ -9,7 +9,7 @@ app.config(['$stateProvider', function($stateProvider){
       .state('admin.matches.all', {
         url: '',
         templateUrl: '/js/admin/subroutes/matches/templates/matches.tpl.html',
-        controller: 'MatchCtrl'
+        controller: 'AdminMatchesCtrl'
       });
 
 }]);
