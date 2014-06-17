@@ -26,39 +26,32 @@
                 <td>Questions:</td>
                 <td>
                     <div ng-repeat="question in opportunity.questions">
-                        {{question.text}}
+                        <input type="text" ng-readonly="readOnly" ng-model="question.text" placeholder="Add new question here">
+                        <span ng-click="removeItem('questions', question)">Remove</span>
                     </div>
-                    <div ng-repeat="newQuestion in opportunity._additions.questions">
-                        <input type="text" ng-readonly="readOnly" ng-model="newQuestion.text">
-                    </div>
-                    <span ng-click="addNew('questions', {text: ''})">+ Add New</span>
+                    <span ng-show="!readOnly" ng-click="addNewItem('questions', {text: ''})">+ Add New</span>
                 </td>
             </tr>
             <tr>
                 <td>Media:</td>
                 <td>
                     <div ng-repeat="link in opportunity.links">
-                        {{link.title}}: {{link.url}}
+                        <input type="text" ng-readonly="readOnly" ng-model="link.title" placeholder="Add new link title">
+                        <input type="text" ng-readonly="readOnly" ng-model="link.url" placeholder="Add new link URL">
+                        <span ng-click="removeItem('links', link)">Remove</span>
                     </div>
-                    <div ng-repeat="newLink in opportunity._additions.links">
-                        <input type="text" ng-readonly="readOnly" ng-model="newLink.title">
-                        <input type="text" ng-readonly="readOnly" ng-model="newLink.url">
-                    </div>
-                    <span ng-click="addNew('links', {title: '', url: ''})">+ Add New</span>
+                    <span ng-show="!readOnly" ng-click="addNewItem('links', {title: '', url: ''})">+ Add New</span>
                 </td>
             </tr>
             <tr>
                 <td>Tags Associated:</td>
                 <td>
                     <div ng-repeat="tag in opportunity.tags">
-                        {{tag.tagId.name}} {{tag.value}}
+                        <input type="text" ng-readonly="readOnly" ng-model="tag.tagId.name" placeholder="Add new tag name">
+                        <input type="text" ng-readonly="readOnly" ng-model="tag.value" placeholder="Add new tag value">
+                        <span ng-click="removeItem('tags', tag)">Remove</span>
                     </div>
-                    <div ng-repeat="newTag in opportunity._additions.tags">
-                        <input type="text" ng-readonly="readOnly" ng-model="newTag.name">
-                        <input type="text" ng-readonly="readOnly" ng-model="newTag.value">
-                    </div>
-                    <span ng-click="addNew('tags', {name: '', value: ''})">+ Add New</span>
-                    {{ tagNames }}
+                    <span ng-show="!readOnly" ng-click="addNewItem('tag', {tagId: {name: ''}, value: ''})">+ Add New</span>
                 </td>
             </tr>
             </table>
