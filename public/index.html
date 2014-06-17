@@ -45,14 +45,28 @@
     <script src="js/core/services/MessageModel.js"></script>
     <script src="js/core/services/MatchModel.js"></script>
 
-    <!-- user -->
-    <script src="js/user/state.js"></script>
-    <script src="js/user/controllers/UserCtrl.js"></script>
-    <script src="js/user/controllers/UserSidebarCtrl.js"></script>
+    <!-- users -->
+    <script src="js/users/state.js"></script>
+    <script src="js/users/controllers/UsersCtrl.js"></script>
+    <script src="js/users/controllers/UsersSidebarCtrl.js"></script>
 
-    <!-- user.account -->
-    <script src="js/user/subroutes/account/state.js"></script>
-    <script src="js/user/subroutes/account/controllers/UserAccountCtrl.js"></script>
+    <!-- users.account -->
+    <script src="js/users/subroutes/account/state.js"></script>
+    <script src="js/users/subroutes/account/controllers/UsersAccountCtrl.js"></script>
+
+    <!-- users.companies -->
+    <script src="js/users/subroutes/companies/state.js"></script>
+    <script src="js/users/subroutes/companies/controllers/UsersCompaniesCtrl.js"></script>
+
+    <!-- users.companies.detail -->
+    <script src="js/users/subroutes/companies/controllers/UsersCompaniesDetailCtrl.js"></script>
+
+    <!-- users.opportunities -->
+    <script src="js/users/subroutes/opportunities/state.js"></script>
+    <script src="js/users/subroutes/opportunities/controllers/UsersOpportunitiesCtrl.js"></script>
+
+    <!-- users.opportunities.detail -->
+    <script src="js/users/subroutes/opportunities/controllers/UsersOpportunitiesDetailCtrl.js"></script>
 
     <!-- admin -->
     <script src="js/admin/state.js"></script>
@@ -123,8 +137,11 @@
     <script src="js/admin/subroutes/tags/controllers/AdminTagsNewCtrl.js"></script>
 
 </head>
-<body ng-app="jobQuery" ng-controller="AppCtrl">
+<body ng-app="jobQueryDev" ng-controller="AppCtrl">
 <div class="container-fluid">
+
+    <a ui-sref="users">Users Portal</a>
+    <a ui-sref="admin">Admin Portal</a>
 
     <div class="row">
         <div class="col-md-2">

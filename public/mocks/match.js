@@ -9,7 +9,6 @@ for(var i = 1; i < 50; i++){
   }
 
   var oppIds = Object.keys(usedIds);
-  console.log(oppIds);
   for(var j = 0; j < oppIds.length; j++){
     matches.push({
       userId: i,
@@ -21,5 +20,3 @@ for(var i = 1; i < 50; i++){
     });
   }
 }
-
-console.log(matches);

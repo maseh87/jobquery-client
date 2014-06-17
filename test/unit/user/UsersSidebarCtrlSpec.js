@@ -1,4 +1,4 @@
-describe('UserAccountCtrl', function(){
+describe('UsersSidebarCtrl', function(){
 
   beforeEach(module('jobQuery'));
 
@@ -8,7 +8,7 @@ describe('UserAccountCtrl', function(){
     var $controller = $injector.get('$controller');
 
     createController = function(){
-      return $controller('UserAccountCtrl', {$scope: $rootScope.$new()});
+      return $controller('UsersSidebarCtrl', {$scope: $rootScope.$new()});
     };
 
   }));
