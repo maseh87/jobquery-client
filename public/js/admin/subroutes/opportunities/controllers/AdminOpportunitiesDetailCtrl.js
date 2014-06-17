@@ -20,7 +20,12 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
         user._name = match.userId.name;
         user._email = match.userId.email;
         user._interest = match.userInterest;
-        user.attributes = [];
+        user._attributes = match.oppId.tags.map(function (matchTag) {
+          var traitMatches = match.userId.tags.filter(function (userTag) {
+            return userTag.tagId.name === matchTag.tagId.name;
+          })[0];
+          return traitMatches.length === 0 ? 0 : traitMatches[0];
+        });
         $scope.users.push(user);
       });
     });
