@@ -70,14 +70,15 @@
             <th>Name</th>
             <th>E-mail</th> 
             <th>Interest</th>
-            <th ng-repeat="tag in tags">{{ tag.name }}</th>
+            <th ng-repeat="tag in opportunity.tags">{{ tag.tagId.name }}</th>
         </thead>
         <tbody>
             <tr ng-repeat="user in users">
             <td>Detail</td>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.interest }}</td>
+            <td>{{ user._interest }}</td>
+            <td>{{ matches }}</td>
             <td ng-repeat="attribute in userAttributes">{{ attribute.name }}</td>
             </tr>
         </tbody>

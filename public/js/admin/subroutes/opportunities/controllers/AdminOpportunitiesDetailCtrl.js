@@ -1,5 +1,5 @@
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag',
-  function($scope, $stateParams, Opportunity, Match, Tag) {
+app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'User', 
+  function($scope, $stateParams, Opportunity, Match, Tag, User) {
 
   Opportunity.get($stateParams._id).then(function(opportunity){
     $scope.opportunity = opportunity;
@@ -7,6 +7,12 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
   Match.getAll().then(function(matches){
     $scope.matches = matches;
+    User.getAll().then(function(users) {
+      $scope.users = users;
+      users.forEach(function(user) {
+        user._interest = 
+      });
+    });
   });
 
   Tag.getAll().then(function(tags) {
