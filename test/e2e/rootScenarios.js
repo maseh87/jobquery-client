@@ -30,26 +30,4 @@ describe('jobQuery application', function(){
 
   });
 
-  describe('user state', function(){
-
-    it('should exist', function(){
-      browser.get('/user');
-      browser.getLocationAbsUrl().then(function(url){
-        expect(url).toBe('http://localhost:8000/user');
-      });
-    });
-
-    describe('user.account state', function(){
-
-      it('should exist', function(){
-        browser.get('/user/account');
-        browser.getLocationAbsUrl().then(function(url){
-          expect(url).toBe('http://localhost:8000/user/account');
-        });
-      });
-
-    });
-
-  });
-
 });

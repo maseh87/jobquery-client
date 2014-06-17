@@ -1,4 +1,4 @@
-describe('UserAccountCtrl', function(){
+describe('UsersCompaniesDetailCtrl', function(){
 
   beforeEach(module('jobQuery'));
 
@@ -6,9 +6,13 @@ describe('UserAccountCtrl', function(){
 
     var $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
+    var Company = $injector.get('Company');
 
     createController = function(){
-      return $controller('UserAccountCtrl', {$scope: $rootScope.$new()});
+      return $controller('UsersCompaniesDetailCtrl', {
+        $scope: $rootScope.$new(),
+        Company: Company
+      });
     };
 
   }));
