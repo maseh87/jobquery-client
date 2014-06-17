@@ -3,7 +3,6 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
   Opportunity.get($stateParams._id).then(function(opportunity){
     $scope.opportunity = opportunity;
-    $scope.opportunity._additions = [];
   });
 
   Match.getAll().then(function(matches){
@@ -37,19 +36,20 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     $scope.editButtonText = $scope.readOnly ? "+ Edit Opportunity" : "Save Opportunity";
   }; 
 
-  $scope.addNew = function(attribute, object) {
+  $scope.addNewItem = function (attribute, field) {
     if ($scope.readOnly) { return null; }
-    if (!$scope.opportunity._additions[attribute]) { $scope.opportunity._additions[attribute] = []; }
-    $scope.opportunity._additions[attribute].push(object);
+    $scope.opportunity[attribute].push(field);
+  };
+
+  $scope.removeItem = function (attribute, item) {
+    if ($scope.readOnly) { return null; }
+    $scope.opportunity[attribute].forEach(function(elem, i, a) {
+      if (elem.$$hashKey === item.$$hashKey) { a.splice(i, 1); }
+    });
   };
 
   $scope.save = function () {
-    var _additions = $scope.opportunity._additions;
-    for (var attribute in _additions) {
-      console.log(_additions[attribute]);
-      var newItems = _additions[attribute];
-      newItems.forEach(function(e) { console.log(e); });
-    }
+    console.log($scope.opportunity);
   };
 
   // need to add user.interest on inject
