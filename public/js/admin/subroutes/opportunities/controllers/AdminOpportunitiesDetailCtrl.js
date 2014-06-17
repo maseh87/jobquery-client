@@ -10,7 +10,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   });
 
   Tag.getAll().then(function(tags) {
-    $scope.tagNames = tags.map(function(tag) { return tag.name; });
+    $scope.tagCollection = tags;
   });
 
   $scope.$watch('matches', function(matches) {
@@ -49,9 +49,9 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   };
 
   $scope.save = function () {
-    console.log($scope.opportunity);
+    Opportunity.update($scope.opportunity).then(function(data){
+      console.log('Update successful');
+    });
   };
-
-  // need to add user.interest on inject
 
 }]);
