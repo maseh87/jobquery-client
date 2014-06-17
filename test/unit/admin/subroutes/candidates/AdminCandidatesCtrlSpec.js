@@ -1,4 +1,5 @@
 describe('AdminCandidatesCtrl', function(){
+  var SERVER_URL = 'http://jobquery.azurewebsites.net';
   var User,
       $scope,
       $rootScope,
@@ -29,13 +30,13 @@ describe('AdminCandidatesCtrl', function(){
   });
 
   it('should exist', function(){
-    $httpBackend.expectGET('http://localhost:9000/api/users').respond([]);
+    $httpBackend.expectGET(SERVER_URL + '/api/users').respond([]);
     expect(typeof controller).toBe('object');
     $httpBackend.flush();
   });
 
   it('User.get function should be invoked', function() {
-    $httpBackend.expectGET('http://localhost:9000/api/users').respond([]);
+    $httpBackend.expectGET(SERVER_URL + '/api/users').respond([]);
     $httpBackend.flush();
   });
 

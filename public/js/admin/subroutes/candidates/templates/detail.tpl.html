@@ -62,24 +62,6 @@
             </div>
             <div class="col-xs-6">
                 <table>
-                    <tr>
-                        <td>Linkedin:</td>
-                        <td>
-                            <input type="text" ng-readonly="readOnly" ng-model="user.linkedin" value="{{user.linkedin}}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>State:</td>
-                        <td>
-                            <input type="text" ng-readonly="readOnly" ng-model="user.state" value="{{user.state}}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Country:</td>
-                        <td>
-                            <input type="text" ng-readonly="readOnly" ng-model="user.country" value="{{user.country}}">
-                        </td>
-                    </tr>
                     <tr ng-repeat="tag in user.tags">
                         <td>{{tag.tagId.name}}:</td>
                         <td>

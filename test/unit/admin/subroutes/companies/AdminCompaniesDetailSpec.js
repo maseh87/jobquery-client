@@ -1,5 +1,5 @@
 describe('AdminCompaniesDetailCtrl', function(){
-
+  var SERVER_URL = 'http://jobquery.azurewebsites.net';
   var $httpBackend, scope;
 
   beforeEach(module('jobQuery'));
@@ -27,20 +27,20 @@ describe('AdminCompaniesDetailCtrl', function(){
   });
 
   it('should be able to make PUT requests', function(){
-    $httpBackend.expectGET('http://localhost:9000/api/companies/1').respond({_id: 1, media: [], links: []});
+    $httpBackend.expectGET(SERVER_URL + '/api/companies/1').respond({_id: 1, media: [], links: []});
     var controller = createController();
     $httpBackend.flush();
 
-    $httpBackend.expectPUT('http://localhost:9000/api/companies/1').respond({_id: 1});
+    $httpBackend.expectPUT(SERVER_URL + '/api/companies/1').respond({_id: 1});
     scope.update({_id: 1});
     $httpBackend.flush();
   });
 
   it('should be able to add and remove media links', function(){
-    $httpBackend.expectGET('http://localhost:9000/api/companies/1').respond({_id: 1, media: [], links: []});
+    $httpBackend.expectGET(SERVER_URL + '/api/companies/1').respond({_id: 1, media: [], links: []});
     var controller = createController();
     $httpBackend.flush();
-    
+
     scope.addMedia();
     expect(scope.company.media.length).toBe(1);
     scope.addMedia();
@@ -50,7 +50,7 @@ describe('AdminCompaniesDetailCtrl', function(){
   });
 
   it('should be able to add and remove regular links', function(){
-    $httpBackend.expectGET('http://localhost:9000/api/companies/1').respond({_id: 1, media: [], links: []});
+    $httpBackend.expectGET(SERVER_URL + '/api/companies/1').respond({_id: 1, media: [], links: []});
     var controller = createController();
     $httpBackend.flush();
 
