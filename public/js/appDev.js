@@ -44,9 +44,9 @@ appDev.run(function($httpBackend){
         var id = route[2];
         switch(resource){
           case 'companies':
-            return id ? ['200', companies[id-1]] : ['200', companies];
+            return id ? ['200', userCompanies[id-1]] : ['200', userCompanies];
           case 'opportunities':
-            return id ? ['200', opportunities[id-1]] : ['200', opportunities];
+            return id ? ['200', userOpportunities[id-1]] : ['200', userOpportunities];
           default:
             return ['404'];
         }
