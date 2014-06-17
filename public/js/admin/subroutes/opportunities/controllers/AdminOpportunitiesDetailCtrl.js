@@ -13,13 +13,17 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
       return match.oppId.toString() === $stateParams._id.toString();
     });
     User.getAll().then(function(users) {
+      $scope.users = [];
+      $scope.matches.forEach(function(match) {
+        var user = users.filter(function(user) { 
+          return match.userId.toString() === user._id.toString(); 
+        })[0];
+        $scope.users.push(user);
+      });
       users.forEach(function(user) {
         // user._interest = $scope.matches.filter(function(match) {
         //   return match.userId.toString() === user._id.toString();
         // })[0];
-        $scope.users = $scope.matches.map(function(match) {
-          return match;
-        });
       });
     });
   });

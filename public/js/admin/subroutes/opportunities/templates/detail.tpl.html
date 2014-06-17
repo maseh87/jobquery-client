@@ -75,10 +75,11 @@
         <tbody>
             <tr ng-repeat="user in users">
             <td>Detail</td>
-            <td>{{ user.name }}</td>
+            <td>{{ user }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user._interest }}</td>
             <td ng-repeat="attribute in userAttributes">{{ attribute.name }}</td>
+            <div>BLANK</div>
             </tr>
         </tbody>
     </div>
