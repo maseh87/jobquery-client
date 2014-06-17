@@ -1,5 +1,31 @@
-<table>
-    <tr ng-repeat="opportunity in opportunities">
-        <td>{{opportunity}}</td>
-    </tr>
-</table>
+<h3 class="body-heading">Opportunities</h3><br>
+
+<div class="section container-fluid">
+    <div class="row">
+        <span>All Opportunities</span>
+    </div>
+    <div class="row">
+        <table>
+        <thead>
+            <tr>
+                <th></th><!-- empty table header -->
+                <th>Name</th>
+                <th>Interested Candidates</th>
+                <th>URL</th>
+                <th>Title</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="opportunity in opportunities">
+                <td><a ui-sref="users.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
+                <td>{{ opportunity.company.name }}</td>
+                <td>{{ opportunity.userInterest }}</td>
+                <td>{{ opportunity.links[0] }}</td>
+                <td>{{ opportunity.jobTitle }}</td>
+                <td>{{ opportunity.company.city }}</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
