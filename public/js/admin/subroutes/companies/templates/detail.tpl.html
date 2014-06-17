@@ -1,33 +1,52 @@
 <h1>Company Dossier</h1>
 <h2>View or edit companies in detail</h2>
 
-<button ng-init="readOnly = true" ng-click="readOnly=!readOnly">+ Edit Company</button>
+<button ng-init="readOnly=true" ng-click="readOnly=false" ng-show="readOnly">+ Edit Company</button>
+<button ng-click="readOnly=true; update()" ng-show="!readOnly">Save Company</button>
 <p>Company Information</p>
 
-<table class="table table-striped table-condensed table-hover">
-    <thead>
-        <tr>
-            <th class="name">Name</th>
-            <th class="opportunities">Opportunities</th>
-            <th class="url">URL</th>
-            <th class="location">Location</th>
-            <th class="brief-description">Brief Description</th>
-        </tr>
-    </thead>
+<table class="table table-striped table-condensed">
     <tr>
-        <td class="name">
-            <input type="text" ng-readonly="readOnly" value="{{company.name}}">
+        <th>Company Name:</th>
+        <td><input type="text" ng-readonly="readOnly" ng-model="company.name"></td>
+    </tr>
+    <tr>
+        <th>Location:</th>
+        <td>{{company.opportunities.length}}</td>
+    </tr>
+    <tr>
+        <th>URL:</th>
+        <td><input type="text" ng-readonly="readOnly" ng-model="company.url"></td>
+    </tr>
+    <tr>
+        <th>Tagline:</th>
+        <td><input type="text" ng-readonly="readOnly" ng-model="company.name"></td>
+    </tr>
+    <tr>
+        <th>Brief Description:</th>
+        <td><input type="text" ng-readonly="readOnly" ng-model="company.briefDescription"></td>
+    </tr>
+    <tr ng-repeat="media in company.media track by $index">
+        <th><span ng-show="$index === 0">Media</span></th>
+        <td>
+            <input type="text" ng-readonly="readOnly" ng-model="media.text">
+            <button type="button" ng-click="removeMedia($index)" ng-show="!readOnly">Remove</button>
         </td>
-        <td class="opportunities">{{company.opportunities.length}}</td>
-        <td class="url">
-            <input type="text" ng-readonly="readOnly" value="{{company.url}}">
+    </tr>
+    <tr ng-show="!readOnly">
+        <th></th>
+        <td><button type="button" ng-click="addMedia()">+ Add New</button></td>
+    </tr>
+    <tr ng-repeat="link in company.links track by $index">
+        <th><span ng-show="$index === 0">Learn More</span></th>
+        <td>
+            <input type="text" ng-readonly="readOnly" ng-model="link.text">
+            <button type="button" ng-click="removeMedia($index)" ng-show="!readOnly">Remove</button>
         </td>
-        <td class="location">
-            <input type="text" ng-readonly="readOnly" value="{{company.city}}">
-        </td>
-        <td class="brief-description">
-            <input type="text" ng-readonly="readOnly" value="{{company.briefDescription}}">
-        </td>
+    </tr>
+    <tr ng-show="!readOnly">
+        <th></th>
+        <td><button type="button" ng-click="addLink()">+ Add New</button></td>
     </tr>
 </table>
 
