@@ -27,38 +27,24 @@
         <td><input type="text" ng-readonly="readOnly" ng-model="company.briefDescription"></td>
     </tr>
 
-    <tr ng-show="readOnly && company.media.length === 0">
+    <tr>
         <th>Media</th>
-        <td></td>
-    </tr>
-    <tr ng-repeat="media in company.media track by $index">
-        <th><span ng-show="$index === 0">Media</span></th>
-        <td>
-            <input type="text" ng-readonly="readOnly" ng-model="media.text">
-            <button type="button" ng-click="removeMedia($index)" ng-show="!readOnly">Remove</button>
-        </td>
-    </tr>
-    <tr ng-show="!readOnly">
-        <th ng-show="company.media.length === 0">Media</th>
-        <th ng-show="company.media.length !== 0"></th>
-        <td><button type="button" ng-click="addMedia()">+ Add New</button></td>
+        <td><button type="button" ng-click="addMedia(); readOnly=false">+ Add New</button></td>
     </tr>
 
-    <tr ng-show="readOnly && company.links.length === 0">
+    <tr ng-repeat="media in company.media track by $index">
+        <th></th>
+        <td><input type="text" ng-readonly="readOnly" ng-model="media.text"></td>
+    </tr>
+
+    <tr>
         <th>Learn More</th>
-        <td></td>
+        <td><button type="button" ng-click="addLink(); readOnly=false">+ Add New</button></td>
     </tr>
+
     <tr ng-repeat="link in company.links track by $index">
-        <th><span ng-show="$index === 0">Learn More</span></th>
-        <td>
-            <input type="text" ng-readonly="readOnly" ng-model="link.text">
-            <button type="button" ng-click="removeLink($index)" ng-show="!readOnly">Remove</button>
-        </td>
-    </tr>
-    <tr ng-show="!readOnly">
-        <th ng-show="company.links.length === 0">Learn More</th>
-        <th ng-show="company.links.length !== 0"></th>
-        <td><button type="button" ng-click="addLink()">+ Add New</button></td>
+        <th></th>
+        <td><input type="text" ng-readonly="readOnly" ng-model="link.text"></td>
     </tr>
 </table>
 
