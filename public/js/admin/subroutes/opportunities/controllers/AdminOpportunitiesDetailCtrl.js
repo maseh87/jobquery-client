@@ -32,6 +32,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   $scope.readOnly = true;
   $scope.editButtonText = "+ Edit Opportunity";
   $scope.toggleEdit = function () {
+    if (!$scope.readOnly) { $scope.save(); }
     $scope.readOnly = !$scope.readOnly;
     $scope.editButtonText = $scope.readOnly ? "+ Edit Opportunity" : "Save Opportunity";
   }; 
@@ -40,11 +41,15 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     if ($scope.readOnly) { return null; }
     if (!$scope.opportunity._additions[attribute]) { $scope.opportunity._additions[attribute] = []; }
     $scope.opportunity._additions[attribute].push(object);
-    console.log($scope.opportunity._additions[attribute]);
   };
 
   $scope.save = function () {
-    
+    var _additions = $scope.opportunity._additions;
+    for (var attribute in _additions) {
+      console.log(_additions[attribute]);
+      var newItems = _additions[attribute];
+      newItems.forEach(function(e) { console.log(e); });
+    }
   };
 
   // need to add user.interest on inject

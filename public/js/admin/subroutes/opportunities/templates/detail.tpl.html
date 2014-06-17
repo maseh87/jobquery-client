@@ -29,7 +29,7 @@
                         {{question.text}}
                     </div>
                     <div ng-repeat="newQuestion in opportunity._additions.questions">
-                        <input type="text" ng-readonly="readOnly" ng-model="newQuestions.text">
+                        <input type="text" ng-readonly="readOnly" ng-model="newQuestion.text">
                     </div>
                     <span ng-click="addNew('questions', {text: ''})">+ Add New</span>
                 </td>
