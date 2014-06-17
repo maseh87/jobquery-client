@@ -50,22 +50,22 @@ describe('AdminCandidatesDetailCtrl', function(){
     $httpBackend.flush();
   });
 
-  it('invoking create function with user should send put request', function() {
+  it('invoking update function with user should send put request', function() {
     $httpBackend.expectGET('http://localhost:9000/api/users/1').respond({});
     $httpBackend.expectPUT('http://localhost:9000/api/users/1',{_id : 1}).respond({});
     $scope.update({_id : 1});
     $httpBackend.flush();
   });
 
-  it('invoking create function with user should set saved to true', function() {
+  it('invoking update function with user should set saved to true', function() {
     $httpBackend.expectGET('http://localhost:9000/api/users/1').respond({});
     $httpBackend.expectPUT('http://localhost:9000/api/users/1',{_id : 1}).respond({});
     $scope.update({_id : 1});
     $httpBackend.flush();
-    expect($scope.saved === true).toBe(true);
+    expect($scope.updated === true).toBe(true);
   });
 
-  it('invoking create function with user and a error occurs should set save error to true', function() {
+  it('invoking update function with user and a error occurs should set save error to true', function() {
     $httpBackend.expectGET('http://localhost:9000/api/users/1').respond({});
     $httpBackend.expectPUT('http://localhost:9000/api/users/1',{_id : 1}).respond(500);
     $scope.update({_id : 1});
