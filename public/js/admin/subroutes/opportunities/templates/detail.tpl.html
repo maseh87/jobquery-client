@@ -47,7 +47,7 @@
                 <td>Tags Associated:</td>
                 <td>
                     <div ng-repeat="tag in opportunity.tags">
-                        <select ng-model="tagCollection" ng-options="tag.tagId.name for tag in tagCollection"></select-->
+                        <select ng-model="tag" ng-options="tagName.tagId.name for tagName in tagCollection"></select>
                         <input type="text" ng-readonly="readOnly" ng-model="tag.value" placeholder="Add new tag value">
                         <span ng-show="!readOnly" ng-click="removeItem('tags', tag)">Remove</span>
                     </div>
