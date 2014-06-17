@@ -1,5 +1,5 @@
 describe('AdminCompaniesNewCtrl', function(){
-
+  var SERVER_URL = 'http://jobquery.azurewebsites.net';
   var $httpBackend, scope;
 
   beforeEach(module('jobQuery'));
@@ -28,7 +28,7 @@ describe('AdminCompaniesNewCtrl', function(){
 
   it('should be able to make POST requests', function(){
     var controller = createController();
-    $httpBackend.expectPOST('http://localhost:9000/api/companies').respond({_id: 1});
+    $httpBackend.expectPOST(SERVER_URL + '/api/companies').respond({_id: 1});
     scope.create();
     $httpBackend.flush();
   });
