@@ -1,0 +1,1 @@
+var userOpportunities = opportunities.slice();

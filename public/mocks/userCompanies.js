@@ -1,0 +1,1 @@
+var userCompanies = companies.slice();
