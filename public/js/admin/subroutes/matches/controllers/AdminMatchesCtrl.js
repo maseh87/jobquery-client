@@ -1,3 +1,7 @@
-app.controller('AdminMatchesCtrl', ['$scope', '$state', function($scope, $state){
+app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', function($scope, $state, Match){
+
+  Match.getAll().then(function(matches){
+    $scope.matches = matches.data;
+  });
 
 }]);
