@@ -27,7 +27,7 @@
                 <td>
                     <div ng-repeat="question in opportunity.questions">
                         <input type="text" ng-readonly="readOnly" ng-model="question.text" placeholder="Add new question here">
-                        <span ng-click="removeItem('questions', question)">Remove</span>
+                        <span ng-show="!readOnly" ng-click="removeItem('questions', question)">Remove</span>
                     </div>
                     <span ng-show="!readOnly" ng-click="addNewItem('questions', {text: ''})">+ Add New</span>
                 </td>
@@ -38,7 +38,7 @@
                     <div ng-repeat="link in opportunity.links">
                         <input type="text" ng-readonly="readOnly" ng-model="link.title" placeholder="Add new link title">
                         <input type="text" ng-readonly="readOnly" ng-model="link.url" placeholder="Add new link URL">
-                        <span ng-click="removeItem('links', link)">Remove</span>
+                        <span ng-show="!readOnly" ng-click="removeItem('links', link)">Remove</span>
                     </div>
                     <span ng-show="!readOnly" ng-click="addNewItem('links', {title: '', url: ''})">+ Add New</span>
                 </td>
@@ -47,9 +47,9 @@
                 <td>Tags Associated:</td>
                 <td>
                     <div ng-repeat="tag in opportunity.tags">
-                        <input type="text" ng-readonly="readOnly" ng-model="tag.tagId.name" placeholder="Add new tag name">
+                        <select ng-model="tagCollection" ng-options="tag.tagId.name for tag in tagCollection"></select-->
                         <input type="text" ng-readonly="readOnly" ng-model="tag.value" placeholder="Add new tag value">
-                        <span ng-click="removeItem('tags', tag)">Remove</span>
+                        <span ng-show="!readOnly" ng-click="removeItem('tags', tag)">Remove</span>
                     </div>
                     <span ng-show="!readOnly" ng-click="addNewItem('tag', {tagId: {name: ''}, value: ''})">+ Add New</span>
                 </td>
