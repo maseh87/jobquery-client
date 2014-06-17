@@ -9,13 +9,13 @@ describe('UsersCompaniesDetailCtrl', function(){
     var $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
     $httpBackend = $injector.get('$httpBackend');
-    var Company = $injector.get('Company');
+    var UsersCompany = $injector.get('UsersCompany');
     SERVER_URL = $injector.get('SERVER_URL');
 
     createController = function(){
       return $controller('UsersCompaniesDetailCtrl', {
         $scope: $rootScope.$new(),
-        Company: Company
+        UsersCompany: UsersCompany
       });
     };
 
@@ -27,7 +27,7 @@ describe('UsersCompaniesDetailCtrl', function(){
   });
 
   it('should make a GET request for a single company', function(){
-    $httpBackend.expectGET(SERVER_URL + '/api/companies/1').respond({});
+    $httpBackend.expectGET(SERVER_URL + '/api/public/companies/1').respond({});
     var controller = createController();
     $httpBackend.flush();
   });

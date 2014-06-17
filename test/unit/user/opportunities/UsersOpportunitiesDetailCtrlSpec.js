@@ -8,14 +8,14 @@ describe('UsersOpportunitiesDetailCtrl', function(){
 
     var $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
-    var Opportunity = $injector.get('Opportunity');
+    var UsersOpportunity = $injector.get('UsersOpportunity');
     $httpBackend = $injector.get('$httpBackend');
     SERVER_URL = $injector.get('SERVER_URL');
 
     createController = function(){
       return $controller('UsersOpportunitiesDetailCtrl', {
         $scope: $rootScope.$new(),
-        Opportunity: Opportunity
+        UsersOpportunity: UsersOpportunity
       });
     };
 
@@ -27,7 +27,7 @@ describe('UsersOpportunitiesDetailCtrl', function(){
   });
 
   it('should make a GET request for a single opportunity', function(){
-    $httpBackend.expectGET(SERVER_URL + '/api/opportunities/1').respond({});
+    $httpBackend.expectGET(SERVER_URL + '/api/public/opportunities/1').respond({});
     var controller = createController();
     $httpBackend.flush();
   });
