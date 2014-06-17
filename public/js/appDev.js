@@ -39,6 +39,18 @@ appDev.run(function($httpBackend){
           return ['404'];
         }
         break;
+      case 'public':
+        var resource = route[1];
+        var id = route[2];
+        switch(resource){
+          case 'companies':
+            return id ? ['200', companies[id-1]] : ['200', companies];
+          case 'opportunities':
+            return id ? ['200', opportunities[id-1]] : ['200', opportunities];
+          default:
+            return ['404'];
+        }
+        break;
       default:
         return ['404'];
     }
