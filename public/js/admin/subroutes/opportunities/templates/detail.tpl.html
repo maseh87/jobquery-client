@@ -28,7 +28,10 @@
                     <div ng-repeat="question in opportunity.questions">
                         {{question.text}}
                     </div>
-                    <span ng-click="addNew(question)">+ Add New</span>
+                    <div ng-repeat="newQuestion in opportunity._additions.questions">
+                        <input type="text" ng-readonly="readOnly" ng-model="newQuestions.text">
+                    </div>
+                    <span ng-click="addNew('questions', {text: ''})">+ Add New</span>
                 </td>
             </tr>
             <tr>
@@ -37,7 +40,11 @@
                     <div ng-repeat="link in opportunity.links">
                         {{link.title}}: {{link.url}}
                     </div>
-                    <span ng-click="addNew(link)">+ Add New</span>
+                    <div ng-repeat="newLink in opportunity._additions.links">
+                        <input type="text" ng-readonly="readOnly" ng-model="newLink.title">
+                        <input type="text" ng-readonly="readOnly" ng-model="newLink.url">
+                    </div>
+                    <span ng-click="addNew('links', {title: '', url: ''})">+ Add New</span>
                 </td>
             </tr>
             <tr>
@@ -46,7 +53,11 @@
                     <div ng-repeat="tag in opportunity.tags">
                         {{tag.tagId.name}} {{tag.value}}
                     </div>
-                    <span ng-click="addNew(tag)">+ Add New</span>
+                    <div ng-repeat="newTag in opportunity._additions.tags">
+                        <input type="text" ng-readonly="readOnly" ng-model="newTag.name">
+                        <input type="text" ng-readonly="readOnly" ng-model="newTag.value">
+                    </div>
+                    <span ng-click="addNew('tags', {name: '', value: ''})">+ Add New</span>
                     {{ tagNames }}
                 </td>
             </tr>
