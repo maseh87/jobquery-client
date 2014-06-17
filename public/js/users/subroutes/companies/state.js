@@ -9,12 +9,12 @@ app.config(['$stateProvider', function($stateProvider){
       .state('users.companies.all', {
         url: '',
         templateUrl: '/js/users/subroutes/companies/templates/companies.tpl.html',
-        controller: 'UserCompaniesCtrl'
+        controller: 'UsersCompaniesCtrl'
       })
       .state('users.companies.detail', {
         url: '/:_id',
         templateUrl: '/js/users/subroutes/companies/templates/detail.tpl.html',
-        controller: 'UserCompaniesDetailCtrl'
+        controller: 'UsersCompaniesDetailCtrl'
       });
 
 }]);
