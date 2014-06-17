@@ -1,13 +1,17 @@
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 
-  function($scope, $stateParams, Opportunity, Match) {
+app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag',
+  function($scope, $stateParams, Opportunity, Match, Tag) {
 
   Opportunity.get($stateParams._id).then(function(opportunity){
     $scope.opportunity = opportunity;
-    console.log(opportunity);
+    $scope.opportunity._additions = [];
   });
 
   Match.getAll().then(function(matches){
     $scope.matches = matches;
+  });
+
+  Tag.getAll().then(function(tags) {
+    $scope.tagNames = tags.map(function(tag) { return tag.name; });
   });
 
   $scope.$watch('matches', function(matches) {
@@ -25,13 +29,29 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     });
   });
 
-  $scope.addNew = function (attribute) {
-    
+  $scope.readOnly = true;
+  $scope.editButtonText = "+ Edit Opportunity";
+  $scope.toggleEdit = function () {
+    if (!$scope.readOnly) { $scope.save(); }
+    $scope.readOnly = !$scope.readOnly;
+    $scope.editButtonText = $scope.readOnly ? "+ Edit Opportunity" : "Save Opportunity";
+  }; 
+
+  $scope.addNew = function(attribute, object) {
+    if ($scope.readOnly) { return null; }
+    if (!$scope.opportunity._additions[attribute]) { $scope.opportunity._additions[attribute] = []; }
+    $scope.opportunity._additions[attribute].push(object);
   };
 
-  // need to inject user
-  // need to add user.interest on inject
+  $scope.save = function () {
+    var _additions = $scope.opportunity._additions;
+    for (var attribute in _additions) {
+      console.log(_additions[attribute]);
+      var newItems = _additions[attribute];
+      newItems.forEach(function(e) { console.log(e); });
+    }
+  };
 
-  // need to inject tags
+  // need to add user.interest on inject
 
 }]);
