@@ -5,12 +5,21 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     $scope.opportunity = opportunity;
   });
 
+  // *****
+  // I have to do this crazy ugly logic until we come up with a better way on the backend!
+  // *****
   Match.getAll().then(function(matches){
-    $scope.matches = matches;
+    $scope.matches = matches.data.filter(function(match) {
+      return match.oppId.toString() === $stateParams._id.toString();
+    });
     User.getAll().then(function(users) {
-      $scope.users = users;
       users.forEach(function(user) {
-        user._interest = 
+        // user._interest = $scope.matches.filter(function(match) {
+        //   return match.userId.toString() === user._id.toString();
+        // })[0];
+        $scope.users = $scope.matches.map(function(match) {
+          return match;
+        });
       });
     });
   });
