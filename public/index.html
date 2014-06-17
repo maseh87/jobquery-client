@@ -36,14 +36,20 @@
     <script src="js/core/state.js"></script>
     <script src="js/core/controllers/AppCtrl.js"></script>
 
-    <!-- Models -->
+    <!--Models -->
     <script src="js/core/services/AuthInterceptor.js"></script>
-    <script src="js/core/services/CompanyModel.js"></script>
-    <script src="js/core/services/UserModel.js"></script>
-    <script src="js/core/services/TagModel.js"></script>
-    <script src="js/core/services/OpportunityModel.js"></script>
-    <script src="js/core/services/MessageModel.js"></script>
-    <script src="js/core/services/MatchModel.js"></script>
+
+    <!-- Admin Models -->
+    <script src="js/admin/services/CompanyModel.js"></script>
+    <script src="js/admin/services/UserModel.js"></script>
+    <script src="js/admin/services/TagModel.js"></script>
+    <script src="js/admin/services/OpportunityModel.js"></script>
+    <script src="js/admin/services/MessageModel.js"></script>
+    <script src="js/admin/services/MatchModel.js"></script>
+
+    <!-- User Models -->
+    <script src="js/users/services/UserCompanyModel.js"></script>
+    <script src="js/users/services/UserOpportunityModel.js"></script>
 
     <!-- users -->
     <script src="js/users/state.js"></script>
@@ -137,7 +143,7 @@
     <script src="js/admin/subroutes/tags/controllers/AdminTagsNewCtrl.js"></script>
 
 </head>
-<body ng-app="jobQueryDev" ng-controller="AppCtrl">
+<body ng-app="jobQuery" ng-controller="AppCtrl">
 <div class="container-fluid">
 
     <a ui-sref="users">Users Portal</a>

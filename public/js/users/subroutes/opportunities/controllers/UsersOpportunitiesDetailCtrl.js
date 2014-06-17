@@ -1,7 +1,7 @@
-app.controller('UsersOpportunitiesDetailCtrl', ['$stateParams', '$scope', 'Opportunity', 
-function($stateParams, $scope, Opportunity){
+app.controller('UsersOpportunitiesDetailCtrl', ['$stateParams', '$scope', 'UsersOpportunity', 
+function($stateParams, $scope, UsersOpportunity){
 
-  Opportunity.get($stateParams._id).then(function(opportunity){
+  UsersOpportunity.get($stateParams._id).then(function(opportunity){
     $scope.opportunity = opportunity;
   });
 

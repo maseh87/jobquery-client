@@ -1,6 +1,6 @@
-app.controller('UsersOpportunitiesCtrl', ['$scope', 'Opportunity', function($scope, Opportunity){
+app.controller('UsersOpportunitiesCtrl', ['$scope', 'UsersOpportunity', function($scope, UsersOpportunity){
 
-  Opportunity.getAll().then(function(opportunities){
+  UsersOpportunity.getAll().then(function(opportunities){
     $scope.opportunities = opportunities;
   });
 

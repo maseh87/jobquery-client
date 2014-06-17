@@ -1,6 +1,6 @@
-app.controller('UsersCompaniesCtrl', ['$scope', 'Company', function($scope, Company){
+app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', function($scope, UsersCompany){
 
-  Company.getAll().then(function(companies){
+  UsersCompany.getAll().then(function(companies){
     $scope.companies = companies;
   });
 
