@@ -2,7 +2,7 @@ app.factory('UserResource', ['$resource', 'SERVER_URL', function($resource, SERV
   return $resource(SERVER_URL + '/api/users/:_id', null, {update: {method: 'PUT'}});
 }]);
 
-app.factory('User', ['UserResource', function(UserResource){
+app.factory('User', ['UserResource', 'SERVER_URL', '$http' ,function(UserResource, SERVER_URL, $http){
   var userMethods = {};
 
   userMethods.getAll = function(){
@@ -20,6 +20,10 @@ app.factory('User', ['UserResource', function(UserResource){
 
   userMethods.update = function(user){
     return UserResource.update({_id: user._id}, user).$promise;
+  };
+
+  userMethods.invite = function(emails){
+    return $http.post(SERVER_URL + '/api/invite', emails);
   };
 
   return userMethods;
