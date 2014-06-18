@@ -14,11 +14,11 @@ app.controller('AdminCompaniesNewCtrl', ['$scope', 'Company', function($scope, C
 
   var removeEmptyFields = function(){
     newCompany.media = newCompany.media.filter(function(item){
-      return item.text;
+      return item.caption && item.url;
     });
 
     newCompany.links = newCompany.links.filter(function(item){
-      return item.text;
+      return item.title && item.url;
     });
   };
 

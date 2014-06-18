@@ -7,11 +7,11 @@ app.controller('AdminCompaniesDetailCtrl', ['$scope', 'Company', '$stateParams',
 
   var removeEmptyFields = function(){
     $scope.company.media = $scope.company.media.filter(function(item){
-      return item.text;
+      return item.caption && item.url;
     });
 
     $scope.company.links = $scope.company.links.filter(function(item){
-      return item.text;
+      return item.title && item.url;
     });
   };
 

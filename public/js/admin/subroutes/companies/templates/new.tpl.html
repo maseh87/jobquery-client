@@ -41,7 +41,8 @@
         </tr>
         <tr ng-repeat="media in newCompany.media track by $index">
             <th></th>
-            <td><input type="text" ng-model="media.text"></td>
+            <td><input type="text" ng-model="media.caption" placeholder="caption"></td>
+            <td><input type="text" ng-model="media.url" placeholder="url"></td>
             <td>
                 <button type="button" ng-click="removeMedia($index)">Remove</button>
             </td>
@@ -54,7 +55,8 @@
         </tr>
         <tr ng-repeat="link in newCompany.links track by $index">
             <th></th>
-            <td><input type="text" ng-model="link.text"></td>
+            <td><input type="text" ng-model="link.title" placeholder="title"></td>
+            <td><input type="text" ng-model="link.url" placeholder="url"></td>
             <td>
                 <button type="button" ng-click="removeLink($index)">Remove</button>
             </td>
