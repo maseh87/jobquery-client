@@ -24,6 +24,15 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
     });
   });
 
+  $scope.groups = {};
+  $scope.attributes = [];
+  $scope.viewToModel = function () {
+
+  };
+  $scope.modelToView = function () {
+
+  };
+
 }]);
 
 /*

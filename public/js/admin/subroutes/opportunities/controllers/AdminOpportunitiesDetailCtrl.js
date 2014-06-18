@@ -39,24 +39,22 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     $scope.editButtonText = $scope.readOnly ? "+ Edit Opportunity" : "Save Opportunity";
   }; 
 
-  $scope.addNewItem = function (attribute, field) {
-    if ($scope.readOnly) { return null; }
-    $scope.opportunity[attribute].push(field);
-  };
-
-  $scope.removeItem = function (attribute, item) {
-    if ($scope.readOnly) { return null; }
-    $scope.opportunity[attribute].forEach(function(elem, i, a) {
-      if (elem.$$hashKey === item.$$hashKey) { a.splice(i, 1); }
-    });
-  };
-
   $scope.save = function () {
     Opportunity.update($scope.opportunity).then(function(data){
       console.log('Update successful');
     });
   };
 
+  $scope.basic = {};
+  $scope.guidance = {};
+  $scope.declared = [];
+  $scope.viewToModel = function () {
+
+  };
+  $scope.modelToView = function () {
+
+  };
+  
   $scope.removeFrom = function (array, item, idKey) {
     array = array.filter(function(elem) {
       return idKey ? elem[idKey] !== item[idKey] : elem !== item;
@@ -66,6 +64,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   $scope.addTo = function (array, field) {
     array.push(field);
   };
+
 
 }]);
 

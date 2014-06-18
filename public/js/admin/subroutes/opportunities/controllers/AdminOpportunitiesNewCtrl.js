@@ -1,39 +1,41 @@
 app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportunity',  
   function($scope, $stateParams, Opportunity) {
 
-  $scope.opportunity = {
-    active: true,
-    company: {},
-    jobTitle: '',
-    description: '',
-    tags: [],
-    links: [],
-    notes: [],
-    internalNotes: [],
-    questions: [],
-    survey: [],
-    category: {}
-  };
-
-  $scope.readOnly = false;
-  $scope.editButtonText = "+ Save Opportunity";
-
-  $scope.addNewItem = function (attribute, field) {
-    if ($scope.readOnly) { return null; }
-    $scope.opportunity[attribute].push(field);
-  };
-
-  $scope.removeItem = function (attribute, item) {
-    if ($scope.readOnly) { return null; }
-    $scope.opportunity[attribute].forEach(function(elem, i, a) {
-      if (elem.$$hashKey === item.$$hashKey) { a.splice(i, 1); }
-    });
-  };
-
   $scope.create = function () {
     Opportunity.update($scope.opportunity).then(function(data){
       console.log('Update successful');
     });
+  };
+
+  $scope.removeFrom = function (array, item, idKey) {
+    array = array.filter(function(elem) {
+      return idKey ? elem[idKey] !== item[idKey] : elem !== item;
+    });
+  };
+
+  $scope.addTo = function (array, field) {
+    array.push(field);
+  };
+
+  $scope.viewToModel = function () {
+
+  };
+
+  $scope.basic = {
+    description: "",
+    company: "",
+    title: "",
+    location: "",
+    url: "",
+    learnMore: [""],
+    active: true,
+    group: "",
+    internal: ""
+  };
+
+  $scope.guidance = {
+    questions: [""],
+    tags: [{ name: '', value: 0 }]
   };
 
 }]);
