@@ -1,30 +1,33 @@
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag',
-  function($scope, $stateParams, Opportunity, Match, Tag) {
+app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'User', 
+  function($scope, $stateParams, Opportunity, Match, Tag, User) {
 
   Opportunity.get($stateParams._id).then(function(opportunity){
     $scope.opportunity = opportunity;
   });
 
-  Match.getAll().then(function(matches){
-    $scope.matches = matches;
-  });
-
+  // *****
+  // I have to do this crazy ugly logic until we come up with a better way on the backend!
+  // *****
   Tag.getAll().then(function(tags) {
     $scope.tagCollection = tags;
-  });
-
-  $scope.$watch('matches', function(matches) {
-    var interest = {};
-    if (!matches) return null;
-    if (!$scope.opportunities) return null;
-
-    matches.data.forEach(function (match) {
-      if (!interest[match.oppId]) { interest[match.oppId] = 0; }
-      if (match.userInterest >= 3) { interest[match.oppId]++; }
-    });
-
-    $scope.opportunities.forEach(function (opportunity) {
-      opportunity.userInterest = interest[opportunity._id];
+    Match.getAll().then(function(matches){
+      $scope.users = [];
+      $scope.matches = matches.data.filter(function (match) {
+        return match.oppId.toString() === $stateParams._id.toString();
+      });
+      $scope.matches.forEach(function (match) {
+        var user = {};
+        user._name = match.userId.name;
+        user._email = match.userId.email;
+        user._interest = match.userInterest;
+        user._attributes = match.oppId.tags.map(function (matchTag) {
+          var traitMatches = match.userId.tags.filter(function (userTag) {
+            return userTag.tagId.name === matchTag.tagId.name;
+          })[0];
+          return traitMatches.length === 0 ? 0 : traitMatches[0];
+        });
+        $scope.users.push(user);
+      });
     });
   });
 
