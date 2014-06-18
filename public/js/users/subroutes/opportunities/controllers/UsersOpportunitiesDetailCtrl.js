@@ -5,4 +5,10 @@ function($stateParams, $scope, UsersOpportunity){
     $scope.opportunity = opportunity;
   });
 
+  $scope.submit = function(){
+    UsersOpportunity.update($scope.opportunity).then(function(opportunity){
+      console.log('Interest updated successfully');
+    });
+  };
+
 }]);
