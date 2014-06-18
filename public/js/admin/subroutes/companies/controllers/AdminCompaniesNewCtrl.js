@@ -1,4 +1,4 @@
-app.controller('AdminCompaniesNewCtrl', ['$scope', 'Company', function($scope, Company){
+app.controller('AdminCompaniesNewCtrl', ['$scope', 'Company', '$state', function($scope, Company, $state){
 
   var newCompany = {};
   newCompany.name = '';
@@ -25,7 +25,7 @@ app.controller('AdminCompaniesNewCtrl', ['$scope', 'Company', function($scope, C
   $scope.create = function(){
     removeEmptyFields();
     Company.create(newCompany).then(function(company){
-      $scope.created = true;
+      $state.go('admin.companies.detail', {_id: company._id});
     });
   };
 
