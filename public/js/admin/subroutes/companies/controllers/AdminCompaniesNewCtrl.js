@@ -2,10 +2,12 @@ app.controller('AdminCompaniesNewCtrl', ['$scope', 'Company', function($scope, C
 
   var newCompany = {};
   newCompany.name = '';
-  newCompany.location = '';
-  newCompany.url = '';
   newCompany.tagline = '';
-  newCompany.briefDescription = '';
+  newCompany.description = '';
+  newCompany.city = '';
+  newCompany.address = '';
+  newCompany.state = '';
+  newCompany.country = '';
   newCompany.media = [];
   newCompany.links = [];
   $scope.newCompany = newCompany;
