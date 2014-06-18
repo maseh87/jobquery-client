@@ -25,3 +25,35 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
   });
 
 }]);
+
+/*
+$scope.groups = {};
+$scope.attributes = [];
+
+// each controller has its own model-view-mapper
+
+// what i need the model data mapped to
+$scope.groups = {
+  'attending': [ opp1, opp2 ],
+  'cancelled': [ opp3, opp4 ]
+};
+
+var opp1 = {
+  _id: 1,
+  company: "Google",
+  declared: 56,
+  interested: 34,
+  url: "www.google.ca",
+  title: "Front-end Engineer",
+  location: "San Francisco"
+};
+
+$scope.attributes = [attr1, attr2];
+var attr1 = {
+  _id: 1,
+  name: "UI/UX",
+  question: "How strong are ou with Ui/UX?"
+  labels: ["Weak", "Below Avg", "Exp.", "Strong"]
+};
+
+*/
