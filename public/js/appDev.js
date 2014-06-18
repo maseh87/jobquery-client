@@ -9,8 +9,8 @@ appDev.run(function($httpBackend){
       var resource = route[1];
       var id = route[2];
       if(resource === 'opportunities'){
-        userOpportunities[id].match = JSON.parse(data);
-        return ['200', userOpportunities[id]];
+        userOpportunities[id-1].match = JSON.parse(data);
+        return ['200', userOpportunities[id-1]];
       }
     }
     return ['200', {}];
