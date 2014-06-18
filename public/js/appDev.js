@@ -58,6 +58,8 @@ appDev.run(function($httpBackend){
             return id ? ['200', userCompanies[id-1]] : ['200', userCompanies];
           case 'opportunities':
             return id ? ['200', userOpportunities[id-1]] : ['200', userOpportunities];
+          case 'account':
+            return ['200', userAccount];
           default:
             return ['404'];
         }

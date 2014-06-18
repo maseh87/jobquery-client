@@ -1,0 +1,15 @@
+var userAccount = {};
+userAccount.email = 'test@email.com';
+userAccount.name = 'Test User';
+userAccount.website = 'www.example.com';
+userAccount.github = 'https://github.com/testuser';
+userAccount.linkedin = 'linkedin.com/in/testuser'
+userAccount.searchStage = 'Early';
+userAccount.tags = [];
+userAccount.city = 'San Francisco';
+userAccount.state = 'California';
+userAccount.country = 'United States';
+userAccount.category = 'HR 13';
+var date = faker.Date.recent(5);
+userAccount.createdAt = date;
+userAccount.updatedAt = date;

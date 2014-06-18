@@ -1,3 +1,38 @@
-<h3>User.Account Template</h3>
+<h1>Profile Information</h1>
+<h2>View or Edit Your Profile</h2>
 
-<div ui-view></div>
+<div>
+    <h3>Job Search Status</h3>
+    <input type="radio" id="radio1" value="1" name="searchStage" ng-model="user.searchStage">
+    <label for="radio1" type="radio" id="radio1">Early</label>
+    <input type="radio" id="radio2" value="2" name="searchStage" ng-model="user.searchStage">
+    <label for="radio2" type="radio" id="radio2">Mid</label>
+    <input type="radio" id="radio3" value="3" name="searchStage" ng-model="user.searchStage">
+    <label for="radio3" type="radio" id="radio3">Late</label>
+    <input type="radio" id="radio4" value="4" name="searchStage" ng-model="user.searchStage">
+    <label for="radio4" type="radio" id="radio4">Closed</label>
+</div>
+
+<button ng-init="readOnly=true" ng-click="readOnly=false" ng-show="readOnly">+ Edit Profile</button>
+<button ng-click="readOnly=true; update()" ng-show="!readOnly">Save Profile</button>
+
+<table>
+    <tr>
+        <th>Name:</th>
+        <td><input type="text" ng-readonly="readOnly" ng-model="user.name"></td>
+    </tr>
+    <tr>
+        <th>Email:</th>
+        <td><input type="text" ng-readonly="readOnly" ng-model="user.email"></td>
+    </tr>
+    <tr>
+        <th>Github:</th>
+        <td><input type="text" ng-readonly="readOnly" ng-model="user.github"></td>
+    </tr>
+    <tr>
+        <th>Personal Website:</th>
+        <td><input type="text" ng-readonly="readOnly" ng-model="user.website"></td>
+    </tr>
+</table>
+
+<h3>Candidate Survey</h3>
