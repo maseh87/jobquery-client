@@ -44,7 +44,8 @@
     <tr ng-repeat="media in company.media track by $index">
         <th></th>
         <td>
-            <input type="text" ng-readonly="readOnly" ng-model="media.text">
+            <input type="text" ng-readonly="readOnly" ng-model="media.caption">
+            <input type="text" ng-readonly="readOnly" ng-model="media.url">
             <button type="button" ng-click="removeMedia($index)" ng-show="!readOnly">Remove</button>
         </td>
     </tr>
@@ -57,7 +58,8 @@
     <tr ng-repeat="link in company.links track by $index">
         <th></th>
         <td>
-            <input type="text" ng-readonly="readOnly" ng-model="link.text">
+            <input type="text" ng-readonly="readOnly" ng-model="link.title">
+            <input type="text" ng-readonly="readOnly" ng-model="link.url">
             <button type="button" ng-click="removeLink($index)" ng-show="!readOnly">Remove</button>
         </td>
     </tr>
