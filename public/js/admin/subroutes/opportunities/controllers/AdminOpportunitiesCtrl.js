@@ -24,6 +24,14 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
     });
   });
 
+  $scope.toggleEdit = function (attribute) {
+    attribute.editable = !attribute.editable;
+  };
+
+  $scope.addTo = function (array, field) {
+    array.push(field);
+  };
+
   $scope.groups = {};
   $scope.attributes = [];
   $scope.viewToModel = function () {
