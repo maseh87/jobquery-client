@@ -6,8 +6,9 @@ function($stateParams, $scope, UsersOpportunity){
   });
 
   $scope.submit = function(){
+    $scope.opportunity.match.interest = parseInt($scope.opportunity.match.interest);
     UsersOpportunity.update($scope.opportunity).then(function(opportunity){
-      console.log('Interest updated successfully');
+      console.log(opportunity);
     });
   };
 

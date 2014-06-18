@@ -3,7 +3,18 @@ var appDev = angular.module('jobQueryDev', ['jobQuery', 'ngMockE2E']);
 appDev.run(function($httpBackend){
 
   $httpBackend.whenPOST(/api/).respond({});
-  $httpBackend.whenPUT(/api/).respond({});
+  $httpBackend.whenPUT(/api/).respond(function(request, url, data, headers){
+    var route = url.split('/').slice(4);
+    if(route[0] === 'public'){
+      var resource = route[1];
+      var id = route[2];
+      if(resource === 'opportunities'){
+        userOpportunities[id].match = JSON.parse(data);
+        return ['200', userOpportunities[id]];
+      }
+    }
+    return ['200', {}];
+  });
   $httpBackend.whenGET(/api/).respond(function(request, url){
 
     var route = url.split('/').slice(4);
