@@ -3,7 +3,7 @@
 
 <div class="section container-fluid">
     <div class="row">
-        <span ng-click="toggleEdit()">{{ editButtonText }}</span>
+        <span ng-click="create()">{{ editButtonText }}</span>
         <span>{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</span>
     </div>
     <div class="row">
@@ -56,31 +56,5 @@
             </tr>
             </table>
         </div>
-    </div>
-</div>
-
-<div class="section container-fluid">
-    <div class="row">
-        <span>Candidates</span>
-    </div>
-    <div class="row">
-        <table>
-        <thead>
-            <th></th><!-- Empty table header-->
-            <th>Name</th>
-            <th>E-mail</th> 
-            <th>Interest</th>
-            <th ng-repeat="tag in opportunity.tags">{{ tag.tagId.name }}</th>
-        </thead>
-        <tbody>
-            <tr ng-repeat="user in interestedUsers">
-            <td>Detail</td>
-            <td>{{ user._name }}</td>
-            <td>{{ user._email }}</td>
-            <td>{{ user._interest }}</td>
-            <td ng-repeat="attribute in user._attributes">{{ attribute }}</td>
-            <div>BLANK</div>
-            </tr>
-        </tbody>
     </div>
 </div>
