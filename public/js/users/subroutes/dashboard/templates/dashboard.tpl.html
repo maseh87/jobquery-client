@@ -1,1 +1,46 @@
-<h1>Users Dashboard Template</h1>
+<h1 class="body-heading">Dashboard</h1>
+
+<div class="section container-fluid">
+    <div class="row">
+        <span>{{ opportunities[0].company.name }}: {{ opportunities[0].jobTitle }}</span>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">{{ opportunities[0].description }}</div>
+        <div class="col-xs-6">
+            <table>
+                <tr>
+                    <td>Company:</td>
+                    <td>{{opportunities[0].company.name}}</td>
+                </tr>
+                <tr>
+                    <td>Title:</td>
+                    <td>{{opportunities[0].jobTitle}}</td>
+                </tr>
+                <tr>
+                    <td>URL:</td>
+                    <td>{{opportunities[0].links[0]}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<form ng-submit="submit()">
+    <h2>Interest</h2>
+    <input type="radio" id="radio1" value="1" name="interest" ng-model="opportunities[0].match.interest">
+    <label for="radio1" type="radio" id="radio1">1</label>
+    <input type="radio" id="radio2" value="2" name="interest" ng-model="opportunities[0].match.interest">
+    <label for="radio2" type="radio" id="radio2">2</label>
+    <input type="radio" id="radio3" value="3" name="interest" ng-model="opportunities[0].match.interest">
+    <label for="radio3" type="radio" id="radio3">3</label>
+    <input type="radio" id="radio4" value="4" name="interest" ng-model="opportunities[0].match.interest">
+    <label for="radio4" type="radio" id="radio4">4</label>
+
+    <h2>Questions</h2>
+    <div ng-repeat="question in opportunities[0].questions track by $index">
+        <p>{{question.text}}</p>
+        <textarea rows="3" cols="80" ng-model="opportunities[0].match.answers[$index]"></textarea>
+    </div>
+
+    <input type="submit">
+</form>
