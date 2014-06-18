@@ -1,14 +1,5 @@
-<h3>Admin.Matches Template</h3>
-
-<table>
-    <tr>
-        <th>User Id</th>
-        <th>Opp Id</th>
-        <th>User Interest</th>
-    </tr>
-    <tr ng-repeat="match in matches">
-        <td>{{match.userId}}</td>
-        <td>{{match.oppId}}</td>
-        <td>{{match.userInterest}}</td>
+<table class="table">
+    <tr ng-repeat="candidate in matrix track by $index">
+        <td ng-repeat="opportunity in candidate track by $index">{{opportunity || 0}}</td>
     </tr>
 </table>
