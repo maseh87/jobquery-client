@@ -10,13 +10,12 @@ app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function(User, $scop
         emailStrings.split(',').forEach( function (email){
           emails.push(email);
         });
-        User.create(emails);
+        User.invite(emails);
       } else {
-        User.create([emailStrings]);
+        User.invite([emailStrings]);
       }
     }
     //empty emailStrings input
-
     $scope.emailStrings = "";
   };
 

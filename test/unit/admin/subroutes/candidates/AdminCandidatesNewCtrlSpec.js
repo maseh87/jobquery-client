@@ -47,14 +47,14 @@ describe('AdminCandidatesNewCtrl', function(){
 
   it('sendEmails should make one post request when one email address passed in', function() {
     var email = 'test@test.com';
-    $httpBackend.expectPOST(SERVER_URL + '/api/users', {'0':'test@test.com'}).respond({});
+    $httpBackend.expectPOST(SERVER_URL + '/api/invite', '["test@test.com"]').respond({});
     $scope.sendEmails(email);
     $httpBackend.flush();
   });
 
   it('sendEmails should make two post request when two email address passed in', function() {
     var email = 'test@test.com,test1@test.com';
-    $httpBackend.expectPOST(SERVER_URL + '/api/users', {'0':'test@test.com', '1': 'test1@test.com'}).respond({});
+    $httpBackend.expectPOST(SERVER_URL + '/api/invite', '["test@test.com","test1@test.com"]').respond({});
     $scope.sendEmails(email);
     $httpBackend.flush();
   });
@@ -62,7 +62,7 @@ describe('AdminCandidatesNewCtrl', function(){
   it('sendEmails should reset $scope.emails to empty string', function() {
     $scope.emails = 'test@test.com,test1@test.com';
     var email = 'test@test.com,test1@test.com';
-    $httpBackend.expectPOST(SERVER_URL + '/api/users', {'0':'test@test.com', '1': 'test1@test.com'}).respond({});
+    $httpBackend.expectPOST(SERVER_URL + '/api/invite', '["test@test.com","test1@test.com"]').respond({});
     $scope.sendEmails(email);
     $httpBackend.flush();
 

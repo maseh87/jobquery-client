@@ -90,6 +90,12 @@ describe('Rest', function(){
       $httpBackend.flush();
     });
 
+    it('should make a POST request when inviting ', function(){
+      $httpBackend.expectPOST(SERVER_URL + '/api/invite','["a@b.ie"]').respond({});
+      User.invite(["a@b.ie"]);
+      $httpBackend.flush();
+    });
+
   });
 
   describe('Message', function(){
