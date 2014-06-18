@@ -32,6 +32,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   });
 
   $scope.readOnly = true;
+  $scope.editButtonText = "+ Edit Opportunity";
   $scope.toggleEdit = function () {
     if (!$scope.readOnly) { $scope.save(); }
     $scope.readOnly = !$scope.readOnly;
