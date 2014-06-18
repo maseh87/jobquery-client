@@ -6,6 +6,8 @@ app
       return $http({
         method: 'GET',
         url: SERVER_URL + '/api/matches'
+      }).then(function(response){
+        return response.data;
       });
     };
 
@@ -13,6 +15,8 @@ app
       return $http({
         method: 'GET',
         url: SERVER_URL + '/api/matches/users/' + opportunityId
+      }).then(function(response){
+        return response.data;
       });
     };
 
@@ -20,7 +24,9 @@ app
       return $http({
         method: 'GET',
         url: SERVER_URL + '/api/matches/opportunities/' + userId
-      })
+      }).then(function(response){
+        return response.data;
+      });
     };
 
     return matchMethods;
