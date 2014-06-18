@@ -32,7 +32,6 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   });
 
   $scope.readOnly = true;
-  $scope.editButtonText = "+ Edit Opportunity";
   $scope.toggleEdit = function () {
     if (!$scope.readOnly) { $scope.save(); }
     $scope.readOnly = !$scope.readOnly;
@@ -57,6 +56,16 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     });
   };
 
+  $scope.removeFrom = function (array, item, idKey) {
+    array = array.filter(function(elem) {
+      return idKey ? elem[idKey] !== item[idKey] : elem !== item;
+    });
+  };
+
+  $scope.addTo = function (array, field) {
+    array.push(field);
+  };
+
 }]);
 
 /*
@@ -72,16 +81,16 @@ $scope.basic = {
   title: "string",
   location: "string",
   url: "url",
-  learnmore: [url1, url2, url3],
+  learnMore: [url1, url2, url3],
   active: true,
   group: "true",
   internal: "string"
 };
-var url1 = "url1";
+var url1 = "www.google.ca";
 
 $scope.guidance = {
   questions: ["question1", "question2"],
-  tags: [["algorithms", 4],["ui/ux", 3]
+  tags: [tag1, tag2]
 };
 
 $scope.declared = [ cand1, cand2 ];
@@ -89,8 +98,13 @@ var cand1 = {
   name: "",
   email: "",
   interest: "",
-  tags: [[],[],[]]
+  tags: [tag1, tag2, tag3]
 };
+
+var tag = {
+  name: 'algorithms',
+  value: 3
+}
 
 description, company, title, location, url, learnmore[], active, group, internal
 
