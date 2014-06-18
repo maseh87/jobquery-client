@@ -1,34 +1,45 @@
 <h1>Company Dossier</h1>
 
-<p>Company Information</p>
-
 <table class="table table-striped table-condensed">
     <tr>
         <th>Company Name:</th>
         <td>{{company.name}}</td>
     </tr>
     <tr>
-        <th>Location:</th>
-        <td>{{company.city}}</td>
-    </tr>
-    <tr>
-        <th>URL:</th>
-        <td>{{company.url}}</td>
-    </tr>
-    <tr>
         <th>Tagline:</th>
         <td>{{company.tagline}}</td>
     </tr>
     <tr>
-        <th>Brief Description:</th>
-        <td>{{company.briefDescription}}</td>
+        <th>Description</th>
+        <td>{{company.description}}</td>
     </tr>
-
     <tr>
-        <th>Learn More</th>
-        <td>{{company.links[0]}}</td>
+        <th>Address</th>
+        <td>{{company.address}}</td>
+    </tr>
+    <tr>
+        <th>City</th>
+        <td>{{company.city}}</td>
+    </tr>
+    <tr>
+        <th>State</th>
+        <td>{{company.state}}</td>
+    </tr>
+    <tr>
+        <th>Country</th>
+        <td>{{company.country}}</td>
+    </tr>
+    <tr>
+
+    <tr ng-repeat="media in company.media track by $index">
+        <th ng-show="$index === 0">Media</th>
+        <td>{{media.caption}}: {{media.url}}</td>
     </tr>
 
+    <tr ng-repeat="link in company.links track by $index">
+        <th ng-show="$index === 0">Links</th>
+        <td>{{link.title}}: {{link.url}}</td>
+    </tr>
 </table>
 
 <p>Associated Opportunities</p>
@@ -40,7 +51,6 @@
             <tr>
                 <th></th><!-- empty table header -->
                 <th>Name</th>
-                <th>Interested Candidates</th>
                 <th>URL</th>
                 <th>Title</th>
                 <th>Location</th>
@@ -48,10 +58,9 @@
         </thead>
         <tbody>
             <tr ng-repeat="opportunity in opportunities">
-                <td><a ui-sref="users.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
+                <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
                 <td>{{ opportunity.company.name }}</td>
-                <td>{{ opportunity.userInterest }}</td>
-                <td>{{ opportunity.links[0] }}</td>
+                <td>{{ opportunity.links[0].url }}</td>
                 <td>{{ opportunity.jobTitle }}</td>
                 <td>{{ opportunity.company.city }}</td>
             </tr>
