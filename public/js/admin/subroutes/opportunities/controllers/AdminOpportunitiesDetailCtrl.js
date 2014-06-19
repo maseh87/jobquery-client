@@ -44,21 +44,29 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
       return {name: tagData.tag.name, value: tagData.score};
     });
     $scope.guidance = guidance;
-/*
-var cand1 = {
-  name: "",
-  email: "",
-  interest: "",
-  tags: [tag1, tag2, tag3]
-};
-*/
+
     var declared = [];
     var candidates = {};
-    userData.forEach(function(userData) {
-      var candidate = {};
-      candidate._id = ;
-      candidate.email = ;
-      candidates[userData._id] = candidate;
+    userData.forEach(function (userModel) {
+      var user = {};
+      user._id = ;
+      user.email = ;
+      user.tags = userModel.tags.filter(function (tagModel) {
+        return guidance.tags.some(function (guidanceTag) {
+          return guidanceTag.name === tagModel.tag.name;
+        });
+      }).map(function (tagModel) {
+        return {name: tagModel.tag.name, value: tagModel.score};
+      });
+      candidates[userModel._id] = user;
+    });
+    matchData.forEach(function (matchModel) {
+      if (matchModel.opportunity._id !== $stateParams._id) { return null; }
+      candidates[match.user._id].interest = matchModel.userInterest;
+    });
+
+    declared = candidates.filter(function (candidate) {
+      return candidate.interest >= 0;
     });
     $scope.declared = declared;
   };
