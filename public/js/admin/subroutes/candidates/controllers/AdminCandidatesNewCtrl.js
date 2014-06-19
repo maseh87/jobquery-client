@@ -12,7 +12,12 @@ app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function(User, $scop
         });
         User.invite(emails);
       } else {
-        User.invite([emailStrings]);
+        User.invite([emailStrings])
+          .then(function(err, data) {
+            console.log(err, data);
+          }, function(err, data) {
+            $scope.errorEmails = data;
+          });
       }
     }
     //empty emailStrings input
