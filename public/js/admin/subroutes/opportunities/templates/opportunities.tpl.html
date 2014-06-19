@@ -32,34 +32,4 @@
             </table>
         </div>
     </div>
-
-    <div class="section container-fluid">
-        <div class="row">
-            <span><a ui-sref="addTo(attributes, {_id: -1, name: "", question: "", labels: ["", "", "", ""], editable: true})">+ New Attribute</a></span>
-            <span>Guidance Attributes</span>
-        </div>
-        <div class="row">
-            <table>
-            <thead>
-                <tr>
-                    <th></th><!-- empty table header -->
-                    <th>Name</th>
-                    <th>Survey Question</th>
-                    <th>Label 1</th>
-                    <th>Label 2</th>
-                    <th>Label 3</th>
-                    <th>Label 4</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="attribute in attributes">
-                    <td><span ng-click="toggleEdit(attribute)" ng-readonly="attribute.editable">Edit</span></td>
-                    <td>{{ attribute.name }}</td>
-                    <td>{{ attribute.question }}</td>
-                    <td ng-repeat="label in attribute.labels">{{ label }}</td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
-    </div>
 </div>

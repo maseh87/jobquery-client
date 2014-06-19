@@ -2,31 +2,12 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   function($scope, $stateParams, Opportunity, Match, Tag, User) {
 
   Opportunity.get($stateParams._id).then(function(opportunity){
-    $scope.opportunity = opportunity;
-  });
-
-  // *****
-  // I have to do this crazy ugly logic until we come up with a better way on the backend!
-  // *****
-  Tag.getAll().then(function(tags) {
-    $scope.tagCollection = tags;
-    Match.getAll().then(function(matches){
-      $scope.users = [];
-      $scope.matches = matches.data.filter(function (match) {
-        return match.oppId.toString() === $stateParams._id.toString();
-      });
-      $scope.matches.forEach(function (match) {
-        var user = {};
-        user._name = match.userId.name;
-        user._email = match.userId.email;
-        user._interest = match.userInterest;
-        user._attributes = match.oppId.tags.map(function (matchTag) {
-          var traitMatches = match.userId.tags.filter(function (userTag) {
-            return userTag.tagId.name === matchTag.tagId.name;
-          })[0];
-          return traitMatches.length === 0 ? 0 : traitMatches[0];
-        });
-        $scope.users.push(user);
+    Match.getAll().then(function(matches) {
+      User.getAll().then(function(users) {
+        console.log(opportunity);
+        console.log(matches);
+        console.log(users);
+        $scope.mapToView(opportunity, matches, users);
       });
     });
   });
@@ -39,22 +20,56 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     $scope.editButtonText = $scope.readOnly ? "+ Edit Opportunity" : "Save Opportunity";
   }; 
 
+  $scope.basic = {};
+  $scope.guidance = {};
+  $scope.declared = [];
+  $scope.mapToView = function (oppData, matchData, userData) {
+    var basicInfo = {};
+    basicInfo.description = oppData.description;
+    basicInfo.company = oppData.company.name;
+    basicInfo.title = oppData.jobTitle;
+    basicInfo.location = oppData.company.city;
+    basicInfo.url = oppData.company.links[0];
+    basicInfo.learnMore = oppData.links.map(function(linkData) { return linkData.url; });
+    basicInfo.active = oppData.active;
+    basicInfo.group = oppData.category.name;
+    basicInfo.internal = oppData.internalNotes[0].text;
+    $scope.basic = basicInfo;
+
+    var guidance = {};
+    guidance.questions = oppData.questions.map(function(questionData) { return questionData.question; });
+    guidance.tags = oppData.tags.filter(function (tagData) {
+      return tagData.score >= 3;
+    }).map(function (tagData) {
+      return {name: tagData.tag.name, value: tagData.score};
+    });
+    $scope.guidance = guidance;
+/*
+var cand1 = {
+  name: "",
+  email: "",
+  interest: "",
+  tags: [tag1, tag2, tag3]
+};
+*/
+    var declared = [];
+    var candidates = {};
+    userData.forEach(function(userData) {
+      var candidate = {};
+      candidate._id = ;
+      candidate.email = ;
+      candidates[userData._id] = candidate;
+    });
+    $scope.declared = declared;
+  };
+
   $scope.save = function () {
-    Opportunity.update($scope.opportunity).then(function(data){
+    var oppData = {};
+    Opportunity.update(oppData).then(function(data){
       console.log('Update successful');
     });
   };
 
-  $scope.basic = {};
-  $scope.guidance = {};
-  $scope.declared = [];
-  $scope.viewToModel = function () {
-
-  };
-  $scope.modelToView = function () {
-
-  };
-  
   $scope.removeFrom = function (array, item, idKey) {
     array = array.filter(function(elem) {
       return idKey ? elem[idKey] !== item[idKey] : elem !== item;
@@ -64,8 +79,6 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   $scope.addTo = function (array, field) {
     array.push(field);
   };
-
-
 }]);
 
 /*
