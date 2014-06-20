@@ -1,6 +1,6 @@
-app.controller('UsersAccountCtrl', ['$scope', 'UsersAccount', 'Tag', function($scope, UsersAccount, Tag){
+app.controller('UsersAccountCtrl', ['$scope','$stateParams' ,'UsersAccount', 'Tag', function($scope, $stateParams, UsersAccount, Tag){
 
-  UsersAccount.get().then(function(user){
+  UsersAccount.get($stateParams._id).then(function(user){
     $scope.user = user;
   });
 

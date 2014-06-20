@@ -8,11 +8,11 @@ body {
     width: 100%; left: 0px;
     height: 100%; top: 0px;
 }
-.login-splash { 
+.login-splash {
     display: table;
     background-color: #5598c1;
 }
-.login-bg { 
+.login-bg {
     z-index: 1;
     opacity: 0.12;
 
@@ -56,22 +56,21 @@ body {
     font-weight: 300;
     font-size: 1.25rem;
 }
-.login-field, .login-button { 
+.login-field, .login-button {
     border-radius: 5px;
     border: 1px solid #CCCCCC;
     background-color: #bedcea;
     height: 24px;
 }
-.login-field { 
+.login-field {
     width: 270px;
     color: #333;
 }
-.login-button{ 
-    margin-top: 10px; 
-    width: 180px; 
+.login-button{
+    margin-top: 10px;
+    width: 180px;
     color: #5598c1;
 }
-
-
-
-
+.login-button:active{
+  background-color: #CCCCCC;
+}
