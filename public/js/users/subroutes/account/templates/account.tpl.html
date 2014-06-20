@@ -47,8 +47,8 @@
         </tr>
         <tr ng-repeat="tag in binary track by $index">
             <td>{{tag.name}}</td>
-            <td><input type="radio" name="{{$index}}" ng-value="true" ng-model="tag.value"></td>
-            <td><input type="radio" name="{{$index}}" ng-value="false" ng-model="tag.value"></td>
+            <td><input type="radio" name="{{$index}}" ng-value="true" ng-model="tag.value" required></td>
+            <td><input type="radio" name="{{$index}}" ng-value="false" ng-model="tag.value" required></td>
         </tr>
     </table>
 
@@ -63,10 +63,10 @@
         </tr>
         <tr ng-repeat="tag in scale track by $index">
             <td>{{tag.name}}</td>
-            <td><input type="radio" name="{{$index}}" ng-value="1" ng-model="tag.value"></td>
-            <td><input type="radio" name="{{$index}}" ng-value="2" ng-model="tag.value"></td>
-            <td><input type="radio" name="{{$index}}" ng-value="3" ng-model="tag.value"></td>
-            <td><input type="radio" name="{{$index}}" ng-value="4" ng-model="tag.value"></td>
+            <td><input type="radio" name="{{$index}}" ng-value="1" ng-model="tag.value" required></td>
+            <td><input type="radio" name="{{$index}}" ng-value="2" ng-model="tag.value" required></td>
+            <td><input type="radio" name="{{$index}}" ng-value="3" ng-model="tag.value" required></td>
+            <td><input type="radio" name="{{$index}}" ng-value="4" ng-model="tag.value" required></td>
         </tr>
     </table>
 
