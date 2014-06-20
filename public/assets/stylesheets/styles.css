@@ -38,6 +38,12 @@ body {
     letter-spacing: 0.25px;
     font-size: 1.5rem;
 }
+.login-incorrect {
+    padding-left: 3px;
+    font-size: 1.5rem;
+    color: #CCCCCC;
+    font-weight: 300;
+}
 .login-title {
     line-height: 3.25rem;
     font-size: 4rem;
