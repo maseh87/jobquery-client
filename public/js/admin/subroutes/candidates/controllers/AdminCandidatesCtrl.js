@@ -6,6 +6,13 @@ app.controller('AdminCandidatesCtrl', ['User', 'Match', '$scope', function(User,
     var userMap = {};
     // split users into groups<key,user>
     users.forEach(function(user) {
+      if (!user.category) {
+        user.category = {};
+        user.category.name = 'Uncategorized';
+      }
+      if (user.isRegistered === false) {
+        user.category.name = 'Invited, Has Never Logged In';
+      }
       if(!groups[user.category.name]) {
         groups[user.category.name] = [];
       }
