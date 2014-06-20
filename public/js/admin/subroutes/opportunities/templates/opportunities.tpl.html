@@ -2,31 +2,31 @@
     <h3 class="body-heading">Opportunities</h3><br>
     <h4 class="body-tagline">View, create or edit job opportunities</h4>
 
-    <div class="section container-fluid">
+    <div class="section container-fluid" ng-repeat="(groupName, group) in groups">
         <div class="row">
             <span><a ui-sref="admin.opportunities.new">+ New Opportunity</a></span>
-            <span>All Opportunities</span>
+            <span>{{ groupName }}</span>
         </div>
         <div class="row">
             <table>
             <thead>
                 <tr>
                     <th></th><!-- empty table header -->
-                    <th>Name</th>
-                    <th>Interested Candidates</th>
-                    <th>URL</th>
+                    <th>Company</th>
                     <th>Title</th>
                     <th>Location</th>
+                    <th>Declared Candidates</th>
+                    <th>Interest >= 3</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="opportunity in opportunities">
+                <tr ng-repeat="(name, opportunity) in group">
                     <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
-                    <td>{{ opportunity.company.name }}</td>
-                    <td>{{ opportunity.userInterest }}</td>
-                    <td>{{ opportunity.links[0] }}</td>
-                    <td>{{ opportunity.jobTitle }}</td>
-                    <td>{{ opportunity.company.city }}</td>
+                    <td>{{ opportunity.company }}</td>
+                    <td>{{ opportunity.title }}</td>
+                    <td>{{ opportunity.location }}</td>
+                    <td>{{ opportunity.declared }}</td>
+                    <td>{{ opportunity.interested }}</td>
                 </tr>
             </tbody>
             </table>

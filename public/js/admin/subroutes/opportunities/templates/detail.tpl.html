@@ -4,55 +4,49 @@
 <div class="section container-fluid">
     <div class="row">
         <span ng-click="toggleEdit()">{{ editButtonText }}</span>
-        <span>{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</span>
+        <span>Basic Information</span>
     </div>
     <div class="row">
-        <div class="col-xs-6">{{ opportunity.description }}</div>
+        <div class="col-xs-6"><input type="text" ng-readonly="readOnly" value="{{basic.description}}"></div>
         <div class="col-xs-6">
             <table>
             <tr>
                 <td>Company:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{opportunity.company.name}}"></td>
+                <td><input type="text" ng-readonly="readOnly" value="{{basic.company}}"></td>
             </tr>
             <tr>
                 <td>Title:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{opportunity.jobTitle}}"></td>
+                <td><input type="text" ng-readonly="readOnly" value="{{basic.title}}"></td>
+            </tr>
+            <tr>
+                <td>Location:</td>
+                <td><input type="text" ng-readonly="readOnly" value="{{basic.location}}"></td>
             </tr>
             <tr>
                 <td>URL:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{opportunity.company.url}}"></td>
+                <td><input type="text" ng-readonly="readOnly" value="{{basic.url}}"></td>
             </tr>
             <tr>
-                <td>Questions:</td>
+                <td>Active:</td>
+                <td><input type="text" ng-readonly="readOnly" value="{{basic.active}}"></td>
+            </tr>
+            <tr>
+                <td>Group:</td>
+                <td><input type="text" ng-readonly="readOnly" value="{{basic.group}}"></td>
+            </tr>
+            <tr>
+                <td>Learn More:</td>
                 <td>
-                    <div ng-repeat="question in opportunity.questions">
-                        <input type="text" ng-readonly="readOnly" ng-model="question.text" placeholder="Add new question here">
-                        <span ng-show="!readOnly" ng-click="removeItem('questions', question)">Remove</span>
+                    <div ng-repeat="link in basic.learnMore">
+                        <input type="text" ng-readonly="readOnly" ng-model="link" placeholder="Add new question here">
+                        <span ng-show="!readOnly" ng-click="removeFrom(basic.learnMore, link)">Remove</span>
                     </div>
-                    <span ng-show="!readOnly" ng-click="addNewItem('questions', {text: ''})">+ Add New</span>
+                    <span ng-show="!readOnly" ng-click="addTo(basic.learnMore, '')">+ Add New</span>
                 </td>
             </tr>
             <tr>
-                <td>Media:</td>
-                <td>
-                    <div ng-repeat="link in opportunity.links">
-                        <input type="text" ng-readonly="readOnly" ng-model="link.title" placeholder="Add new link title">
-                        <input type="text" ng-readonly="readOnly" ng-model="link.url" placeholder="Add new link URL">
-                        <span ng-show="!readOnly" ng-click="removeItem('links', link)">Remove</span>
-                    </div>
-                    <span ng-show="!readOnly" ng-click="addNewItem('links', {title: '', url: ''})">+ Add New</span>
-                </td>
-            </tr>
-            <tr>
-                <td>Tags Associated:</td>
-                <td>
-                    <div ng-repeat="tag in opportunity.tags">
-                        <select ng-model="tag" ng-options="tagName.tagId.name for tagName in tagCollection"></select>
-                        <input type="text" ng-readonly="readOnly" ng-model="tag.value" placeholder="Add new tag value">
-                        <span ng-show="!readOnly" ng-click="removeItem('tags', tag)">Remove</span>
-                    </div>
-                    <span ng-show="!readOnly" ng-click="addNewItem('tag', {tagId: {name: ''}, value: ''})">+ Add New</span>
-                </td>
+                <td>Internal Notes:</td>
+                <td><input type="text" ng-readonly="readOnly" value="{{basic.internal}}"></td>
             </tr>
             </table>
         </div>
@@ -61,7 +55,44 @@
 
 <div class="section container-fluid">
     <div class="row">
-        <span>Candidates</span>
+        <span>Guidance Parameters</span>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <table>
+                <tr>
+                    <td>Extra Questions</td>
+                    <td>
+                        <div ng-repeat="question in guidance.questions">
+                            <input ng-readonly="readOnly" value="{{question}}">
+                            <span ng-show="!readOnly" ng-click="removeFrom(guidance.questions, question)">Remove</span>
+                        </div>
+                        <span ng-show="!readOnly" ng-click="addTo(guidance.questions, '')">
+                    </td>
+                </tr>
+            </table>            
+        </div>
+        <div class="col-xs-6">
+            <table>
+                <tr>
+                    <td>Tags Associated</td>
+                    <td>
+                        <div ng-repeat="tag in guidance.tags">
+                            <input ng-readonly="readOnly" value="{{tag.name}}">
+                            <input ng-readonly="readOnly" value="{{tag.value}}">
+                            <span ng-show="!readOnly" ng-click="removeFrom(guidance.tags, tag, 'name')">
+                        </div>
+                        <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 0})">
+                    </td>
+                </tr>
+            </table>  
+        </div>
+    </div>
+</div>
+
+<div class="section container-fluid">
+    <div class="row">
+        <span>Declared Candidates</span>
     </div>
     <div class="row">
         <table>
@@ -70,16 +101,15 @@
             <th>Name</th>
             <th>E-mail</th> 
             <th>Interest</th>
-            <th ng-repeat="tag in opportunity.tags">{{ tag.tagId.name }}</th>
+            <th ng-repeat="tag in guidance.tags">{{ tag.name }}</th>
         </thead>
         <tbody>
-            <tr ng-repeat="user in interestedUsers">
-            <td>Detail</td>
-            <td>{{ user._name }}</td>
-            <td>{{ user._email }}</td>
-            <td>{{ user._interest }}</td>
-            <td ng-repeat="attribute in user._attributes">{{ attribute }}</td>
-            <div>BLANK</div>
+            <tr ng-repeat="user in declared">
+            <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.interest }}</td>
+            <td ng-repeat="attribute in user.tags">{{ attribute.value }}</td>
             </tr>
         </tbody>
     </div>

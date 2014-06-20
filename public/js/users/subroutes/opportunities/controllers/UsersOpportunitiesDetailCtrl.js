@@ -1,15 +1,56 @@
-app.controller('UsersOpportunitiesDetailCtrl', ['$stateParams', '$scope', 'UsersOpportunity', 
-function($stateParams, $scope, UsersOpportunity){
+app.controller('UsersOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 
+  function($scope, Opportunity, Match) {
 
-  UsersOpportunity.get($stateParams._id).then(function(opportunity){
-    $scope.opportunity = opportunity;
+  Opportunity.getAll().then(function(opportunities){
+    $scope.opportunities = opportunities;
   });
 
-  $scope.submit = function(){
-    $scope.opportunity.match.interest = parseInt($scope.opportunity.match.interest);
-    UsersOpportunity.update($scope.opportunity).then(function(opportunity){
-      console.log(opportunity);
+  Match.getAll().then(function(matches){
+    $scope.matches = matches;
+  });
+
+  $scope.$watch('matches', function(matches) {
+    var interest = {};
+    if (!matches) return null;
+    if (!$scope.opportunities) return null;
+
+    matches.data.forEach(function (match) {
+      if (!interest[match.oppId]) { interest[match.oppId] = 0; }
+      if (match.userInterest >= 3) { interest[match.oppId]++; }
     });
+
+    $scope.opportunities.forEach(function (opportunity) {
+      opportunity.userInterest = interest[opportunity._id];
+    });
+  });
+
+  $scope.groups = {};
+  $scope.modelToView = function () {
+
   };
 
 }]);
+
+/*
+$scope.groups = {};
+$scope.attributes = [];
+
+// each controller has its own model-view-mapper
+
+// what i need the model data mapped to
+$scope.groups = {
+  'attending': [ opp1, opp2 ],
+  'cancelled': [ opp3, opp4 ]
+};
+
+var opp1 = {
+  _id: 1,
+  company: "Google",
+  declared: 56,
+  interested: 34,
+  url: "www.google.ca",
+  title: "Front-end Engineer",
+  location: "San Francisco"
+};
+
+*/
