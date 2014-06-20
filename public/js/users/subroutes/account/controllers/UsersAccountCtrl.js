@@ -5,6 +5,7 @@ app.controller('UsersAccountCtrl', ['$scope', 'UsersAccount', 'Tag', function($s
   });
 
   Tag.getAll().then(function(tags){
+    tags = tags.filter(function(tag){ return tag.active });
     $scope.binary = tags.filter(function(item){ return item.type === 'binary' });
     $scope.scale = tags.filter(function(item){ return item.type === 'scale' });
     $scope.text = tags.filter(function(item){ return item.type === 'text' });
