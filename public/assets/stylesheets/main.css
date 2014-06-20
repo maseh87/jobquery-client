@@ -1,0 +1,33 @@
+body {
+    margin: 0px; padding: 0px;
+    width: 100%; height: 100%;
+    font: 'Raleway', sans-serif;
+}
+
+.app-container {
+    position: absolute;
+    width: 100%; left: 0px;
+    height: 100%; top: 0px;
+    z-index: 1;
+}
+.app-devbar {
+    position: absolute;
+    z-index: 100;
+    width: 100%; left: 0px;
+    height: 20px; top: 0px;
+}
+
+.sidebar-container, .content-container {
+    display: table;
+    height: 100%;
+    bottom: 0;
+}
+.sidebar-container {
+    background-color: #5598c1;
+}
+.sidebar-logo {
+    width: 100px;
+}
+.sidebar-item {
+
+}
