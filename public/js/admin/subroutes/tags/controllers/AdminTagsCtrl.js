@@ -22,6 +22,10 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', function($scope, Tag){
     $scope.tags.unshift({});
   };
 
+  $scope.remove = function(index){
+    $scope.tags.splice(index, 1);
+  };
+
   initialize();
 
 }]);
