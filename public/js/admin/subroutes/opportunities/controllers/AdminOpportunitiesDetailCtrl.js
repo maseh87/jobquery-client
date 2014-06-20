@@ -2,13 +2,9 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   function($scope, $stateParams, Opportunity, Match, Tag, User) {
 
   Opportunity.get($stateParams._id).then(function(opportunity){
-    Match.getAll().then(function(matches) {
+    Match.getUsers($stateParams._id).then(function(matches) {
       User.getAll().then(function(users) {
         Tag.getAll().then(function(tags) {
-          console.log(opportunity);
-          console.log(matches);
-          console.log(users);
-          console.log(tags);
           $scope.mapToView(opportunity, matches, users, tags);
         });
       });
