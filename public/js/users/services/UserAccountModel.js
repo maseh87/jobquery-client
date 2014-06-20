@@ -1,5 +1,5 @@
 app.factory('UserAccountResource', ['$resource', 'SERVER_URL', function($resource, SERVER_URL){
-  return $resource(SERVER_URL + '/api/public/account/:_id', null, {update: {method: 'PUT'}});
+  return $resource(SERVER_URL + '/public/account/:_id', null, {update: {method: 'PUT'}});
 }]);
 
 app.factory('UsersAccount', ['UserAccountResource', function(UserAccountResource){
