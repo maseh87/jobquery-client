@@ -15,7 +15,10 @@ describe('AdminCompaniesNewCtrl', function(){
     createController = function(){
       return $controller('AdminCompaniesNewCtrl', {
         $scope: scope,
-        Company: Company
+        Company: Company,
+        $state: {
+          go: function(){}
+        }
       });
     };
 
