@@ -7,21 +7,33 @@ app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function(User, $scop
     } else {
       var emails = [];
       if (emailStrings.indexOf(',') !== -1) {
-        emailStrings.split(',').forEach( function (email){
-          emails.push(email);
-        });
-        User.invite(emails);
-      } else {
-        User.invite([emailStrings])
-          .then(function(err, data) {
-            console.log(err, data);
-          }, function(err, data) {
-            $scope.errorEmails = data;
+          emailStrings.split(',').forEach( function (email){
+            emails.push(email);
           });
+      } else {
+        emails.push(emailStrings);
       }
+      User.invite(emails)
+        .success(function (data) {
+          $scope.showMessage();
+          $scope.alertMessage = "Invitations successful!";
+        })
+        .error(function (data) {
+          $scope.alertMessage = 'Please remove these existing users: ' + (data).join(',');
+          $scope.showMessage();
+        });
     }
     //empty emailStrings input
     $scope.emailStrings = "";
+  };
+
+  $scope.showAlert = false;
+  $scope.hideMessage = function () {
+    $scope.showAlert = false;
+  };
+
+  $scope.showMessage = function () {
+    $scope.showAlert = true;
   };
 
   $scope.emailCSVPattern = (function() {
