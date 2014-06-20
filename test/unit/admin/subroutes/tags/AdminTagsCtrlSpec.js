@@ -37,6 +37,16 @@ describe('AdminTagsCtrl', function(){
     expect(scope.tags.length).toBe(1);
   });
 
+  it('should handle removing tags which are only on the client side', function(){
+    $httpBackend.expectGET(SERVER_URL + '/api/tags').respond([]);
+    createController();
+    $httpBackend.flush();
+    scope.add();
+    expect(scope.tags.length).toBe(1);
+    scope.remove(0);
+    expect(scope.tags.length).toBe(0);
+  });
+
   it('should send a POST request when saving a tag without an _id', function(){
     $httpBackend.expectGET(SERVER_URL + '/api/tags').respond([]);
     createController();
