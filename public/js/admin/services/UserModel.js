@@ -26,5 +26,9 @@ app.factory('User', ['UserResource', 'SERVER_URL', '$http' ,function(UserResourc
     return $http.post(SERVER_URL + '/api/invite', emails);
   };
 
+  userMethods.login = function(profile){
+    return $http.post(SERVER_URL + '/login', profile);
+  };
+
   return userMethods;
 }]);
