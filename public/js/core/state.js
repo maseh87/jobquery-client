@@ -14,6 +14,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       url: '/404',
       templateUrl: '/js/core/templates/404.tpl.html',
       controller: 'AppCtrl'
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: '/js/core/templates/login.tpl.html',
+      controller: 'LoginCtrl'
     });
 
 }]);
