@@ -12,14 +12,10 @@
     <input type="radio" id="radio4" value="4" name="searchStage" ng-model="user.searchStage">
     <label for="radio4" type="radio" id="radio4">Closed</label>
 </div> -->
-<<<<<<< Updated upstream
 <!-- 
-=======
-
->>>>>>> Stashed changes
 <button ng-init="readOnly=true" ng-click="readOnly=false" ng-show="readOnly">+ Edit Profile</button>
-<button ng-click="readOnly=true; update()" ng-show="!readOnly">Save Profile</button>
- -->
+<button ng-click="readOnly=true; update()" ng-show="!readOnly">Save Profile</button> -->
+
 <form ng-submit="update()">
     <table>
         <tr>
@@ -74,7 +70,6 @@
         </tr>
     </table>
 
-<<<<<<< Updated upstream
     <h3>Text Questions</h3>
     <table>
         <tr ng-repeat="tag in text track by $index">
@@ -84,46 +79,4 @@
     </table>
     <input type="submit">
 </form>
-=======
-<h3>Candidate Survey</h3>
 
-<h3>Binary Questions</h3>
-<table class="table">
-    <tr>
-        <th></th>
-        <th>Yes</th>
-        <th>No</th>
-    </tr>
-    <tr ng-repeat="tag in binary track by $index">
-        <td>{{tag.name}}</td>
-        <td><input type="radio" name="{{$index}}" value="yes" ng-model="tag.value"></td>
-        <td><input type="radio" name="{{$index}}" value="no" ng-model="tag.value"></td>
-    </tr>
-</table>
-
-<h3>Scale Questions</h3>
-<table class="table">
-    <tr>
-        <th></th>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-    </tr>
-    <tr ng-repeat="tag in scale track by $index">
-        <td>{{tag.name}}</td>
-        <td><input type="radio" name="{{$index}}" value="1"></td>
-        <td><input type="radio" name="{{$index}}" value="2"></td>
-        <td><input type="radio" name="{{$index}}" value="3"></td>
-        <td><input type="radio" name="{{$index}}" value="4"></td>
-    </tr>
-</table>
-
-<h3>Text Questions</h3>
-<table>
-    <tr ng-repeat="tag in text track by $index">
-        <td>{{tag.name}}</td>
-        <td><textarea></textarea></td>
-    </tr>
-</table>
->>>>>>> Stashed changes
