@@ -1,0 +1,71 @@
+body {
+    margin: 0px; padding: 0px;
+    width: 100%; height: 100%;
+}
+
+.login-splash, .login-bg {
+    position: absolute;
+    width: 100%; left: 0px;
+    height: 100%; top: 0px;
+}
+.login-splash { 
+    display: table;
+    background-color: #5598c1;
+}
+.login-bg { 
+    z-index: 1;
+    opacity: 0.12;
+
+    background-image: url('../images/login_background.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.login-container {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+    z-index: 100;
+
+    color: #e4e0e0;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+}
+
+.login-subtitle, .login-title { padding-right: 16.6667%; }
+.login-subtitle {
+    letter-spacing: 0.25px;
+    font-size: 1.5rem;
+}
+.login-title {
+    line-height: 3.25rem;
+    font-size: 4rem;
+    font-weight: 200;
+}
+
+.login-box {
+    padding-left: 8.3333%;
+    margin: 20px 0px 20px 0px;
+    font-weight: 300;
+    font-size: 1.25rem;
+}
+.login-field, .login-button { 
+    border-radius: 5px;
+    border: 1px solid #CCCCCC;
+    background-color: #bedcea;
+    height: 24px;
+}
+.login-field { 
+    width: 270px;
+    color: #333;
+}
+.login-button{ 
+    margin-top: 10px; 
+    width: 180px; 
+    color: #5598c1;
+}
+
+
+
+
