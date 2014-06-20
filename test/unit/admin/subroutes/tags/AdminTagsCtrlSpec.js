@@ -1,14 +1,19 @@
 describe('AdminTagsCtrl', function(){
 
+  var $httpBackend, scope, SERVER_URL;
+
   beforeEach(module('jobQuery'));
 
   beforeEach(inject(function($injector){
 
     var $rootScope = $injector.get('$rootScope');
     var $controller = $injector.get('$controller');
+    $httpBackend = $injector.get('$httpBackend');
+    scope = $rootScope.$new();
+    SERVER_URL = $injector.get('SERVER_URL');
 
     createController = function(){
-      return $controller('AdminTagsCtrl', {$scope: $rootScope.$new()});
+      return $controller('AdminTagsCtrl', {$scope: scope});
     };
 
   }));
@@ -18,26 +23,38 @@ describe('AdminTagsCtrl', function(){
     expect(typeof controller).toBe('object');
   });
 
-});
+  it('should make a GET request for all tags', function(){
+    $httpBackend.expectGET(SERVER_URL + '/api/tags').respond([{},{}]);
+    createController();
+    $httpBackend.flush();
+  });
 
-describe('AdminTagsNewCtrl', function(){
+  it('should add an empty tag when you click add new', function(){
+    $httpBackend.expectGET(SERVER_URL + '/api/tags').respond([]);
+    createController();
+    $httpBackend.flush();
+    scope.add();
+    expect(scope.tags.length).toBe(1);
+  });
 
-  beforeEach(module('jobQuery'));
+  it('should send a POST request when saving a tag without an _id', function(){
+    $httpBackend.expectGET(SERVER_URL + '/api/tags').respond([]);
+    createController();
+    $httpBackend.flush();
 
-  beforeEach(inject(function($injector){
+    $httpBackend.expectPOST(SERVER_URL + '/api/tags').respond({});
+    scope.save({});
+    $httpBackend.flush();
+  });
 
-    var $rootScope = $injector.get('$rootScope');
-    var $controller = $injector.get('$controller');
-
-    createController = function(){
-      return $controller('AdminTagsNewCtrl', {$scope: $rootScope.$new()});
-    };
-
-  }));
-
-  it('should exist', function(){
-    var controller = createController();
-    expect(typeof controller).toBe('object');
+  it('should send a PUT request when saving a tag with an _id', function(){
+    $httpBackend.expectGET(SERVER_URL + '/api/tags').respond([]);
+    createController();
+    $httpBackend.flush();
+    
+    $httpBackend.expectPUT(SERVER_URL + '/api/tags/1').respond({});
+    scope.save({_id: 1});
+    $httpBackend.flush();
   });
 
 });

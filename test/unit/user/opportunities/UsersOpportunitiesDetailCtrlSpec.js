@@ -29,21 +29,4 @@ describe('UsersOpportunitiesDetailCtrl', function(){
     expect(typeof controller).toBe('object');
   });
 
-  it('should make a GET request for a single opportunity', function(){
-    $httpBackend.expectGET(SERVER_URL + '/api/public/opportunities/1').respond({});
-    var controller = createController();
-    $httpBackend.flush();
-  });
-
-  it('should make a PUT request when updating interest data', function(){
-    $httpBackend.expectGET(SERVER_URL + '/api/public/opportunities/1').respond({});
-    var controller = createController();
-    $httpBackend.flush();
-
-    $httpBackend.expectPUT(SERVER_URL + '/api/public/opportunities/1').respond({});
-    scope.opportunity = {_id: 1, match: {interest: 1, answers: ['', '']}};
-    scope.submit();
-    $httpBackend.flush();
-  });
-
 });
