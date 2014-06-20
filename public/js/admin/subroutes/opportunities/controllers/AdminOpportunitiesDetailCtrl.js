@@ -4,10 +4,13 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   Opportunity.get($stateParams._id).then(function(opportunity){
     Match.getAll().then(function(matches) {
       User.getAll().then(function(users) {
-        console.log(opportunity);
-        console.log(matches);
-        console.log(users);
-        $scope.mapToView(opportunity, matches, users);
+        Tag.getAll().then(function(tags) {
+          console.log(opportunity);
+          console.log(matches);
+          console.log(users);
+          console.log(tags);
+          $scope.mapToView(opportunity, matches, users, tags);
+        });
       });
     });
   });
@@ -23,7 +26,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   $scope.basic = {};
   $scope.guidance = {};
   $scope.declared = [];
-  $scope.mapToView = function (oppData, matchData, userData) {
+  $scope.mapToView = function (oppData, matchData, userData, tagData) {
     var basicInfo = {};
     basicInfo.description = oppData.description;
     basicInfo.company = oppData.company.name;
@@ -38,8 +41,13 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
     var guidance = {};
     guidance.questions = oppData.questions.map(function(questionData) { return questionData.question; });
-    guidance.tags = oppData.tags.filter(function (tagData) {
-      return tagData.score >= 3;
+
+    var tagIDs = {};
+    oppData.tags.forEach(function (oppTagData) {
+      tagIDs[oppTagData._id] = oppTagData.score;
+    });
+    guidance.tags = tagData.filter(function (tagData) {
+      return tagIDs[tagData._id] && tagIDs[tagData._id] >= 3;
     }).map(function (tagData) {
       return {name: tagData.tag.name, value: tagData.score};
     });
