@@ -2,7 +2,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', function($scope, Tag){
 
   var initialize = function(){
     Tag.getAll().then(function(tags){
-      $scope.tags = tags;
+      $scope.tags = tags.filter(function(tag){ return tag.active; });
     });
   };
 
@@ -22,8 +22,16 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', function($scope, Tag){
     $scope.tags.unshift({});
   };
 
-  $scope.remove = function(index){
-    $scope.tags.splice(index, 1);
+  $scope.remove = function(tag, index){
+    if(tag._id){
+      tag.active = false;
+      Tag.update(tag).then(function(data){
+        console.log('Tag removed successfully');
+        $scope.tags.splice(index, 1);
+      });
+    } else {
+      $scope.tags.splice(index, 1);
+    }
   };
 
   initialize();
