@@ -5,6 +5,10 @@
   </div>
   <div class="login-container">
     <form>
+    <div ng-show="invalid" class="login-box">
+      <span class="glyphicon glyphicon-warning-sign"></span>
+      <span class="login-incorrect"> The e-mail or password you entered is incorrect</span>
+    </div>
     <div class="login-box">
       <span class="login-label">E-mail</span><br>
       <input type="input" class="login-field" name="e-mail" ng-enabled="true">
