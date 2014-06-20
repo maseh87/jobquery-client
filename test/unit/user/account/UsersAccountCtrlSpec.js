@@ -25,13 +25,15 @@ describe('UsersAccountCtrl', function(){
   });
 
   it('should make a GET request for user account information', function(){
-    $httpBackend.expectGET(SERVER_URL + '/api/public/account').respond({});
+    $httpBackend.when('GET', SERVER_URL + '/api/public/account').respond({});
+    $httpBackend.when('GET', SERVER_URL + '/api/tags').respond([]);
     var controller = createController();
     $httpBackend.flush();
   });
 
   it('should make a PUT request to update user account information', function(){
-    $httpBackend.expectGET(SERVER_URL + '/api/public/account').respond({});
+    $httpBackend.when('GET', SERVER_URL + '/api/public/account').respond({});
+    $httpBackend.when('GET', SERVER_URL + '/api/tags').respond([]);
     var controller = createController();
     $httpBackend.flush();
     
