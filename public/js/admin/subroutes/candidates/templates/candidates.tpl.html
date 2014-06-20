@@ -1,23 +1,28 @@
-<h3>Admin.Candidates Template</h3>
-    <a ng-href="/admin/candidates/new">+ Invite Candidates</a>
+<a ng-href="/admin/candidates/new">+ Invite Candidates</a>
+<div ng-repeat="group in groups">
+    <div>{{group[0].category.name}}</div>
     <table class="table table-striped table-condensed table-hover">
         <thead>
             <tr>
                 <th class="detail"></th>
                 <th class="name" >Name</th>
+                <th class="interestDeclared" >Interest Declared</th>
+                <th class="interestThreeOrGreater" >Interest >3 Count</th>
                 <th class="github" >Github</th>
                 <th class="email" >Email</th>
                 <th class="location" >Location</th>
                 <th class="stage" >Job Search Stage</th>
             </tr>
         </thead>
-        <tr ng-repeat="user in users">
+        <tr ng-repeat="user in group">
             <td class="detail"><a ui-sref="admin.candidates.detail({_id: user._id})">detail<a/></td>
             <td class="name" >{{user.name}}</td>
+            <th class="interestDeclared" >{{user.interestDeclared}}</th>
+            <th class="interestThreeOrGreater" >{{user.interestThreeOrGreater}}</th>
             <td class="github" ><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
             <td class="email" ><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
             <td class="location" >{{user.city}}</td>
             <td class="stage" >{{user.searchStage}}</td>
         </tr>
     </table>
-<div ui-view></div>
+<div>
