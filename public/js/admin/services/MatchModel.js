@@ -14,7 +14,7 @@ app
     matchMethods.getUsers = function(opportunityId){
       return $http({
         method: 'GET',
-        url: SERVER_URL + '/api/matches/users/' + opportunityId
+        url: SERVER_URL + '/api/matches/opportunities/' + opportunityId
       }).then(function(response){
         return response.data;
       });
@@ -23,7 +23,7 @@ app
     matchMethods.getOpportunities = function(userId){
       return $http({
         method: 'GET',
-        url: SERVER_URL + '/api/matches/opportunities/' + userId
+        url: SERVER_URL + '/api/matches/users/' + userId
       }).then(function(response){
         return response.data;
       });
