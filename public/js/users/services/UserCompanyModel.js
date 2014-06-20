@@ -1,5 +1,5 @@
 app.factory('UserCompanyResource', ['$resource', 'SERVER_URL', function($resource, SERVER_URL){
-  return $resource(SERVER_URL + '/api/public/companies/:_id', null, {update: {method: 'PUT'}});
+  return $resource(SERVER_URL + '/public/companies/:_id', null, {update: {method: 'PUT'}});
 }]);
 
 app.factory('UsersCompany', ['UserCompanyResource', function(UserCompanyResource){
