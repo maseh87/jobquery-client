@@ -7,12 +7,12 @@
         <span>Basic Information</span>
     </div>
     <div class="row">
-        <div class="col-xs-6">{{ basic.description }}</div>
+        <div class="col-xs-6"><input type="text" ng-readonly="readOnly" value="{{basic.description}}"></div>
         <div class="col-xs-6">
             <table>
             <tr>
                 <td>Company:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{basic.name}}"></td>
+                <td><input type="text" ng-readonly="readOnly" value="{{basic.company}}"></td>
             </tr>
             <tr>
                 <td>Title:</td>
@@ -105,7 +105,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="user in declared">
-            <td>Detail</td>
+            <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.interest }}</td>

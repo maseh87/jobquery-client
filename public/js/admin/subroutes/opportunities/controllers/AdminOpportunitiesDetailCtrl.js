@@ -29,7 +29,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     basicInfo.company = oppData.company.name;
     basicInfo.title = oppData.jobTitle;
     basicInfo.location = oppData.company.city;
-    basicInfo.url = oppData.company.links[0];
+    basicInfo.url = oppData.company.links[0].url;
     basicInfo.learnMore = oppData.links.map(function(linkData) { return linkData.url; });
     basicInfo.active = oppData.active;
     basicInfo.group = oppData.category.name;
@@ -49,8 +49,9 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     var candidates = {};
     userData.forEach(function (userModel) {
       var user = {};
-      user._id = ;
-      user.email = ;
+      user._id = userModel._id;
+      user.name = userModel.name;
+      user.email = userModel.email;
       user.tags = userModel.tags.filter(function (tagModel) {
         return guidance.tags.some(function (guidanceTag) {
           return guidanceTag.name === tagModel.tag.name;
@@ -62,11 +63,14 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     });
     matchData.forEach(function (matchModel) {
       if (matchModel.opportunity._id !== $stateParams._id) { return null; }
-      candidates[match.user._id].interest = matchModel.userInterest;
+      candidates[matchModel.user._id].interest = matchModel.userInterest;
     });
 
-    declared = candidates.filter(function (candidate) {
-      return candidate.interest >= 0;
+    declared = Object.keys(candidates).filter(function (key) {
+      console.log(candidates[key]);
+      return candidates[key].interest >= 0;
+    }).map(function (key) {
+      return candidates[key];
     });
     $scope.declared = declared;
   };
