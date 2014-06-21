@@ -4,6 +4,11 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   Match.getUsers($stateParams._id).then(function (data) {
     console.log(data);
     $scope.mapToView(data.opportunity, data.matches);
+    $scope.oppData = data.opportunity;
+  });
+
+  Tag.getAll().then(function (tags) {
+    $scope.tagData = tags;
   });
 
   $scope.readOnly = true;
@@ -19,12 +24,12 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   $scope.declared = [];
   $scope.mapToView = function (oppData, matchData) {
     var basicInfo = {};
+    basicInfo._id = oppData._id;
     basicInfo.description = oppData.description;
     basicInfo.company = oppData.company.name;
     basicInfo.title = oppData.jobTitle;
     basicInfo.location = oppData.company.city;
-    basicInfo.url = oppData.links[0].url;
-    basicInfo.learnMore = oppData.links.map(function (linkData) { return linkData.url; });
+    basicInfo.links = oppData.links;
     basicInfo.active = oppData.active;
     basicInfo.group = oppData.category.name;
     basicInfo.internal = oppData.internalNotes[0].text;
@@ -32,12 +37,12 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
     var guidance = {};
     var guidanceTags = {};
-    guidance.questions = oppData.questions.map(function (questionData) { return questionData.question; });
+    guidance.questions = oppData.questions;
     guidance.tags = oppData.tags.filter(function (tagData) {
       return tagData.score >= 3;
     }).map(function (tagData) {
       guidanceTags[tagData._id] = true;
-      return {name: tagData.tag.name, value: tagData.score};
+      return {_id: tagData._id, name: tagData.tag.name, value: tagData.score};
     });
     $scope.guidance = guidance;
 
@@ -50,7 +55,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
         tags: matchModel.user.tags.filter(function (tagData) {
           return guidanceTags[tagData._id];
         }).map(function (tagData) {
-          return {_id: tagData.tag._id, name: tagData.tag.label, value: tagData.value};
+          return {_id: tagData._id, name: tagData.tag.label, value: tagData.value};
         })
       };
     });
@@ -59,6 +64,36 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
   $scope.save = function () {
     var oppData = {};
+    oppData._id = $scope.basic._id;
+    oppData.active = $scope.basic.active;
+    oppData.description = $scope.basic.description;
+    oppData.questions = $scope.guidance.questions;
+    oppData.jobTitle = $scope.basic.title;
+
+    var notesData = {
+      _id: oppData._id,
+      text: $scope.basic.internal
+    };
+    var tagsData = $scope.guidance.tags.map(function (tagView) {
+      if (tagView._id) {
+        return {_id: tagView._id, score: tagView.value};
+      } else {
+        var _id = $scope.tagData.filter(function (tagData) {
+          return tagData.name === tagView.name;
+        }).map(function (tagData) {
+          return tagData._id;
+        });
+        return {_id: _id, score: tagView.value};
+      }
+    });
+    var questionsData = $scope.guidance.questions.map(function (questionView) {
+      return {question: questionView};
+    });
+
+    oppData.internalNotes = [ notesData ];
+    oppData.tags = tagsData;
+    oppData.questions = questionsData;
+    oppData.links = $scope.basic.links;
 
     Opportunity.update(oppData).then(function(data){
       console.log('Update successful');
