@@ -9,8 +9,8 @@ app.factory('UsersAccount', ['UserAccountResource', function(UserAccountResource
     return UserAccountResource.get().$promise;
   };
 
-  userMethods.update = function(){
-    return UserAccountResource.update().$promise;
+  userMethods.update = function(userData){
+    return UserAccountResource.update(userData).$promise;
   };
 
   return userMethods;
