@@ -3,6 +3,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
   var initialize = function(){
     //Step 1. Fetch all tags
     Tag.getAll().then(function(tags){
+      console.log(tags.length);
       tags = tags.filter(function(tag){ return tag.active; });
 
       //Step 2. Fetch all categories
@@ -34,14 +35,13 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
             }
           }
         });
-
         //Step 5. Resolve Descrepancies
+        var promises = [];
         for(var key in categories){
           var array = categories[key].tags;
           array.sort(function(a, b){
-            return a - b;
+            return a.position - b.position;
           });
-          var promises = [];
           for(var i = 0; i < array.length; i++){
             var tag = array[i];
             if(tag === undefined){
@@ -50,17 +50,16 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
               break;
             }
             if(tag && (tag.position !== i)){
-              console.log(tag);
-              console.log(tag.position, i);
               tag.position = i;
               console.log('error found, correcting');
               promises.push(Tag.update(tag));
             }
           }
-          $q.all(promises).then(function(data){
-            $scope.categories = categories;
-          });
         };
+        $q.all(promises).then(function(data){
+          $scope.categories = categories;
+          console.log(categories);
+        });
 
       });
     });
@@ -104,6 +103,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
         console.log('Tag updated successfully');
       });
     } else {
+      console.log(tag);
       Tag.create(tag).then(function(data){
         tag._id = data._id;
         console.log('Tag created successfully');
