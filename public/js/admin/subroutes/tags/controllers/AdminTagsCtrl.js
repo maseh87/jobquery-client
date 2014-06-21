@@ -1,5 +1,7 @@
 app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($scope, Tag, Category, $q){
 
+  $scope.pendingRequests = 0;
+
   var initialize = function(){
     //Step 1. Fetch all tags
     Tag.getAll().then(function(tags){
@@ -78,7 +80,10 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
     var promises = [];
     if(current._id) promises.push(Tag.update(current));
     if(next._id) promises.push(Tag.update(next));
-    return $q.all(promises);
+    $scope.pendingRequests++;
+    return $q.all(promises).then(function(){
+      $scope.pendingRequests--;
+    });
   };
 
   $scope.moveDown = function(index, category){
@@ -94,19 +99,23 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
     var promises = [];
     if(current._id) promises.push(Tag.update(current));
     if(next._id) promises.push(Tag.update(next));
-    return $q.all(promises);
+    $scope.pendingRequests++;
+    return $q.all(promises).then(function(){
+      $scope.pendingRequests--;
+    });
   };
 
   $scope.save = function(tag){
+    $scope.pendingRequests++;
     if(tag._id){
       Tag.update(tag).then(function(data){
-        console.log('Tag updated successfully');
+        $scope.pendingRequests--;
       });
     } else {
       console.log(tag);
       Tag.create(tag).then(function(data){
+        $scope.pendingRequests--;
         tag._id = data._id;
-        console.log('Tag created successfully');
       });
     }
   };
@@ -129,7 +138,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
   };
 
   $scope.remove = function(tag, index, category){
-
+    $scope.pendingRequests++;
     var removeTagFromDatabasePromise = function(){
       if(tag._id){
         tag.active = false;
@@ -160,7 +169,9 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
 
     removeTagFromDatabasePromise().then(function(){
       removeTagFromPage();
-      return reducePositionOfTagsPromise();
+      return reducePositionOfTagsPromise().then(function(){
+        $scope.pendingRequests--;
+      });
     });
 
   };
