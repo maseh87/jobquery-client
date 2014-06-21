@@ -1,17 +1,17 @@
 app.factory('UserAccountResource', ['$resource', 'SERVER_URL', function($resource, SERVER_URL){
-  return $resource(SERVER_URL + '/public/account/:_id', null, {update: {method: 'PUT'}});
+  return $resource(SERVER_URL + '/public/account', null, {update: {method: 'PUT'}});
 }]);
 
 app.factory('UsersAccount', ['UserAccountResource', function(UserAccountResource){
-  var userOpportunityMethods = {};
+  var userMethods = {};
 
-  userOpportunityMethods.get = function(id){
-    return UserAccountResource.get({_id: id}).$promise;
+  userMethods.get = function(){
+    return UserAccountResource.get().$promise;
   };
 
-  userOpportunityMethods.update = function(opportunity){
-    return UserAccountResource.update({_id: opportunity._id}, opportunity.match).$promise;
+  userMethods.update = function(userData){
+    return UserAccountResource.update(userData).$promise;
   };
 
-  return userOpportunityMethods;
+  return userMethods;
 }]);
