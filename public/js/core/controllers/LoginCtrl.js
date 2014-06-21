@@ -5,6 +5,7 @@ app.controller('LoginCtrl', ['User', '$state', '$scope', 'localStorageService', 
     User.login({email : email, password : password})
       .then( function(response) {
         localStorageService.set('token', response.data.token);
+        localStorageService.set('token-date', JSON.stringify(new Date()));
         localStorageService.set('_id', response.data._id);
         localStorageService.set('isAdmin', response.data.isAdmin);
 

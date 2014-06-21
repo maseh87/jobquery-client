@@ -2,6 +2,5 @@ app.controller('AdminDashboardCtrl', ['$scope', '$stateParams', 'User', function
 
   User.get($stateParams._id).then(function(admin){
     $scope.admin = admin;
-    console.log('yoyo');
   });
 }]);
