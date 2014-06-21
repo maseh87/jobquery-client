@@ -1,4 +1,3 @@
-app.controller('AppCtrl', function($scope) {
-
+app.controller('AppCtrl', function($scope, $location) {
 
 });
