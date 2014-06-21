@@ -1,5 +1,5 @@
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'User', 
-  function($scope, $stateParams, Opportunity, Match, Tag, User) {
+app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 
+  function($scope, $stateParams, Opportunity, Match, Tag) {
 
   Match.getUsers($stateParams._id).then(function (data) {
     console.log(data);
@@ -24,7 +24,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     basicInfo.title = oppData.jobTitle;
     basicInfo.location = oppData.company.city;
     basicInfo.url = oppData.links[0].url;
-    basicInfo.learnMore = oppData.links.map(function(linkData) { return linkData.url; });
+    basicInfo.learnMore = oppData.links.map(function (linkData) { return linkData.url; });
     basicInfo.active = oppData.active;
     basicInfo.group = oppData.category.name;
     basicInfo.internal = oppData.internalNotes[0].text;
@@ -32,7 +32,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
     var guidance = {};
     var guidanceTags = {};
-    guidance.questions = oppData.questions.map(function(questionData) { return questionData.question; });
+    guidance.questions = oppData.questions.map(function (questionData) { return questionData.question; });
     guidance.tags = oppData.tags.filter(function (tagData) {
       return tagData.score >= 3;
     }).map(function (tagData) {
@@ -50,7 +50,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
         tags: matchModel.user.tags.filter(function (tagData) {
           return guidanceTags[tagData._id];
         }).map(function (tagData) {
-          return {name: tagData.tag.label, value: tagData.value};
+          return {_id: tagData.tag._id, name: tagData.tag.label, value: tagData.value};
         })
       };
     });
@@ -59,6 +59,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
   $scope.save = function () {
     var oppData = {};
+
     Opportunity.update(oppData).then(function(data){
       console.log('Update successful');
     });
@@ -66,10 +67,11 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
   $scope.removeFrom = function (array, item, idKey) {
     var index = array.reduce(function(a, b, i) {
+      if (typeof a === "number") { return a; }
       if (idKey) {
-        return elem[idKey] === item[idKey] ? i : null;
+        return b[idKey] === item[idKey] ? i : null;
       } else {
-        return elem === item ? i : null;
+        return b === item ? i : null;
       }
     }, null);
     if (index !== null) { array.splice(index, 1); }
