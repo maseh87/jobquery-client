@@ -1,7 +1,7 @@
-<h1>Tags Template</h1>
+<h1>Create Survey</h1>
 
-<form>
-    <button ng-click="add()" type="button">+ Add Tag</button>
+<form ng-repeat="category in categories">
+    <h1>{{category.name}}</h1>
     <table class="table">
         <tr>
             <th>Question</th>
@@ -9,8 +9,9 @@
             <th>Type</th>
             <th>isPublic</th>
             <th></th>
+            <th></th>
         </tr>
-        <tr ng-repeat="tag in tags track by $index" ng-init="tag.readOnly = true">
+        <tr ng-repeat="tag in category.tags track by $index">
             <td><input type="textbox" ng-model="tag.name" ng-readonly="tag.readOnly"></td>
             <td><input type="text" ng-model="tag.label" ng-readonly="tag.readOnly"></td>
             <td>
@@ -24,8 +25,13 @@
             <td>
                 <button type="button" ng-click="tag.readOnly = false" ng-show="tag.readOnly">Edit</button>
                 <button type="button" ng-click="tag.readOnly = true; save(tag)" ng-hide="tag.readOnly">Save</button>
-                <button type="button" ng-click="remove(tag, $index)" ng-show="!tag.readOnly">Remove</button>
+                <button type="button" ng-click="remove(tag, $index, category)" ng-show="!tag.readOnly">Remove</button>
+            </td>
+            <td>
+                <button type="button" ng-click="moveUp($index, category)" ng-show="!$first">Up</button>
+                <button type="button" ng-click="moveDown($index, category)" ng-show="!$last">Down</button>
             </td>
         </tr>
     </table>
+    <button ng-click="add(category)" type="button">+ Add Tag</button>
 </form>
