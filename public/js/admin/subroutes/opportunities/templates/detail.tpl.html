@@ -19,10 +19,6 @@
                 <td><input type="text" ng-readonly="readOnly" value="{{basic.title}}"></td>
             </tr>
             <tr>
-                <td>Location:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{basic.location}}"></td>
-            </tr>
-            <tr>
                 <td>URL:</td>
                 <td><input type="text" ng-readonly="readOnly" value="{{basic.url}}"></td>
             </tr>
@@ -80,9 +76,9 @@
                         <div ng-repeat="tag in guidance.tags">
                             <input ng-readonly="readOnly" value="{{tag.name}}">
                             <input ng-readonly="readOnly" value="{{tag.value}}">
-                            <span ng-show="!readOnly" ng-click="removeFrom(guidance.tags, tag, 'name')">
+                            <span ng-show="!readOnly" ng-click="removeFrom(guidance.tags, tag, 'name')">Remove</span>
                         </div>
-                        <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 0})">
+                        <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 0})">+ Add New</span>
                     </td>
                 </tr>
             </table>  
