@@ -155,20 +155,16 @@
 </head>
 <body ng-app="jobQuery" ng-controller="AppCtrl">
 
-<div class="container-fluid">
-    <div ui-view></div>
+<div ui-view></div>
 
-    <div class="row app-container">
-        <div class="col-xs-2 sidebar-container text-right">
-            <a ui-sref="users">Users Portal</a>
-            <a ui-sref="admin">Admin Portal</a>
-            <div ui-view="sidebar"></div>
-        </div>
-        <div class="col-xs-10 content-container">
-            <div ui-view="main"></div>
-        </div>
-    </div>
-
+<div class="sidebar-container text-right">
+    <a ui-sref="users">Users Portal</a>
+    <a ui-sref="admin">Admin Portal</a>
+    <div ui-view="sidebar"></div>
 </div>
+<div class="content-container">
+    <div ui-view="main"></div>
+</div>
+
 </body>
 </html>
