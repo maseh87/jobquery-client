@@ -1,14 +1,16 @@
-app.controller('UsersAccountCtrl', ['$scope','$stateParams' ,'UsersAccount', 'Tag', function($scope, $stateParams, UsersAccount, Tag){
+app.controller('UsersAccountCtrl',
+  ['$scope','UsersAccount', 'Tag',
+  function($scope, UsersAccount, Tag) {
 
-  UsersAccount.get($stateParams._id).then(function(user){
+  UsersAccount.get().then(function(user){
     $scope.user = user;
   });
 
   Tag.getAll().then(function(tags){
-    tags = tags.filter(function(tag){ return tag.active });
-    $scope.binary = tags.filter(function(item){ return item.type === 'binary' });
-    $scope.scale = tags.filter(function(item){ return item.type === 'scale' });
-    $scope.text = tags.filter(function(item){ return item.type === 'text' });
+    tags = tags.filter(function(tag){ return tag.active; });
+    $scope.binary = tags.filter(function(item){ return item.type === 'binary'; });
+    $scope.scale = tags.filter(function(item){ return item.type === 'scale'; });
+    $scope.text = tags.filter(function(item){ return item.type === 'text'; });
   });
 
   $scope.update = function(){
