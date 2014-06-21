@@ -86,13 +86,10 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
         return {_id: _id, score: tagView.value};
       }
     });
-    var questionsData = $scope.guidance.questions.map(function (questionView) {
-      return {question: questionView};
-    });
-
+    
+    oppData.questions = $scope.guidance.questions;
     oppData.internalNotes = [ notesData ];
     oppData.tags = tagsData;
-    oppData.questions = questionsData;
     oppData.links = $scope.basic.links;
 
     Opportunity.update(oppData).then(function(data){
