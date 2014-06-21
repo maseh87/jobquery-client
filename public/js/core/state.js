@@ -8,6 +8,16 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
     .state('home', {
       url: '/',
       templateUrl: '/js/core/templates/home.tpl.html',
+      resolve: {
+        redirect: function($location, localStorageService){
+          var isAdmin = JSON.parse(localStorageService.get('isAdmin'));
+          if(isAdmin){
+            $location.path('/admin');
+          } else {
+            $location.path('/users');
+          }
+        }
+      },
       controller: 'AppCtrl'
     })
     .state('404', {
