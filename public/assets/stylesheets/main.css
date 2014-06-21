@@ -5,8 +5,8 @@ body {
     box-sizing: border-box;
     background-color: #FDFDFD;
 }
-a { color: #EEE; }
-a:hover { color: #c9e3ef; text-decoration: none; }
+.sidebar a { color: #EEE; }
+.sidebar-container a:hover { color: #c9e3ef; text-decoration: none; }
 /* Sidebar and Content */
 .sidebar-container, .content-container {
     height: 100%;
