@@ -4,6 +4,14 @@ app.config(['$stateProvider', function($stateProvider) {
   $stateProvider
     .state('users', {
       url: '/users',
+      resolve: {
+        redirect: function($location, localStorageService){
+          var isAdmin = localStorageService.get('isAdmin');
+          if(isAdmin){
+            $location.path('/login');
+          }
+        }
+      },
       views: {
         'sidebar': {
           templateUrl: '/js/users/templates/sidebar.tpl.html',
