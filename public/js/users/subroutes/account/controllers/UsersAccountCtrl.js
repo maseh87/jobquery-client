@@ -1,12 +1,11 @@
 app.controller('UsersAccountCtrl',
-  ['$scope','UsersAccount', 'Tag',
-  function($scope, UsersAccount, Tag) {
+  ['$scope','UsersAccount', 'UserTag', function($scope, UsersAccount, UserTag) {
 
   UsersAccount.get().then(function(user){
     $scope.user = user;
   });
 
-  Tag.getAll().then(function(tags){
+  UserTag.getAll().then(function(tags){
     tags = tags.filter(function(tag){ return tag.active; });
     $scope.binary = tags.filter(function(item){ return item.type === 'binary'; });
     $scope.scale = tags.filter(function(item){ return item.type === 'scale'; });
@@ -16,7 +15,7 @@ app.controller('UsersAccountCtrl',
   $scope.update = function(){
     $scope.user.tags = [];
     $scope.user.tags.concat($scope.binary, $scope.scale, $scope.text);
-    UsersAccount.update($scope.user).then(function(response){
+    UsersAccount.update().then(function(response){
       console.log('User account information updated successfully');
     });
   };
