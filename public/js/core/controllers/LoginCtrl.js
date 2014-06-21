@@ -1,5 +1,6 @@
 app.controller('LoginCtrl', ['User', '$state', '$scope', 'localStorageService', function( User, $state, $scope, localStorageService) {
 
+  localStorageService.clearAll();
   $scope.submit =  function(email, password){
 
     User.login({email : email, password : password})
