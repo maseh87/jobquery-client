@@ -1,14 +1,9 @@
 app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'User', 
   function($scope, $stateParams, Opportunity, Match, Tag, User) {
 
-  Opportunity.get($stateParams._id).then(function(opportunity){
-    Match.getUsers($stateParams._id).then(function(matches) {
-      User.getAll().then(function(users) {
-        Tag.getAll().then(function(tags) {
-          $scope.mapToView(opportunity, matches, users, tags);
-        });
-      });
-    });
+  Match.getUsers($stateParams._id).then(function (data) {
+    console.log(data);
+    $scope.mapToView(data.opportunity, data.matches);
   });
 
   $scope.readOnly = true;
@@ -22,13 +17,13 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   $scope.basic = {};
   $scope.guidance = {};
   $scope.declared = [];
-  $scope.mapToView = function (oppData, matchData, userData, tagData) {
+  $scope.mapToView = function (oppData, matchData) {
     var basicInfo = {};
     basicInfo.description = oppData.description;
     basicInfo.company = oppData.company.name;
     basicInfo.title = oppData.jobTitle;
     basicInfo.location = oppData.company.city;
-    basicInfo.url = oppData.company.links[0].url;
+    basicInfo.url = oppData.links[0].url;
     basicInfo.learnMore = oppData.links.map(function(linkData) { return linkData.url; });
     basicInfo.active = oppData.active;
     basicInfo.group = oppData.category.name;
@@ -36,45 +31,28 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     $scope.basic = basicInfo;
 
     var guidance = {};
+    var guidanceTags = {};
     guidance.questions = oppData.questions.map(function(questionData) { return questionData.question; });
-
-    var tagIDs = {};
-    oppData.tags.forEach(function (oppTagData) {
-      tagIDs[oppTagData._id] = oppTagData.score;
-    });
-    guidance.tags = tagData.filter(function (tagData) {
-      return tagIDs[tagData._id] && tagIDs[tagData._id] >= 3;
+    guidance.tags = oppData.tags.filter(function (tagData) {
+      return tagData.score >= 3;
     }).map(function (tagData) {
+      guidanceTags[tagData._id] = true;
       return {name: tagData.tag.name, value: tagData.score};
     });
     $scope.guidance = guidance;
 
-    var declared = [];
-    var candidates = {};
-    userData.forEach(function (userModel) {
-      var user = {};
-      user._id = userModel._id;
-      user.name = userModel.name;
-      user.email = userModel.email;
-      user.tags = userModel.tags.filter(function (tagModel) {
-        return guidance.tags.some(function (guidanceTag) {
-          return guidanceTag.name === tagModel.tag.name;
-        });
-      }).map(function (tagModel) {
-        return {name: tagModel.tag.name, value: tagModel.score};
-      });
-      candidates[userModel._id] = user;
-    });
-    matchData.forEach(function (matchModel) {
-      if (matchModel.opportunity._id !== $stateParams._id) { return null; }
-      candidates[matchModel.user._id].interest = matchModel.userInterest;
-    });
-
-    declared = Object.keys(candidates).filter(function (key) {
-      console.log(candidates[key]);
-      return candidates[key].interest >= 0;
-    }).map(function (key) {
-      return candidates[key];
+    var declared = matchData.map(function (matchModel) {
+      return {
+        _id: matchModel.user._id,
+        name: matchModel.user.name,
+        email: matchModel.user.email,
+        interest: matchModel.userInterest,
+        tags: matchModel.user.tags.filter(function (tagData) {
+          return guidanceTags[tagData._id];
+        }).map(function (tagData) {
+          return {name: tagData.tag.label, value: tagData.value};
+        })
+      };
     });
     $scope.declared = declared;
   };
@@ -87,9 +65,14 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   };
 
   $scope.removeFrom = function (array, item, idKey) {
-    array = array.filter(function(elem) {
-      return idKey ? elem[idKey] !== item[idKey] : elem !== item;
-    });
+    var index = array.reduce(function(a, b, i) {
+      if (idKey) {
+        return elem[idKey] === item[idKey] ? i : null;
+      } else {
+        return elem === item ? i : null;
+      }
+    }, null);
+    if (index !== null) { array.splice(index, 1); }
   };
 
   $scope.addTo = function (array, field) {
@@ -138,11 +121,3 @@ var tag = {
 description, company, title, location, url, learnmore[], active, group, internal
 
 */
-
-
-
-
-
-
-
-
