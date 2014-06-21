@@ -10,7 +10,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       templateUrl: '/js/core/templates/home.tpl.html',
       resolve: {
         redirect: function($location, localStorageService){
-          var isAdmin = JSON.parse(localStorageService.get('isAdmin'));
+          var isAdmin = localStorageService.get('isAdmin');
           if(isAdmin){
             $location.path('/admin');
           } else {

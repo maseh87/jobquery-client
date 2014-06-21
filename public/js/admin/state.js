@@ -5,16 +5,11 @@ app.config(['$stateProvider', function($stateProvider){
     .state('admin', {
       url: '/admin',
       resolve: {
-        redirect: function($location, localStorageService, $q){
-          var deferred = $q.defer();
-          var isAdmin = JSON.parse(localStorageService.get('isAdmin'));
-          if(isAdmin){
-            deferred.resolve();
-          } else {
+        redirect: function($location, localStorageService){
+          var isAdmin = localStorageService.get('isAdmin');
+          if(!isAdmin){
             $location.path('/login');
-            deferred.resolve();
           }
-          return deferred.promise;
         }
       },
       views: {
