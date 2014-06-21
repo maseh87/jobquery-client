@@ -14,9 +14,9 @@
                     <th></th><!-- empty table header -->
                     <th>Company</th>
                     <th>Title</th>
-                    <th>Location</th>
                     <th>Declared Candidates</th>
                     <th>Interest >= 3</th>
+                    <th>Location</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,9 +24,9 @@
                     <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
                     <td>{{ opportunity.company }}</td>
                     <td>{{ opportunity.title }}</td>
-                    <td>{{ opportunity.location }}</td>
                     <td>{{ opportunity.declared }}</td>
                     <td>{{ opportunity.interested }}</td>
+                    <td>{{ opportunity.description }}</td>
                 </tr>
             </tbody>
             </table>
