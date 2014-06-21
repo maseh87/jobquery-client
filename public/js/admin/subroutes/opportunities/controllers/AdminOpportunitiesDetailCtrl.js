@@ -11,6 +11,8 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     $scope.tagData = tags;
   });
 
+  
+
   $scope.readOnly = true;
   $scope.editButtonText = "+ Edit Opportunity";
   $scope.toggleEdit = function () {
@@ -86,7 +88,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
         return {_id: _id, score: tagView.value};
       }
     });
-    
+
     oppData.questions = $scope.guidance.questions;
     oppData.internalNotes = [ notesData ];
     oppData.tags = tagsData;

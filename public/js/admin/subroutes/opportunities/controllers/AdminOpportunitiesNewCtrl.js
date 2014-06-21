@@ -1,18 +1,29 @@
-app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 
-  function($scope, $stateParams, Opportunity, Tag) {
+app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportunity', 'Company', 'Tag', 
+  function($scope, $stateParams, Opportunity, Match, Tag) {
 
   Tag.getAll().then(function (tags) {
     $scope.tagData = tags;
   });
 
-  $scope.readOnly = false;
+  Company.getAll().then(function (companies) {
+    $scope.companyData = companies;
+  });
+
+  $scope.readOnly = true;
+  $scope.editButtonText = "+ Edit Opportunity";
+  $scope.toggleEdit = function () {
+    if (!$scope.readOnly) { $scope.save(); }
+    $scope.readOnly = !$scope.readOnly;
+    $scope.editButtonText = $scope.readOnly ? "+ Edit Opportunity" : "Save Opportunity";
+  }; 
 
   $scope.basic = {};
   $scope.guidance = {};
-
+  $scope.declared = [];
   $scope.mapToView = function (oppData, matchData) {
     var basicInfo = {};
-    basicInfo.description = '';
+    basicInfo._id = oppData._id;
+    basicInfo.description = oppData.description;
     basicInfo.company = oppData.company.name;
     basicInfo.title = oppData.jobTitle;
     basicInfo.location = oppData.company.city;
@@ -73,13 +84,10 @@ app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportun
         return {_id: _id, score: tagView.value};
       }
     });
-    var questionsData = $scope.guidance.questions.map(function (questionView) {
-      return {question: questionView};
-    });
-
+    
+    oppData.questions = $scope.guidance.questions;
     oppData.internalNotes = [ notesData ];
     oppData.tags = tagsData;
-    oppData.questions = questionsData;
     oppData.links = $scope.basic.links;
 
     Opportunity.update(oppData).then(function(data){
