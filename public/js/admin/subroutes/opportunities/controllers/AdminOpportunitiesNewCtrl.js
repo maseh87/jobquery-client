@@ -1,4 +1,4 @@
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 
+app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 
   function($scope, $stateParams, Opportunity, Tag) {
 
   Tag.getAll().then(function (tags) {
