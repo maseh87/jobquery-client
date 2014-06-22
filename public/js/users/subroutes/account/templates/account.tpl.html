@@ -50,7 +50,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="tag in types.binary | orderBy: 'tag.position' track by $index">
-                        <td>{{tag.tag.name}} | position: {{tag.tag.position}}</td>
+                        <td>{{tag.tag.name}}</td>
                         <td><input type="radio" name="{{ category + 'binary' + $index}}" value="yes" ng-model="tag.value"></td>
                         <td><input type="radio" name="{{ category + 'binary' + $index}}" value="no" ng-model="tag.value"></td>
                     </tr>
@@ -69,7 +69,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="tag in types.scale | orderBy: 'tag.position' track by $index">
-                        <td>{{tag.tag.name}} | {{tag.tag.position}}</td>
+                        <td>{{tag.tag.name}}</td>
                         <td><input type="radio" name="{{ category + 'scale' + $index}}" value="1" ng-model="tag.value"></td>
                         <td><input type="radio" name="{{ category + 'scale' + $index}}" value="2" ng-model="tag.value"></td>
                         <td><input type="radio" name="{{ category + 'scale' + $index}}" value="3" ng-model="tag.value"></td>
@@ -82,7 +82,7 @@
             <h5>Text Questions</h5>
             <table class="table">
                 <tr ng-repeat="tag in types.text | orderBy: 'tag.position' track by $index">
-                <td>{{tag.tag.name}} | {{tag.tag.position}}</td>
+                <td>{{tag.tag.name}}</td>
                 <td><textarea name="{{ category + 'text' + $index}}" ng-model="tag.value"></textarea></td>
             </table>
             </tr>

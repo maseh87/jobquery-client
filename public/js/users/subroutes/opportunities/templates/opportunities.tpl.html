@@ -1,6 +1,6 @@
 <div ui-view>
     <h3 class="body-heading">Opportunities</h3><br>
-    <h4 class="body-tagline">View opportunities</h4>
+    <h4 class="body-tagline">View Opportunities</h4>
 
     <div class="section container-fluid" ng-repeat="(groupName, group) in groups">
         <div class="row">
@@ -14,13 +14,11 @@
                     <th>Company</th>
                     <th>Title</th>
                     <th>Location</th>
-                    <th>Declared Candidates</th>
-                    <th>Interest >= 3</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="(name, opportunity) in group">
-                    <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
+                    <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail</a></td>
                     <td>{{ opportunity.company }}</td>
                     <td>{{ opportunity.title }}</td>
                     <td>{{ opportunity.location }}</td>
