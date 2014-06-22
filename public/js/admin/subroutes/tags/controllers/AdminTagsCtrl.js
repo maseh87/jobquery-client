@@ -128,7 +128,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
       swapCategories(tag, index, category).then(function(){
         return $scope.save(tag, index);
       });
-    } else {
+    } else if(tag.name && tag.label) {
       $scope.pendingRequests++;
       if(tag._id){
         Tag.update(tag).then(function(data){
