@@ -13,7 +13,7 @@ app.controller('LoginCtrl', ['User', '$state', '$scope', 'localStorageService', 
         // got to appropiate part of the app
         if(response.data.isAdmin){
           // go to default admin route
-          $state.go('admin.dashboard', { _id : response.data._id});
+          $state.go('admin.opportunities.all', { _id : response.data._id});
         } else {
           // got to default user route
           $state.go('users.account', { _id : response.data._id});
