@@ -33,10 +33,11 @@
                 <td>Links:</td>
                 <td>
                     <div ng-repeat="link in basic.links">
-                        <input type="text" ng-readonly="readOnly" ng-model="link.url" placeholder="Add new question here">
+                        <input type="text" ng-readonly="readOnly" ng-model="link.title" placeholder="Add new title here">
+                        <input type="text" ng-readonly="readOnly" ng-model="link.url" placeholder="Add new link here">
                         <span ng-show="!readOnly" ng-click="removeFrom(basic.links, link, 'url')">Remove</span>
                     </div>
-                    <span ng-show="!readOnly" ng-click="addTo(basic.links, {url: ''})">+ Add New</span>
+                    <span ng-show="!readOnly" ng-click="addTo(basic.links, {title: 'title', url: ''})">+ Add New</span>
                 </td>
             </tr>
             <tr>
