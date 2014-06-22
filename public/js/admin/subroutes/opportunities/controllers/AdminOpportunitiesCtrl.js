@@ -32,8 +32,8 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
     
     matchData.forEach(function(match) {
       var oppId = match.opportunity;
-      allOpportunities[oppId].declared++;
-      if (match.userInterest >= 3) { allOpportunities[oppId].interested++; }
+      if (match.userInterest > 0) { allOpportunities[oppId].declared++; }
+      if (match.userInterest > 2) { allOpportunities[oppId].interested++; }
     });
   };
 
