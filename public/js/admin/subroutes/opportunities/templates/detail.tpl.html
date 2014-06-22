@@ -7,30 +7,30 @@
         <span>Basic Information</span>
     </div>
     <div class="row">
-        <div class="col-xs-6"><input type="text" ng-readonly="readOnly" value="{{basic.description}}"></div>
+        <div class="col-xs-6"><input type="text" value="{{basic.description}}"></div>
         <div class="col-xs-6">
             <table class="table">
             <tr>
                 <td>Company:</td>
-                <td><input type="text" ng-readonly="false" value="{{basic.company}}"></td>
+                <td><input type="text" value="{{basic.company}}"></td>
             </tr>
             <tr>
                 <td>Title:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{basic.title}}"></td>
+                <td><input type="text" value="{{basic.title}}"></td>
             </tr>
             <tr>
                 <td>Active:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{basic.active}}"></td>
+                <td><input type="text" value="{{basic.active}}"></td>
             </tr>
             <tr>
                 <td>Group:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{basic.group}}"></td>
+                <td><input type="text" value="{{basic.group}}"></td>
             </tr>
             <tr>
                 <td>Links:</td>
                 <td>
                     <div ng-repeat="link in basic.links">
-                        <input type="text" ng-readonly="readOnly" ng-model="link.url" placeholder="Add new question here">
+                        <input type="text" ng-model="link.url" placeholder="Add new question here">
                         <span ng-show="!readOnly" ng-click="removeFrom(basic.links, link, 'url')">Remove</span>
                     </div>
                     <span ng-show="!readOnly" ng-click="addTo(basic.links, {url: ''})">+ Add New</span>
@@ -38,7 +38,7 @@
             </tr>
             <tr>
                 <td>Internal Notes:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{basic.internal}}"></td>
+                <td><input type="text" value="{{basic.internal}}"></td>
             </tr>
             </table>
         </div>
@@ -56,7 +56,7 @@
                     <td>Extra Questions</td>
                     <td>
                         <div ng-repeat="question in guidance.questions">
-                            <input ng-readonly="readOnly" ng-model="question.question">
+                            <input ng-model="question.question">
                             <span ng-show="!readOnly" ng-click="removeFrom(guidance.questions, question, 'question')">Remove</span>
                         </div>
                         <span ng-show="!readOnly" ng-click="addTo(guidance.questions, {question: ''})">+ Add New</span>
@@ -70,8 +70,8 @@
                     <td>Tags Associated</td>
                     <td>
                         <div ng-repeat="tag in guidance.tags">
-                            <input ng-readonly="readOnly" value="{{tag.name}}">
-                            <input ng-readonly="readOnly" value="{{tag.value}}">
+                            <input value="{{tag.name}}">
+                            <input value="{{tag.value}}">
                             <span ng-show="!readOnly" ng-click="removeFrom(guidance.tags, tag, 'name')">Remove</span>
                         </div>
                         <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 0})">+ Add New</span>

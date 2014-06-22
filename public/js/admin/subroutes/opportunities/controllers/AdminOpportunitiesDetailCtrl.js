@@ -11,8 +11,6 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     $scope.tagData = tags;
   });
 
-  
-
   $scope.readOnly = true;
   $scope.editButtonText = "+ Edit Opportunity";
   $scope.toggleEdit = function () {
