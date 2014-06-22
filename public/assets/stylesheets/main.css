@@ -52,3 +52,4 @@ body {
     background-color: #c9e3ef;
 }
 .sidebar-active a { color: #5598c1; font-weight: 400; }
+.sidebar-active a:hover { color: #5598c1; font-weight: 400; }
