@@ -32,7 +32,7 @@ app.factory('Category', ['$http', 'SERVER_URL', function($http, SERVER_URL){
     categoryMethods.update = function(category){
       return $http({
         method: 'PUT',
-        url: SERVER_URL + '/api/categories' + category._id,
+        url: SERVER_URL + '/api/categories/' + category._id,
         data: category
       }).then(function(response){
         return response.data;
