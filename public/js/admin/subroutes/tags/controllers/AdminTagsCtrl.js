@@ -10,10 +10,11 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
 
       //Step 2. Fetch all categories
       Category.getAll('Tag').then(function(data){
-
+        $scope.categoryRefs = data;
         //Step 3. Objectify categories, keyed by category._id
         var categories = {};
         data.forEach(function(category){
+          category.readOnly = true;
           category.tags = [];
           categories[category._id] = category;
         });
@@ -37,6 +38,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
             }
           }
         });
+        delete categories.uncategorized;
         //Step 5. Resolve Descrepancies
         var promises = [];
         for(var key in categories){
@@ -105,18 +107,40 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
     });
   };
 
-  $scope.save = function(tag){
-    $scope.pendingRequests++;
-    if(tag._id){
-      Tag.update(tag).then(function(data){
-        $scope.pendingRequests--;
+  var swapCategories = function(tag, index, category){
+    //First splice the tag out of the category tags array.
+    $scope.categories[category._id].tags.splice(index, 1);
+    //Push the tag onto the new category tags array, setting position in the process.
+    tag.position = $scope.categories[tag.newCatId].tags.length;
+    tag.category = tag.newCatId;
+    $scope.categories[tag.newCatId].tags.push(tag);
+    //Update the position of all tags which come after it.
+    var promises = [];
+    for(var i = index; i < category.tags.length; i++){
+      category.tags[i].position--;
+      promises.push(Tag.update(category.tags[i]));
+    }
+    return $q.all(promises);
+  };
+
+  $scope.save = function(tag, index, category){
+    if(typeof tag.category !== 'string' && tag.newCatId !== tag.category._id){
+      swapCategories(tag, index, category).then(function(){
+        return $scope.save(tag, index);
       });
     } else {
-      console.log(tag);
-      Tag.create(tag).then(function(data){
-        $scope.pendingRequests--;
-        tag._id = data._id;
-      });
+      $scope.pendingRequests++;
+      if(tag._id){
+        Tag.update(tag).then(function(data){
+          $scope.pendingRequests--;
+        });
+      } else {
+        console.log(tag);
+        Tag.create(tag).then(function(data){
+          $scope.pendingRequests--;
+          tag._id = data._id;
+        });
+      }
     }
   };
 
@@ -175,6 +199,27 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
     });
 
   };
+
+  $scope.addCategory = function(){
+    var newCategory = {
+      name: 'New Category',
+      type: 'Tag'
+    }
+    Category.create(newCategory).then(function(category){
+      newCategory._id = category._id;
+      $scope.categories[category._id] = {
+        _id: newCategory._id,
+        type: 'Tag',
+        name: 'New Category'
+      };
+    });
+  };
+
+  $scope.saveCategory = function(category){
+    Category.update(category).then(function(category){
+      console.log('category updated');
+    });
+  }
 
   initialize();
 
