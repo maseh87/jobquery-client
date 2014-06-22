@@ -1,5 +1,6 @@
 var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule']);
 
+
 app.constant('SERVER_URL', 'http://jobquery.azurewebsites.net');
 
 app.config(['$httpProvider', function($httpProvider) {

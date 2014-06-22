@@ -11,10 +11,10 @@ app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportun
     title: '',
     group: {},
     active: true,
-    links: [ {url: ''} ]
+    links: []
   };
   $scope.guidance = {
-    questions: [ {question: ''} ],
+    questions: [],
     tags: []
   };
 
@@ -26,8 +26,10 @@ app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportun
     oppData.jobTitle = $scope.basic.title;
     
     oppData.questions = $scope.guidance.questions;
-    oppData.internalNotes = [ {text: $scope.basic.internal} ];
-    oppData.tags = $scope.guidance.tags.map(function (tag) { return tag.data; });
+    oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
+    oppData.tags = $scope.guidance.tags.map(function (tag) { 
+      return {tag: tag.data._id, score: tag.value}; 
+    });
     oppData.links = $scope.basic.links;
 
     oppData.category = $scope.basic.category._id;
