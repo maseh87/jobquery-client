@@ -20,19 +20,19 @@
     <table class="table">
         <tr>
             <th>Name:</th>
-            <td><input type="text" ng-model="user.name" required></td>
+            <td><input type="text" size="40" ng-model="user.name" required></td>
         </tr>
         <tr>
             <th>Email:</th>
-            <td><input type="text" ng-model="user.email" required></td>
+            <td><input type="text" size="40" ng-model="user.email" required></td>
         </tr>
         <tr>
             <th>Github:</th>
-            <td><input type="text" ng-model="user.github"></td>
+            <td><input type="text" size="40" ng-model="user.github"></td>
         </tr>
         <tr>
             <th>LinkedIn:</th>
-            <td><input type="text" ng-model="user.linkedin"></td>
+            <td><input type="text" size="40" ng-model="user.linkedin"></td>
         </tr>
     </table>
 
@@ -41,7 +41,7 @@
     <div ng-repeat="(category, types) in tags">
         <h4>{{category}}<h4>
         <div ng-show="types.hasOwnProperty('binary')">
-            <h5>Binary Questions</h5>
+            <!-- <h5>Binary Questions</h5> -->
             <table class="table">
                 <thead>
                     <th></th>
@@ -50,7 +50,10 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="tag in types.binary | orderBy: 'tag.position' track by $index">
-                        <td>{{tag.tag.name}}</td>
+                        <td>
+                        <p>{{tag.tag.name}}</p>
+                        <p>{{tag.tag.label}}</p>
+                        </td>
                         <td><input type="radio" name="{{ category + 'binary' + $index}}" value="yes" ng-model="tag.value"></td>
                         <td><input type="radio" name="{{ category + 'binary' + $index}}" value="no" ng-model="tag.value"></td>
                     </tr>
@@ -58,7 +61,7 @@
             </table>
         </div>
         <div ng-show="types.hasOwnProperty('scale')">
-            <h5>Scale Questions</h5>
+            <!-- <h5>Scale Questions</h5> -->
             <table class="table">
                 <thead>
                     <th></th>
@@ -69,7 +72,10 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="tag in types.scale | orderBy: 'tag.position' track by $index">
-                        <td>{{tag.tag.name}}</td>
+                        <td>
+                        <p>{{tag.tag.name}}</p>
+                        <p>{{tag.tag.label}}</p>
+                        </td>
                         <td><input type="radio" name="{{ category + 'scale' + $index}}" value="1" ng-model="tag.value"></td>
                         <td><input type="radio" name="{{ category + 'scale' + $index}}" value="2" ng-model="tag.value"></td>
                         <td><input type="radio" name="{{ category + 'scale' + $index}}" value="3" ng-model="tag.value"></td>
@@ -79,11 +85,14 @@
             </table>
         </div>
          <div ng-show="types.hasOwnProperty('text')">
-            <h5>Text Questions</h5>
+            <!-- <h5>Text Questions</h5> -->
             <table class="table">
                 <tr ng-repeat="tag in types.text | orderBy: 'tag.position' track by $index">
-                <td>{{tag.tag.name}}</td>
-                <td><textarea name="{{ category + 'text' + $index}}" ng-model="tag.value"></textarea></td>
+                <td>
+                <p>{{tag.tag.name}}</p>
+                <p>{{tag.tag.label}}</p>
+                </td>
+                <td><textarea cols="50" rows="2" name="{{ category + 'text' + $index}}" ng-model="tag.value"></textarea></td>
             </table>
             </tr>
         </div>
