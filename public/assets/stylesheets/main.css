@@ -53,3 +53,8 @@ body {
 }
 .sidebar-active a { color: #5598c1; font-weight: 400; }
 .sidebar-active a:hover { color: #5598c1; font-weight: 400; }
+
+.text-area {
+  width: 100%;
+  height: 500px;
+}

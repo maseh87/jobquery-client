@@ -15,12 +15,15 @@ app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function(User, $scop
       }
       User.invite(emails)
         .success(function (data) {
-          $scope.showMessage();
-          $scope.alertMessage = "Invitations successful!";
+          if(Array.isArray(data) && data.length > 0) {
+            $scope.alertMessage = 'Please remove the following existing users and send again: ' + (data).join(',');
+            $scope.showMessage();
+          } else {
+            $scope.showMessage();
+            $scope.alertMessage = "Invitations sent!";
+          }
         })
         .error(function (data) {
-          $scope.alertMessage = 'Please remove these existing users: ' + (data).join(',');
-          $scope.showMessage();
         });
     }
     //empty emailStrings input
