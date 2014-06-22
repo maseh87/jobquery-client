@@ -30,8 +30,8 @@ app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportun
     oppData.tags = $scope.guidance.tags.map(function (tag) { return tag.data; });
     oppData.links = $scope.basic.links;
 
-    oppData.category = { _id: $scope.basic.category._id };
-    oppData.company = { _id: $scope.basic.company._id };
+    oppData.category = $scope.basic.category._id;
+    oppData.company = $scope.basic.company._id;
 
     console.log(oppData);
     Opportunity.create(oppData).then(function(data){
