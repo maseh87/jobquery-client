@@ -47,13 +47,13 @@ body {
 }
 
 .sidebar-logout {
-    padding-top: 14px;
+    padding-top: 28px;
 }
 
 .sidebar-active {
     position: relative;
     width: 187px; padding-right: 18px;
-    background-color: #c9e3ef;
+    background-color: #5598c1;
 }
-.sidebar-active a { color: #5598c1; font-weight: 400; }
-.sidebar-active a:hover { color: #5598c1; font-weight: 400; }
+.sidebar-active a { color: #c9e3ef; font-weight: 400; }
+.sidebar-active a:hover { color: #c9e3ef; font-weight: 400; }
