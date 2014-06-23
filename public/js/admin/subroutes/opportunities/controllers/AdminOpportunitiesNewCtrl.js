@@ -28,14 +28,13 @@ app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportun
     oppData.questions = $scope.guidance.questions;
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
     oppData.tags = $scope.guidance.tags.map(function (tag) { 
-      return {tag: tag.data._id, score: tag.value}; 
+      return {tag: tag.data._id, score: tag.value, importance: tag.importance}; 
     });
     oppData.links = $scope.basic.links;
 
     oppData.category = $scope.basic.category._id;
     oppData.company = $scope.basic.company._id;
 
-    console.log(oppData);
     Opportunity.create(oppData).then(function(data){
       console.log('Create successful');
     });

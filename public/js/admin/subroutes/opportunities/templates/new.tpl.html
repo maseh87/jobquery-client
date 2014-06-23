@@ -76,6 +76,11 @@
                         <div ng-repeat="tagView in guidance.tags">
                             <select ng-model="tagView.data" ng-options="tag.name for tag in tags"></select>
                             <input ng-readonly="readOnly" ng-model="tagView.value">
+                            <select ng-model="tagView.importance">
+                                <option value="must" selected>Must have</option>
+                                <option value="nice">Nice to have</option>
+                                <option value="unimportant">Unimportant</option>
+                            </select>
                             <span ng-show="!readOnly" ng-click="removeFrom(guidance.tags, tagView, 'name')">Remove</span>
                         </div>
                         <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 0})">+ Add New</span>
