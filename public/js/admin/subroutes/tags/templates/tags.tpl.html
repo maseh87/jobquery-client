@@ -1,50 +1,55 @@
 <img src="assets/images/ajax-loader.gif" style="height:30px;width:30px;position:fixed;bottom:10px;right:10px;" ng-show="pendingRequests">
-<h1>Create Survey</h1>
+<div ng-hide="categories">
+    <h1>Now Loading Survey Creator...</h1>
+    <img src="assets/images/ajax-bar.gif">
+</div>
+<div ng-show="categories">
+    <h1>Create Survey</h1>
 
-<form ng-repeat="category in categories">
-    <h1>
-        <input type="text" ng-model="category.name" ng-readonly="category.readOnly">
-        <button type="button" ng-click="category.readOnly = false" ng-show="category.readOnly">Edit</button>
-        <button type="button" ng-click="category.readOnly = true; saveCategory(category)" ng-show="!category.readOnly">Save</button>
-    </h1>
-    <table class="table">
-        <tr>
-            <th>Question</th>
-            <th>Internal Label</th>
-            <th>Category</th>
-            <th>Type</th>
-            <th>isPublic</th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tr ng-repeat="tag in category.tags track by $index">
-            <td><input type="textbox" ng-model="tag.name" ng-readonly="tag.readOnly"></td>
-            <td><input type="text" ng-model="tag.label" ng-readonly="tag.readOnly"></td>
-            <td>
-                <select name="catSelect" ng-model="tag.newCatId" ng-disabled="tag.readOnly">
-                    <option ng-repeat="category in categories" ng-value="category._id" ng-selected="{{tag.category._id === category._id}}">{{category.name}}</option>
-                </select>
-            </td>
-            <td>
-                <select name="type" ng-model="tag.type" ng-disabled="tag.readOnly">
-                    <option value="scale">1-4 Scale</option>
-                    <option value="binary">Yes/No</option>
-                    <option value="text">Free Response</option>
-                </select>
-            </td>
-            <td><input type="checkbox" ng-model="tag.isPublic" ng-disabled="tag.readOnly"></td>
-            <td>
-                <button type="button" ng-click="tag.readOnly = false" ng-show="tag.readOnly">Edit</button>
-                <button type="button" ng-click="tag.readOnly = true; save(tag, $index, category)" ng-hide="tag.readOnly">Save</button>
-                <button type="button" ng-click="remove(tag, $index, category)" ng-show="!tag.readOnly">Remove</button>
-            </td>
-            <td>
-                <button type="button" ng-click="moveUp($index, category)" ng-show="!$first">Up</button>
-                <button type="button" ng-click="moveDown($index, category)" ng-show="!$last">Down</button>
-            </td>
-        </tr>
-    </table>
-    <button ng-click="add(category)" type="button">+ Add Tag</button>
-</form>
-
-<button type="button" ng-click="addCategory()">+ Add Category</button>
+    <form ng-repeat="category in categories">
+        <h1>
+            <input type="text" ng-model="category.name" ng-readonly="category.readOnly">
+            <button type="button" ng-click="category.readOnly = false" ng-show="category.readOnly">Edit</button>
+            <button type="button" ng-click="category.readOnly = true; saveCategory(category)" ng-show="!category.readOnly">Save</button>
+        </h1>
+        <table class="table">
+            <tr>
+                <th>Question</th>
+                <th>Internal Label</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>isPublic</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="tag in category.tags track by $index">
+                <td><input type="textbox" ng-model="tag.name" ng-readonly="tag.readOnly"></td>
+                <td><input type="text" ng-model="tag.label" ng-readonly="tag.readOnly"></td>
+                <td>
+                    <select name="catSelect" ng-model="tag.newCatId" ng-disabled="tag.readOnly">
+                        <option ng-repeat="category in categories" ng-value="category._id" ng-selected="{{tag.category._id === category._id}}">{{category.name}}</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="type" ng-model="tag.type" ng-disabled="tag.readOnly">
+                        <option value="scale">1-4 Scale</option>
+                        <option value="binary">Yes/No</option>
+                        <option value="text">Free Response</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" ng-model="tag.isPublic" ng-disabled="tag.readOnly"></td>
+                <td>
+                    <button type="button" ng-click="tag.readOnly = false" ng-show="tag.readOnly">Edit</button>
+                    <button type="button" ng-click="tag.readOnly = true; save(tag, $index, category)" ng-hide="tag.readOnly">Save</button>
+                    <button type="button" ng-click="remove(tag, $index, category)" ng-show="!tag.readOnly">Remove</button>
+                </td>
+                <td>
+                    <button type="button" ng-click="moveUp($index, category)" ng-show="!$first">Up</button>
+                    <button type="button" ng-click="moveDown($index, category)" ng-show="!$last">Down</button>
+                </td>
+            </tr>
+        </table>
+        <button ng-click="add(category)" type="button">+ Add Tag</button>
+    </form>
+    <button type="button" ng-click="addCategory()">+ Add Category</button>
+</div>
