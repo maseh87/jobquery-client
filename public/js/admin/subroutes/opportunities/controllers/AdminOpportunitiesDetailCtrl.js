@@ -30,9 +30,10 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     basicInfo.links = oppData.links;
     basicInfo.active = oppData.active;
     basicInfo.group = oppData.category;
-    basicInfo.internal = oppData.internalNotes[0].text;
+    basicInfo.internal =
+      oppData.internalNotes.length ?
+      oppData.internalNotes[0].text : null;
     $scope.basic = basicInfo;
-
     var guidance = {};
     var guidanceTags = {};
     guidance.questions = oppData.questions;
@@ -70,13 +71,12 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
     oppData.questions = $scope.guidance.questions;
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
-    oppData.tags = $scope.guidance.tags.map(function (tag) { 
-      return {tag: tag.data._id, value: tag.value, importance: tag.importance}; 
+    oppData.tags = $scope.guidance.tags.map(function (tag) {
+      return {tag: tag.data._id, value: tag.value, importance: tag.importance};
     });
     oppData.links = $scope.basic.links;
 
     Opportunity.update(oppData).then(function(data){
-      // console.log("Update successful");
     });
   };
 

@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <td>Title:</td>
-                <td><input ng-readonly="readOnly" type="text" value="{{basic.title}}"></td>
+                <td><input size="40" ng-readonly="readOnly" type="text" value="{{basic.title}}"></td>
             </tr>
             <tr>
                 <td>Active:</td>
@@ -34,15 +34,16 @@
                 <td>Links:</td>
                 <td>
                     <div ng-repeat="link in basic.links">
-                        <input type="text" ng-readonly="readOnly" ng-model="link.url" placeholder="Add new question here">
+                        <input type="text" ng-model="link.title" ng-readonly="readOnly" placeholder="Add new title here">
+                        <input type="text" ng-model="link.url" ng-readonly="readOnly" placeholder="Add new link here">
                         <span ng-show="!readOnly" ng-click="removeFrom(basic.links, link, 'url')">Remove</span>
                     </div>
-                    <span ng-show="!readOnly" ng-click="addTo(basic.links, {url: ''})">+ Add New</span>
+                    <span ng-show="!readOnly" ng-click="addTo(basic.links, {title: 'title', url: ''})">+ Add New</span>
                 </td>
             </tr>
             <tr>
                 <td>Internal Notes:</td>
-                <td><input type="text" ng-readonly="readOnly" value="{{basic.internal}}"></td>
+                <td><textarea cols="40" rows="5" ng-readonly="readOnly" ng-model="basic.internal"></textarea></td>
             </tr>
             </table>
         </div>
