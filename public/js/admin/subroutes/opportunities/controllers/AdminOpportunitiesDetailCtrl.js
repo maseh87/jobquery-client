@@ -6,7 +6,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     $scope.oppData = data.opportunity;
   });
 
-  Tag.getAll().then(function (tags) { $scope.tagData = tags; });
+  Tag.getAll().then(function (tags) { $scope.tags = tags; });
   Category.getAll('Opportunity').then(function (categories) { $scope.categories = categories; });
 
   $scope.readOnly = true;
@@ -36,11 +36,9 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     var guidance = {};
     var guidanceTags = {};
     guidance.questions = oppData.questions;
-    guidance.tags = oppData.tags.filter(function (tagData) {
-      return tagData.score >= 3;
-    }).map(function (tagData) {
+    guidance.tags = oppData.tags.map(function (tagData) {
       guidanceTags[tagData._id] = true;
-      return {_id: tagData._id, name: tagData.tag.name, value: tagData.score};
+      return {data: tagData.tag, value: tagData.value, importance: tagData.importance};
     });
     $scope.guidance = guidance;
 
@@ -67,31 +65,18 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     oppData.description = $scope.basic.description;
     oppData.questions = $scope.guidance.questions;
     oppData.jobTitle = $scope.basic.title;
-    oppData.category = $scope.basic.group;
-
-    var notesData = {
-      _id: oppData._id,
-      text: $scope.basic.internal
-    };
-    var tagsData = $scope.guidance.tags.map(function (tagView) {
-      if (tagView._id) {
-        return {_id: tagView._id, score: tagView.value};
-      } else {
-        var _id = $scope.tagData.filter(function (tagData) {
-          return tagData.name === tagView.name;
-        }).map(function (tagData) {
-          return tagData._id;
-        });
-        return {_id: _id, score: tagView.value};
-      }
-    });
+    oppData.category = $scope.basic.group._id;
+    oppData.company = $scope.basic.company._id;
 
     oppData.questions = $scope.guidance.questions;
-    oppData.internalNotes = [ notesData ];
-    oppData.tags = tagsData;
+    oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
+    oppData.tags = $scope.guidance.tags.map(function (tag) { 
+      return {tag: tag.data._id, value: tag.value, importance: tag.importance}; 
+    });
     oppData.links = $scope.basic.links;
 
     Opportunity.update(oppData).then(function(data){
+      // console.log("Update successful");
     });
   };
 

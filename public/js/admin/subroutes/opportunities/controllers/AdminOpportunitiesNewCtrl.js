@@ -28,8 +28,7 @@ app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportun
     oppData.questions = $scope.guidance.questions;
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
     oppData.tags = $scope.guidance.tags.map(function (tag) { 
-      return {tag: tag.data._id, score: tag.value, importance: tag.importance};
-
+      return {tag: tag.data._id, value: tag.value, importance: tag.importance}; 
     });
     oppData.links = $scope.basic.links;
 
