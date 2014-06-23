@@ -1,0 +1,12 @@
+.tablebox {
+
+}
+
+.tablebox-title, .tablebox-header {
+    width: 100%;
+}
+
+.tablebox-title { background-color: #E4E4E4;}
+.tablebox-header, .tablebox-content { background-color: #FFFFFF;}
+
+.tablebox-content { width: 80%; }
