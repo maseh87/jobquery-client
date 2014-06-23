@@ -1,4 +1,4 @@
-app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function(User, $scope){
+app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function (User, $scope) {
 
   $scope.sendEmails =  function (emailStrings) {
     if (emailStrings === undefined || emailStrings.length === 0 ) {
@@ -39,7 +39,7 @@ app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function(User, $scop
     $scope.showAlert = true;
   };
 
-  $scope.emailCSVPattern = (function() {
+  $scope.emailCSVPattern = (function () {
     var regexp = /[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-\.]+\.[a-zA-Z]{2,5}/;
     return {
         test: function(value) {

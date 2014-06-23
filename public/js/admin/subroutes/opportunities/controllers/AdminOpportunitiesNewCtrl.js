@@ -1,4 +1,4 @@
-app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportunity', 'Company', 'Tag', 'Category', 
+app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportunity', 'Company', 'Tag', 'Category',
   function($scope, $stateParams, Opportunity, Company, Tag, Category) {
 
   Tag.getAll().then(function (tags) { $scope.tags = tags; });
@@ -24,11 +24,12 @@ app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportun
     oppData.description = $scope.basic.description;
     oppData.questions = $scope.guidance.questions;
     oppData.jobTitle = $scope.basic.title;
-    
+
     oppData.questions = $scope.guidance.questions;
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
     oppData.tags = $scope.guidance.tags.map(function (tag) { 
-      return {tag: tag.data._id, score: tag.value, importance: tag.importance}; 
+      return {tag: tag.data._id, score: tag.value, importance: tag.importance};
+
     });
     oppData.links = $scope.basic.links;
 

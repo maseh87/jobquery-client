@@ -9,14 +9,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       url: '/',
       templateUrl: '/js/core/templates/home.tpl.html',
       resolve: {
-        redirect: function($location, localStorageService){
+        redirect: ['$location', 'localStorageService', function ($location, localStorageService) {
           var isAdmin = localStorageService.get('isAdmin');
           if(isAdmin){
             $location.path('/admin');
           } else {
             $location.path('/users');
           }
-        }
+        }]
       },
       controller: 'AppCtrl'
     })

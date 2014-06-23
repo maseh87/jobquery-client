@@ -1,14 +1,14 @@
-app.controller('AdminCandidatesDetailCtrl', ['User', '$scope', '$stateParams', function(User, $scope, $stateParams){
+app.controller('AdminCandidatesDetailCtrl', ['User', '$scope', '$stateParams', function (User, $scope, $stateParams) {
 
-  User.get($stateParams._id).then(function(user){
+  User.get($stateParams._id).then(function (user) {
     $scope.user = user;
   });
 
-  $scope.update = function(user){
+  $scope.update = function (user) {
     User.update(user)
-    .then(function(updated){
+    .then(function (updated) {
       $scope.updated = true;
-    },function(updated){
+    },function (updated) {
       $scope.saveError = true;
     });
   };

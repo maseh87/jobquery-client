@@ -1,12 +1,11 @@
-app.factory('UserTagResource',
-  ['$resource', 'SERVER_URL', function($resource, SERVER_URL){
+app.factory('UserTagResource', ['$resource', 'SERVER_URL', function ($resource, SERVER_URL) {
   return $resource(SERVER_URL + '/public/tags', {});
 }]);
 
-app.factory('UserTag', ['UserTagResource', function(UserTagResource){
+app.factory('UserTag', ['UserTagResource', function (UserTagResource) {
   var userTagMethods = {};
 
-  userTagMethods.getAll = function(){
+  userTagMethods.getAll = function () {
     return UserTagResource.query().$promise;
   };
 

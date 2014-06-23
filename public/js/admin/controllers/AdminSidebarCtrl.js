@@ -1,3 +1,3 @@
-app.controller('AdminSidebarCtrl', ['$scope', function($scope){
+app.controller('AdminSidebarCtrl', ['$scope', function ($scope){
 
 }]);

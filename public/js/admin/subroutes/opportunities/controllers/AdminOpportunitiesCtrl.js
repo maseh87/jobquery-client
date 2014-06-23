@@ -1,7 +1,7 @@
-app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 
-  function($scope, Opportunity, Match) {
+app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
+  function ($scope, Opportunity, Match) {
 
-  Match.getAll().then(function(data) {
+  Match.getAll().then(function (data) {
     $scope.mapToView(data.matches, data.opportunities);
   });
 
@@ -14,7 +14,7 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
 
   $scope.mapToView = function (matchData, oppData) {
     var allOpportunities = {};
-    oppData.forEach(function (oppModel) { 
+    oppData.forEach(function (oppModel) {
       var opportunity = {};
       var groupName = oppModel.category.name;
       if (!$scope.groups[groupName]) { $scope.groups[groupName] = {}; }
@@ -29,8 +29,8 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
       allOpportunities[opportunity._id] = opportunity;
       $scope.groups[groupName][opportunity._id] = opportunity;
     });
-    
-    matchData.forEach(function(match) {
+
+    matchData.forEach(function (match) {
       var oppId = match.opportunity;
       if (match.userInterest > 0) { allOpportunities[oppId].declared++; }
       if (match.userInterest > 2) { allOpportunities[oppId].interested++; }

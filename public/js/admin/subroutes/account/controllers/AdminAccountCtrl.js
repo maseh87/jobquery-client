@@ -1,4 +1,4 @@
-app.controller('AdminAccountCtrl', ['$scope', function($scope){
+app.controller('AdminAccountCtrl', ['$scope', function ($scope) {
 
 
 }]);

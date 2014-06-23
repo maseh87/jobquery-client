@@ -1,10 +1,11 @@
-app.controller('LoginCtrl', ['User', '$state', '$scope', 'localStorageService', function( User, $state, $scope, localStorageService) {
+app.controller('LoginCtrl', ['User', '$state', '$scope', 'localStorageService',
+  function( User, $state, $scope, localStorageService) {
 
   localStorageService.clearAll();
-  $scope.submit =  function(email, password){
+  $scope.submit =  function (email, password) {
     $scope.submitting = true;
     User.login({email : email, password : password})
-      .then( function(response) {
+      .then( function (response) {
         $scope.submitting = false;
         localStorageService.set('token', response.data.token);
         localStorageService.set('token-date', JSON.stringify(new Date()));
