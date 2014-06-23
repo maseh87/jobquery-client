@@ -60,11 +60,11 @@
     width: 270px;
     color: #333;
 }
-.login-button{
+.login-button {
     margin-top: 10px;
     width: 180px;
     color: #5598c1;
 }
-.login-button:active{
-  background-color: #CCCCCC;
+.login-button:active {
+    background-color: #CCCCCC;
 }
