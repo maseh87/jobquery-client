@@ -205,7 +205,9 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
       name: 'New Category',
       type: 'Tag'
     };
+    $scope.pendingRequests++;
     Category.create(newCategory).then(function (category) {
+      $scope.pendingRequests--;
       newCategory._id = category._id;
       $scope.categories[category._id] = {
         _id: newCategory._id,
@@ -216,7 +218,9 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
   };
 
   $scope.saveCategory = function (category) {
+    $scope.pendingRequests++;
     Category.update(category).then(function (category) {
+      $scope.pendingRequests--;
       console.log('category updated');
     });
   };
@@ -225,7 +229,9 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
     var date = new Date();
     category.active = false;
     category.name = category.name + ' ' + date;
+    $scope.pendingRequests++;
     Category.update(category).then(function(category){
+      $scope.pendingRequests--;
       delete $scope.categories[category._id];
     });
   };
