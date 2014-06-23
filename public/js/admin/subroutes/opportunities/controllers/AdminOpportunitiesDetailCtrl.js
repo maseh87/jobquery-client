@@ -2,7 +2,6 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   function($scope, $stateParams, Opportunity, Match, Tag, Category) {
 
   Match.getUsers($stateParams._id).then(function (data) {
-    console.log(data);
     $scope.mapToView(data.opportunity, data.matches);
     $scope.oppData = data.opportunity;
   });
@@ -92,9 +91,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     oppData.tags = tagsData;
     oppData.links = $scope.basic.links;
 
-    console.log(oppData);
     Opportunity.update(oppData).then(function(data){
-      console.log('Update successful');
     });
   };
 
