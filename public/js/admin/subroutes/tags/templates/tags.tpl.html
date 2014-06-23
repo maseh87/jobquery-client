@@ -22,6 +22,7 @@
                 <th>isPublic</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
             <tr ng-repeat="tag in category.tags">
                 <td><input type="textbox" ng-model="tag.name" ng-readonly="tag.readOnly"></td>
@@ -40,13 +41,15 @@
                 </td>
                 <td><input type="checkbox" ng-model="tag.isPublic" ng-disabled="tag.readOnly"></td>
                 <td>
-                    <button type="button" ng-click="tag.readOnly = false" ng-show="tag.readOnly">Edit</button>
-                    <button type="button" ng-click="tag.readOnly = true; save(tag, $index, category)" ng-hide="tag.readOnly">Save</button>
-                    <button type="button" ng-click="remove(tag, $index, category)" ng-show="!tag.readOnly">Remove</button>
+                    <button type="button" ng-click="tag.readOnly = false" ng-show="tag.readOnly" class="btn btn-primary">Edit</button>
+                    <button type="button" ng-click="tag.readOnly = true; save(tag, $index, category)" ng-hide="tag.readOnly" class="btn btn-success">Save</button>
                 </td>
-                <td>
-                    <button type="button" ng-click="moveUp($index, category)" ng-show="!$first">Up</button>
-                    <button type="button" ng-click="moveDown($index, category)" ng-show="!$last">Down</button>
+                <td ng-show="tag.readOnly">
+                    <span ng-click="moveUp($index, category)" ng-show="!$first" class="glyphicon glyphicon-arrow-up pointer"></span>
+                    <span ng-click="moveDown($index, category)" ng-show="!$last" class="glyphicon glyphicon-arrow-down pointer"></span>
+                </td>
+                <td ng-show="!tag.readOnly">
+                    <button type="button" class="btn btn-danger" ng-click="remove(tag, $index, category)" ng-show="!tag.readOnly">Remove</button>
                 </td>
             </tr>
         </table>

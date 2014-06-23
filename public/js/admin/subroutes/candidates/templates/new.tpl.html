@@ -1,5 +1,5 @@
 <h1>Invite Candidates</h1>
-<p>Input one or more e-mail addresses (comma separated) and press invite</p>
+<p>Input one or more e-mail addresses and press invite</p>
 <form name="emailForm" novalidate="novalidate" >
     <textarea rows="10" cols="50" name="emails" ng-init="" ng-Model="emails" ng-pattern="emailCSVPattern()"> </textarea>
     <div ng-show="showAlert">{{alertMessage}}</div>

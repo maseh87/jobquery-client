@@ -44,7 +44,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
           }
         });
         delete categories.uncategorized;
-        //Step 5. Resolve Descrepancies
+        //Step 5. Resolve Discrepancies
         var promises = [];
         var sortPosition = function (a, b) {
           return a.position - b.position;
