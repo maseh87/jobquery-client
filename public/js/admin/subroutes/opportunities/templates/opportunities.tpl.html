@@ -1,21 +1,25 @@
 <div ui-view>
     <div class="content-header">
-        <div class="content-title">Opportunities</div>
-        <div class="content-tagline">View, create or edit job opportunities</div>
-    </div>
-
-    <div class="section container-fluid" ng-repeat="(groupName, group) in groups">
-        <div class="row">
+        <div class="content-header-block">
             <span class="content-action">
                 <span class="glyphicon glyphicon-plus"></span>
                 <a ui-sref="admin.opportunities.new">New Opportunity</a>
             </span>
-            <span>{{ groupName }}</span>
         </div>
+        <div class="content-header-block">
+            <div class="content-title">Opportunities</div>
+            <div class="content-tagline">View, create or edit job opportunities</div>
+        </div>
+    </div>
+
+    <div class="section container-fluid" ng-repeat="(groupName, group) in groups">
         <div class="row">
-            <table class="table">
+            <table class="tablebox">
             <thead>
-                <tr>
+                <tr class="tablebox-title">
+                    <th>{{ groupName }}</th>
+                </tr>
+                <tr class="tablebox-header">
                     <th></th><!-- empty table header -->
                     <th>Company</th>
                     <th>Title</th>
@@ -25,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="(name, opportunity) in group">
+                <tr class="tablebox-content" ng-repeat="(name, opportunity) in group">
                     <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">detail</a></td>
                     <td>{{ opportunity.company }}</td>
                     <td>{{ opportunity.title }}</td>
