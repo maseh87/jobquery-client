@@ -82,5 +82,8 @@ body {
 .content-action a { color: #F0F0F0; }
 .content-action a:hover { color: #c9e3ef; text-decoration: none}
 
-
+.btn-primary{
+    background-color: #5598c1;
+    border-color: #5598c1;
+}
 

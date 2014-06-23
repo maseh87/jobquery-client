@@ -25,8 +25,8 @@
                 <th></th>
             </tr>
             <tr ng-repeat="tag in category.tags">
-                <td><input type="textbox" ng-model="tag.name" ng-readonly="tag.readOnly"></td>
                 <td><input type="text" ng-model="tag.label" ng-readonly="tag.readOnly"></td>
+                <td><input type="textbox" ng-model="tag.name" ng-readonly="tag.readOnly"></td>
                 <td>
                     <select name="catSelect" ng-model="tag.newCatId" ng-disabled="tag.readOnly">
                         <option ng-repeat="category in categories" ng-value="category._id" ng-selected="{{tag.category._id === category._id || tag.category === category._id}}">{{category.name}}</option>
