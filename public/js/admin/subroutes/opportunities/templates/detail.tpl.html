@@ -20,13 +20,14 @@
             </tr>
             <tr>
                 <td>Active:</td>
-                <td><input ng-readonly="readOnly" type="text" value="{{basic.active}}"></td>
+                <td>
+                    <input type="checkbox" ng-model="basic.active" ng-disabled="readOnly">
+                </td>
             </tr>
               <tr>
                 <td>Group:</td>
                 <td>
-                <span ng-show="readOnly">{{ basic.group.name }}</span>
-                <select ng-show="!readOnly" ng-model="basic.group" ng-options="category.name for category in categories"></select>
+                    <select ng-model="basic.group._id" ng-options="category._id as category.name for category in categories" ng-disabled="readOnly"></select>
                 </td>
             </tr>
             <tr>
@@ -65,7 +66,7 @@
                         <span ng-show="!readOnly" ng-click="addTo(guidance.questions, {question: ''})">+ Add New</span>
                     </td>
                 </tr>
-            </table>            
+            </table>
         </div>
         <div class="col-xs-6">
             <table class="table">
@@ -87,7 +88,7 @@
                         <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {data: { }, value: 1, importance: 'must'})">+ Add New</span>
                     </td>
                 </tr>
-            </table>  
+            </table>
         </div>
     </div>
 </div>
@@ -101,7 +102,7 @@
         <thead>
             <th></th><!-- Empty table header-->
             <th>Name</th>
-            <th>E-mail</th> 
+            <th>E-mail</th>
             <th>Interest</th>
             <th ng-repeat="tag in guidance.tags">{{ tag.name }}</th>
         </thead>
