@@ -1,5 +1,5 @@
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category',  
-  function($scope, $stateParams, Opportunity, Match, Tag, Category) {
+app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category',
+  function ($scope, $stateParams, Opportunity, Match, Tag, Category) {
 
   Match.getUsers($stateParams._id).then(function (data) {
     $scope.mapToView(data.opportunity, data.matches);
@@ -15,7 +15,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     if (!$scope.readOnly) { $scope.save(); }
     $scope.readOnly = !$scope.readOnly;
     $scope.editButtonText = $scope.readOnly ? "+ Edit Opportunity" : "Save Opportunity";
-  }; 
+  };
 
   $scope.basic = {};
   $scope.guidance = {};
@@ -111,45 +111,3 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     array.push(field);
   };
 }]);
-
-/*
-
-$scope.basic = {};
-$scope.guidance = {};
-$scope.declared = [];
-
-// what i expect
-$scope.basic = {
-  description: "lorem ipsum",
-  company: "company",
-  title: "string",
-  location: "string",
-  url: "url",
-  learnMore: [url1, url2, url3],
-  active: true,
-  group: "true",
-  internal: "string"
-};
-var url1 = "www.google.ca";
-
-$scope.guidance = {
-  questions: ["question1", "question2"],
-  tags: [tag1, tag2]
-};
-
-$scope.declared = [ cand1, cand2 ];
-var cand1 = {
-  name: "",
-  email: "",
-  interest: "",
-  tags: [tag1, tag2, tag3]
-};
-
-var tag = {
-  name: 'algorithms',
-  value: 3
-}
-
-description, company, title, location, url, learnmore[], active, group, internal
-
-*/

@@ -1,4 +1,4 @@
-app.controller('AdminSchedulingCtrl', ['$scope', function($scope){
+app.controller('AdminSchedulingCtrl', ['$scope', function ($scope) {
 
 
 }]);

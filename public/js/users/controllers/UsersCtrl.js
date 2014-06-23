@@ -1,3 +1,3 @@
-app.controller('UsersCtrl', ['$scope', function($scope){
+app.controller('UsersCtrl', ['$scope', function ($scope) {
 
 }]);

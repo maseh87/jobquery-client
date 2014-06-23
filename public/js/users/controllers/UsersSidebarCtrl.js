@@ -1,3 +1,3 @@
-app.controller('UsersSidebarCtrl', ['$scope', function($scope){
+app.controller('UsersSidebarCtrl', ['$scope', function ($scope) {
 
 }]);

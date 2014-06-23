@@ -1,6 +1,6 @@
-app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', function($scope, $state, Match){
+app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', function ($scope, $state, Match) {
 
-  var matrixify = function(matchArray){
+  var matrixify = function (matchArray) {
 
     var normUsers = {};
     var normUserIndex = 0;
@@ -11,16 +11,16 @@ app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', function($scope
     var matrix = [];
 
     //Iterate through the matchArray
-    matchArray.forEach(function(match){
+    matchArray.forEach(function (match) {
       var userId = match.userId;
       var oppId = match.oppId;
 
-      if(normUsers[userId] === undefined){
+      if (normUsers[userId] === undefined) {
         normUsers[userId] = normUserIndex;
         normUserIndex++;
       }
 
-      if(normOpps[oppId] === undefined){
+      if (normOpps[oppId] === undefined) {
         normOpps[oppId] = normOppIndex;
         normOppIndex++;
       }
@@ -29,12 +29,12 @@ app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', function($scope
       var oppIndex = normOpps[oppId];
 
       //First check to see if the row exists
-      if(!Array.isArray(matrix[userIndex])){
+      if (!Array.isArray(matrix[userIndex])) {
         matrix[userIndex] = [];
       }
 
       //Now add nulls until the length = oppIndex + 1;
-      for(var i = matrix[userIndex].length - 1; i < oppIndex; i++){
+      for (var i = matrix[userIndex].length - 1; i < oppIndex; i++) {
         matrix[userIndex].push(null);
       }
 
@@ -43,8 +43,8 @@ app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', function($scope
     });
 
     //Finally fill out the candidates with nulls to normalize row width
-    matrix.forEach(function(column){
-      while(column.length < normOppIndex){
+    matrix.forEach(function (column) {
+      while (column.length < normOppIndex) {
         column.push(null);
       }
     });
@@ -52,7 +52,7 @@ app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', function($scope
     return matrix;
   };
 
-  Match.getAll().then(function(matches){
+  Match.getAll().then(function (matches) {
     $scope.matrix = matrixify(matches);
   });
 

@@ -1,4 +1,4 @@
-app.controller('AdminMessagesCtrl', ['$scope', function($scope){
+app.controller('AdminMessagesCtrl', ['$scope', function ($scope) {
 
 
 }]);

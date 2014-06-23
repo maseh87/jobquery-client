@@ -1,11 +1,11 @@
 app.controller('UsersAccountCtrl',
-  ['$scope','UsersAccount', 'UserTag', function($scope, UsersAccount, UserTag) {
+  ['$scope','UsersAccount', 'UserTag', function ($scope, UsersAccount, UserTag) {
 
-  UsersAccount.get().then(function(user){
+  UsersAccount.get().then(function (user) {
     $scope.user = user;
-    $scope.binary = user.tags.filter(function(item){ return item.tag.type === 'binary'; });
-    $scope.scale = user.tags.filter(function(item){ return item.tag.type === 'scale'; });
-    $scope.text = user.tags.filter(function(item){ return item.tag.type === 'text'; });
+    $scope.binary = user.tags.filter(function (item) { return item.tag.type === 'binary'; });
+    $scope.scale = user.tags.filter(function (item) { return item.tag.type === 'scale'; });
+    $scope.text = user.tags.filter(function (item) { return item.tag.type === 'text'; });
 
     $scope.tags = {};
     user.tags.forEach(function (item) {
@@ -21,7 +21,7 @@ app.controller('UsersAccountCtrl',
     });
   });
 
-  $scope.update = function(){
+  $scope.update = function () {
     // re-compile tags
     var compiledTags = [];
     for (var key in $scope.tags) {
@@ -34,7 +34,7 @@ app.controller('UsersAccountCtrl',
     $scope.user.tags = compiledTags;
 
     // send for update
-    UsersAccount.update($scope.user).then(function(response){
+    UsersAccount.update($scope.user).then(function (response) {
       console.log('User account information updated successfully');
     });
   };

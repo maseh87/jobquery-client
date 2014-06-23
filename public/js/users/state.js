@@ -1,16 +1,16 @@
 //User State
-app.config(['$stateProvider', function($stateProvider) {
+app.config(['$stateProvider', function ($stateProvider) {
 
   $stateProvider
     .state('users', {
       url: '/users',
       resolve: {
-        redirect: function($location, localStorageService){
+        redirect: ['$location', 'localStorageService', function ($location, localStorageService) {
           var isAdmin = localStorageService.get('isAdmin');
           if(isAdmin){
             $location.path('/login');
           }
-        }
+        }]
       },
       views: {
         'sidebar': {

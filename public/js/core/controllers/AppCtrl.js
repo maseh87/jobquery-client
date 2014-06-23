@@ -1,9 +1,10 @@
-app.controller('AppCtrl', function($scope, $location) {
+app.controller('AppCtrl', ['$scope', '$location', function ($scope, $location) {
 
-});
+}]);
 
 
-app.run(['$rootScope', '$state', '$location', 'localStorageService',function ($rootScope, $state, $location, localStorageService) {
+app.run(['$rootScope', '$state', '$location', 'localStorageService',
+  function ($rootScope, $state, $location, localStorageService) {
 
   // enumerate routes that don't need authentication
   var routesThatDontRequireAuth = ['/login','login'];
@@ -11,7 +12,7 @@ app.run(['$rootScope', '$state', '$location', 'localStorageService',function ($r
   // check if current location matches route
   var routeClean = function (route) {
     var needsAuthorization = true;
-    routesThatDontRequireAuth.forEach(function(noAuthRoute){
+    routesThatDontRequireAuth.forEach(function (noAuthRoute) {
       if(noAuthRoute === route){
         needsAuthorization = false;
       }
@@ -38,7 +39,6 @@ app.run(['$rootScope', '$state', '$location', 'localStorageService',function ($r
     if (routeClean($location.url()) && !isTokenInDate()) {
       // redirect back to login
       $location.path('/login');
-
     }
   });
 }]);

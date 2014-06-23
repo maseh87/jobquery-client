@@ -1,4 +1,4 @@
-app.controller('AdminCompaniesNewCtrl', ['$scope', 'Company', '$state', function($scope, Company, $state){
+app.controller('AdminCompaniesNewCtrl', ['$scope', 'Company', '$state', function ($scope, Company, $state) {
 
   var newCompany = {};
   newCompany.name = '';
@@ -12,36 +12,36 @@ app.controller('AdminCompaniesNewCtrl', ['$scope', 'Company', '$state', function
   newCompany.links = [];
   $scope.newCompany = newCompany;
 
-  var removeEmptyFields = function(){
-    newCompany.media = newCompany.media.filter(function(item){
+  var removeEmptyFields = function () {
+    newCompany.media = newCompany.media.filter(function (item) {
       return item.caption && item.url;
     });
 
-    newCompany.links = newCompany.links.filter(function(item){
+    newCompany.links = newCompany.links.filter(function (item) {
       return item.title && item.url;
     });
   };
 
-  $scope.create = function(){
+  $scope.create = function () {
     removeEmptyFields();
-    Company.create(newCompany).then(function(company){
+    Company.create(newCompany).then(function (company) {
       $state.go('admin.companies.detail', {_id: company._id});
     });
   };
 
-  $scope.addMedia = function(){
+  $scope.addMedia = function () {
     newCompany.media.push({text: ''});
   };
 
-  $scope.removeMedia = function(index){
+  $scope.removeMedia = function (index) {
     newCompany.media.splice(index, 1);
   };
 
-  $scope.addLink = function(){
+  $scope.addLink = function () {
     newCompany.links.push({text: ''});
   };
 
-  $scope.removeLink = function(index){
+  $scope.removeLink = function (index) {
     newCompany.links.splice(index, 1);
   };
 
