@@ -2,8 +2,7 @@ app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function (User, $sco
 
   var parseEmails = function(emailStrings){
     return emailStrings
-      .replace(/\n/g, ',')
-      .replace(/\s/g, '')
+      .replace(/\n|\s/g, ',')
       .split(',')
       .filter(function(email){ 
         if(email.match(/@/g)) return email; 
