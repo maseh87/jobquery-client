@@ -12,7 +12,7 @@
             <table class="table">
             <tr>
                 <td>Company:</td>
-                <td><input type="text" value="{{basic.company}}"></td>
+                <td>{{ basic.company }}</td>
             </tr>
             <tr>
                 <td>Title:</td>
@@ -22,9 +22,12 @@
                 <td>Active:</td>
                 <td><input type="text" value="{{basic.active}}"></td>
             </tr>
-            <tr>
+              <tr>
                 <td>Group:</td>
-                <td><input type="text" value="{{basic.group}}"></td>
+                <td>
+                <span ng-show="readOnly">{{ basic.group.name }}</span>
+                <select ng-show="!readOnly" ng-model="basic.group" ng-options="category.name for category in categories"></select>
+                </td>
             </tr>
             <tr>
                 <td>Links:</td>
