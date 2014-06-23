@@ -14,9 +14,11 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
         //Step 3. Objectify categories, keyed by category._id
         var categories = {};
         data.forEach(function(category){
-          category.readOnly = true;
-          category.tags = [];
-          categories[category._id] = category;
+          if(category.active){
+            category.readOnly = true;
+            category.tags = [];
+            categories[category._id] = category;
+          }
         });
         categories.uncategorized = {
           name: 'uncategorized',
@@ -219,7 +221,16 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q', function($sc
     Category.update(category).then(function(category){
       console.log('category updated');
     });
-  }
+  };
+
+  $scope.removeCategory = function(category){
+    var date = new Date();
+    category.active = false;
+    category.name = category.name + ' ' + date;
+    Category.update(category).then(function(category){
+      delete $scope.categories[category._id];
+    });
+  };
 
   initialize();
 
