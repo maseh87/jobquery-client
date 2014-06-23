@@ -1,18 +1,21 @@
 app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function (User, $scope) {
 
+  var parseEmails = function(emailStrings){
+    return emailStrings
+      .replace(/\n/g, ',')
+      .replace(/\s/g, '')
+      .split(',')
+      .filter(function(email){ 
+        if(email.match(/@/g)) return email; 
+      });
+  };
+
   $scope.sendEmails =  function (emailStrings) {
     if (emailStrings === undefined || emailStrings.length === 0 ) {
       // do something here, possibly alert user
       // or fix that ng-pattern does not get engaged until something is enterd
     } else {
-      var emails = [];
-      if (emailStrings.indexOf(',') !== -1) {
-          emailStrings.split(',').forEach( function (email){
-            emails.push(email);
-          });
-      } else {
-        emails.push(emailStrings);
-      }
+      var emails = parseEmails(emailStrings);
       User.invite(emails)
         .success(function (data) {
           if(Array.isArray(data) && data.length > 0) {

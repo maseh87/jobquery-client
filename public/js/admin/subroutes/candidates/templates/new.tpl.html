@@ -6,7 +6,7 @@
                     </td>
                 <td width="50%" class="name">
                     <p>Invite candidates here</p>
-                    <p>Input one or more e-mail addresses (comma separated) and press invite</p>
+                    <p>Input one or more e-mail addresses (comma separated or on newlines) and press invite</p>
                     <button ng-disabled="emailForm.$invalid" ng-click="sendEmails(emails); hideMessage()" class="btn btn-primary" >Invite</button>
                     <div ng-show="showAlert">{{alertMessage}}</div>
                 </td>
