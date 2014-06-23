@@ -1,10 +1,15 @@
 <div ui-view>
-    <h3 class="body-heading">Opportunities</h3><br>
-    <h4 class="body-tagline">View, create or edit job opportunities</h4>
+    <div class="content-header">
+        <div class="content-title">Opportunities</div>
+        <div class="content-tagline">View, create or edit job opportunities</div>
+    </div>
 
     <div class="section container-fluid" ng-repeat="(groupName, group) in groups">
         <div class="row">
-            <span><a ui-sref="admin.opportunities.new">+ New Opportunity</a></span>
+            <span class="content-action">
+                <span class="glyphicon glyphicon-plus"></span>
+                <a ui-sref="admin.opportunities.new">New Opportunity</a>
+            </span>
             <span>{{ groupName }}</span>
         </div>
         <div class="row">
