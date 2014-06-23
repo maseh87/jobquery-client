@@ -55,3 +55,16 @@ body {
 }
 .sidebar-active a { color: #c9e3ef; font-weight: 400; }
 .sidebar-active a:hover { color: #c9e3ef; font-weight: 400; }
+
+/* Headings */
+.content-header { 
+    display: table; 
+    width: 100%;
+    text-align: right; width: 100%; }
+.content-title { font-weight: 300; font-size: 2rem; }
+.content-tagline { font-weight: 100; font-size: 1rem; }
+
+
+
+
+
