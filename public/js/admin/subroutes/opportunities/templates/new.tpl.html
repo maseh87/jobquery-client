@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-xs-6">
             Enter a brief description for the opportunity:
-            <input type="text" ng-readonly="readOnly" ng-model="basic.description">
+            <input type="text" ng-model="basic.description">
         </div>
         <div class="col-xs-6">
             <table class="table">
@@ -19,11 +19,11 @@
             </tr>
             <tr>
                 <td>Title:</td>
-                <td><input type="text" ng-readonly="readOnly" ng-model="basic.title"></td>
+                <td><input type="text" ng-model="basic.title"></td>
             </tr>
             <tr>
                 <td>Active:</td>
-                <td><input type="text" ng-readonly="readOnly" ng-model="basic.active"></td>
+                <td><input type="text" ng-model="basic.active"></td>
             </tr>
             <tr>
                 <td>Group:</td>
@@ -33,8 +33,8 @@
                 <td>Links:</td>
                 <td>
                     <div ng-repeat="link in basic.links">
-                        <input type="text" ng-readonly="readOnly" ng-model="link.title" placeholder="Add new title here">
-                        <input type="text" ng-readonly="readOnly" ng-model="link.url" placeholder="Add new link here">
+                        <input type="text" ng-model="link.title" placeholder="Add new title here">
+                        <input type="text" ng-model="link.url" placeholder="Add new link here">
                         <span ng-show="!readOnly" ng-click="removeFrom(basic.links, link, 'url')">Remove</span>
                     </div>
                     <span ng-show="!readOnly" ng-click="addTo(basic.links, {title: 'title', url: ''})">+ Add New</span>
@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td>Internal Notes:</td>
-                <td><input type="text" ng-readonly="readOnly" ng-model="basic.internal"></td>
+                <td><input type="text" ng-model="basic.internal"></td>
             </tr>
             </table>
         </div>
@@ -60,7 +60,7 @@
                     <td>Extra Questions</td>
                     <td>
                         <div ng-repeat="question in guidance.questions">
-                            <input ng-readonly="readOnly" ng-model="question.question">
+                            <input ng-model="question.question">
                             <span ng-show="!readOnly" ng-click="removeFrom(guidance.questions, question, 'question')">Remove</span>
                         </div>
                         <span ng-show="!readOnly" ng-click="addTo(guidance.questions, {question: ''})">+ Add New</span>
@@ -75,7 +75,7 @@
                     <td>
                         <div ng-repeat="tagView in guidance.tags">
                             <select ng-model="tagView.data" ng-options="tag.name for tag in tags"></select>
-                            <input ng-readonly="readOnly" ng-model="tagView.value">
+                            <input ng-model="tagView.value">
                             <select ng-model="tagView.importance">
                                 <option value="must" selected>Must have</option>
                                 <option value="nice">Nice to have</option>
@@ -83,7 +83,7 @@
                             </select>
                             <span ng-show="!readOnly" ng-click="removeFrom(guidance.tags, tagView, 'name')">Remove</span>
                         </div>
-                        <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 0})">+ Add New</span>
+                        <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})">+ Add New</span>
                     </td>
                 </tr>
             </table>  
