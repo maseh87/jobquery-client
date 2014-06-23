@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-xs-6">
             Enter a brief description for the opportunity:
-            <input type="text" ng-model="basic.description">
+            <textarea ng-model="basic.description" cols="40" rows="10" spellcheck></textarea>
         </div>
         <div class="col-xs-6">
             <table class="table">
@@ -19,11 +19,11 @@
             </tr>
             <tr>
                 <td>Title:</td>
-                <td><input type="text" ng-model="basic.title"></td>
+                <td><input size="40" type="text" ng-model="basic.title"></td>
             </tr>
             <tr>
                 <td>Active:</td>
-                <td><input type="text" ng-model="basic.active"></td>
+                <td><input type="checkbox" ng-model="basic.active"></td>
             </tr>
             <tr>
                 <td>Group:</td>
@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td>Internal Notes:</td>
-                <td><input type="text" ng-model="basic.internal"></td>
+                <td><textarea cols="40" rows="5" ng-model="basic.internal"></textarea></td>
             </tr>
             </table>
         </div>
@@ -66,7 +66,7 @@
                         <span ng-show="!readOnly" ng-click="addTo(guidance.questions, {question: ''})">+ Add New</span>
                     </td>
                 </tr>
-            </table>            
+            </table>
         </div>
         <div class="col-xs-6">
             <table class="table">
@@ -86,7 +86,7 @@
                         <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})">+ Add New</span>
                     </td>
                 </tr>
-            </table>  
+            </table>
         </div>
     </div>
 </div>

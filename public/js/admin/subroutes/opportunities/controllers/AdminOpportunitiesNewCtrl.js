@@ -1,5 +1,6 @@
-app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportunity', 'Company', 'Tag', 'Category',
-  function($scope, $stateParams, Opportunity, Company, Tag, Category) {
+app.controller('AdminOpportunitiesNewCtrl',
+  ['$scope', '$stateParams', '$state', 'Opportunity', 'Company', 'Tag', 'Category',
+  function($scope, $stateParams, $state, Opportunity, Company, Tag, Category) {
 
   Tag.getAll().then(function (tags) { $scope.tags = tags; });
   Company.getAll().then(function (companies) { $scope.companies = companies; });
@@ -27,8 +28,8 @@ app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportun
 
     oppData.questions = $scope.guidance.questions;
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
-    oppData.tags = $scope.guidance.tags.map(function (tag) { 
-      return {tag: tag.data._id, value: tag.value, importance: tag.importance}; 
+    oppData.tags = $scope.guidance.tags.map(function (tag) {
+      return {tag: tag.data._id, value: tag.value, importance: tag.importance};
     });
     oppData.links = $scope.basic.links;
 
@@ -37,6 +38,7 @@ app.controller('AdminOpportunitiesNewCtrl', ['$scope', '$stateParams', 'Opportun
 
     Opportunity.create(oppData).then(function(data){
       console.log('Create successful');
+      $state.go('admin.opportunities.detail', { _id : data._id});
     });
   };
 
