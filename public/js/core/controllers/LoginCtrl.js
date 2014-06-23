@@ -2,9 +2,10 @@ app.controller('LoginCtrl', ['User', '$state', '$scope', 'localStorageService', 
 
   localStorageService.clearAll();
   $scope.submit =  function(email, password){
-
+    $scope.submitting = true;
     User.login({email : email, password : password})
       .then( function(response) {
+        $scope.submitting = false;
         localStorageService.set('token', response.data.token);
         localStorageService.set('token-date', JSON.stringify(new Date()));
         localStorageService.set('_id', response.data._id);
@@ -19,6 +20,7 @@ app.controller('LoginCtrl', ['User', '$state', '$scope', 'localStorageService', 
           $state.go('users.account', { _id : response.data._id});
         }
       }, function(error) {
+        $scope.submitting = false;
         $scope.invalid = true;
       });
   };
