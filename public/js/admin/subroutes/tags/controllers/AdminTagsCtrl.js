@@ -220,7 +220,6 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
       console.log('category updated');
     });
   };
-<<<<<<< HEAD
 
   $scope.removeCategory = function(category){
     var date = new Date();
@@ -230,8 +229,6 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
       delete $scope.categories[category._id];
     });
   };
-=======
->>>>>>> formatting
 
   initialize();
 
