@@ -19,6 +19,9 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
             category.tags = [];
             categories[category._id] = category;
           }
+          if(category.name.match(/New Category/)){
+            category.name = 'New Category';
+          }
         });
         categories.uncategorized = {
           name: 'uncategorized',
@@ -202,7 +205,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
 
   $scope.addCategory = function () {
     var newCategory = {
-      name: 'New Category',
+      name: 'New Category ' + Math.floor(Math.random() * 1000000),
       type: 'Tag'
     };
     $scope.pendingRequests++;
