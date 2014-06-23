@@ -128,7 +128,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
   };
 
   $scope.save = function (tag, index, category) {
-    if (typeof tag.category !== 'string' && tag.newCatId !== tag.category._id) {
+    if (typeof tag.category !== 'string' && tag.newCatId && tag.newCatId !== tag.category._id) {
       swapCategories(tag, index, category).then(function () {
         return $scope.save(tag, index);
       });
