@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+
+    <title>jobQuery: Less work. More jobs.</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/stylesheets/main.css">
+    <link rel="stylesheet" href="assets/stylesheets/login.css">
+    <link rel="stylesheet" href="assets/stylesheets/widgets.css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300' rel='stylesheet' type='text/css'>
+
+    <!-- JS -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- build:remove -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="bower_components/angular-local-storage/angular-local-storage.min.js"></script>
+    <!-- /build -->
+
+    <!--build:js assets/js/jobquery.master.min.js-->
+    <script src="js/app.js"></script>
+    <!--/build -->
+
+    <!-- build:remove -->
+    <script src="node_modules/faker/faker.js"></script>
+    <!-- ANGULAR CUSTOM -->
+    <!-- Mocks -->
+    <script src="mocks/companies.js"></script>
+    <script src="mocks/userCompanies.js"></script>
+    <script src="mocks/opportunities.js"></script>
+    <script src="mocks/userOpportunities.js"></script>
+    <script src="mocks/messages.js"></script>
+    <script src="mocks/tags.js"></script>
+    <script src="mocks/users.js"></script>
+    <script src="mocks/userAccount.js"></script>
+    <script src="mocks/match.js"></script>
+    <script src="mocks/crosslink.js"></script>
+
+    <!-- Top Level -->
+    <script src="js/core/state.js"></script>
+    <script src="js/core/controllers/AppCtrl.js"></script>
+    <script src="js/core/controllers/LoginCtrl.js"></script>
+
+    <!--Models -->
+    <script src="js/core/services/AuthInterceptor.js"></script>
+
+    <!-- Admin Models -->
+    <script src="js/admin/services/CompanyModel.js"></script>
+    <script src="js/admin/services/CategoryModel.js"></script>
+    <script src="js/admin/services/UserModel.js"></script>
+    <script src="js/admin/services/TagModel.js"></script>
+    <script src="js/admin/services/OpportunityModel.js"></script>
+    <script src="js/admin/services/MessageModel.js"></script>
+    <script src="js/admin/services/MatchModel.js"></script>
+
+    <!-- User Models -->
+    <script src="js/users/services/UserCompanyModel.js"></script>
+    <script src="js/users/services/UserOpportunityModel.js"></script>
+    <script src="js/users/services/UserAccountModel.js"></script>
+    <script src="js/users/services/UserTagModel.js"></script>
+
+    <!-- users -->
+    <script src="js/users/state.js"></script>
+    <script src="js/users/controllers/UsersCtrl.js"></script>
+    <script src="js/users/controllers/UsersSidebarCtrl.js"></script>
+
+    <!-- users.dashboard -->
+    <script src="js/users/subroutes/dashboard/state.js"></script>
+    <script src="js/users/subroutes/dashboard/controllers/UsersDashboardCtrl.js"></script>
+
+    <!-- users.account -->
+    <script src="js/users/subroutes/account/state.js"></script>
+    <script src="js/users/subroutes/account/controllers/UsersAccountCtrl.js"></script>
+
+    <!-- users.companies -->
+    <script src="js/users/subroutes/companies/state.js"></script>
+    <script src="js/users/subroutes/companies/controllers/UsersCompaniesCtrl.js"></script>
+
+    <!-- users.companies.detail -->
+    <script src="js/users/subroutes/companies/controllers/UsersCompaniesDetailCtrl.js"></script>
+
+    <!-- users.opportunities -->
+    <script src="js/users/subroutes/opportunities/state.js"></script>
+    <script src="js/users/subroutes/opportunities/controllers/UsersOpportunitiesCtrl.js"></script>
+
+    <!-- users.opportunities.detail -->
+    <script src="js/users/subroutes/opportunities/controllers/UsersOpportunitiesDetailCtrl.js"></script>
+
+    <!-- admin -->
+    <script src="js/admin/state.js"></script>
+    <script src="js/admin/controllers/AdminCtrl.js"></script>
+    <script src="js/admin/controllers/AdminSidebarCtrl.js"></script>
+
+    <!-- admin.dashboard -->
+    <script src="js/admin/subroutes/dashboard/state.js"></script>
+    <script src="js/admin/subroutes/dashboard/controllers/AdminDashboardCtrl.js"></script>
+
+    <!-- admin.account -->
+    <script src="js/admin/subroutes/account/state.js"></script>
+    <script src="js/admin/subroutes/account/controllers/AdminAccountCtrl.js"></script>
+
+    <!-- admin.candidates -->
+    <script src="js/admin/subroutes/candidates/state.js"></script>
+    <script src="js/admin/subroutes/candidates/controllers/AdminCandidatesCtrl.js"></script>
+
+    <!-- admin.candidates.detail -->
+    <script src="js/admin/subroutes/candidates/controllers/AdminCandidatesDetailCtrl.js"></script>
+
+    <!-- admin.candidates.new -->
+    <script src="js/admin/subroutes/candidates/controllers/AdminCandidatesNewCtrl.js"></script>
+
+    <!-- admin.companies -->
+    <script src="js/admin/subroutes/companies/state.js"></script>
+    <script src="js/admin/subroutes/companies/controllers/AdminCompaniesCtrl.js"></script>
+
+    <!-- admin.companies.detail -->
+    <script src="js/admin/subroutes/companies/controllers/AdminCompaniesDetailCtrl.js"></script>
+
+    <!-- admin.companies.new -->
+    <script src="js/admin/subroutes/companies/controllers/AdminCompaniesNewCtrl.js"></script>
+
+    <!-- admin.matches -->
+    <script src="js/admin/subroutes/matches/state.js"></script>
+    <script src="js/admin/subroutes/matches/controllers/AdminMatchesCtrl.js"></script>
+
+    <!-- admin.messages -->
+    <script src="js/admin/subroutes/messages/state.js"></script>
+    <script src="js/admin/subroutes/messages/controllers/AdminMessagesCtrl.js"></script>
+
+    <!-- admin.messages.detail -->
+    <script src="js/admin/subroutes/messages/controllers/AdminMessagesDetailCtrl.js"></script>
+
+    <!-- admin.messages.new -->
+    <script src="js/admin/subroutes/messages/controllers/AdminMessagesNewCtrl.js"></script>
+
+    <!-- admin.opportunities -->
+    <script src="js/admin/subroutes/opportunities/state.js"></script>
+    <script src="js/admin/subroutes/opportunities/controllers/AdminOpportunitiesCtrl.js"></script>
+
+    <!-- admin.opportunities.detail -->
+    <script src="js/admin/subroutes/opportunities/controllers/AdminOpportunitiesDetailCtrl.js"></script>
+
+    <!-- admin.opportunities.new -->
+    <script src="js/admin/subroutes/opportunities/controllers/AdminOpportunitiesNewCtrl.js"></script>
+
+    <!-- admin.scheduling -->
+    <script src="js/admin/subroutes/scheduling/state.js"></script>
+    <script src="js/admin/subroutes/scheduling/controllers/AdminSchedulingCtrl.js"></script>
+
+    <!-- admin.tags -->
+    <script src="js/admin/subroutes/tags/state.js"></script>
+    <script src="js/admin/subroutes/tags/controllers/AdminTagsCtrl.js"></script>
+    <!-- /build -->
+
+</head>
+<body ng-app="jobQuery" ng-controller="AppCtrl">
+
+<div ui-view></div>
+
+<div class="sidebar-container text-right">
+    <div ui-view="sidebar"></div>
+</div>
+<div class="content-container">
+    <div ui-view="main"></div>
+</div>
+
+</body>
+</html>
