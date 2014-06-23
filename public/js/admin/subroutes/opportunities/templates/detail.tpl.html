@@ -22,9 +22,12 @@
                 <td>Active:</td>
                 <td><input type="text" value="{{basic.active}}"></td>
             </tr>
-            <tr>
+              <tr>
                 <td>Group:</td>
-                <td><input type="text" value="{{basic.group}}"></td>
+                <td>
+                {{ basic.group.name }}
+                <select ng-model="basic.group" ng-options="category.name for category in categories"></select>
+                </td>
             </tr>
             <tr>
                 <td>Links:</td>
