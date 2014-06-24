@@ -1,4 +1,5 @@
-app.controller('UsersDashboardCtrl', ['$scope', 'UsersOpportunity', function ($scope, UsersOpportunity) {
+app.controller('UsersDashboardCtrl', ['$scope', 'UsersOpportunity', 'GuidanceService', 
+function ($scope, UsersOpportunity, GuidanceService) {
 
   var matches;
 
@@ -30,55 +31,9 @@ app.controller('UsersDashboardCtrl', ['$scope', 'UsersOpportunity', function ($s
       $scope.answers = $scope.match.answers;
       $scope.questions = questions;
       $scope.opportunity = opportunity;
-      var processedTags = processTags(opportunity, user);
+      var processedTags = GuidanceService.processTags(opportunity, user);
       $scope.processedTags = [processedTags.must, processedTags.nice];
     });
-  };
-
-  var objectifyUserTags = function(user){
-    var tags = user.tags;
-    var tagsObj = {};
-
-    tags.forEach(function(tag){
-      tagsObj[tag.tag._id] = tag.value;
-    });
-
-    return tagsObj;
-  };
-
-  var processTags = function(opportunity, user){
-    var userTags = objectifyUserTags(user);
-    var tags = opportunity.tags;
-    var processed = {
-      'must': {
-        'scale': [],
-        'binary': [],
-        'text': []
-      },
-      'nice': {
-        'scale': [],
-        'binary': [],
-        'text': []
-      }
-    };
-
-    tags.forEach(function(tag){
-      if(tag.importance === 'must'){
-        processed.must[tag.tag.type].push({
-          name: tag.tag.name,
-          value: tag.value,
-          userValue: userTags[tag.tag._id]
-        });
-      } else if (tag.importance === 'nice'){
-        processed.nice[tag.tag.type].push({
-          name: tag.tag.name,
-          value: tag.value,
-          userValue: userTags[tag.tag._id]
-        });
-      }
-    });
-
-    return processed;
   };
 
   $scope.submit = function(){
