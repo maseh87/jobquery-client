@@ -7,25 +7,21 @@ app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', 'Opportunity', 
       $scope.matches = matchData.matches;
       $scope.opportunities = matchData.opportunities;
 
-      var keyMap = {};
+      var oppColumnMap = {};
+      var userRowMap = {};
       var matrix = {};
 
+      // generate key map
+      $scope.opportunities.forEach(function (opportunity, i) { oppColumnMap[opportunity._id] = i; });
+      $scope.users.forEach(function (user, i) { userRowMap[user._id] = i; });
 
-      // prepopulate array
-      var prepopulateArray = function () {
-        var populated = [];
-        for (var i = 0; i < $scope.opportunities.length; i++) { populated.push(0); }
-        return populated;
-      };
-
-      // prepopulate matrix
-      $scope.users.forEach(function (user) {
-        matrix[user._id] = prepopulateArray();
+      $scope.matches.forEach(function (matchData) {
+        var column = oppColumnMap[matchData.opportunity];
+        var row = userRowMap[matchData.user];
+        if (!matrix.hasOwnProperty(row)) { matrix[row] = []; }
+        matrix[row][column] = matchData;
       });
 
-      console.log("users", $scope.users);
-      console.log("matches", $scope.matches);
-      console.log("opps", $scope.opportunities);
       $scope.matrix = matrix;
       console.log("matrix", $scope.matrix);
     });
@@ -34,6 +30,10 @@ app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', 'Opportunity', 
   $scope.edit = function() { 
     console.log($scope.users);
   };
+
+  $scope.isOverridden = function (match) {
+    return match.adminOverride > 0 ? '' : 'gridbox-highlight-blue';
+  }
 }]);
 
 /*

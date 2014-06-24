@@ -11,6 +11,7 @@
     <div class="content-section container-fluid">
         <div class="row">
         <div class="gridbox-title">Candidate - Opportunity Match Grid</div>
+        <div class="content-scrollable">
         <table class="gridbox">
         <thead>
             <tr class="gridbox-header">
@@ -23,12 +24,13 @@
         <tbody>
             <tr class="gridbox-content" ng-repeat="(key, user) in users">
                 <th ui-sref="admin.candidates.detail({_id: user._id})">{{ user.name }}</th>
-                <td ng-repeat="match in user.matches">
+                <td ng-repeat="match in user.matches" ng-class="isOverridden(match)">
                     <input ng-model="match.value" ng-click="edit(match)">
                 </td>
             </tr>
         </tbody>
         </table>
+        </div>
         </div>
     </div>
 </div>
