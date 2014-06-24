@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/stylesheets/main.css">
     <link rel="stylesheet" href="assets/stylesheets/login.css">
-    <link rel="stylesheet" href="assets/stylesheets/tablebox.css">
     <link rel="stylesheet" href="assets/stylesheets/widgets.css">
-    <link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600' rel='stylesheet' type='text/css'>
-
+    <link rel="stylesheet" href="assets/stylesheets/tablebox.css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,500,600' rel='stylesheet' type='text/css'>
     <!-- JS -->
+
+    <!-- build:remove -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
@@ -22,8 +23,15 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/angular-local-storage/angular-local-storage.min.js"></script>
-    <script src="node_modules/faker/faker.js"></script>
+    <!-- /build -->
 
+
+    <!--build:js lib/jobquery.master.min.js-->
+    <script src="js/appdev.js"></script>
+    <!--/build -->
+
+    <!-- build:remove -->
+    <script src="node_modules/faker/faker.js"></script>
     <!-- ANGULAR CUSTOM -->
     <!-- Mocks -->
     <script src="mocks/companies.js"></script>
@@ -38,8 +46,6 @@
     <script src="mocks/crosslink.js"></script>
 
     <!-- Top Level -->
-    <script src="js/app.js"></script>
-    <script src="js/appDev.js"></script>
     <script src="js/core/state.js"></script>
     <script src="js/core/controllers/AppCtrl.js"></script>
     <script src="js/core/controllers/LoginCtrl.js"></script>
@@ -153,6 +159,7 @@
     <!-- admin.tags -->
     <script src="js/admin/subroutes/tags/state.js"></script>
     <script src="js/admin/subroutes/tags/controllers/AdminTagsCtrl.js"></script>
+    <!-- /build -->
 
 </head>
 <body ng-app="jobQuery" ng-controller="AppCtrl">

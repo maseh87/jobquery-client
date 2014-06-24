@@ -5,16 +5,20 @@
   "main": "index.js",
   "dependencies": {
     "express": "*",
-    "faker": "^1.0.0"
+    "faker": "^1.0.0",
+    "gulp": "^3.8.0",
+    "gulp-jshint": "^1.6.2",
+    "gulp-nodemon": "^1.0.4",
+    "gulp-processhtml": "0.0.4",
+    "gulp-concat": "^2.2.0",
+    "gulp-uglify": "^0.3.1",
+    "gulp-ignore": "^1.1.0",
+    "gulp-rename": "^1.2.0"
   },
   "devDependencies": {
     "karma": "~0.10",
     "protractor": "~0.20.1",
-    "http-server": "^0.6.1",
-    "gulp": "^3.8.0",
-    "gulp-jshint": "^1.6.2",
-    "gulp-nodemon": "^1.0.4",
-    "gulp-processhtml": "0.0.4"
+    "http-server": "^0.6.1"
   },
   "scripts": {
     "test": "karma start test/karma.conf.js",
