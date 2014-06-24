@@ -1,9 +1,3 @@
-<table class="table">
-    <tr ng-repeat="candidate in matrix track by $index">
-        <td ng-repeat="opportunity in candidate track by $index">{{opportunity || 0}}</td>
-    </tr>
-</table>
-
 <div ui-view>
     <div class="content-header">
         <div class="content-header-block text-left">
@@ -16,14 +10,20 @@
 
     <div class="content-section container-fluid">
         <div class="row">
-        <div class="tablebox-title">Candidate - Opportunity Match Grid</div>
-        <table class="tablebox">
+        <div class="gridbox-title">Candidate - Opportunity Match Grid</div>
+        <table class="gridbox">
         <thead>
-            <tr class="tablebox-header">
+            <tr class="gridbox-header">
+                <th></th><!-- empty table header-->
+                <th ng-repeat="(key, opportunity) in opportunities" ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="tablebox-content" ng-repeat="(name, opportunity) in group" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
+            <tr class="gridbox-content" ng-repeat="(key, user) in users">
+                <td ui-sref="admin.candidates.detail({_id: user._id})">{{ user.name }}</td>
+                <td ng-repeat="match in users track by $index">
+                    <input ng-model="match" ng-click="edit(match)">
+                </td>
             </tr>
         </tbody>
         </table>
