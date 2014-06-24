@@ -15,14 +15,16 @@
         <thead>
             <tr class="gridbox-header">
                 <th></th><!-- empty table header-->
-                <th ng-repeat="(key, opportunity) in opportunities" ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</th>
+                <th ng-repeat="(key, opportunity) in opportunities" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
+                    {{ opportunity.company.name }}: {{ opportunity.jobTitle }}
+                </th>
             </tr>
         </thead>
         <tbody>
             <tr class="gridbox-content" ng-repeat="(key, user) in users">
-                <td ui-sref="admin.candidates.detail({_id: user._id})">{{ user.name }}</td>
-                <td ng-repeat="match in users track by $index">
-                    <input ng-model="match" ng-click="edit(match)">
+                <th ui-sref="admin.candidates.detail({_id: user._id})">{{ user.name }}</th>
+                <td ng-repeat="match in user.matches">
+                    <input ng-model="match.value" ng-click="edit(match)">
                 </td>
             </tr>
         </tbody>

@@ -1,59 +1,53 @@
-app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', function ($scope, $state, Match) {
+app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 
+  function ($scope, $state, Match, Opportunity, User) {
 
-  // var matrixify = function (matchArray) {
+  Match.getAll().then(function (matchData) {
+    User.getAll().then(function (users) {
+      $scope.users = users;
+      $scope.matches = matchData.matches;
+      $scope.opportunities = matchData.opportunities;
 
-  //   var normUsers = {};
-  //   var normUserIndex = 0;
+      var keyMap = {};
+      var matrix = {};
 
-  //   var normOpps = {};
-  //   var normOppIndex = 0;
 
-  //   var matrix = [];
+      // prepopulate array
+      var prepopulateArray = function () {
+        var populated = [];
+        for (var i = 0; i < $scope.opportunities.length; i++) { populated.push(0); }
+        return populated;
+      };
 
-  //   //Iterate through the matchArray
-  //   matchArray.forEach(function (match) {
-  //     var userId = match.userId;
-  //     var oppId = match.oppId;
+      // prepopulate matrix
+      $scope.users.forEach(function (user) {
+        matrix[user._id] = prepopulateArray();
+      });
 
-  //     if (normUsers[userId] === undefined) {
-  //       normUsers[userId] = normUserIndex;
-  //       normUserIndex++;
-  //     }
+      console.log("users", $scope.users);
+      console.log("matches", $scope.matches);
+      console.log("opps", $scope.opportunities);
+      $scope.matrix = matrix;
+      console.log("matrix", $scope.matrix);
+    });
+  });
 
-  //     if (normOpps[oppId] === undefined) {
-  //       normOpps[oppId] = normOppIndex;
-  //       normOppIndex++;
-  //     }
-
-  //     var userIndex = normUsers[userId];
-  //     var oppIndex = normOpps[oppId];
-
-  //     //First check to see if the row exists
-  //     if (!Array.isArray(matrix[userIndex])) {
-  //       matrix[userIndex] = [];
-  //     }
-
-  //     //Now add nulls until the length = oppIndex + 1;
-  //     for (var i = matrix[userIndex].length - 1; i < oppIndex; i++) {
-  //       matrix[userIndex].push(null);
-  //     }
-
-  //     //Add the userInterest at the appropriate place;
-  //     matrix[userIndex][oppIndex] = match.userInterest;
-  //   });
-
-  //   //Finally fill out the candidates with nulls to normalize row width
-  //   matrix.forEach(function (column) {
-  //     while (column.length < normOppIndex) {
-  //       column.push(null);
-  //     }
-  //   });
-
-  //   return matrix;
-  // };
-
-  // Match.getAll().then(function (matches) {
-  //   $scope.matrix = matrixify(matches);
-  // });
-
+  $scope.edit = function() { 
+    console.log($scope.users);
+  };
 }]);
+
+/*
+
+keyMap is an object of oppIds
+{ 
+    oppId: colId,
+    oppId: colId,
+}
+
+matrix is an object of objects...
+{
+  // first prepopulate with userIds
+  userId: [ {matchId, userInterest}, {matchId, userInterest} ]
+  userId: [ {matchId, userInterest}, {matchId, userInterest} ]
+}
+*/
