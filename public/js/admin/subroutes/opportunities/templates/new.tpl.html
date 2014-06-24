@@ -1,5 +1,5 @@
 <div class="content-header">
-    <div class="content-header-block">
+    <div class="content-header-block text-left">
         <span class="content-action">
             <span class="glyphicon glyphicon-ok"></span>
             <span ng-click="save()">Save New Opportunity</span>
@@ -41,9 +41,9 @@
                     <div ng-repeat="link in basic.links">
                         <input type="text" ng-model="link.title" placeholder="Add new title here">
                         <input type="text" ng-model="link.url" placeholder="Add new link here">
-                        <span ng-show="!readOnly" ng-click="removeFrom($index, basic.links)">Remove</span>
+                        <input type="button" ng-show="!readOnly" ng-click="removeFrom($index, basic.links)" value="Remove">
                     </div>
-                    <span ng-show="!readOnly" ng-click="addTo(basic.links, {title: 'title', url: ''})">+ Add New</span>
+                    <input type="button" ng-show="!readOnly" ng-click="addTo(basic.links, {title: 'title', url: ''})" value="Add New Link">
                 </td>
             </tr>
             <tr>
@@ -71,9 +71,9 @@
                     <td>
                         <div ng-repeat="question in guidance.questions">
                             <input ng-model="question.question">
-                            <span ng-show="!readOnly" ng-click="removeFrom($index, guidance.questions)">Remove</span>
+                            <input type="button" ng-show="!readOnly" ng-click="removeFrom($index, guidance.questions)" value="Remove">
                         </div>
-                        <span ng-show="!readOnly" ng-click="addTo(guidance.questions, {question: ''})">+ Add New</span>
+                        <input type="button" ng-show="!readOnly" ng-click="addTo(guidance.questions, {question: ''})" value="Add new guidance question">
                     </td>
                 </tr>
             </table>
@@ -100,9 +100,9 @@
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
-                            <span ng-show="!readOnly" ng-click="removeFrom($index, guidance.tags)">Remove</span>
+                            <input type="button" ng-show="!readOnly" ng-click="removeFrom($index, guidance.tags)" value="Remove">
                         </div>
-                        <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})">+ Add New</span>
+                        <input type="button" ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})" value="Add New Tag">
                     </td>
                 </tr>
             </table>
