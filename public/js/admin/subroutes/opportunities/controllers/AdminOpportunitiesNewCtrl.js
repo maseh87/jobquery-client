@@ -2,22 +2,31 @@ app.controller('AdminOpportunitiesNewCtrl',
   ['$scope', '$stateParams', '$state', 'Opportunity', 'Company', 'Tag', 'Category',
   function($scope, $stateParams, $state, Opportunity, Company, Tag, Category) {
 
-  Tag.getAll().then(function (tags) { $scope.tags = tags; });
-  Company.getAll().then(function (companies) { $scope.companies = companies; });
-  Category.getAll('Opportunity').then(function (categories) { $scope.categories = categories; });
-
   $scope.basic = {
     description: '',
     company: {},
+    category: {},
     title: '',
     group: {},
     active: true,
     links: []
   };
+
   $scope.guidance = {
     questions: [],
     tags: []
   };
+
+  Tag.getAll().then(function (tags) { $scope.tags = tags; });
+  Company.getAll().then(function (companies) {
+    $scope.companies = companies;
+    $scope.basic.company = companies[0]; // default
+  });
+  Category.getAll('Opportunity').then(function (categories) {
+    $scope.categories = categories;
+    $scope.basic.category = categories[0]; // default
+  });
+
 
   $scope.save = function () {
     // remove any empty tags and duplicate tags (preference for higher order)
@@ -36,6 +45,26 @@ app.controller('AdminOpportunitiesNewCtrl',
         i -= 1;
       } else {
         existingTags[currentTag.data._id] = true;
+      }
+    }
+
+    // remove any empty questions
+    for (var j = 0; j < $scope.guidance.questions.length; j += 1) {
+      var currentQ = $scope.guidance.questions[j];
+      // check for empty questions
+      if (currentQ.question === '') {
+        $scope.guidance.questions.splice(j, 1);
+        j -= 1;
+      }
+    }
+
+    // remove any empty links
+    for (var k = 0; k < $scope.basic.links.length; k += 1) {
+      var currentLink = $scope.basic.links[k];
+      // check for empty links
+      if (currentLink.title === '' || currentLink.url === '') {
+        $scope.basic.links.splice(k, 1);
+        j -= 1;
       }
     }
 

@@ -1,139 +1,141 @@
 <div class="content-header">
-    <div class="content-header-block text-left">
-    </div>
     <div class="content-header-block">
         <div class="content-title">Opportunity Dossier</div>
-        <div class="content-tagline">Edit a job opportunity</div>
+        <div class="content-tagline">View or edit opportunity dossier</div>
     </div>
 </div>
 
-<div class="section container-fluid">
-    <div class="row">
-        <input type="button" ng-click="toggleEdit()" value="{{ editButtonText }}">
-        <span>Basic Information</span>
-    </div>
-    <div class="row">
-        <div class="col-xs-6"><textarea ng-model="basic.description" cols="40" rows="10" spellcheck></textarea></div>
-        <div class="col-xs-6">
-            <table class="table">
-            <tr>
-                <td>Company:</td>
-                <td>{{ basic.company }}</td>
-            </tr>
-            <tr>
-                <td>Title:</td>
-                <td><input size="40" ng-readonly="readOnly" type="text" value="{{basic.title}}"></td>
-            </tr>
-            <tr>
-                <td>Active:</td>
-                <td>
-                    <input type="checkbox" ng-model="basic.active" ng-disabled="readOnly">
-                </td>
-            </tr>
-              <tr>
-                <td>Group:</td>
-                <td>
-                    <select ng-model="basic.group._id" ng-options="category._id as category.name for category in categories" ng-disabled="readOnly"></select>
-                </td>
-            </tr>
-            <tr>
-                <td>Links:</td>
-                <td>
-                    <div ng-repeat="link in basic.links">
-                        <input type="text" ng-model="link.title" ng-readonly="readOnly" placeholder="Add new title here">
-                        <input type="text" ng-model="link.url" ng-readonly="readOnly" placeholder="Add new link here">
-                        <span ng-show="!readOnly" ng-click="removeFrom($index, basic.links)">Remove</span>
-                    </div>
-                    <span ng-show="!readOnly" ng-click="addTo(basic.links, {title: 'title', url: ''})">+ Add New</span>
-                </td>
-            </tr>
-            <tr>
-                <td>Notes:</td>
-                <td><textarea cols="40" rows="5" ng-readonly="readOnly" ng-model="basic.notes"></textarea></td>
-            </tr>
-            <tr>
-                <td>Internal Notes:</td>
-                <td><textarea cols="40" rows="5" ng-readonly="readOnly" ng-model="basic.internal"></textarea></td>
-            </tr>
-            </table>
-        </div>
-    </div>
-</div>
+<h3>Basic Information</h3>
 
-<div class="section container-fluid">
-    <div class="row">
-        <span>Guidance Parameters</span>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <table class="table">
+<form name="oppForm" ng-submit="toggleEdit()">
+    <input class="btn" ng-class="readOnly ? 'btn-primary' : 'btn-success'" type="submit" ng-value="editButtonText"></input>
+    <br />
+    <br />
+
+    <div class="content-section container-fluid">
+        <div class="row">
+            <div class="col-xs-6">
+                Brief description for the opportunity:
+                <textarea ng-model="basic.description" cols="40" rows="10" spellcheck required></textarea>
+            </div>
+            <div class="col-xs-6">
+                <table class="table">
                 <tr>
-                    <td>Extra Questions</td>
+                    <td>Company:</td>
+                    <td>{{ basic.company }}</td>
+                </tr>
+                <tr>
+                    <td>Title:</td>
+                    <td><input size="40" ng-readonly="readOnly" type="text" value="{{basic.title}}" required></td>
+                </tr>
+                <tr>
+                    <td>Active:</td>
+                    <td><input type="checkbox" ng-model="basic.active" ng-disabled="readOnly" required></td>
+                </tr>
+                  <tr>
+                    <td>Group:</td>
+                    <td><select ng-model="basic.group._id" ng-options="category._id as category.name for category in categories" ng-disabled="readOnly"></select></td>
+                </tr>
+                <tr>
+                    <td>Links:</td>
                     <td>
-                        <div ng-repeat="question in guidance.questions">
-                            <input ng-readonly="readOnly" ng-model="question.question">
-                            <span ng-show="!readOnly" ng-click="removeFrom($index, guidance.questions)">Remove</span>
+                        <div ng-repeat="link in basic.links">
+                            <input type="text" ng-model="link.title" ng-readonly="readOnly" placeholder="Link title" required>
+                            <input type="url" ng-model="link.url" ng-readonly="readOnly" placeholder="URL" required>
+                             <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="removeFrom($index, basic.links)" value="Remove"></input>
                         </div>
-                        <span ng-show="!readOnly" ng-click="addTo(guidance.questions, {question: ''})">+ Add New</span>
+                        <input type="button" class="btn btn-default" ng-show="!readOnly" ng-click="addTo(basic.links, {title: '', url: ''})" value="+ Add New"></input>
                     </td>
                 </tr>
-            </table>
-        </div>
-        <div class="col-xs-6">
-            <table class="table">
                 <tr>
-                    <td>Tags Associated</td>
-                    <td>
-                        <div ng-repeat="tagView in guidance.tags">
-                            <select ng-disabled="readOnly" ng-model="tagView.importance">
-                                <option value="must" selected>Must Have</option>
-                                <option value="nice">Nice to Have</option>
-                                <option value="unimportant">Unimportant</option>
-                            </select>
-                            <select ng-disabled="readOnly" ng-model="tagView.data._id" ng-options="tag._id as tag.name for tag in tags" ng-change="showCorrectValues(tagView, $index, tagView.id)"></select>
-                            <select ng-disabled="readOnly" ng-show="tagView.data.type === 'scale'" ng-model="tagView.value">
-                                <option value="1">1 (Disagree Strongly)</option>
-                                <option value="2">2 (Disagree)</option>
-                                <option value="3">3 (Agree)</option>
-                                <option value="4">4 (Agree Strongly)</option>
-                            </select>
-                            <select ng-disabled="readOnly" ng-show="tagView.data.type === 'binary'" ng-model="tagView.value">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                            <span ng-show="!readOnly" ng-click="removeFrom($index, guidance.tags)">Remove</span>
-                        </div>
-                        <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})">+ Add New</span>
-                    </td>
+                    <td>Notes:</td>
+                    <td><textarea cols="40" rows="5" ng-readonly="readOnly" ng-model="basic.notes"></textarea></td>
                 </tr>
-            </table>
+                <tr>
+                    <td>Internal Notes:</td>
+                    <td><textarea cols="40" rows="5" ng-readonly="readOnly" ng-model="basic.internal"></textarea></td>
+                </tr>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+    <input class="btn" ng-class="readOnly ? 'btn-primary' : 'btn-success'" type="submit" ng-value="editButtonText"></input>
+    <br />
+    <br />
 
-<div class="section container-fluid">
-    <div class="row">
-        <span>Declared Candidates</span>
+    <h4>Guidance Parameters</h4>
+    <div class="section container-fluid">
+        <div class="row">
+            <div class="col-xs-6">
+                <table class="table">
+                    <tr>
+                        <td>Extra Questions</td>
+                        <td>
+                            <div ng-repeat="question in guidance.questions">
+                                <input ng-readonly="readOnly" ng-model="question.question">
+                                <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="removeFrom($index, guidance.questions)" value="Remove"></input>
+                            </div>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="addTo(guidance.questions, {question: ''})" value="+ Add New"></input>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-6">
+                <table class="table">
+                    <tr>
+                        <td>Tags Associated</td>
+                        <td>
+                            <div ng-repeat="tagView in guidance.tags">
+                                <select ng-disabled="readOnly" ng-model="tagView.importance">
+                                    <option value="must" selected>Must Have</option>
+                                    <option value="nice">Nice to Have</option>
+                                    <option value="unimportant">Unimportant</option>
+                                </select>
+                                <select ng-disabled="readOnly" ng-model="tagView.data._id" ng-options="tag._id as tag.name for tag in tags" ng-change="showCorrectValues(tagView, $index, tagView.id)"></select>
+                                <select ng-disabled="readOnly" ng-show="tagView.data.type === 'scale'" ng-model="tagView.value">
+                                    <option value="1">1 (Disagree Strongly)</option>
+                                    <option value="2">2 (Disagree)</option>
+                                    <option value="3">3 (Agree)</option>
+                                    <option value="4">4 (Agree Strongly)</option>
+                                </select>
+                                <select ng-disabled="readOnly" ng-show="tagView.data.type === 'binary'" ng-model="tagView.value">
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                                <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="removeFrom($index, guidance.tags)" value="Remove"></input>
+                            </div>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})" value="+ Add New"></input>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        <table class="table">
-        <thead>
-            <th></th><!-- Empty table header-->
-            <th>Name</th>
-            <th>E-mail</th>
-            <th>Interest</th>
-            <th ng-repeat="tag in guidance.tags | orderBy:'importance'">{{ tag.data.name }}</th>
-        </thead>
-        <tbody>
-            <tr ng-repeat="user in declared">
-            <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.interest }}</td>
-            <td ng-repeat="tag in guidance.tags | orderBy:'importance'">
-                {{ user.tags[tag.data._id] }}
-            </td>
-            </tr>
-        </tbody>
+
+    <div class="section container-fluid">
+        <div class="row">
+            <span>Declared Candidates</span>
+        </div>
+        <div class="row">
+            <table class="table">
+            <thead>
+                <th></th><!-- Empty table header-->
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>Interest</th>
+                <th ng-repeat="tag in guidance.tags | orderBy:'importance'">{{ tag.data.name }}</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in declared">
+                <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.interest }}</td>
+                <td ng-repeat="tag in guidance.tags | orderBy:'importance'">
+                    {{ user.tags[tag.data._id] }}
+                </td>
+                </tr>
+            </tbody>
+        </div>
     </div>
-</div>
+</form>
