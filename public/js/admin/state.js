@@ -9,6 +9,8 @@ app.config(['$stateProvider', function ($stateProvider) {
           var isAdmin = localStorageService.get('isAdmin');
           if(isAdmin === 'false'){
             $location.path('/login');
+          } else {
+            $location.path('/admin/opportunities');
           }
         }]
       },
