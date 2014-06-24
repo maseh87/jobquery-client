@@ -1,55 +1,93 @@
 app.controller('UsersDashboardCtrl', ['$scope', 'UsersOpportunity', function ($scope, UsersOpportunity) {
 
-  var objectifyMatches = function(matches){
-    var matchesObj = {};
+  var matches;
 
-    matches.forEach(function(match){
-      matchesObj[match.opportunity] = {
-        _id: match._id,
-        answers: match.answers,
-        userInterest: match.userInterest
-      };
+  var initialize = function(){
+    UsersOpportunity.getAll().then(function(data){
+      matches = data.matches.filter(function(match){
+        return match.userInterest === 0;
+      });
+      $scope.matches = matches;
+      getNextOpportunity();
     });
-
-    return matchesObj;
   };
 
-  var normalizeQuestionsAndAnswers = function(opportunity, match){
-    var numQuestions = opportunity.questions.length;
-    var numAnswers = match.answers.length;
-    var difference = numQuestions - numAnswers;
+  var getNextOpportunity = function(){
+    var nextOpportunityId = $scope.matches[0].opportunity;
+    return UsersOpportunity.get(nextOpportunityId).then(function(data){
+      var match = data.match;
+      var opportunity = match.opportunity;
+      var questions = opportunity.questions;
+      var user = data.user;
+      if(questions.length !== match.answers.length){
+        for(var i = 0; i < questions.length - match.answers.length; i++){
+          match.answers.push({
+            answer: ''
+          });
+        }
+      }
+      $scope.match = match;
+      $scope.answers = $scope.match.answers;
+      $scope.questions = questions;
+      $scope.opportunity = opportunity;
+      var processedTags = processTags(opportunity, user);
+      $scope.processedTags = [processedTags.must, processedTags.nice];
+    });
+  };
 
-    if(difference){
-      for(var i = 0; i < difference; i++){
-        match.answers.push({ answer: '' });
+  var objectifyUserTags = function(user){
+    var tags = user.tags;
+    var tagsObj = {};
+
+    tags.forEach(function(tag){
+      tagsObj[tag.tag._id] = tag.value;
+    });
+
+    return tagsObj;
+  };
+
+  var processTags = function(opportunity, user){
+    var userTags = objectifyUserTags(user);
+    var tags = opportunity.tags;
+    var processed = {
+      'must': {
+        'scale': [],
+        'binary': [],
+        'text': []
+      },
+      'nice': {
+        'scale': [],
+        'binary': [],
+        'text': []
       }
     };
 
-  };
-
-  var formatData = function(opportunities, matches){
-    matches = objectifyMatches(matches);
-
-    opportunities.forEach(function(opportunity){
-      var match = matches[opportunity._id];
-      normalizeQuestionsAndAnswers(opportunity, match);
-      opportunity.match = match;
+    tags.forEach(function(tag){
+      if(tag.importance === 'must'){
+        processed.must[tag.tag.type].push({
+          name: tag.tag.name,
+          value: tag.value,
+          userValue: userTags[tag.tag._id]
+        });
+      } else if (tag.importance === 'nice'){
+        processed.nice[tag.tag.type].push({
+          name: tag.tag.name,
+          value: tag.value,
+          userValue: userTags[tag.tag._id]
+        });
+      }
     });
 
-    return opportunities.filter(function(opportunity){
-      return opportunity.match.userInterest === 0;
-    });
-
+    return processed;
   };
-
-  UsersOpportunity.getAll().then(function(data){
-    $scope.opportunities = formatData(data.opportunities, data.matches);
-  });
 
   $scope.submit = function(){
-    UsersOpportunity.update($scope.opportunities[0].match).then(function(){
-      $scope.opportunities.splice(0, 1);
+    UsersOpportunity.update($scope.match).then(function(){
+      $scope.matches.splice(0, 1);
+      getNextOpportunity();
     });
   };
+
+  initialize();
 
 }]);
