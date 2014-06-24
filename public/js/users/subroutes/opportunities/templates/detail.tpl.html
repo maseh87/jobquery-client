@@ -18,7 +18,7 @@
                 </tr>
                 <tr>
                     <td>URL:</td>
-                    <td>{{opportunity.links[0]}}</td>
+                    <td>{{opportunity.links[0].url}}</td>
                 </tr>
             </table>
         </div>
@@ -27,19 +27,19 @@
 
 <form ng-submit="submit()">
     <h2>Interest</h2>
-    <input type="radio" id="radio1" value="1" name="interest" ng-model="opportunity.match.interest">
+    <input type="radio" id="radio1" value="1" name="interest" ng-model="match.userInterest">
     <label for="radio1" type="radio" id="radio1">1</label>
-    <input type="radio" id="radio2" value="2" name="interest" ng-model="opportunity.match.interest">
+    <input type="radio" id="radio2" value="2" name="interest" ng-model="match.userInterest">
     <label for="radio2" type="radio" id="radio2">2</label>
-    <input type="radio" id="radio3" value="3" name="interest" ng-model="opportunity.match.interest">
+    <input type="radio" id="radio3" value="3" name="interest" ng-model="match.userInterest">
     <label for="radio3" type="radio" id="radio3">3</label>
-    <input type="radio" id="radio4" value="4" name="interest" ng-model="opportunity.match.interest">
+    <input type="radio" id="radio4" value="4" name="interest" ng-model="match.userInterest">
     <label for="radio4" type="radio" id="radio4">4</label>
 
     <h2>Questions</h2>
-    <div ng-repeat="question in opportunity.questions track by $index">
-        <p>{{question.text}}</p>
-        <textarea rows="3" cols="80" ng-model="opportunity.match.answers[$index]"></textarea>
+    <div ng-repeat="qna in questions">
+        <h3>{{qna.question.question}}</h3>
+        <input ng-model="answers[$index]">
     </div>
 
     <input type="submit">

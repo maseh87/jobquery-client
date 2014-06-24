@@ -10,7 +10,7 @@ app.config(['$stateProvider', function ($stateProvider) {
           if(isAdmin === 'false'){
             $location.path('/login');
           } else {
-            $location.path('/admin/opportunities');
+            if($location.path() === '/admin') $location.path('/admin/opportunities');
           }
         }]
       },

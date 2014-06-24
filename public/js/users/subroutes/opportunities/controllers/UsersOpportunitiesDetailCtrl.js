@@ -1,38 +1,23 @@
-app.controller('UsersOpportunitiesDetailCtrl', ['$scope', 'UsersOpportunity', 'Match', 'localStorageService',
-function($scope, UsersOpportunity, Match, localStorageService) {
+app.controller('UsersOpportunitiesDetailCtrl', ['$scope', 'UsersOpportunity', '$stateParams',
+function($scope, UsersOpportunity, $stateParams) {
 
-  var id = localStorageService.get('_id');
-  UsersOpportunity.get().then(function(data){
-    console.log(data);
+  UsersOpportunity.get($stateParams._id).then(function(data){
+    var match = data.match;
+    var opportunity = match.opportunity;
+
+    $scope.match = match;
+    $scope.opportunity = opportunity;
+    $scope.userInterest = match.userInterest;
+    $scope.questions = match.opportunity.questions;
+    $scope.answers = match.answers;
   });
 
-
-  // Opportunity.getAll().then(function (opportunities) {
-  //   $scope.opportunities = opportunities;
-  // });
-
-  // Match.getAll().then(function (matches) {
-  //   $scope.matches = matches;
-  // });
-
-  // $scope.$watch('matches', function (matches) {
-  //   var interest = {};
-  //   if (!matches) return null;
-  //   if (!$scope.opportunities) return null;
-
-  //   matches.data.forEach(function (match) {
-  //     if (!interest[match.oppId]) { interest[match.oppId] = 0; }
-  //     if (match.userInterest >= 3) { interest[match.oppId]++; }
-  //   });
-
-  //   $scope.opportunities.forEach(function (opportunity) {
-  //     opportunity.userInterest = interest[opportunity._id];
-  //   });
-  // });
-
-  // $scope.groups = {};
-  // $scope.modelToView = function () {
-
-  // };
+  $scope.submit = function(){
+    var match = $scope.match;
+    match.answers = $scope.answers;
+    match.userInterest = parseInt($scope.match.userInterest);
+    console.log(match);
+    UsersOpportunity.update(match);
+  };
 
 }]);

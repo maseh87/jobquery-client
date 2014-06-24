@@ -17,8 +17,8 @@ app.factory('UsersOpportunity', ['$http', 'SERVER_URL', 'UserOpportunityResource
     return UserOpportunityResource.get({_id: id}).$promise;
   };
 
-  userOpportunityMethods.update = function (opportunity) {
-    return UserOpportunityResource.update({_id: opportunity._id}, opportunity.match).$promise;
+  userOpportunityMethods.update = function (match) {
+    return UserOpportunityResource.update({_id: match._id}, match).$promise;
   };
 
   return userOpportunityMethods;
