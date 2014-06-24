@@ -1,32 +1,18 @@
-<div ui-view>
-    <h3 class="body-heading">Opportunities</h3><br>
-    <h4 class="body-tagline">View Opportunities</h4>
+<h3 class="body-heading">Opportunities</h3><br>
+<h4 class="body-tagline">View Opportunities</h4>
 
-    <div class="section container-fluid" ng-repeat="(groupName, group) in groups">
-        <div class="row">
-            <span>{{ groupName }}</span>
-        </div>
-        <div class="row">
-            <table class="table">
-            <thead>
-                <tr>
-                    <th></th><!-- empty table header -->
-                    <th>Company</th>
-                    <th>Title</th>
-                    <th>Location</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="(name, opportunity) in group">
-                    <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail</a></td>
-                    <td>{{ opportunity.company }}</td>
-                    <td>{{ opportunity.title }}</td>
-                    <td>{{ opportunity.location }}</td>
-                    <td>{{ opportunity.declared }}</td>
-                    <td>{{ opportunity.interested }}</td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
-    </div>
+<div ng-repeat="category in categories">
+    <h1>{{category.info.name}}</h1>
+    <table class="table table-condensed table-hover">
+        <tr>
+            <th>Company</th>
+            <th>Job Title</th>
+            <th>Your Interest</th>
+        </tr>
+        <tr ng-repeat="opportunity in category.opportunities" ng-click="goToDetail(opportunity)">
+            <td>{{opportunity.company.name}}</td>
+            <td>{{opportunity.jobTitle}}</td>
+            <td>{{opportunity.interest || 'N/A'}}</td>
+        </tr>
+    </table>
 </div>

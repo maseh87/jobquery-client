@@ -1,8 +1,36 @@
-app.controller('UsersOpportunitiesCtrl',
-  ['$scope', 'UsersOpportunity', function ($scope, UsersOpportunity) {
+app.controller('UsersOpportunitiesCtrl', ['$scope', 'UsersOpportunity', '$state', 
+function ($scope, UsersOpportunity, $state) {
+  
+  var formatOpportunities = function(opportunities, interest){
+    var categories = {};
+    for(var i = 0; i < opportunities.length; i++){
+      var opportunity = opportunities[i];
+      opportunity.interest = interest[opportunity._id];
+      var catId = opportunity.category._id;
+      if(!categories[catId]) categories[catId] = { info: opportunity.category, opportunities: [] }
+      categories[catId].opportunities.push(opportunity);
+    }
+    return categories;
+  };
 
-  UsersOpportunity.getAll().then(function (opportunities) {
-    $scope.opportunities = opportunities;
+  var formatMatches = function(matches){
+    var interest = {};
+    matches.forEach(function(match){
+      interest[match.opportunity] = match.userInterest;
+    });
+    return interest;
+  };
+
+  UsersOpportunity.getAll().then(function (data) {
+    var opportunities = data.opportunities;
+    var matches = data.matches;
+    var interest = formatMatches(matches);
+    var categories = formatOpportunities(opportunities, interest);
+    $scope.categories = categories;
   });
+
+  $scope.goToDetail = function(opportunity){
+    $state.go('users.opportunities.detail', { _id: opportunity._id });
+  };
 
 }]);
