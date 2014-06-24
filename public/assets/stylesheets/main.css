@@ -27,7 +27,7 @@ table {
 .content-container {
     position: absolute;
     left: 180px; right: 0px;
-    padding-left: 24px;
+    padding-left: 26px;
     padding-right: 18px;
 }
 
@@ -62,7 +62,7 @@ table {
 /* Headings */
 .content-header { 
     display: table; 
-    width: 100%; padding-top: 20px;
+    width: 100%; padding-top: 20px; padding-bottom: 12px;
     text-align: right; text-transform: uppercase;
 }
 .content-header-block { 
@@ -96,6 +96,8 @@ table {
 }
 .content-action a { color: #F0F0F0; }
 .content-action a:hover { color: #c9e3ef; text-decoration: none}
+
+.content-section { padding-top: 12px; padding-bottom: 12px; }
 
 .btn-primary{
     background-color: #5598c1;
