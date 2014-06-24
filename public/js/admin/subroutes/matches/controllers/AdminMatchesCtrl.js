@@ -24,13 +24,11 @@ app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', 'Opportunity', 
 
       $scope.matrix = matrix;
       $scope.userMap = userMap;
-      console.log("matrix", $scope.matrix);
-      console.log(userMap);
     });
   });
 
   $scope.edit = function(match) { 
-    console.log(match);
+    // console.log(match); // EDIT NOT IMPLEMENTED YET
   };
 
   $scope.isOverridden = function (match) {
