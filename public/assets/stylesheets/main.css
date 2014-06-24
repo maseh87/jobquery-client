@@ -95,6 +95,8 @@ table {
 .content-action:hover { color: #c9e3ef; cursor: pointer; }
 
 .content-section { padding-top: 12px; padding-bottom: 12px; }
+.content-scrollable { overflow-x: scroll; overflow-y: hidden; }
+
 
 .btn-primary{
     background-color: #5598c1;
