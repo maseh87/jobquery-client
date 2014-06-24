@@ -50,16 +50,8 @@ app.controller('AdminOpportunitiesNewCtrl',
     });
   };
 
-  $scope.removeFrom = function (array, item, idKey) {
-    var index = array.reduce(function(a, b, i) {
-      if (typeof a === "number") { return a; }
-      if (idKey) {
-        return b[idKey] === item[idKey] ? i : null;
-      } else {
-        return b === item ? i : null;
-      }
-    }, null);
-    if (index !== null) { array.splice(index, 1); }
+  $scope.removeFrom = function (index) {
+    $scope.guidance.tags.splice(index, 1);
   };
 
   $scope.addTo = function (array, field) {
