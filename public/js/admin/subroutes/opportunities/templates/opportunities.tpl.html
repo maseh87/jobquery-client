@@ -1,40 +1,39 @@
 <div ui-view>
     <div class="content-header">
-        <div class="content-title">Opportunities</div>
-        <div class="content-tagline">View, create or edit job opportunities</div>
-    </div>
-
-    <div class="section container-fluid" ng-repeat="(groupName, group) in groups">
-        <div class="row">
+        <div class="content-header-block">
             <span class="content-action">
                 <span class="glyphicon glyphicon-plus"></span>
                 <a ui-sref="admin.opportunities.new">New Opportunity</a>
             </span>
-            <span>{{ groupName }}</span>
         </div>
+        <div class="content-header-block">
+            <div class="content-title">Opportunities</div>
+            <div class="content-tagline">View, create or edit job opportunities</div>
+        </div>
+    </div>
+
+    <div class="content-section container-fluid" ng-repeat="(groupName, group) in groups">
         <div class="row">
-            <table class="table">
-            <thead>
-                <tr>
-                    <th></th><!-- empty table header -->
-                    <th>Company</th>
-                    <th>Title</th>
-                    <th>Declared Candidates</th>
-                    <th>Interest 3+</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="(name, opportunity) in group">
-                    <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">detail</a></td>
-                    <td>{{ opportunity.company }}</td>
-                    <td>{{ opportunity.title }}</td>
-                    <td>{{ opportunity.declared }}</td>
-                    <td>{{ opportunity.interested }}</td>
-                    <td>{{ opportunity.description }}</td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
+        <div class="tablebox-title">{{ groupName }}</div>
+        <table class="tablebox">
+        <thead>
+            <tr class="tablebox-header">
+                <th width="20%">Company</th>
+                <th width="20%">Title</th>
+                <th width="13%">Declared</th>
+                <th width="13%">Interest 3+</th>
+                <th width="34%">Internal Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tablebox-content" ng-repeat="(name, opportunity) in group" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
+                <td>{{ opportunity.company }}</td>
+                <td>{{ opportunity.title }}</td>
+                <td>{{ opportunity.declared }}</td>
+                <td>{{ opportunity.interested }}</td>
+                <td>{{ opportunity.description }}</td>
+            </tr>
+        </tbody>
+        </table>
     </div>
 </div>

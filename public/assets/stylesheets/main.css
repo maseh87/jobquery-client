@@ -3,7 +3,10 @@ body {
     width: 100%; height: 100%;
     font-family: 'Raleway', sans-serif;
     box-sizing: border-box;
-    background-color: #FFFFFF;
+    background-color: #F4F4F4;
+}
+table {
+    border-collapse: collapse;
 }
 .sidebar-container a { color: #F0F0F0; }
 .sidebar-container a:hover { color: #c9e3ef; text-decoration: none; }
@@ -24,7 +27,7 @@ body {
 .content-container {
     position: absolute;
     left: 180px; right: 0px;
-    padding-left: 18px;
+    padding-left: 26px;
     padding-right: 18px;
 }
 
@@ -59,11 +62,23 @@ body {
 /* Headings */
 .content-header { 
     display: table; 
-    width: 100%; padding-top: 18px;
+    width: 100%; padding-top: 20px; padding-bottom: 12px;
     text-align: right; text-transform: uppercase;
 }
-.content-title { font-weight: 300; font-size: 2.5rem; color: #5598c1; margin-bottom: -5px;}
-.content-tagline { font-weight: 300; font-size: 1.125rem; }
+.content-header-block { 
+    display: table-cell; 
+    width: 50%; vertical-align: bottom;
+}
+.content-title { 
+    font-weight: 300; font-size: 2.5rem; 
+    color: #5598c1; 
+    margin-bottom: -2px;
+}
+.content-tagline { 
+    font-weight: 300; 
+    font-size: 1.125rem; 
+    line-height: 1rem;
+}
 
 .content-action {
     display: table-cell;
@@ -73,7 +88,7 @@ body {
     height: 30px;
 
     background-color: #5598c1;
-    border-radius: 3px;
+    border-radius: 1px;
     box-shadow: 1px 1px 1px #E0E0E0;
 
     font-weight: 400; font-size: 1.125rem;
@@ -82,8 +97,9 @@ body {
 .content-action a { color: #F0F0F0; }
 .content-action a:hover { color: #c9e3ef; text-decoration: none}
 
+.content-section { padding-top: 12px; padding-bottom: 12px; }
+
 .btn-primary{
     background-color: #5598c1;
     border-color: #5598c1;
 }
-
