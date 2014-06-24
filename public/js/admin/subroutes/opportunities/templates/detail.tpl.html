@@ -1,9 +1,15 @@
-<h3 class="body-heading">Opportunity Dossier</h3><br>
-<h4 class="body-tagline">View or edit opportunity dossier</h4>
+<div class="content-header">
+    <div class="content-header-block text-left">
+    </div>
+    <div class="content-header-block">
+        <div class="content-title">Opportunity Dossier</div>
+        <div class="content-tagline">Edit a job opportunity</div>
+    </div>
+</div>
 
 <div class="section container-fluid">
     <div class="row">
-        <span ng-click="toggleEdit()">{{ editButtonText }}</span>
+        <input type="button" ng-click="toggleEdit()" value="{{ editButtonText }}">
         <span>Basic Information</span>
     </div>
     <div class="row">
