@@ -33,12 +33,13 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     basicInfo.internal =
       oppData.internalNotes.length ?
       oppData.internalNotes[0].text : null;
+    basicInfo.notes =
+      oppData.notes.length ?
+      oppData.notes[0].text : null;
     $scope.basic = basicInfo;
     var guidance = {};
-    var guidanceTags = {};
     guidance.questions = oppData.questions;
     guidance.tags = oppData.tags.map(function (tagData) {
-      guidanceTags[tagData._id] = true;
       return {data: tagData.tag, value: tagData.value, importance: tagData.importance};
     });
     $scope.guidance = guidance;
@@ -49,11 +50,13 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
         name: matchModel.user.name,
         email: matchModel.user.email,
         interest: matchModel.userInterest,
-        tags: matchModel.user.tags.filter(function (tagData) {
-          return guidanceTags[tagData._id];
-        }).map(function (tagData) {
-          return {_id: tagData._id, name: tagData.tag.label, value: tagData.value};
-        })
+        tags: (function () {
+          var tagsByKeys = {};
+          matchModel.user.tags.forEach(function (tag) {
+            tagsByKeys[tag.tag._id] = tag.value;
+          });
+          return tagsByKeys;
+        })()
       };
     });
     $scope.declared = declared;
@@ -77,8 +80,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     oppData.jobTitle = $scope.basic.title;
     oppData.category = $scope.basic.group._id;
     oppData.company = $scope.basic.company._id;
-
-    oppData.questions = $scope.guidance.questions;
+    oppData.notes = $scope.basic.notes ? [ {text: $scope.basic.notes} ] : [];
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
     oppData.tags = $scope.guidance.tags.map(function (tag) {
       return {tag: tag.data._id, value: tag.value, importance: tag.importance};
@@ -89,8 +91,8 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     });
   };
 
-  $scope.removeFrom = function (index) {
-    $scope.guidance.tags.splice(index, 1);
+  $scope.removeFrom = function (index, array) {
+    array.splice(index, 1);
   };
 
   $scope.addTo = function (array, field) {
