@@ -17,9 +17,9 @@
                         <td>Title:</td>
                         <td>{{opportunity.jobTitle}}</td>
                     </tr>
-                    <tr>
-                        <td>URL:</td>
-                        <td>{{opportunity.links[0].url}}</td>
+                    <tr ng-repeat="link in opportunity.links">
+                        <td><span ng-show="$first">URL:</span></td>
+                        <td><a ng-href="{{link.url}}">{{link.url}}</a></td>
                     </tr>
                 </table>
             </div>
