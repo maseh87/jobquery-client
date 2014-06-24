@@ -1,7 +1,7 @@
 <h1>Invite Candidates</h1>
 <p>Input one or more e-mail addresses and press invite</p>
 <form name="emailForm" novalidate="novalidate" >
-    <textarea rows="10" cols="50" name="emails" ng-init="" ng-Model="emails" ng-pattern="emailCSVPattern()"> </textarea>
+    <textarea rows="10" cols="50" name="emails" ng-init="" ng-Model="emails" ng-pattern="emailCSVPattern()" required> </textarea>
     <div ng-show="showAlert">{{alertMessage}}</div>
     <div><button ng-disabled="emailForm.$invalid" ng-click="sendEmails(emails); hideMessage()" class="btn btn-primary" >Invite</button></div>
 </form>
