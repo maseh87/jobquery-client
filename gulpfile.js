@@ -26,12 +26,6 @@ gulp.task('html-prod', function () {
     .pipe(gulp.dest('public/'));
 });
 
-gulp.task('html-dev', function () {
-  return gulp.src('public/dev.html')
-    .pipe(rename('index.html'))
-    .pipe(gulp.dest('public/'));
-});
-
 gulp.task('concatbower-prod',['minify-prod'], function () {
   return gulp.src([
     'public/bower_components/jquery/dist/jquery.min.js',
@@ -45,6 +39,13 @@ gulp.task('concatbower-prod',['minify-prod'], function () {
       .pipe(concat('jobquery.master.min.js'))
       .pipe(gulp.dest('public/lib/'));
 });
+
+gulp.task('html-dev', function () {
+  return gulp.src('public/dev.html')
+    .pipe(rename('index.html'))
+    .pipe(gulp.dest('public/'));
+});
+
 
 gulp.task('prod',['concatbower-prod','html-prod']);
 
