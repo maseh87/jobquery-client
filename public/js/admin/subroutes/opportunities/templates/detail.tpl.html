@@ -91,7 +91,7 @@
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
-                            <span ng-show="!readOnly" ng-click="removeFrom(guidance.tags, tagView, 'name')">Remove</span>
+                            <span ng-show="!readOnly" ng-click="removeFrom($index)">Remove</span>
                         </div>
                         <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})">+ Add New</span>
                     </td>
