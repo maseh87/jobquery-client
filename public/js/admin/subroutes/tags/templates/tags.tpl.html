@@ -42,7 +42,8 @@
                 <td><input type="checkbox" ng-model="tag.isPublic" ng-disabled="tag.readOnly"></td>
                 <td>
                     <button type="button" ng-click="tag.readOnly = false; tag.delete = false;" ng-show="tag.readOnly" class="btn btn-primary">Edit</button>
-                    <button type="button" ng-click="tag.readOnly = true; save(tag, $index, category)" ng-hide="tag.readOnly" class="btn btn-success">Save</button>
+                    <button type="button" ng-click="tag.readOnly = true; save(tag, $index, category)" ng-hide="tag.readOnly || tag.delete" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-danger" ng-click="remove(tag, $index, category)" ng-show="!tag.readOnly && tag.delete">Are You Sure?</button>
                 </td>
                 <td ng-show="tag.readOnly">
                     <span ng-click="moveUp($index, category)" ng-show="!$first" class="glyphicon glyphicon-arrow-up pointer"></span>
@@ -50,7 +51,7 @@
                 </td>
                 <td ng-show="!tag.readOnly">
                     <button type="button" class="btn btn-danger" ng-click="tag.delete = true" ng-show="!tag.readOnly && !tag.delete">Remove</button>
-                    <button type="button" class="btn btn-danger" ng-click="remove(tag, $index, category)" ng-show="!tag.readOnly && tag.delete">Are You Sure?</button>
+                    <button type="button" class="btn btn-default" ng-click="tag.delete = false" ng-show="!tac.readOnly && tag.delete">Cancel</button>
                 </td>
             </tr>
         </table>
