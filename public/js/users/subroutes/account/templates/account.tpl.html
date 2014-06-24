@@ -6,8 +6,8 @@
             </span>
         </div>
         <div class="content-header-block">
-            <div class="content-title">Profile</div>
-            <div class="content-tagline">View or edit your profile</div>
+            <div class="content-title">Candidate Survey</div>
+            <div class="content-tagline">View or complete your candidate survey</div>
         </div>
     </div>
 
@@ -27,32 +27,34 @@
 <button ng-click="readOnly=true; update()" ng-show="!readOnly">Save Profile</button> -->
 
 <form ng-submit="update()">
-    <table class="table">
-        <tr>
-            <th>Name:</th>
-            <td><input type="text" size="40" ng-model="user.name" required></td>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <td><input type="text" size="40" ng-model="user.email" required></td>
-        </tr>
-        <tr>
-            <th>Github:</th>
-            <td><input type="text" size="40" ng-model="user.github"></td>
-        </tr>
-        <tr>
-            <th>LinkedIn:</th>
-            <td><input type="text" size="40" ng-model="user.linkedin"></td>
-        </tr>
-    </table>
+<div class="row">
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Basic Information</div>
+        <table class="formbox formbox-basic">
+            <tr>
+                <th>Name</th>
+                <td><input type="text" size="40" ng-model="user.name" required></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><input type="text" size="40" ng-model="user.email" required></td>
+            </tr>
+            <tr>
+                <th>Github</th>
+                <td><input type="text" size="40" ng-model="user.github"></td>
+            </tr>
+            <tr>
+                <th>LinkedIn</th>
+                <td><input type="text" size="40" ng-model="user.linkedin"></td>
+            </tr>
+        </table>
+    </div>
 
-    <h3>New Candidate Survey</h3>
+    <div class="content-section container-fluid" ng-repeat="(category, types) in tags">
+        <div class="formbox-title">{{category}}</div>
 
-    <div ng-repeat="(category, types) in tags">
-        <h4>{{category}}<h4>
         <div ng-show="types.hasOwnProperty('binary')">
-            <!-- <h5>Binary Questions</h5> -->
-            <table class="table">
+            <table class="formbox formbox-numerical">
                 <thead>
                     <th></th>
                     <th>Yes</th>
@@ -67,9 +69,9 @@
                 </tbody>
             </table>
         </div>
+
         <div ng-show="types.hasOwnProperty('scale')">
-            <!-- <h5>Scale Questions</h5> -->
-            <table class="table">
+            <table class="formbox formbox-numerical">
                 <thead>
                     <th></th>
                     <th>1</th>
@@ -88,17 +90,19 @@
                 </tbody>
             </table>
         </div>
-         <div ng-show="types.hasOwnProperty('text')">
-            <!-- <h5>Text Questions</h5> -->
-            <table class="table">
+
+        <div ng-show="types.hasOwnProperty('text')">
+            <table class="formbox formbox-freetext">
                 <tr ng-repeat="tag in types.text | orderBy: 'tag.position' track by $index">
                 <td>{{tag.tag.label}}</td>
-                <td><textarea cols="50" rows="2" name="{{ category + 'text' + $index}}" ng-model="tag.value"></textarea></td>
+                <td><textarea name="{{ category + 'text' + $index}}" ng-model="tag.value"></textarea></td>
+                </tr>
             </table>
-            </tr>
         </div>
+
     </div>
 
     <input type="submit">
+</div>
 </form>
 
