@@ -80,12 +80,21 @@
                     <td>Tags Associated</td>
                     <td>
                         <div ng-repeat="tagView in guidance.tags">
-                            <select ng-model="tagView.data" ng-options="tag.name for tag in tags"></select>
-                            <input ng-model="tagView.value">
                             <select ng-model="tagView.importance">
-                                <option value="must" selected>Must have</option>
-                                <option value="nice">Nice to have</option>
+                                <option value="must" selected>Must Have</option>
+                                <option value="nice">Nice to Have</option>
                                 <option value="unimportant">Unimportant</option>
+                            </select>
+                            <select ng-model="tagView.id" ng-options="tag._id as tag.name for tag in tags" ng-change="showCorrectValues(tagView, $index, tagView.id)"></select>
+                            <select ng-show="tagView.type === 'scale'" ng-model="tagView.value">
+                                <option value="1">1 (Disagree Strongly)</option>
+                                <option value="2">2 (Disagree)</option>
+                                <option value="3">3 (Agree)</option>
+                                <option value="4">4 (Agree Strongly)</option>
+                            </select>
+                            <select ng-show="tagView.type === 'binary'" ng-model="tagView.value">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
                             </select>
                             <span ng-show="!readOnly" ng-click="removeFrom(guidance.tags, tagView, 'name')">Remove</span>
                         </div>

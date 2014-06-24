@@ -20,6 +20,15 @@ app.controller('AdminOpportunitiesNewCtrl',
   };
 
   $scope.save = function () {
+    // remove any empty tags
+    for (var i = 0; i < $scope.guidance.tags.length; i += 1) {
+      var currentTag = $scope.guidance.tags[i];
+      if (!currentTag.id) {
+        $scope.guidance.tags.splice(i, 1);
+        i -= 1;
+      }
+    }
+
     var oppData = {};
     oppData.active = $scope.basic.active;
     oppData.description = $scope.basic.description;
@@ -29,7 +38,7 @@ app.controller('AdminOpportunitiesNewCtrl',
     oppData.questions = $scope.guidance.questions;
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
     oppData.tags = $scope.guidance.tags.map(function (tag) {
-      return {tag: tag.data._id, value: tag.value, importance: tag.importance};
+      return {tag: tag.id, value: tag.value, importance: tag.importance};
     });
     oppData.links = $scope.basic.links;
 
@@ -37,7 +46,6 @@ app.controller('AdminOpportunitiesNewCtrl',
     oppData.company = $scope.basic.company._id;
 
     Opportunity.create(oppData).then(function(data){
-      console.log('Create successful');
       $state.go('admin.opportunities.detail', { _id : data._id});
     });
   };
@@ -57,4 +65,14 @@ app.controller('AdminOpportunitiesNewCtrl',
   $scope.addTo = function (array, field) {
     array.push(field);
   };
+
+  $scope.showCorrectValues = function (tag, index, id) {
+    for (var i = 0; i < $scope.tags.length; i += 1) {
+      if ($scope.tags[i]._id === id) {
+        tag.type = $scope.tags[i].type;
+        break;
+      }
+    }
+  };
+
 }]);

@@ -60,6 +60,15 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   };
 
   $scope.save = function () {
+    // remove any empty tags
+    for (var i = 0; i < $scope.guidance.tags.length; i += 1) {
+      var currentTag = $scope.guidance.tags[i];
+      if (!currentTag.data || !currentTag.data._id) {
+        $scope.guidance.tags.splice(i, 1);
+        i -= 1;
+      }
+    }
+
     var oppData = {};
     oppData._id = $scope.basic._id;
     oppData.active = $scope.basic.active;
@@ -95,4 +104,14 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   $scope.addTo = function (array, field) {
     array.push(field);
   };
+
+  $scope.showCorrectValues = function (tag, index, id) {
+    for (var i = 0; i < $scope.tags.length; i += 1) {
+      if ($scope.tags[i]._id === id) {
+        tag.type = $scope.tags[i].type;
+        break;
+      }
+    }
+  };
+
 }]);
