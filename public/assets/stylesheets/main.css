@@ -94,8 +94,7 @@ table {
     font-weight: 400; font-size: 1.125rem;
     color: #F0F0F0; text-transform: uppercase;
 }
-.content-action a { color: #F0F0F0; }
-.content-action a:hover { color: #c9e3ef; text-decoration: none}
+.content-action:hover { color: #c9e3ef; cursor: pointer; }
 
 .content-section { padding-top: 12px; padding-bottom: 12px; }
 
