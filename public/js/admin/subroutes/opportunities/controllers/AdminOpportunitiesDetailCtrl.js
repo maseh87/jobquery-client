@@ -63,12 +63,22 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   };
 
   $scope.save = function () {
-    // remove any empty tags
+    // remove any empty tags and duplicate tags (preference for higher order)
+    var existingTags = {};
     for (var i = 0; i < $scope.guidance.tags.length; i += 1) {
       var currentTag = $scope.guidance.tags[i];
+      // check for empty tags
       if (!currentTag.data || !currentTag.data._id) {
         $scope.guidance.tags.splice(i, 1);
         i -= 1;
+        continue;
+      }
+      // check for duplicate tags
+      if (existingTags.hasOwnProperty(currentTag.data._id)) {
+        $scope.guidance.tags.splice(i, 1);
+        i -= 1;
+      } else {
+        existingTags[currentTag.data._id] = true;
       }
     }
 
