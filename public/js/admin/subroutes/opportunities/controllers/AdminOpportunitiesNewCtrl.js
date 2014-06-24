@@ -34,24 +34,22 @@ app.controller('AdminOpportunitiesNewCtrl',
     oppData.description = $scope.basic.description;
     oppData.questions = $scope.guidance.questions;
     oppData.jobTitle = $scope.basic.title;
-
-    oppData.questions = $scope.guidance.questions;
+    oppData.category = $scope.basic.category._id;
+    oppData.company = $scope.basic.company._id;
+    oppData.notes = $scope.basic.notes ? [ {text: $scope.basic.notes} ] : [];
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
     oppData.tags = $scope.guidance.tags.map(function (tag) {
       return {tag: tag.id, value: tag.value, importance: tag.importance};
     });
     oppData.links = $scope.basic.links;
 
-    oppData.category = $scope.basic.category._id;
-    oppData.company = $scope.basic.company._id;
-
     Opportunity.create(oppData).then(function(data){
       $state.go('admin.opportunities.detail', { _id : data._id});
     });
   };
 
-  $scope.removeFrom = function (index) {
-    $scope.guidance.tags.splice(index, 1);
+  $scope.removeFrom = function (index, array) {
+    array.splice(index, 1);
   };
 
   $scope.addTo = function (array, field) {

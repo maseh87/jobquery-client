@@ -36,10 +36,14 @@
                     <div ng-repeat="link in basic.links">
                         <input type="text" ng-model="link.title" ng-readonly="readOnly" placeholder="Add new title here">
                         <input type="text" ng-model="link.url" ng-readonly="readOnly" placeholder="Add new link here">
-                        <span ng-show="!readOnly" ng-click="removeFrom(basic.links, link, 'url')">Remove</span>
+                        <span ng-show="!readOnly" ng-click="removeFrom($index, basic.links)">Remove</span>
                     </div>
                     <span ng-show="!readOnly" ng-click="addTo(basic.links, {title: 'title', url: ''})">+ Add New</span>
                 </td>
+            </tr>
+            <tr>
+                <td>Notes:</td>
+                <td><textarea cols="40" rows="5" ng-readonly="readOnly" ng-model="basic.notes"></textarea></td>
             </tr>
             <tr>
                 <td>Internal Notes:</td>
@@ -62,7 +66,7 @@
                     <td>
                         <div ng-repeat="question in guidance.questions">
                             <input ng-readonly="readOnly" ng-model="question.question">
-                            <span ng-show="!readOnly" ng-click="removeFrom(guidance.questions, question, 'question')">Remove</span>
+                            <span ng-show="!readOnly" ng-click="removeFrom($index, guidance.questions)">Remove</span>
                         </div>
                         <span ng-show="!readOnly" ng-click="addTo(guidance.questions, {question: ''})">+ Add New</span>
                     </td>
@@ -91,7 +95,7 @@
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
-                            <span ng-show="!readOnly" ng-click="removeFrom($index)">Remove</span>
+                            <span ng-show="!readOnly" ng-click="removeFrom($index, guidance.tags)">Remove</span>
                         </div>
                         <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})">+ Add New</span>
                     </td>
@@ -112,7 +116,7 @@
             <th>Name</th>
             <th>E-mail</th>
             <th>Interest</th>
-            <th ng-repeat="tag in guidance.tags">{{ tag.name }}</th>
+            <th ng-repeat="tag in guidance.tags | orderBy:'importance'">{{ tag.data.name }}</th>
         </thead>
         <tbody>
             <tr ng-repeat="user in declared">
@@ -120,7 +124,9 @@
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.interest }}</td>
-            <td ng-repeat="attribute in user.tags">{{ attribute.value }}</td>
+            <td ng-repeat="tag in guidance.tags | orderBy:'importance'">
+                {{ user.tags[tag.data._id] }}
+            </td>
             </tr>
         </tbody>
     </div>
