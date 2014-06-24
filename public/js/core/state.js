@@ -11,7 +11,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       resolve: {
         redirect: ['$location', 'localStorageService', function ($location, localStorageService) {
           var isAdmin = localStorageService.get('isAdmin');
-          if(isAdmin){
+          if(isAdmin === 'true'){
             $location.path('/admin');
           } else {
             $location.path('/users');
