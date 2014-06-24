@@ -2,6 +2,8 @@ app.controller('UsersDashboardCtrl', ['$scope', 'UsersOpportunity', 'GuidanceSer
 function ($scope, UsersOpportunity, GuidanceService) {
 
   var matches;
+  $scope.submitText = 'Submit';
+  $scope.pendingRequests = 0;
 
   var initialize = function(){
     UsersOpportunity.getAll().then(function(data){
@@ -16,6 +18,8 @@ function ($scope, UsersOpportunity, GuidanceService) {
   var getNextOpportunity = function(){
     var nextOpportunityId = $scope.matches[0].opportunity;
     return UsersOpportunity.get(nextOpportunityId).then(function(data){
+      $scope.submitText='Submit';
+      $scope.pendingRequests--;
       var match = data.match;
       var opportunity = match.opportunity;
       var questions = opportunity.questions;
@@ -37,7 +41,10 @@ function ($scope, UsersOpportunity, GuidanceService) {
   };
 
   $scope.submit = function(){
+    $scope.submitText = 'Submitting...';
+    $scope.pendingRequests++;
     UsersOpportunity.update($scope.match).then(function(){
+      $scope.submitText = 'Fetching Next';
       $scope.matches.splice(0, 1);
       getNextOpportunity();
     });
