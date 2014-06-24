@@ -74,20 +74,16 @@
             <tr>
                 <th></th><!-- empty table header -->
                 <th>Name</th>
-                <th>Interested Candidates</th>
                 <th>URL</th>
-                <th>Title</th>
                 <th>Location</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="opportunity in opportunities">
                 <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
-                <td>{{ opportunity.company.name }}</td>
-                <td>{{ opportunity.userInterest }}</td>
-                <td>{{ opportunity.links[0].url }}</td>
                 <td>{{ opportunity.jobTitle }}</td>
-                <td>{{ opportunity.company.city }}</td>
+                <td>{{ opportunity.links[0].url }}</td>
+                <td>Need to add</td>
             </tr>
         </tbody>
         </table>
