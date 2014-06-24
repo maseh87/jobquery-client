@@ -1,6 +1,9 @@
 app.controller('UsersOpportunitiesDetailCtrl', ['$scope', 'UsersOpportunity', '$stateParams', 'GuidanceService',
 function($scope, UsersOpportunity, $stateParams, GuidanceService) {
 
+  $scope.submitText = 'Submit';
+  $scope.pendingRequests = 0;
+
   UsersOpportunity.get($stateParams._id).then(function(data){
     var match = data.match;
     var opportunity = match.opportunity;
@@ -22,7 +25,12 @@ function($scope, UsersOpportunity, $stateParams, GuidanceService) {
   });
 
   $scope.submit = function(){
-    UsersOpportunity.update($scope.match);
+    $scope.submitText = 'Submitting...';
+    $scope.pendingRequests++;
+    UsersOpportunity.update($scope.match).then(function(){
+      $scope.submitText = 'Save Successful';
+      $scope.pendingRequests--;
+    });
   };
 
 }]);
