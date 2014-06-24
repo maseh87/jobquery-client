@@ -25,24 +25,45 @@
     </div>
 </div>
 
-<form ng-submit="submit()">
-    <h2>Interest</h2>
-    <input type="radio" id="radio1" ng-value="1" name="interest" ng-model="match.userInterest">
-    <label for="radio1" type="radio" id="radio1">1</label>
-    <input type="radio" id="radio2" ng-value="2" name="interest" ng-model="match.userInterest">
-    <label for="radio2" type="radio" id="radio2">2</label>
-    <input type="radio" id="radio3" ng-value="3" name="interest" ng-model="match.userInterest">
-    <label for="radio3" type="radio" id="radio3">3</label>
-    <input type="radio" id="radio4" ng-value="4" name="interest" ng-model="match.userInterest">
-    <label for="radio4" type="radio" id="radio4">4</label>
+<div class="col-md-6">
+    <form ng-submit="submit()">
+        <h2>Interest</h2>
+        <input type="radio" id="radio1" ng-value="1" name="interest" ng-model="match.userInterest">
+        <label for="radio1" type="radio" id="radio1">1</label>
+        <input type="radio" id="radio2" ng-value="2" name="interest" ng-model="match.userInterest">
+        <label for="radio2" type="radio" id="radio2">2</label>
+        <input type="radio" id="radio3" ng-value="3" name="interest" ng-model="match.userInterest">
+        <label for="radio3" type="radio" id="radio3">3</label>
+        <input type="radio" id="radio4" ng-value="4" name="interest" ng-model="match.userInterest">
+        <label for="radio4" type="radio" id="radio4">4</label>
 
-    <div ng-show="questions">
-        <h2>Questions</h2>
-        <div ng-repeat="question in questions">
-            <h3>{{question.question}}</h3>
-            <input ng-model="answers[$index].answer">
+        <div ng-show="questions">
+            <h2>Questions</h2>
+            <div ng-repeat="question in questions">
+                <h3>{{question.question}}</h3>
+                <input ng-model="answers[$index].answer">
+            </div>
+        </div>
+
+        <input type="submit">
+    </form>
+</div>
+
+<div class="col-md-6">
+    <h1>Guidance</h1>
+    <div ng-repeat="tags in processedTags">
+        <h1>{{$first ? 'Must Have' : 'Nice to Have'}}</h1>
+        <div ng-repeat="tagType in tags">
+            <table class="table table-condensed" ng-show="tagType">
+                <th></th>
+                <th>Your Value</th>
+                <th>Their Value</th>
+                <tr ng-repeat="tag in tagType">
+                    <td>{{tag.name}}</td>
+                    <td>{{tag.userValue}}</td>
+                    <td>{{tag.value}}</td>
+                </tr>
+            </table>
         </div>
     </div>
-
-    <input type="submit">
-</form>
+</div>
