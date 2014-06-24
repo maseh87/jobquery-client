@@ -1,8 +1,8 @@
     <div class="content-header">
-        <div class="content-header-block">
+        <div class="content-header-block text-left">
             <span class="content-action">
                 <span class="glyphicon glyphicon-ok"></span>
-                <span ui-sref="admin.opportunities.new">Save Your Profile</span>
+                <span ng-click"update()">Save Your Profile</span>
             </span>
         </div>
         <div class="content-header-block">
@@ -102,10 +102,14 @@
 
     </div>
 
-    <span class="content-submit">
-        <span class="glyphicon glyphicon-ok"></span>
-        <span ui-sref="admin.opportunities.new">Save Your Profile</span>
-    </span>
+    <div class="content-section container-fluid">
+        <div class="formbox-footer">
+            <span class="content-action">
+                <span class="glyphicon glyphicon-ok"></span>
+                <span ng-click"update()">Save Your Profile</span>
+            </span>
+        </div>
+    </div>
 </div>
 </form>
 

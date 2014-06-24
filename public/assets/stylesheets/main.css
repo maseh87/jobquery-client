@@ -81,10 +81,8 @@ table {
 }
 
 .content-action {
-    display: table-cell;
-    vertical-align: middle;
-
-    padding-left: 10px; padding-right: 10px;
+    display: inline-block;
+    padding: 8px; 
     height: 30px;
 
     background-color: #5598c1;
