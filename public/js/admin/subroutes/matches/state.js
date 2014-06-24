@@ -6,10 +6,10 @@ app.config(['$stateProvider', function ($stateProvider) {
       url: '/matches',
       template: '<ui-view/>'
     })
-      .state('admin.matches.all', {
-        url: '',
-        templateUrl: '/js/admin/subroutes/matches/templates/matches.tpl.html',
-        controller: 'AdminMatchesCtrl'
-      });
+    .state('admin.matches.all', {
+      url: '',
+      templateUrl: '/js/admin/subroutes/matches/templates/matches.tpl.html',
+      controller: 'AdminMatchesCtrl'
+    });
 
 }]);
