@@ -1,5 +1,7 @@
  app.controller('AdminCompaniesDetailCtrl', ['$scope', 'Company', '$stateParams', function ($scope, Company, $stateParams) {
 
+  $scope.readOnly = true;
+
   Company.get($stateParams._id).then(function (company) {
     $scope.company = company;
     $scope.opportunities = company.opportunities;
@@ -13,6 +15,13 @@
     $scope.company.links = $scope.company.links.filter(function (item) {
       return item.title && item.url;
     });
+  };
+
+  $scope.toggleEdit = function () {
+    if (!$scope.readOnly) {
+      $scope.update();
+    }
+    $scope.readOnly = !$scope.readOnly;
   };
 
   $scope.update = function () {
