@@ -3,3 +3,30 @@
         <td ng-repeat="opportunity in candidate track by $index">{{opportunity || 0}}</td>
     </tr>
 </table>
+
+<div ui-view>
+    <div class="content-header">
+        <div class="content-header-block text-left">
+        </div>
+        <div class="content-header-block">
+            <div class="content-title">Matches</div>
+            <div class="content-tagline">View or edit the match grid</div>
+        </div>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="row">
+        <div class="tablebox-title">Candidate - Opportunity Match Grid</div>
+        <table class="tablebox">
+        <thead>
+            <tr class="tablebox-header">
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tablebox-content" ng-repeat="(name, opportunity) in group" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
+            </tr>
+        </tbody>
+        </table>
+        </div>
+    </div>
+</div>
