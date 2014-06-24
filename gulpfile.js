@@ -28,8 +28,6 @@ gulp.task('html-prod', function () {
 
 gulp.task('concatbower-prod',['minify-prod'], function () {
   return gulp.src([
-    'public/bower_components/jquery/dist/jquery.min.js',
-    'public/bower_components/bootstrap/dist/js/bootstrap.min.js',
     'public/bower_components/angular/angular.min.js',
     'public/bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'public/bower_components/angular-resource/angular-resource.min.js',
