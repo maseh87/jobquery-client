@@ -1,21 +1,55 @@
 app.controller('UsersDashboardCtrl', ['$scope', 'UsersOpportunity', function ($scope, UsersOpportunity) {
 
-  var initialize = function () {
-    UsersOpportunity.getAll().then(function (opportunities) {
-      opportunities = opportunities.filter(function (opportunity) {
-        return opportunity.match.interest === 0;
-      });
-      $scope.opportunities = opportunities;
+  var objectifyMatches = function(matches){
+    var matchesObj = {};
+
+    matches.forEach(function(match){
+      matchesObj[match.opportunity] = {
+        _id: match._id,
+        answers: match.answers,
+        userInterest: match.userInterest
+      };
     });
+
+    return matchesObj;
   };
 
-  $scope.submit = function () {
-    $scope.opportunities[0].match.interest = parseInt($scope.opportunities[0].match.interest);
-    UsersOpportunity.update($scope.opportunities[0]).then(function (opportunity) {
-      $scope.opportunities.shift();
-    });
+  var normalizeQuestionsAndAnswers = function(opportunity, match){
+    var numQuestions = opportunity.questions.length;
+    var numAnswers = match.answers.length;
+    var difference = numQuestions - numAnswers;
+
+    if(difference){
+      for(var i = 0; i < difference; i++){
+        match.answers.push({ answer: '' });
+      }
+    };
+
   };
 
-  initialize();
+  var formatData = function(opportunities, matches){
+    matches = objectifyMatches(matches);
+
+    opportunities.forEach(function(opportunity){
+      var match = matches[opportunity._id];
+      normalizeQuestionsAndAnswers(opportunity, match);
+      opportunity.match = match;
+    });
+
+    return opportunities.filter(function(opportunity){
+      return opportunity.match.userInterest === 0;
+    });
+
+  };
+
+  UsersOpportunity.getAll().then(function(data){
+    $scope.opportunities = formatData(data.opportunities, data.matches);
+  });
+
+  $scope.submit = function(){
+    UsersOpportunity.update($scope.opportunities[0].match).then(function(){
+      $scope.opportunities.splice(0, 1);
+    });
+  };
 
 }]);
