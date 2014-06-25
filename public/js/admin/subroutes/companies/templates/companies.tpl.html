@@ -9,17 +9,15 @@
             <th class="detail"></th>
             <th class="name">Name</th>
             <th class="opportunities"># Opportunities</th>
-            <th class="url">URL</th>
-            <th class="location">Location</th>
+            <th class="location">City</th>
             <th class="brief-description">Description</th>
         </tr>
     </thead>
     <tr ng-repeat="company in companies">
         <td class="detail"><a ui-sref="admin.companies.detail({_id: company._id})">detail<a/></td>
-        <td class="name" >{{company.name}}</td>
-        <td class="opportunities" >{{company.opportunities.length}}</td>
-        <td class="url" >{{company.links[0].url}}</td>
-        <td class="location" >{{company.city}}</td>
-        <td class="brief-description" >{{company.description}}</td>
+        <td class="name">{{company.name}}</td>
+        <td class="opportunities">{{company.opportunities.length}}</td>
+        <td class="location">{{company.city}}</td>
+        <td class="brief-description">{{company.description}}</td>
     </tr>
 </table>
