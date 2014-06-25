@@ -34,17 +34,17 @@ app.controller('AdminOpportunitiesNewCtrl',
     for (var i = 0; i < $scope.guidance.tags.length; i += 1) {
       var currentTag = $scope.guidance.tags[i];
       // check for empty tags
-      if (!currentTag.data || !currentTag.data._id) {
+      if (!currentTag._id) {
         $scope.guidance.tags.splice(i, 1);
         i -= 1;
         continue;
       }
       // check for duplicate tags
-      if (existingTags.hasOwnProperty(currentTag.data._id)) {
+      if (existingTags.hasOwnProperty(currentTag._id)) {
         $scope.guidance.tags.splice(i, 1);
         i -= 1;
       } else {
-        existingTags[currentTag.data._id] = true;
+        existingTags[currentTag._id] = true;
       }
     }
 
@@ -78,7 +78,7 @@ app.controller('AdminOpportunitiesNewCtrl',
     oppData.notes = $scope.basic.notes ? [ {text: $scope.basic.notes} ] : [];
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
     oppData.tags = $scope.guidance.tags.map(function (tag) {
-      return {tag: tag.id, value: tag.value, importance: tag.importance};
+      return {tag: tag._id, value: tag.value, importance: tag.importance};
     });
     oppData.links = $scope.basic.links;
 
@@ -99,6 +99,13 @@ app.controller('AdminOpportunitiesNewCtrl',
     for (var i = 0; i < $scope.tags.length; i += 1) {
       if ($scope.tags[i]._id === id) {
         tag.type = $scope.tags[i].type;
+        if (tag.type === 'scale') {
+          tag.value = 1;
+        } else if (tag.type === 'binary') {
+          tag.value = 'yes';
+        } else {
+          tag.value = 'text';
+        }
         break;
       }
     }
