@@ -25,7 +25,7 @@
             <tr class="gridbox-content" ng-repeat="(userId, row) in matrix">
                 <th ui-sref="admin.candidates.detail({_id: userId})">{{ userMap[userId] }}</th>
                 <td ng-repeat="match in row track by $index" ng-class="isOverridden(match)">
-                    <input ng-model="match.userInterest" ng-click="edit(match)">
+                    <input ng-model="match.value" ng-click="edit(match)">
                 </td>
             </tr>
         </tbody>
