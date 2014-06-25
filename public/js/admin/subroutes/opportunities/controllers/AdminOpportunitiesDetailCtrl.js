@@ -1,4 +1,5 @@
-app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category',
+app.controller('AdminOpportunitiesDetailCtrl',
+  ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category',
   function ($scope, $stateParams, Opportunity, Match, Tag, Category) {
 
   Match.getUsers($stateParams._id).then(function (data) {
@@ -8,7 +9,9 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   });
 
   Tag.getAll().then(function (tags) { $scope.tags = tags; });
-  Category.getAll('Opportunity').then(function (categories) { $scope.categories = categories; });
+
+  Category.getAll('Opportunity')
+  .then(function (categories) { $scope.categories = categories; });
 
   $scope.readOnly = true;
   $scope.editButtonText = "✎  Edit";
@@ -22,23 +25,21 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   $scope.guidance = {};
   $scope.declared = [];
   $scope.mapToView = function (oppData, matchData) {
-    var basicInfo = {};
-    basicInfo._id = oppData._id;
-    basicInfo.description = oppData.description;
-    basicInfo.company = oppData.company.name;
-    basicInfo.title = oppData.jobTitle;
-    basicInfo.location = oppData.company.city;
-    basicInfo.links = oppData.links;
-    basicInfo.active = oppData.active;
-    basicInfo.approved = oppData.approved;
-    basicInfo.group = oppData.category;
-    basicInfo.internal =
+    $scope.basic._id = oppData._id;
+    $scope.basic.description = oppData.description;
+    $scope.basic.company = oppData.company.name;
+    $scope.basic.title = oppData.jobTitle;
+    $scope.basic.location = oppData.company.city;
+    $scope.basic.links = oppData.links;
+    $scope.basic.active = oppData.active;
+    $scope.basic.approved = oppData.approved;
+    $scope.basic.group = oppData.category;
+    $scope.basic.internal =
       oppData.internalNotes.length ?
       oppData.internalNotes[0].text : null;
-    basicInfo.notes =
+    $scope.basic.notes =
       oppData.notes.length ?
       oppData.notes[0].text : null;
-    $scope.basic = basicInfo;
 
     // guidance = opportunity tags
     var guidance = {};
@@ -126,12 +127,12 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     oppData.jobTitle = $scope.basic.title;
     oppData.category = $scope.basic.group._id;
     oppData.company = $scope.basic.company._id;
+    oppData.links = $scope.basic.links;
     oppData.notes = $scope.basic.notes ? [ {text: $scope.basic.notes} ] : [];
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
     oppData.tags = $scope.guidance.tags.map(function (tag) {
       return {tag: tag.data._id, value: tag.value, importance: tag.importance};
     });
-    oppData.links = $scope.basic.links;
 
     Opportunity.update(oppData).then(function(data){
     });
