@@ -4,6 +4,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   Match.getUsers($stateParams._id).then(function (data) {
     $scope.mapToView(data.opportunity, data.matches);
     $scope.oppData = data.opportunity;
+    $scope.matchData = data.matches;
   });
 
   Tag.getAll().then(function (tags) { $scope.tags = tags; });
@@ -38,6 +39,8 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
       oppData.notes.length ?
       oppData.notes[0].text : null;
     $scope.basic = basicInfo;
+
+    // guidance = opportunity tags
     var guidance = {};
     guidance.questions = oppData.questions;
     guidance.tags = oppData.tags.map(function (tagData) {
@@ -45,7 +48,16 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     });
     $scope.guidance = guidance;
 
+    // declared = user tags
+    $scope.interestThreeOrAbove = 0;
+    $scope.interestResponses = 0;
     var declared = matchData.map(function (matchModel) {
+      if (matchModel.userInterest > 0) {
+        $scope.interestResponses += 1;
+      }
+      if (matchModel.userInterest >= 3) {
+        $scope.interestThreeOrAbove +=1 ;
+      }
       return {
         _id: matchModel.user._id,
         name: matchModel.user.name,
@@ -61,13 +73,13 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
       };
     });
     $scope.declared = declared;
+
+    $scope.updateGuidance();
   };
 
   $scope.save = function () {
-    console.log('save in detail');
     // remove any empty tags and duplicate tags (preference for higher order)
     var existingTags = {};
-    console.log('$scope.guidance.tags:', $scope.guidance.tags);
     for (var i = 0; i < $scope.guidance.tags.length; i += 1) {
       var currentTag = $scope.guidance.tags[i];
       // check for empty tags
@@ -123,6 +135,8 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
 
     Opportunity.update(oppData).then(function(data){
     });
+
+    $scope.updateGuidance();
   };
 
   $scope.removeFrom = function (index, array) {
@@ -133,20 +147,58 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     array.push(field);
   };
 
-  $scope.showCorrectValues = function (tag, index, id) {
+  $scope.showCorrectValues = function (tag, id) {
     for (var i = 0; i < $scope.tags.length; i += 1) {
       if ($scope.tags[i]._id === id) {
         tag.data.type = $scope.tags[i].type;
         if (tag.data.type === 'scale') {
-          tag.value = 1;
+          // tag.value = 1;
         } else if (tag.data.type === 'binary') {
-          tag.value = 'yes';
+          // tag.value = 'yes';
         } else {
-          tag.value = 'text';
+          // tag.value = 'text';
         }
-        break;
+        break; // code below relies on 'i' to lookup $scope.tags properly
       }
     }
+    $scope.guidance.tags.forEach(function (tag) {
+      if (tag.data._id === id) {
+        tag.data = $scope.tags[i];
+      }
+    });
+  };
+
+  $scope.updateGuidance = function () {
+    // filtered guidance = no text type or unimportant tags
+    $scope.filteredTags = $scope.guidance.tags.filter(function (tag) {
+      return (tag.value !== 'text' && tag.importance !== 'unimportant');
+    });
+
+    // calculate summary stats
+    $scope.filteredStats = {};
+    $scope.filteredTags.forEach(function (tag) {
+      $scope.filteredStats[tag.data._id] = {
+        threshold: tag.value,
+        type: tag.data.type,
+        count: 0
+      };
+    });
+
+    Object.keys($scope.filteredStats).forEach(function (tagId) {
+      if ($scope.filteredStats[tagId].type === 'scale') {
+        $scope.declared.forEach(function (match) {
+          if (match.tags[tagId] >= $scope.filteredStats[tagId].threshold) {
+            $scope.filteredStats[tagId].count += 1;
+          }
+        });
+      } else if ($scope.filteredStats[tagId].type === 'binary') {
+        $scope.declared.forEach(function (match) {
+          if (match.tags[tagId] === $scope.filteredStats[tagId].threshold) {
+            $scope.filteredStats[tagId].count += 1;
+          }
+        });
+      }
+    });
   };
 
 }]);
