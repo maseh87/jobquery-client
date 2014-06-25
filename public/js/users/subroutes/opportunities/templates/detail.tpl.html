@@ -40,9 +40,9 @@
 
             <div ng-show="questions">
                 <h2>Questions</h2>
-                <div ng-repeat="question in questions">
+                <div ng-repeat="question in questions | filter:{active: true}">
                     <h3>{{question.question}}</h3>
-                    <input ng-model="answers[$index].answer">
+                    <input ng-model="answers[question.index].answer">
                 </div>
             </div>
 

@@ -17,6 +17,13 @@ function ($scope, UsersOpportunity, GuidanceService) {
     });
   };
 
+  var addIndexAsProperty = function(arrayOfObjects){
+    return arrayOfObjects.map(function(item, index){
+      item.index = index;
+      return item;
+    });
+  };
+
   var getNextOpportunity = function(){
     var nextOpportunityId = $scope.matches[0].opportunity;
     return UsersOpportunity.get(nextOpportunityId).then(function(data){
@@ -26,8 +33,13 @@ function ($scope, UsersOpportunity, GuidanceService) {
       var opportunity = match.opportunity;
       var questions = opportunity.questions;
       var user = data.user;
+
+      var numQuestions = questions.length;
+      var numAnswers = match.answers.length;
+      var difference = numQuestions - numAnswers;
+
       if(questions.length !== match.answers.length){
-        for(var i = 0; i < questions.length - match.answers.length; i++){
+        for(var i = 0; i < difference; i++){
           match.answers.push({
             answer: ''
           });
@@ -35,7 +47,7 @@ function ($scope, UsersOpportunity, GuidanceService) {
       }
       $scope.match = match;
       $scope.answers = $scope.match.answers;
-      $scope.questions = questions;
+      $scope.questions = addIndexAsProperty(questions);
       $scope.opportunity = opportunity;
       var processedTags = GuidanceService.processTags(opportunity, user);
       $scope.processedTags = [processedTags.must, processedTags.nice];
