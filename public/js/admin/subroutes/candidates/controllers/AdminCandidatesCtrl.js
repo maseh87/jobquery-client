@@ -25,12 +25,14 @@ app.controller('AdminCandidatesCtrl', ['User', 'Match', '$scope', function (User
       userMap[user._id].interestThreeOrGreater = 0;
     });
 
-    Match.getAll().then(function (matches) {
+    Match.getAll().then(function (data) {
+      var matches = data.matches;
       for(var i = 0; i < matches.length; i++) {
-        if (matches[i].userInterest !== 0) {
-          userMap[matches[i].user._id].interestDeclared++;
-          if (matches.userInterest >= 3) {
-            userMap[user._id].interestThreeOrGreater++;
+        var match = matches[i];
+        if (match.userInterest !== 0) {
+          userMap[match.user].interestDeclared++;
+          if (match.userInterest >= 3) {
+            userMap[match.user].interestThreeOrGreater++;
           }
         }
       }
