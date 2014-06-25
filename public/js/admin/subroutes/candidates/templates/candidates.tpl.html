@@ -1,28 +1,64 @@
-<a ui-sref="admin.candidates.new">+ Invite Candidates</a>
-<div ng-repeat="group in groups">
-    <div>{{group[0].category.name}}</div>
-    <table class="table table-striped table-condensed table-hover">
-        <thead>
+<div ui-view>
+    <div class="content-header">
+        <div class="content-header-block text-left">
+            <span class="content-action">
+                <span class="glyphicon glyphicon-plus"></span>
+                <span ui-sref="admin.candidates.new">Invite Candidates</span>
+            </span>
+        </span>
+        </div>
+        <div class="content-header-block">
+            <div class="content-title">Candidates</div>
+            <div class="content-tagline">View, invite, or edit candidates</div>
+        </div>
+    </div>
+
+<!--     <div class="content-section container-fluid">
+        <div class="formbox-title">Filter Candidates</div>
+        <table class="formbox formbox-basic">
             <tr>
-                <th class="detail"></th>
-                <th class="name" >Name</th>
-                <th class="interestDeclared" >Interest Declared</th>
-                <th class="interestThreeOrGreater" >Interest >3 Count</th>
-                <th class="github" >Github</th>
-                <th class="email" >Email</th>
-                <th class="location" >Location</th>
-                <th class="stage" >Job Search Stage</th>
+                <th>All</th>
+                <td><input type="radio" id="radioBox" value="all" ng-model="query"></td>
             </tr>
-        </thead>
-        <tr ng-repeat="user in group">
-            <td class="detail"><a ui-sref="admin.candidates.detail({_id: user._id})">detail<a/></td>
-            <td class="name" >{{user.name}}</td>
-            <th class="interestDeclared" >{{user.interestDeclared}}</th>
-            <th class="interestThreeOrGreater" >{{user.interestThreeOrGreater}}</th>
-            <td class="github" ><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
-            <td class="email" ><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
-            <td class="location" >{{user.city}}</td>
-            <td class="stage" >{{user.searchStage}}</td>
-        </tr>
-    </table>
-<div>
+            <tr>
+                <th>Attending Hiring Day</th>
+                <td><input type="radio" id="radioBox" ng-value="true" ng-model="query"></td>
+            </tr>
+            <tr>
+                <th>Not Attending Hiring Day</th>
+                <td><input type="radio" id="radioBox" ng-value="false" ng-model="query"></td>
+            </tr>
+        </table>
+    </div> -->
+
+    <div ng-repeat="group in groups" class="content-section container-fluid">
+        <div class="tablebox-title">{{group[0].category.name}}</div>
+        <table class="tablebox">
+            <thead>
+                <tr class="tablebox-header">
+                    <th class="name">Name</th>
+                    <th class="interestDeclared">Interest Declared</th>
+                    <th class="interestThreeOrGreater">Interest > 3 Count</th>
+                    <th class="github">Github</th>
+                    <th class="email">Email</th>
+                    <th class="location">Location</th>
+                    <th class="stage">Job Search Stage</th>
+                    <th>Attending</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in group | filter:query" class="tablebox-content" ui-sref="admin.candidates.detail({_id: user._id})">
+                    <td class="name">{{user.name}}</td>
+                    <th class="interestDeclared">{{user.interestDeclared}}</th>
+                    <th class="interestThreeOrGreater">{{user.interestThreeOrGreater}}</th>
+                    <td class="github"><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
+                    <td class="email"><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
+                    <td class="location">{{user.city}}</td>
+                    <td class="stage">{{user.searchStage}}</td>
+                    <td>{{user.attending ? 'Yes' : 'No'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    <div>
+
+</div>   
