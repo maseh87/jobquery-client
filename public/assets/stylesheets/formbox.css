@@ -38,11 +38,11 @@
 .formbox-numerical td:first-child, .formbox-binary td:first-child { 
     padding-right: 5%;
     text-align: left;
-    font-weight: 400;
+    font-weight: 300;
 }
 
 .formbox-freetext th, .formbox-freetext td { width: 50%; }
-.formbox-freetext th:first-child, .formbox-freetext td:first-child { font-weight: 400; }
+.formbox-freetext th:first-child, .formbox-freetext td:first-child { font-weight: 300; }
 .formbox-freetext input, .formbox-freetext textarea { width: 100%; resize: vertical; margin-bottom: -5px;}
 
 .formbox input[type="radio"] {

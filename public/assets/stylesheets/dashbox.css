@@ -6,6 +6,8 @@
     margin: auto auto;
     font-size: 1.25rem; font-weight: 200;
     text-align: center;
+
+    box-shadow: 1px 1px 1px #E0E0E0;
 }
 
 .dashbox-title {
