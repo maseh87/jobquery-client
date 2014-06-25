@@ -29,6 +29,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     basicInfo.location = oppData.company.city;
     basicInfo.links = oppData.links;
     basicInfo.active = oppData.active;
+    basicInfo.approved = oppData.approved;
     basicInfo.group = oppData.category;
     basicInfo.internal =
       oppData.internalNotes.length ?
@@ -105,6 +106,7 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     var oppData = {};
     oppData._id = $scope.basic._id;
     oppData.active = $scope.basic.active;
+    oppData.approved = $scope.basic.approved;
     oppData.description = $scope.basic.description;
     oppData.questions = $scope.guidance.questions;
     oppData.jobTitle = $scope.basic.title;

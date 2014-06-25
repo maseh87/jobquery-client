@@ -32,7 +32,11 @@
                 </tr>
                 <tr>
                     <td>Active:</td>
-                    <td><input type="checkbox" ng-model="basic.active" ng-disabled="readOnly" required></td>
+                    <td><input type="checkbox" ng-model="basic.active" ng-disabled="readOnly"></td>
+                </tr>
+                <tr>
+                    <td>Public:</td>
+                    <td><input type="checkbox" ng-model="basic.approved" ng-disabled="readOnly"></td>
                 </tr>
                   <tr>
                     <td>Group:</td>
@@ -44,7 +48,7 @@
                         <div ng-repeat="link in basic.links">
                             <input type="text" ng-model="link.title" ng-readonly="readOnly" placeholder="Link title" required>
                             <input type="url" ng-model="link.url" ng-readonly="readOnly" placeholder="URL" required>
-                             <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="removeFrom($index, basic.links)" value="Remove"></input>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="removeFrom($index, basic.links)" value="Remove"></input>
                         </div>
                         <input type="button" class="btn btn-default" ng-show="!readOnly" ng-click="addTo(basic.links, {title: '', url: ''})" value="+ Add New"></input>
                     </td>

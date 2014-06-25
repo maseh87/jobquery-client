@@ -22,6 +22,7 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
       opportunity._id = oppModel._id;
       opportunity.company = oppModel.company.name;
       opportunity.title = oppModel.jobTitle;
+      opportunity.approved = oppModel.approved;
       opportunity.internalNotes =
         oppModel.internalNotes.length > 0 ? oppModel.internalNotes[0].text : null;
       opportunity.interested = 0;
