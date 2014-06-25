@@ -1,18 +1,33 @@
-<h3 class="body-heading">Opportunities</h3><br>
-<h4 class="body-tagline">View Opportunities</h4>
+<div ui-view>
+    <div class="content-header">
+        <div class="content-header-block text-left">
+            <!-- buttons -->
+        </span>
+        </div>
+        <div class="content-header-block">
+            <div class="content-title">Opportunities</div>
+            <div class="content-tagline">View job opportunities</div>
+        </div>
+    </div>
 
-<div ng-repeat="category in categories">
-    <h1>{{category.info.name}}</h1>
-    <table class="table table-condensed table-hover">
-        <tr>
-            <th>Company</th>
-            <th>Job Title</th>
-            <th>Your Interest</th>
-        </tr>
-        <tr ng-repeat="opportunity in category.opportunities" ng-click="goToDetail(opportunity)">
-            <td>{{opportunity.company.name}}</td>
-            <td>{{opportunity.jobTitle}}</td>
-            <td>{{opportunity.interest || 'N/A'}}</td>
-        </tr>
-    </table>
+    <div class="content-section container-fluid" ng-repeat="category in categories">
+        <div class="row">
+        <div class="tablebox-title">{{ category.info.name }}</div>
+        <table class="tablebox">
+        <thead>
+            <tr class="tablebox-header">
+                <th width="40%">Company</th>
+                <th width="40%">Title</th>
+                <th width="20%">Your Interest</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tablebox-content" ng-repeat="opportunity in category.opportunities" ui-sref="users.opportunities.detail({_id: opportunity._id})">
+                <td>{{ opportunity.company.name }}</td>
+                <td>{{ opportunity.jobTitle }}</td>
+                <td>{{ opportunity.interest || 'N/A'}}</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
 </div>

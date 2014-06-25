@@ -1,114 +1,108 @@
+<form name="oppForm" ng-submit="save()">
 <div class="content-header">
+    <div class="content-header-block text-left">
+        <input class="content-button" type="submit" value="✚  Save New Opportunity"></input>
+    </div>
     <div class="content-header-block">
         <div class="content-title">Opportunities</div>
         <div class="content-tagline">Create a new job opportunity</div>
     </div>
 </div>
 
-<h3>Basic Information</h3>
+<div class="content-section container-fluid">
+    <div class="row">
+        <div class="col-xs-6">
+            Brief description for the opportunity:
+            <textarea ng-model="basic.description" cols="40" rows="10" spellcheck required></textarea>
+        </div>
+        <div class="col-xs-6">
+            <table class="table">
+            <tr>
+                <td>Company:</td>
+                <td><select ng-model="basic.company" ng-options="company.name for company in companies"></select></td>
+            </tr>
+            <tr>
+                <td>Title:</td>
+                <td><input size="40" type="text" ng-model="basic.title" required></td>
+            </tr>
+            <tr>
+                <td>Active:</td>
+                <td><input type="checkbox" ng-model="basic.active" required></td>
+            </tr>
+            <tr>
+                <td>Group:</td>
+                <td><select ng-model="basic.category" ng-options="category.name for category in categories"></select></td>
+            </tr>
+            <tr>
+                <td>Links:</td>
+                <td>
+                    <div ng-repeat="link in basic.links">
+                        <input type="text" ng-model="link.title" placeholder="Link title">
+                        <input type="url" ng-model="link.url" placeholder="URL">
+                        <input type="button" class="btn btn-default" ng-click="removeFrom($index, basic.links)" value="Remove"></input>
+                    </div>
+                    <input type="button" class="btn btn-default" ng-click="addTo(basic.links, {title: '', url: ''})" value="+ Add New"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>Notes:</td>
+                <td><textarea cols="40" rows="5" ng-readonly="readOnly" ng-model="basic.notes"></textarea></td>
+            </tr>
+            <tr>
+                <td>Internal Notes:</td>
+                <td><textarea cols="40" rows="5" ng-model="basic.internal"></textarea></td>
+            </tr>
+            </table>
+        </div>
+    </div>
+</div>
 
-<form name="oppForm" ng-submit="save()">
-    <input class="btn btn-success" type="submit" value="Save"></input>
-    <br />
-    <br />
-
-    <div class="content-section container-fluid">
-        <div class="row">
-            <div class="col-xs-6">
-                Brief description for the opportunity:
-                <textarea ng-model="basic.description" cols="40" rows="10" spellcheck required></textarea>
-            </div>
-            <div class="col-xs-6">
-                <table class="table">
+<h4>Guidance Parameters</h4>
+<div class="content-section container-fluid">
+    <div class="row">
+        <div class="col-xs-6">
+            <table class="table">
                 <tr>
-                    <td>Company:</td>
-                    <td><select ng-model="basic.company" ng-options="company.name for company in companies"></select></td>
-                </tr>
-                <tr>
-                    <td>Title:</td>
-                    <td><input size="40" type="text" ng-model="basic.title" required></td>
-                </tr>
-                <tr>
-                    <td>Active:</td>
-                    <td><input type="checkbox" ng-model="basic.active" required></td>
-                </tr>
-                <tr>
-                    <td>Group:</td>
-                    <td><select ng-model="basic.category" ng-options="category.name for category in categories"></select></td>
-                </tr>
-                <tr>
-                    <td>Links:</td>
+                    <td>Extra Questions</td>
                     <td>
-                        <div ng-repeat="link in basic.links">
-                            <input type="text" ng-model="link.title" placeholder="Link title">
-                            <input type="url" ng-model="link.url" placeholder="URL">
-                            <input type="button" class="btn btn-default" ng-click="removeFrom($index, basic.links)" value="Remove"></input>
+                        <div ng-repeat="question in guidance.questions">
+                            <input ng-model="question.question">
+                            <input type="button" class="btn btn-default" ng-click="removeFrom($index, guidance.questions)" value="Remove"></input>
                         </div>
-                        <input type="button" class="btn btn-default" ng-click="addTo(basic.links, {title: '', url: ''})" value="+ Add New"></input>
+                        <input type="button" class="btn btn-default" ng-click="addTo(guidance.questions, {question: ''})" value="+ Add New"></input>
                     </td>
                 </tr>
+            </table>
+        </div>
+        <div class="col-xs-6">
+            <table class="table">
                 <tr>
-                    <td>Notes:</td>
-                    <td><textarea cols="40" rows="5" ng-readonly="readOnly" ng-model="basic.notes"></textarea></td>
+                    <td>Tags Associated</td>
+                    <td>
+                        <div ng-repeat="tagView in guidance.tags">
+                            <select ng-model="tagView.importance">
+                                <option value="must" selected>Must Have</option>
+                                <option value="nice">Nice to Have</option>
+                                <option value="unimportant">Unimportant</option>
+                            </select>
+                            <select ng-model="tagView.id" ng-options="tag._id as tag.name for tag in tags" ng-change="showCorrectValues(tagView, $index, tagView.id)"></select>
+                            <select ng-show="tagView.type === 'scale'" ng-model="tagView.value">
+                                <option value="1">1 (Disagree Strongly)</option>
+                                <option value="2">2 (Disagree)</option>
+                                <option value="3">3 (Agree)</option>
+                                <option value="4">4 (Agree Strongly)</option>
+                            </select>
+                            <select ng-show="tagView.type === 'binary'" ng-model="tagView.value">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            <input type="button" class="btn btn-default" ng-click="removeFrom($index, guidance.tags)" value="Remove"></input>
+                        </div>
+                        <input type="button" class="btn btn-default" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})" value="+ Add New"></input>
+                    </td>
                 </tr>
-                <tr>
-                    <td>Internal Notes:</td>
-                    <td><textarea cols="40" rows="5" ng-model="basic.internal"></textarea></td>
-                </tr>
-                </table>
-            </div>
+            </table>
         </div>
     </div>
-    <input class="btn btn-success" type="submit" value="Save"></input>
-    <br />
-    <br />
-
-    <h4>Guidance Parameters</h4>
-    <div class="content-section container-fluid">
-        <div class="row">
-            <div class="col-xs-6">
-                <table class="table">
-                    <tr>
-                        <td>Extra Questions</td>
-                        <td>
-                            <div ng-repeat="question in guidance.questions">
-                                <input ng-model="question.question">
-                                <input type="button" class="btn btn-default" ng-click="removeFrom($index, guidance.questions)" value="Remove"></input>
-                            </div>
-                            <input type="button" class="btn btn-default" ng-click="addTo(guidance.questions, {question: ''})" value="+ Add New"></input>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-xs-6">
-                <table class="table">
-                    <tr>
-                        <td>Tags Associated</td>
-                        <td>
-                            <div ng-repeat="tagView in guidance.tags">
-                                <select ng-model="tagView.importance">
-                                    <option value="must" selected>Must Have</option>
-                                    <option value="nice">Nice to Have</option>
-                                    <option value="unimportant">Unimportant</option>
-                                </select>
-                                <select ng-model="tagView.id" ng-options="tag._id as tag.name for tag in tags" ng-change="showCorrectValues(tagView, $index, tagView.id)"></select>
-                                <select ng-show="tagView.type === 'scale'" ng-model="tagView.value">
-                                    <option value="1">1 (Disagree Strongly)</option>
-                                    <option value="2">2 (Disagree)</option>
-                                    <option value="3">3 (Agree)</option>
-                                    <option value="4">4 (Agree Strongly)</option>
-                                </select>
-                                <select ng-show="tagView.type === 'binary'" ng-model="tagView.value">
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
-                                </select>
-                                <input type="button" class="btn btn-default" ng-click="removeFrom($index, guidance.tags)" value="Remove"></input>
-                            </div>
-                            <input type="button" class="btn btn-default" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})" value="+ Add New"></input>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
+</div>
 </form>
