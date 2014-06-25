@@ -17,7 +17,7 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
     oppData.forEach(function (oppModel) {
       var opportunity = {};
       var groupName = oppModel.category.name;
-      if (!$scope.groups[groupName]) { $scope.groups[groupName] = {}; }
+      if (!$scope.groups[groupName]) { $scope.groups[groupName] = []; }
 
       opportunity._id = oppModel._id;
       opportunity.company = oppModel.company.name;
@@ -29,7 +29,7 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
       opportunity.declared = 0;
 
       allOpportunities[opportunity._id] = opportunity;
-      $scope.groups[groupName][opportunity._id] = opportunity;
+      $scope.groups[groupName].push(opportunity);
     });
 
     matchData.forEach(function (match) {

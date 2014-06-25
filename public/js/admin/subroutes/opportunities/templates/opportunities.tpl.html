@@ -28,7 +28,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="tablebox-content" ng-repeat="(name, opportunity) in group" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
+            <tr class="tablebox-content" ng-repeat="opportunity in group | orderBy: 'company'" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
                 <td>{{ opportunity.company }}</td>
                 <td>{{ opportunity.title }}</td>
                 <td><input type="checkbox" ng-model="opportunity.approved" ng-disabled="true"></td>

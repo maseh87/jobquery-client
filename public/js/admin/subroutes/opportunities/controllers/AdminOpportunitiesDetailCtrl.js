@@ -11,11 +11,11 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   Category.getAll('Opportunity').then(function (categories) { $scope.categories = categories; });
 
   $scope.readOnly = true;
-  $scope.editButtonText = "Edit";
+  $scope.editButtonText = "✎  Edit";
   $scope.toggleEdit = function () {
     if (!$scope.readOnly) { $scope.save(); }
     $scope.readOnly = !$scope.readOnly;
-    $scope.editButtonText = $scope.readOnly ? "Edit" : "Save";
+    $scope.editButtonText = $scope.readOnly ? "✎  Edit" : "✔  Save";
   };
 
   $scope.basic = {};
@@ -151,13 +151,6 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
     for (var i = 0; i < $scope.tags.length; i += 1) {
       if ($scope.tags[i]._id === id) {
         tag.data.type = $scope.tags[i].type;
-        if (tag.data.type === 'scale') {
-          // tag.value = 1;
-        } else if (tag.data.type === 'binary') {
-          // tag.value = 'yes';
-        } else {
-          // tag.value = 'text';
-        }
         break; // code below relies on 'i' to lookup $scope.tags properly
       }
     }
@@ -169,10 +162,11 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   };
 
   $scope.updateGuidance = function () {
-    // filtered guidance = no text type or unimportant tags
-    $scope.filteredTags = $scope.guidance.tags.filter(function (tag) {
-      return (tag.value !== 'text' && tag.importance !== 'unimportant');
-    });
+    // filtered guidance = no text type
+    // $scope.filteredTags = $scope.guidance.tags.filter(function (tag) {
+    //   return (tag.value !== 'text');
+    // });
+  $scope.filteredTags = $scope.guidance.tags;
 
     // calculate summary stats
     $scope.filteredStats = {};
