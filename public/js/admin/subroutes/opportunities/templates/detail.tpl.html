@@ -1,9 +1,8 @@
 <div class="content-header">
-    <div class="content-header-block">
-    </div>
+    <div class="content-header-block"></div>
     <div class="content-header-block">
         <div class="content-title">Opportunity Dossier</div>
-        <div class="content-tagline">View or edit opportunity dossier</div>
+        <div class="content-tagline">View or edit opportunity</div>
     </div>
 </div>
 
@@ -24,7 +23,7 @@
                 </tr>
                 <tr>
                     <td>Title:</td>
-                    <td><input size="50" ng-readonly="readOnly" type="text" value="{{basic.title}}" required></td>
+                    <td><input size="50" ng-readonly="readOnly" type="text" ng-model="basic.title" required></td>
                 </tr>
                 <tr>
                 <tr>
@@ -80,7 +79,6 @@
                     <tr>
                         <td>
                             <div ng-repeat="tagView in guidance.tags"><select ng-disabled="readOnly" ng-model="tagView.importance" ng-change="updateGuidance()">
-
                                     <option value="must" selected>Must Have</option>
                                     <option value="nice">Nice to Have</option>
                                 </select>
@@ -98,7 +96,7 @@
                                 </select>
                                 <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.tags)" value="Remove"></input>
                             </div>
-                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})" value="+ Add New"></input>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.tags, {value: 1, importance: 'must'})" value="+ Add New"></input>
                         </td>
                     </tr>
                 </table>
