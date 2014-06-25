@@ -140,8 +140,8 @@ app.controller('AdminOpportunitiesDetailCtrl',
     $scope.updateGuidance();
   };
 
-  $scope.removeFrom = function (index, array) {
-    array.splice(index, 1);
+  $scope.removeFrom = function (question) {
+    question.active = false;
   };
 
   $scope.addTo = function (array, field) {

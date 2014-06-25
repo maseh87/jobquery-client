@@ -106,11 +106,11 @@
                     <div>Extra Questions</div>
                     <tr>
                         <td>
-                            <div ng-repeat="question in guidance.questions">
+                            <div ng-repeat="question in guidance.questions | filter:{active:true}">
                                 <textarea cols="50" rows="2" ng-readonly="readOnly" ng-model="question.question"></textarea>
-                                <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.questions)" value="Remove"></input>
+                                <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom(question)" value="Remove"></input>
                             </div>
-                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.questions, {question: ''})" value="+ Add New"></input>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.questions, {question: '', active: true})" value="+ Add New"></input>
                         </td>
                     </tr>
                 </table>
