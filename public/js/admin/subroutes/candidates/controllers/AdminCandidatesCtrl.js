@@ -1,6 +1,9 @@
 app.controller('AdminCandidatesCtrl', ['User', 'Match', '$scope', function (User, Match, $scope) {
 
+  $scope.query = '';
+
   User.getAll().then(function (users) {
+    console.log(users);
     $scope.users = users;
     var groups = {};
     var userMap = {};
