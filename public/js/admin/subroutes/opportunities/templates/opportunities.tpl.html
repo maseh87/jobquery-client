@@ -1,7 +1,11 @@
 <div ui-view>
     <div class="content-header">
         <div class="content-header-block text-left">
-            <input class="btn btn-success" ui-sref="admin.opportunities.new" value="+ New Opportunity"></input>
+            <span class="content-action">
+                <span class="glyphicon glyphicon-plus"></span>
+                <span ui-sref="admin.opportunities.new">Create New Opportunity</span>
+            </span>
+        </span>
         </div>
         <div class="content-header-block">
             <div class="content-title">Opportunities</div>
