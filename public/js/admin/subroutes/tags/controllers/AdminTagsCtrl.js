@@ -216,7 +216,8 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
       $scope.categories[category._id] = {
         _id: newCategory._id,
         type: 'Tag',
-        name: 'New Category'
+        name: 'New Category',
+        tags: []
       };
     });
   };
