@@ -43,6 +43,7 @@
                     <th class="email">Email</th>
                     <th class="location">Location</th>
                     <th class="stage">Job Search Stage</th>
+                    <th>Attending</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,6 +55,7 @@
                     <td class="email"><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
                     <td class="location">{{user.city}}</td>
                     <td class="stage">{{user.searchStage}}</td>
+                    <td>{{user.attending ? 'Yes' : 'No'}}</td>
                 </tr>
             </tbody>
         </table>
