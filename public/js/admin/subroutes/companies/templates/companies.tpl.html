@@ -8,16 +8,18 @@
         <tr>
             <th class="detail"></th>
             <th class="name">Name</th>
+            <th class="url">URL</th>
             <th class="opportunities"># Opportunities</th>
             <th class="location">City</th>
-            <th class="brief-description">Description</th>
+            <th class="tagline">Tagline</th>
         </tr>
     </thead>
-    <tr ng-repeat="company in companies">
-        <td class="detail"><a ui-sref="admin.companies.detail({_id: company._id})">detail<a/></td>
+    <tr ng-repeat="company in companies | orderBy: 'name'">
+        <td class="detail"><a ui-sref="admin.companies.detail({_id: company._id})" >detail<a/></td>
         <td class="name">{{company.name}}</td>
+        <td class="url"><a ng-href="{{company.links[0].url}}" target="_blank">{{company.links[0].title}}</a></td>
         <td class="opportunities">{{company.opportunities.length}}</td>
         <td class="location">{{company.city}}</td>
-        <td class="brief-description">{{company.description}}</td>
+        <td class="tagline">{{company.tagline}}</td>
     </tr>
 </table>

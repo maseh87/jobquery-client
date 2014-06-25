@@ -14,11 +14,11 @@
         </tr>
         <tr>
             <th>Tagline:</th>
-            <td><input type="text" ng-readonly="readOnly" ng-model="company.tagline"></td>
+            <td><input type="text" size="75" ng-readonly="readOnly" ng-model="company.tagline"></td>
         </tr>
         <tr>
             <th>Description</th>
-            <td><input type="text" ng-readonly="readOnly" ng-model="company.description"></td>
+            <td><textarea cols="75" rows="10" ng-readonly="readOnly" ng-model="company.description"></textarea></td>
         </tr>
         <tr>
             <th>Address</th>
@@ -38,26 +38,26 @@
         </tr>
         <tr>
             <th>Media</th>
-            <td><button class="btn btn-default" type="button" ng-click="addMedia(); readOnly=false">+ Add New</button></td>
+            <td><button class="btn btn-default btn-xs" type="button" ng-click="addMedia(); readOnly=false">+ Add New</button></td>
         </tr>
         <tr ng-repeat="media in company.media track by $index">
             <th></th>
             <td>
                 <input type="text" ng-readonly="readOnly" ng-model="media.caption" placeholder="caption">
                 <input type="url" ng-readonly="readOnly" ng-model="media.url" placeholder="url">
-                <button class="btn btn-default" type="button" ng-click="removeMedia($index)" ng-show="!readOnly">Remove</button>
+                <button class="btn btn-default btn-xs" type="button" ng-click="removeMedia($index)" ng-show="!readOnly">Remove</button>
             </td>
         </tr>
         <tr>
             <th>Learn More</th>
-            <td><button class="btn btn-default" type="button" ng-click="addLink(); readOnly=false">+ Add New</button></td>
+            <td><button class="btn btn-default btn-xs" type="button" ng-click="addLink(); readOnly=false">+ Add New</button></td>
         </tr>
         <tr ng-repeat="link in company.links track by $index">
             <th></th>
             <td>
                 <input type="text" ng-readonly="readOnly" ng-model="link.title" placeholder="title">
                 <input type="url" ng-readonly="readOnly" ng-model="link.url" placeholder="url">
-                <button class="btn btn-default" type="button" ng-click="removeLink($index)" ng-show="!readOnly">Remove</button>
+                <button class="btn btn-default btn-xs" type="button" ng-click="removeLink($index)" ng-show="!readOnly">Remove</button>
             </td>
         </tr>
     </table>

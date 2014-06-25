@@ -13,12 +13,12 @@
             <td><input type="text" ng-model="newCompany.name" autofocus required></td>
         </tr>
         <tr>
-            <th>Tagline</th>
-            <td><input type="text" ng-model="newCompany.tagline"></td>
+            <th>Tagline:</th>
+            <td><input type="text" size="75" ng-readonly="readOnly" ng-model="newCompany.tagline"></td>
         </tr>
         <tr>
             <th>Description</th>
-            <td><input type="text" ng-model="newCompany.description"></td>
+            <td><textarea cols="75" rows="10" ng-readonly="readOnly" ng-model="newCompany.description"></textarea></td>
         </tr>
         <tr>
             <th>Address</th>
@@ -38,26 +38,26 @@
         </tr>
         <tr>
             <th>Media</th>
-            <td><button class="btn btn-default" type="button" ng-click="addMedia()">+ Add New</button></td>
+            <td><button class="btn btn-default btn-xs" type="button" ng-click="addMedia()">+ Add New</button></td>
         </tr>
         <tr ng-repeat="media in newCompany.media track by $index">
             <th></th>
             <td>
                 <input type="text" ng-model="media.caption" placeholder="caption">
                 <input type="url" ng-model="media.url" placeholder="url">
-                <button class="btn btn-default" type="button" ng-click="removeMedia($index)">Remove</button>
+                <button class="btn btn-default btn-xs" type="button" ng-click="removeMedia($index)">Remove</button>
             </td>
         </tr>
         <tr>
             <th>Learn More</th>
-            <td><button class="btn btn-default" type="button" ng-click="addLink()">+ Add New</button></td>
+            <td><button class="btn btn-default btn-xs" type="button" ng-click="addLink()">+ Add New</button></td>
         </tr>
         <tr ng-repeat="link in newCompany.links track by $index">
             <th></th>
             <td>
                 <input type="text" ng-model="link.title" placeholder="title">
                 <input type="url" ng-model="link.url" placeholder="url">
-                <button class="btn btn-default" type="button" ng-click="removeLink($index)">Remove</button>
+                <button class="btn btn-default btn-xs" type="button" ng-click="removeLink($index)">Remove</button>
             </td>
         </tr>
     </table>
