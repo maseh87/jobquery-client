@@ -78,3 +78,16 @@
     </div>
     <input ng-disabled="readOnly" type="submit">
 </form>
+
+<table class="table">
+    <thead>
+        <th>Company</th>
+        <th>Job Title</th>
+        <th>Interest</th>
+    </thead>
+    <tr ng-repeat="match in matches">
+        <td>{{match.companyName}}</td>
+        <td>{{match.jobTitle}}</td>
+        <td>{{match.userInterest ? match.userInterest : 'N/A'}}</td>
+    </tr>
+</table>
