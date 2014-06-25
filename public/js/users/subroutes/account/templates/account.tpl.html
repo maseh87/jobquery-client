@@ -36,25 +36,21 @@
     </div>
 
     <div class="content-section container-fluid">
-        <div class="formbox-title">Job Search Status</div>
-        <table class="formbox formbox-basic">
-            <tr>
-                <th>Early</th>
-                <td><input type="radio" id="radioBox" value="Early" name="searchStage" ng-model="user.searchStage"></td>
-            </tr>
-            <tr>
-                <th>Mid/Late</th>
-                <td><input type="radio" id="radioBox" value="Mid/Late" name="searchStage" ng-model="user.searchStage"></td>
-            </tr>
-            <tr>
-                <th>Closing</th>
-                <td><input type="radio" id="radioBox" value="Closing" name="searchStage" ng-model="user.searchStage"></td>
-            </tr>
-            <tr>
-                <th>Accepted</th>
-                <td><input type="radio" id="radioBox" value="Accepted" name="searchStage" ng-model="user.searchStage"></td>
-            </tr>
-        </table>
+        <div class="dashbox-title">Job Search Status</div>
+        <div class="dashbox dashbox-content">
+            <div class="dashbox-icon" ng-click="updateSearchStage('Early')" ng-class="{'dashbox-icon-active':isSearchStage('Early')}">
+                <span class="dashbox-icon-dingbat">➀</span><br>Early
+            </div>
+            <div class="dashbox-icon" ng-click="updateSearchStage('Mid-Late')" ng-class="{'dashbox-icon-active':isSearchStage('Mid-Late')}">
+                <span class="dashbox-icon-dingbat">➁</span><br>Mid/Late
+            </div>
+            <div class="dashbox-icon" ng-click="updateSearchStage('Closing')" ng-class="{'dashbox-icon-active':isSearchStage('Closing')}">
+                <span class="dashbox-icon-dingbat">➂</span><br>Closing
+            </div>
+            <div class="dashbox-icon" ng-click="updateSearchStage('Accepted')" ng-class="{'dashbox-icon-active':isSearchStage('Accepted')}">
+                <span class="dashbox-icon-dingbat">➃</span><br>Accepted
+            </div>
+        </div>
     </div>
 
     <div class="content-section container-fluid" ng-repeat="(category, types) in tags">
@@ -63,7 +59,7 @@
         <div ng-show="types.hasOwnProperty('binary')">
             <table class="formbox formbox-numerical">
                 <thead>
-                    <th></th>
+                    <th><div class="formbox-subtitle">{{ labels[category] }}</div></th>
                     <th>Yes</th>
                     <th>No</th>
                 </thead>
@@ -80,7 +76,7 @@
         <div ng-show="types.hasOwnProperty('scale')">
             <table class="formbox formbox-numerical">
                 <thead>
-                    <th></th>
+                    <th><div class="formbox-subtitle">{{ labels[category] }}</div></th>
                     <th>1</th>
                     <th>2</th>
                     <th>3</th>
