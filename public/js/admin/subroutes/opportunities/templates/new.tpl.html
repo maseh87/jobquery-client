@@ -39,9 +39,9 @@
                     <div ng-repeat="link in basic.links">
                         <input type="text" ng-model="link.title" placeholder="Link title">
                         <input type="url" ng-model="link.url" placeholder="URL">
-                        <input type="button" class="btn btn-default" ng-click="removeFrom($index, basic.links)" value="Remove"></input>
+                        <input type="button" class="btn btn-default btn-xs" ng-click="removeFrom($index, basic.links)" value="Remove"></input>
                     </div>
-                    <input type="button" class="btn btn-default" ng-click="addTo(basic.links, {title: '', url: ''})" value="+ Add New"></input>
+                    <input type="button" class="btn btn-default btn-xs" ng-click="addTo(basic.links, {title: '', url: ''})" value="+ Add New"></input>
                 </td>
             </tr>
             <tr>
@@ -68,9 +68,9 @@
                     <td>
                         <div ng-repeat="question in guidance.questions">
                             <input ng-model="question.question">
-                            <input type="button" class="btn btn-default" ng-click="removeFrom($index, guidance.questions)" value="Remove"></input>
+                            <input type="button" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.questions)" value="Remove"></input>
                         </div>
-                        <input type="button" class="btn btn-default" ng-click="addTo(guidance.questions, {question: ''})" value="+ Add New"></input>
+                        <input type="button" class="btn btn-default btn-xs" ng-click="addTo(guidance.questions, {question: ''})" value="+ Add New"></input>
                     </td>
                 </tr>
             </table>
@@ -86,7 +86,7 @@
                                 <option value="nice">Nice to Have</option>
                                 <option value="unimportant">Unimportant</option>
                             </select>
-                            <select ng-model="tagView.id" ng-options="tag._id as tag.name for tag in tags" ng-change="showCorrectValues(tagView, $index, tagView.id)"></select>
+                            <select ng-model="tagView._id" ng-options="tag._id as tag.name for tag in tags" ng-change="showCorrectValues(tagView, $index, tagView._id)"></select>
                             <select ng-show="tagView.type === 'scale'" ng-model="tagView.value">
                                 <option value="1">1 (Disagree Strongly)</option>
                                 <option value="2">2 (Disagree)</option>
@@ -97,9 +97,12 @@
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
-                            <input type="button" class="btn btn-default" ng-click="removeFrom($index, guidance.tags)" value="Remove"></input>
+                            <select ng-show="tagView.type === 'text'" ng-model="tagView.value">
+                                <option value="text">Free Text Responses</option>
+                            </select>
+                            <input type="button" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.tags)" value="Remove"></input>
                         </div>
-                        <input type="button" class="btn btn-default" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})" value="+ Add New"></input>
+                        <input type="button" class="btn btn-default btn-xs" ng-click="addTo(guidance.tags, {value: 1, importance: 'must'})" value="+ Add New"></input>
                     </td>
                 </tr>
             </table>

@@ -64,8 +64,10 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   };
 
   $scope.save = function () {
+    console.log('save in detail');
     // remove any empty tags and duplicate tags (preference for higher order)
     var existingTags = {};
+    console.log('$scope.guidance.tags:', $scope.guidance.tags);
     for (var i = 0; i < $scope.guidance.tags.length; i += 1) {
       var currentTag = $scope.guidance.tags[i];
       // check for empty tags
@@ -134,7 +136,14 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   $scope.showCorrectValues = function (tag, index, id) {
     for (var i = 0; i < $scope.tags.length; i += 1) {
       if ($scope.tags[i]._id === id) {
-        tag.type = $scope.tags[i].type;
+        tag.data.type = $scope.tags[i].type;
+        if (tag.data.type === 'scale') {
+          tag.value = 1;
+        } else if (tag.data.type === 'binary') {
+          tag.value = 'yes';
+        } else {
+          tag.value = 'text';
+        }
         break;
       }
     }

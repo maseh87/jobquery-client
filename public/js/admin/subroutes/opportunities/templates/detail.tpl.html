@@ -48,9 +48,9 @@
                         <div ng-repeat="link in basic.links">
                             <input type="text" ng-model="link.title" ng-readonly="readOnly" placeholder="Link title" required>
                             <input type="url" ng-model="link.url" ng-readonly="readOnly" placeholder="URL" required>
-                            <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="removeFrom($index, basic.links)" value="Remove"></input>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, basic.links)" value="Remove"></input>
                         </div>
-                        <input type="button" class="btn btn-default" ng-show="!readOnly" ng-click="addTo(basic.links, {title: '', url: ''})" value="+ Add New"></input>
+                        <input type="button" class="btn btn-default btn-xs" ng-show="!readOnly" ng-click="addTo(basic.links, {title: '', url: ''})" value="+ Add New"></input>
                     </td>
                 </tr>
                 <tr>
@@ -79,9 +79,9 @@
                         <td>
                             <div ng-repeat="question in guidance.questions">
                                 <input ng-readonly="readOnly" ng-model="question.question">
-                                <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="removeFrom($index, guidance.questions)" value="Remove"></input>
+                                <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.questions)" value="Remove"></input>
                             </div>
-                            <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="addTo(guidance.questions, {question: ''})" value="+ Add New"></input>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.questions, {question: ''})" value="+ Add New"></input>
                         </td>
                     </tr>
                 </table>
@@ -97,7 +97,7 @@
                                     <option value="nice">Nice to Have</option>
                                     <option value="unimportant">Unimportant</option>
                                 </select>
-                                <select ng-disabled="readOnly" ng-model="tagView.data._id" ng-options="tag._id as tag.name for tag in tags" ng-change="showCorrectValues(tagView, $index, tagView.id)"></select>
+                                <select ng-disabled="readOnly" ng-model="tagView.data._id" ng-options="tag._id as tag.name for tag in tags" ng-change="showCorrectValues(tagView, $index, tagView.data._id)"></select>
                                 <select ng-disabled="readOnly" ng-show="tagView.data.type === 'scale'" ng-model="tagView.value">
                                     <option value="1">1 (Disagree Strongly)</option>
                                     <option value="2">2 (Disagree)</option>
@@ -108,9 +108,12 @@
                                     <option value="yes">Yes</option>
                                     <option value="no">No</option>
                                 </select>
-                                <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="removeFrom($index, guidance.tags)" value="Remove"></input>
+                                <select ng-disabled="readOnly" ng-show="tagView.data.type === 'text'" ng-model="tagView.value">
+                                    <option value="text">Free Text Responses</option>
+                                </select>
+                                <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.tags)" value="Remove"></input>
                             </div>
-                            <input type="button" ng-show="!readOnly" class="btn btn-default" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})" value="+ Add New"></input>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.tags, {name: '', value: 1, importance: 'must'})" value="+ Add New"></input>
                         </td>
                     </tr>
                 </table>
@@ -132,14 +135,21 @@
                 <th ng-repeat="tag in guidance.tags | orderBy:'importance'">{{ tag.data.name }}</th>
             </thead>
             <tbody>
-                <tr ng-repeat="user in declared">
-                <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.interest }}</td>
-                <td ng-repeat="tag in guidance.tags | orderBy:'importance'">
-                    {{ user.tags[tag.data._id] }}
-                </td>
+                <tr>
+                    <td></td><!-- Empty table header-->
+                    <td></td><!-- Empty table header-->
+                    <td># >= Desired</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr ng-repeat="user in declared | orderBy: 'interest'">
+                    <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.interest }}</td>
+                    <td ng-repeat="tag in guidance.tags | orderBy:'importance'">
+                        {{ user.tags[tag.data._id] }}
+                    </td>
                 </tr>
             </tbody>
         </div>
