@@ -11,7 +11,9 @@ function ($scope, UsersOpportunity, GuidanceService) {
         return match.userInterest === 0;
       });
       $scope.matches = matches;
-      getNextOpportunity();
+      if(matches.length){
+        getNextOpportunity();
+      }
     });
   };
 
