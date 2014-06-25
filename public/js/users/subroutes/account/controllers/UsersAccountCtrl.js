@@ -27,12 +27,8 @@ function ($scope, UsersAccount, UserTag) {
     });
   });
 
-  $scope.updateSearchStage = function (value) {
-    $scope.user.searchStage = value;
-  };
-  $scope.isSearchStage = function (value) {
-    return $scope.user.searchStage === value;
-  };
+  $scope.updateSearchStage = function (value) { $scope.user.searchStage = value; };
+  $scope.isSearchStage = function (value) { return $scope.user.searchStage === value; };
 
   $scope.update = function () {
     // re-compile tags

@@ -36,3 +36,11 @@
     background-color: #F4F4F4; 
     cursor: pointer;
 }
+
+.tablebox-leader { font-size: 1.5rem; font-weight: 400; }
+.tablebox-tag { 
+    text-align: left; font-weight: 300; 
+    font-size: 1.5rem; 
+    padding-right: 12px;
+}
+

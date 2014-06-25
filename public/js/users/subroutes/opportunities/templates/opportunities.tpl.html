@@ -14,20 +14,15 @@
         <div class="row">
         <div class="tablebox-title">{{ category.info.name }}</div>
         <table class="tablebox">
-        <thead>
-            <tr class="tablebox-header">
-                <th width="40%">Company</th>
-                <th width="40%">Title</th>
-                <th width="20%">Your Interest</th>
-            </tr>
-        </thead>
-        <tbody>
             <tr class="tablebox-content" ng-repeat="opportunity in category.opportunities" ui-sref="users.opportunities.detail({_id: opportunity._id})">
-                <td>{{ opportunity.company.name }}</td>
-                <td>{{ opportunity.jobTitle }}</td>
-                <td>{{ opportunity.interest || 'N/A'}}</td>
+                <td width="85%">
+                    <div class="tablebox-leader">{{ opportunity.company.name }}</div>
+                    <div>{{ opportunity.jobTitle }}</div>
+                </td>
+                <td width="15%" class="tablebox-tag" style="vertical-align: middle">
+                    <div class="tablebox-tag">interest: {{ opportunity.interest || 'n/a'}}</div>
+                </td>
             </tr>
-        </tbody>
         </table>
     </div>
 </div>
