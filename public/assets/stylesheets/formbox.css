@@ -10,6 +10,7 @@
     width: 100%;
 }
 .formbox-title { padding: 5px 12px 5px 12px; text-align: right; }
+.formbox-subtitle { font-weight: 400; text-align: left; }
 .formbox-footer { padding: 10px 12px 10px 12px; text-align: center; margin-bottom: 20px;}
 .formbox {
     background-color: #FEFEFE;
