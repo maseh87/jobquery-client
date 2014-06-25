@@ -16,10 +16,12 @@ app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', 'Opportunity', 
       $scope.users.forEach(function (user, i) { userMap[user._id] = user.name; });
 
       $scope.matches.forEach(function (matchData) {
-        var column = oppColumnMap[matchData.opportunity];
-        var row = matchData.user;
+        var match = matchData;
+        var column = oppColumnMap[match.opportunity];
+        var row = match.user;
+        match.value = (match.adminOverride > 0) ? match.adminOverride : match.userInterest; 
         if (!matrix.hasOwnProperty(row)) { matrix[row] = []; }
-        matrix[row][column] = matchData;
+        matrix[row][column] = match;
       });
 
       $scope.matrix = matrix;
