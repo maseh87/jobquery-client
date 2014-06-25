@@ -9,6 +9,7 @@
                 <th class="email" >Email</th>
                 <th class="location" >Location</th>
                 <th class="stage" >Job Search Stage</th>
+                <th>Attending</th>
             </tr>
         </thead>
         <tr>
@@ -31,6 +32,9 @@
             </td>
             <td class="searchStage">
                 <input type="text" ng-readonly="readOnly" ng-model="user.searchStage" value="{{user.searchStage}}"/>
+            </td>
+            <td>
+                <input type="checkbox" ng-disabled="readOnly" ng-model="user.attending">
             </td>
         </tr>
     </table>
