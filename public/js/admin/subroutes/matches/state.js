@@ -8,7 +8,7 @@ app.config(['$stateProvider', function ($stateProvider) {
     })
     .state('admin.matches.schedule', {
       url: '/schedule',
-      template: '/js/admin/subroutes/matches/templates/schedule.tpl.html',
+      templateUrl: '/js/admin/subroutes/matches/templates/schedule.tpl.html',
       controller: 'AdminMatchesScheduleCtrl'
     })
     .state('admin.matches.all', {
