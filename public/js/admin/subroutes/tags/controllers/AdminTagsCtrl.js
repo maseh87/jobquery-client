@@ -150,7 +150,8 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
   $scope.add = function (category) {
     category.tags.push({
       category: category._id,
-      position: category.tags.length
+      position: category.tags.length,
+      isPublic: false
     });
   };
 
