@@ -55,5 +55,6 @@ gulp.task('html-dev', function () {
 
 
 gulp.task('prod',['concatbower-prod','html-prod']);
+gulp.task('dev',['html-dev']);
 
-gulp.task('dev',['html-dev', 'nodemon', 'lint']);
+gulp.task('devserve',['html-dev', 'nodemon', 'lint']);
