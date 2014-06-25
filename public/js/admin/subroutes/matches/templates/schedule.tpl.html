@@ -1,0 +1,36 @@
+<div ui-view>
+    <div class="content-header">
+        <div class="content-header-block text-left">
+        </div>
+        <div class="content-header-block">
+            <div class="content-title">Matches</div>
+            <div class="content-tagline">View or edit the match grid</div>
+        </div>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="row">
+        <div class="gridbox-title">Candidate - Opportunity Match Grid</div>
+        <div class="content-scrollable">
+        <table class="gridbox">
+        <thead>
+            <tr class="gridbox-header">
+                <th></th><!-- empty table header-->
+                <th ng-repeat="(key, opportunity) in opportunities" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
+                    {{ opportunity.company.name }}: {{ opportunity.jobTitle }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="gridbox-content" ng-repeat="(userId, row) in matrix">
+                <th ui-sref="admin.candidates.detail({_id: userId})">{{ userMap[userId] }}</th>
+                <td ng-repeat="match in row track by $index" ng-class="isOverridden(match)">
+                    <input ng-model="match.value" ng-click="edit(match)">
+                </td>
+            </tr>
+        </tbody>
+        </table>
+        </div>
+        </div>
+    </div>
+</div>
