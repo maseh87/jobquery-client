@@ -10,11 +10,11 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
   Category.getAll('Opportunity').then(function (categories) { $scope.categories = categories; });
 
   $scope.readOnly = true;
-  $scope.editButtonText = "+ Edit Opportunity";
+  $scope.editButtonText = "Edit";
   $scope.toggleEdit = function () {
     if (!$scope.readOnly) { $scope.save(); }
     $scope.readOnly = !$scope.readOnly;
-    $scope.editButtonText = $scope.readOnly ? "+ Edit Opportunity" : "Save Opportunity";
+    $scope.editButtonText = $scope.readOnly ? "Edit" : "Save";
   };
 
   $scope.basic = {};
@@ -79,6 +79,26 @@ app.controller('AdminOpportunitiesDetailCtrl', ['$scope', '$stateParams', 'Oppor
         i -= 1;
       } else {
         existingTags[currentTag.data._id] = true;
+      }
+    }
+
+    // remove any empty questions
+    for (var j = 0; j < $scope.guidance.questions.length; j += 1) {
+      var currentQ = $scope.guidance.questions[j];
+      // check for empty questions
+      if (currentQ.question === '') {
+        $scope.guidance.questions.splice(j, 1);
+        j -= 1;
+      }
+    }
+
+    // remove any empty links
+    for (var k = 0; k < $scope.basic.links.length; k += 1) {
+      var currentLink = $scope.basic.links[k];
+      // check for empty links
+      if (currentLink.title === '' || currentLink.url === '') {
+        $scope.basic.links.splice(k, 1);
+        j -= 1;
       }
     }
 
