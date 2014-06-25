@@ -22,9 +22,6 @@
     <input type="radio" id="radio4" value="4" name="searchStage" ng-model="user.searchStage">
     <label for="radio4" type="radio" id="radio4">Closed</label>
 </div> -->
-<!--
-<button ng-init="readOnly=true" ng-click="readOnly=false" ng-show="readOnly">+ Edit Profile</button>
-<button ng-click="readOnly=true; update()" ng-show="!readOnly">Save Profile</button> -->
 
 <form ng-submit="update()">
 <div class="row">
@@ -46,6 +43,28 @@
             <tr>
                 <th>LinkedIn</th>
                 <td><input type="text" size="40" ng-model="user.linkedin"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Job Search Status</div>
+        <table class="formbox formbox-basic">
+            <tr>
+                <th>Early</th>
+                <td><input type="radio" id="radioBox" value="Early" name="searchStage" ng-model="user.searchStage"></td>
+            </tr>
+            <tr>
+                <th>Mid/Late</th>
+                <td><input type="radio" id="radioBox" value="Mid/Late" name="searchStage" ng-model="user.searchStage"></td>
+            </tr>
+            <tr>
+                <th>Closing</th>
+                <td><input type="radio" id="radioBox" value="Closing" name="searchStage" ng-model="user.searchStage"></td>
+            </tr>
+            <tr>
+                <th>Accepted</th>
+                <td><input type="radio" id="radioBox" value="Accepted" name="searchStage" ng-model="user.searchStage"></td>
             </tr>
         </table>
     </div>
