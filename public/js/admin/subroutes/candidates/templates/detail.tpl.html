@@ -1,4 +1,5 @@
 <h3>Admin.Candidates.Detail Template</h3>
+
 <form ng-submit="update(user)">
     <table class="table table-striped table-condensed table-hover">
         <thead>
@@ -39,6 +40,19 @@
         </tr>
     </table>
 
+    <table class="table">
+        <select ng-model="addTag" ng-options="tag.name for tag in tags.private | filter:{value: null}"></select>
+        <button type="button" ng-click="addPrivateTag(addTag)">+ Add Tag</button>
+        <tr ng-repeat="tag in tags.private | filter:filter">
+            <td>{{tag.name}}</td>
+
+            <td ng-show="tag.type === 'scale'"><select ng-model="tag.value" ng-options="number for number in [1, 2, 3, 4]"></select></td>
+            <td ng-show="tag.type === 'binary'"><select ng-model="tag.value" ng-options="response for response in ['yes', 'no']"></select></td>
+            <td ng-show="tag.type === 'text'"><input ng-model="tag.value"></td>
+            
+            <td><button type="button" ng-click="removePrivateTag(tag)">Remove</button></td>
+        </tr>
+    </table>
 
     <div class="section container-fluid">
         <div class="row">
@@ -64,7 +78,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-xs-6">
+            <!-- <div class="col-xs-6">
                 <table class="table">
                     <tr ng-repeat="tag in user.tags">
                         <td>{{tag.tag.name}}:</td>
@@ -73,10 +87,10 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div> -->
         </div>
     </div>
-    <input ng-disabled="readOnly" type="submit">
+    <input type="submit">
 </form>
 
 <table class="table">
