@@ -1,7 +1,16 @@
-app.controller('AdminCandidatesDetailCtrl', ['User', '$scope', '$stateParams', 'Match', 'Company', 'Tag',
-function (User, $scope, $stateParams, Match, Company, Tag) {
+app.controller('AdminCandidatesDetailCtrl', ['User', '$scope', '$stateParams', 'Match', 'Company', 'Tag', 'Category', '$q',
+function (User, $scope, $stateParams, Match, Company, Tag, Category, $q) {
 
-  var user, companies, matches;
+  var user, companies, matches, categories;
+
+  var bindUserCategory = function(user, categories){
+    var categoryId = user.category._id;
+    categories.forEach(function(category){
+      if(category._id === categoryId){
+        user.category = category;
+      }
+    });
+  };
 
   var initialize = function(){
     User.get($stateParams._id).then(function(data){
@@ -15,6 +24,11 @@ function (User, $scope, $stateParams, Match, Company, Tag) {
       companies = data;
       $scope.matches = parseData(matches, companies);
       $scope.user = user;
+      return Category.getAll('User');
+    }).then(function(data){
+      categories = data;
+      $scope.categories = categories;
+      bindUserCategory($scope.user, $scope.categories);
     });
   };
 
@@ -67,8 +81,24 @@ function (User, $scope, $stateParams, Match, Company, Tag) {
     user.tags.forEach(function(tag){
       if(tag.tag.value || tag.tag.value === null) tag.privateValue = tag.tag.value;
     });
-    User.update(user)
-    .then(function (updated) {
+
+    var handleCategory = function(){
+      var deferred = $q.defer();
+      if(!user.category._id){
+        Category.create(user.category).then(function(data){
+          user.category._id = data._id;
+          deferred.resolve();
+        });
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    };
+
+    handleCategory().then(function(){
+      console.log(user);
+      return User.update(user);
+    }).then(function (updated) {
       $scope.updated = true;
     },function (updated) {
       $scope.saveError = true;
@@ -91,6 +121,16 @@ function (User, $scope, $stateParams, Match, Company, Tag) {
 
   $scope.removePrivateTag = function(tag){
     tag.value = null;
+  };
+
+  $scope.addNewCategory = function(categoryName){
+    var newCategory = {
+      name: categoryName,
+      type: 'User'
+    };
+    $scope.categories.push(newCategory);
+    $scope.user.category = $scope.categories[$scope.categories.length - 1];
+    $scope.creatingCategory = false;
   };
 
   initialize();

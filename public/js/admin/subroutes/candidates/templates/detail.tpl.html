@@ -41,6 +41,7 @@
     </table>
 
     <table class="table">
+        <h1>Add Private Tags</h1>
         <select ng-model="addTag" ng-options="tag.name for tag in tags.private | filter:{value: null}"></select>
         <button type="button" ng-click="addPrivateTag(addTag)">+ Add Tag</button>
         <tr ng-repeat="tag in tags.private | filter:filter">
@@ -53,6 +54,19 @@
             <td><button type="button" ng-click="removePrivateTag(tag)">Remove</button></td>
         </tr>
     </table>
+
+    <div>
+        <h1>Change Categories</h1>
+        <div ng-show="!creatingCategory">
+            <select ng-model="user.category" ng-options="category.name for category in categories | orderBy:'name'"></select> or
+            <button type="button" ng-click="creatingCategory = true">Add New Category</button>
+        </div>
+        <div ng-show="creatingCategory">
+            <input ng-model="newCategory" placeholder="Enter Category Name">
+            <button type="button" ng-click="addNewCategory(newCategory)">Save</button>
+            <button type="button" ng-click="creatingCategory = false">Cancel</button>
+        </div>
+    </div>
 
     <div class="section container-fluid">
         <div class="row">
