@@ -116,7 +116,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
       // check for empty links
       if (currentLink.title === '' || currentLink.url === '') {
         $scope.basic.links.splice(k, 1);
-        j -= 1;
+        k -= 1;
       }
     }
 
