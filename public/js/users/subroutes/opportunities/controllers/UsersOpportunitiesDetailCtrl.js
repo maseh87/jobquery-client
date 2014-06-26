@@ -1,7 +1,7 @@
 app.controller('UsersOpportunitiesDetailCtrl', ['$scope', 'UsersOpportunity', '$stateParams', 'GuidanceService',
 function($scope, UsersOpportunity, $stateParams, GuidanceService) {
 
-  $scope.submitText = 'Submit';
+  $scope.submitText = '✔  Submit';
   $scope.pendingRequests = 0;
 
   var addIndexAsProperty = function(arrayOfObjects){
@@ -9,6 +9,18 @@ function($scope, UsersOpportunity, $stateParams, GuidanceService) {
       item.index = index;
       return item;
     });
+  };
+
+  $scope.updateInterest = function (value) {
+    if (!$scope.match) { return undefined; }
+    $scope.match.userInterest = value;
+    UsersOpportunity.update($scope.match).then(function(){
+      console.log("Success!");
+    });
+  };
+  $scope.hasInterest = function (value) {
+    if (!$scope.match) { return undefined; }
+    return $scope.match.userInterest === value;
   };
 
   UsersOpportunity.get($stateParams._id).then(function(data){
@@ -37,7 +49,7 @@ function($scope, UsersOpportunity, $stateParams, GuidanceService) {
     $scope.processedTags = [processedTags.must, processedTags.nice];
   });
 
-  $scope.submit = function(){
+  $scope.submit = function() {
     $scope.submitText = 'Submitting...';
     $scope.pendingRequests++;
     UsersOpportunity.update($scope.match).then(function(){
