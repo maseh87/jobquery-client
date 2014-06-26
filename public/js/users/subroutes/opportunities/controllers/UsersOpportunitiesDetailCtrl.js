@@ -22,7 +22,6 @@ app.controller('UsersOpportunitiesDetailCtrl',
     return $scope.match.userInterest === value;
   };
 
-
   UsersOpportunity.get($stateParams._id).then(function(data){
     var match = data.match;
     var opportunity = match.opportunity;
@@ -52,8 +51,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
     $scope.calculateFit = generateGlyphs.calculateFit;
   });
 
-  $scope.submit = function(){
-    console.log($scope.match);
+  $scope.submit = function() {
     $scope.submitText = 'Submitting...';
     $scope.pendingRequests++;
     UsersOpportunity.update($scope.match).then(function(){
