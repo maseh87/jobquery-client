@@ -251,13 +251,27 @@ app.controller('AdminOpportunitiesNewCtrl',
   };
 
   $scope.saveNewCompany = function(companyName){
-    var newCompany = {name: companyName}
+    var newCompany = {name: companyName};
     Company.create({name: companyName}).then(function(data){
       newCompany._id = data._id;
       $scope.companies.push(newCompany);
       $scope.basic.company = $scope.companies[$scope.companies.length - 1];
-      $scope.creating = false;
+      $scope.creatingCompany = false;
     });
+  };
+
+  $scope.saveNewCategory = function(categoryName){
+    var newCategory = {
+      name: categoryName,
+      type: 'Opportunity'
+    };
+    Category.create(newCategory).then(function(data){
+      newCategory._id = data._id;
+      $scope.categories.push(newCategory);
+      $scope.basic.category = $scope.categories[$scope.categories.length - 1];
+      $scope.creatingCategory = false;
+    });
+
   };
 
 }]);
