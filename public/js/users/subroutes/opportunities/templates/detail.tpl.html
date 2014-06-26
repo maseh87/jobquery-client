@@ -60,7 +60,7 @@
     </div>
 
     <div class="col-md-6">
-        <h1>Guidance</h1>
+        <h1>Guidance ({{ score + '%' }} Match)</h1>
         <div ng-repeat="tags in processedTags">
             <h1>{{$first ? 'Must Have' : 'Nice to Have'}}</h1>
             <div ng-repeat="tagType in tags">
@@ -68,10 +68,12 @@
                     <th></th>
                     <th>Your Value</th>
                     <th>Their Value</th>
+                    <th>Comparison</th>
                     <tr ng-repeat="tag in tagType">
                         <td>{{tag.name}}</td>
                         <td>{{tag.userValue}}</td>
                         <td>{{tag.value}}</td>
+                        <td><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, tag.value, tag.userValue)[1]}"></span></td>
                     </tr>
                 </table>
             </div>

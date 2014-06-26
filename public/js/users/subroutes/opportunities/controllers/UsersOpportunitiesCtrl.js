@@ -1,6 +1,9 @@
-app.controller('UsersOpportunitiesCtrl', ['$scope', 'UsersOpportunity', '$state', 
-function ($scope, UsersOpportunity, $state) {
-  
+app.controller('UsersOpportunitiesCtrl',
+  ['$scope', 'UsersOpportunity', '$state', 'GuidanceService',
+  function ($scope, UsersOpportunity, $state, GuidanceService) {
+
+  $scope.getGuidance = GuidanceService.processTags;
+
   var formatOpportunities = function(opportunities, interest){
     var categories = {};
     for(var i = 0; i < opportunities.length; i++){
@@ -26,6 +29,7 @@ function ($scope, UsersOpportunity, $state) {
     var matches = data.matches;
     var interest = formatMatches(matches);
     var categories = formatOpportunities(opportunities, interest);
+    $scope.user = data.user;
     $scope.categories = categories;
   });
 
