@@ -49,7 +49,7 @@
             <td ng-show="tag.type === 'scale'"><select ng-model="tag.value" ng-options="number for number in [1, 2, 3, 4]"></select></td>
             <td ng-show="tag.type === 'binary'"><select ng-model="tag.value" ng-options="response for response in ['yes', 'no']"></select></td>
             <td ng-show="tag.type === 'text'"><input ng-model="tag.value"></td>
-            
+
             <td><button type="button" ng-click="removePrivateTag(tag)">Remove</button></td>
         </tr>
     </table>
@@ -99,7 +99,7 @@
         <th>Job Title</th>
         <th>Interest</th>
     </thead>
-    <tr ng-repeat="match in matches">
+    <tr ng-repeat="match in matches | orderBy: ['companyName', 'jobTitle']">
         <td>{{match.companyName}}</td>
         <td>{{match.jobTitle}}</td>
         <td>{{match.userInterest ? match.userInterest : 'N/A'}}</td>

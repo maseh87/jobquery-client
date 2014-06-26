@@ -1,5 +1,6 @@
-app.controller('UsersDashboardCtrl', ['$scope', 'UsersOpportunity', 'GuidanceService', 
-function ($scope, UsersOpportunity, GuidanceService) {
+app.controller('UsersDashboardCtrl',
+  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs',
+  function ($scope, UsersOpportunity, GuidanceService, generateGlyphs) {
 
   var matches;
   $scope.submitText = 'Submit';
@@ -49,8 +50,11 @@ function ($scope, UsersOpportunity, GuidanceService) {
       $scope.answers = $scope.match.answers;
       $scope.questions = addIndexAsProperty(questions);
       $scope.opportunity = opportunity;
-      var processedTags = GuidanceService.processTags(opportunity, user);
+      var guidanceResult = GuidanceService.processTags(opportunity, user);
+      var processedTags = guidanceResult[0];
+      $scope.score = guidanceResult[1];
       $scope.processedTags = [processedTags.must, processedTags.nice];
+      $scope.calculateFit = generateGlyphs.calculateFit;
     });
   };
 

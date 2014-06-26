@@ -36,26 +36,26 @@
         <table class="tablebox">
             <thead>
                 <tr class="tablebox-header">
-                    <th class="name">Name</th>
-                    <th class="interestDeclared">Interest Declared</th>
-                    <th class="interestThreeOrGreater">Interest > 3 Count</th>
-                    <th class="github">Github</th>
-                    <th class="email">Email</th>
-                    <th class="location">Location</th>
-                    <th class="stage">Job Search Stage</th>
-                    <th>Attending</th>
+                    <th width="12%" class="name">Name</th>
+                    <th width="9%">Attending</th>
+                    <th width="9%" class="interestDeclared">Interest Declared</th>
+                    <th width="9%" class="interestThreeOrGreater">Interest > 3 Count</th>
+                    <th width="15%" class="github">Github</th>
+                    <th width="20%" class="email">Email</th>
+                    <th width="14%" class="location">Location</th>
+                    <th width="12%" class="stage">Job Search Stage</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="user in group | filter:query" class="tablebox-content" ui-sref="admin.candidates.detail({_id: user._id})">
                     <td class="name">{{user.name}}</td>
-                    <th class="interestDeclared">{{user.interestDeclared}}</th>
-                    <th class="interestThreeOrGreater">{{user.interestThreeOrGreater}}</th>
+                    <td>{{user.attending ? 'Yes' : 'No'}}</td>
+                    <td class="interestDeclared">{{user.interestDeclared}}</td>
+                    <td class="interestThreeOrGreater">{{user.interestThreeOrGreater}}</td>
                     <td class="github"><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
                     <td class="email"><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
                     <td class="location">{{user.city}}</td>
                     <td class="stage">{{user.searchStage}}</td>
-                    <td>{{user.attending ? 'Yes' : 'No'}}</td>
                 </tr>
             </tbody>
         </table>

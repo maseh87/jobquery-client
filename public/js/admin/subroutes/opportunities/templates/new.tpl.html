@@ -20,7 +20,15 @@
                 <table class="table table-condensed">
                 <tr>
                     <td>Company:</td>
-                    <td><select ng-model="basic.company" ng-options="company.name for company in companies"></select></td>
+                    <td ng-show="!creatingCompany">
+                        <select ng-model="basic.company" ng-options="company.name for company in companies | orderBy:'name'"></select> or
+                        <button type="button" ng-click="creatingCompany = true">Add New Company</button>
+                    </td>
+                    <td ng-show="creatingCompany">
+                        <input ng-model="newCompany" placeholder="Enter Company Name">
+                        <button type="button" ng-click="addNewCompany(newCompany)">Save</button>
+                        <button type="button" ng-click="creatingCompany = false">Cancel</button>
+                    </td>
                 </tr>
                 <tr>
                     <td>Title:</td>
@@ -42,7 +50,15 @@
                 </tr> -->
                   <tr>
                     <td>Group:</td>
-                    <td><select ng-model="basic.category" ng-options="category.name for category in categories" ng-disabled="readOnly"></select></td>
+                    <td ng-show="!creatingCategory">
+                        <select ng-model="basic.category" ng-options="category.name for category in categories" ng-disabled="readOnly"></select> or
+                        <button type="button" ng-click="creatingCategory = true">Add New Group</button>
+                    </td>
+                    <td ng-show="creatingCategory">
+                        <input ng-model="newCategory" placeholder="Enter Group Name">
+                        <button type="button" ng-click="addNewCategory(newCategory)">Save</button>
+                        <button type="button" ng-click="creatingCategory = false">Cancel</button>
+                    </td>
                 </tr>
                 <tr>
                     <td>Links:</td>

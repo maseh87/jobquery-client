@@ -28,59 +28,73 @@
         </table>
     </div>
 
-<div class="content-section container-fluid">
-    <div class="formbox-title">Indicate Interest</div>
-    <div class="dashbox dashbox-content">
-        <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
-            <span class="dashbox-icon-dingbat">➀</span><br>None
-        </div>
-        <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
-            <span class="dashbox-icon-dingbat">➁</span><br>Low
-        </div>
-        <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
-            <span class="dashbox-icon-dingbat">➂</span><br>Medium
-        </div>
-        <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
-            <span class="dashbox-icon-dingbat">➃</span><br>High
-        </div>
-    </div>
-</div>
-
-<div class="content-section container-fluid">
-    <div class="formbox-title">Additional Questions</div>
-    <table class="formbox formbox-basic">
-    <form ng-submit="submit()">
-        <div ng-show="questions">
-            <h2>Questions</h2>
-            <div ng-repeat="question in questions | filter:{active: true}">
-                <h3>{{question.question}}</h3>
-                <input ng-model="answers[question.index].answer" required>
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Indicate Interest</div>
+        <div class="dashbox dashbox-content">
+            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
+                <span class="dashbox-icon-dingbat">➀</span><br>None
             </div>
-        </div>
-
-        <input class="content-button" type="submit" value="{{submitText}}" ng-disabled="pendingRequest === 0">
-    </form>
-    </table>
-    </div>
-
-    <div class="col-md-6">
-        <h1>Guidance</h1>
-        <div ng-repeat="tags in processedTags">
-            <h1>{{$first ? 'Must Have' : 'Nice to Have'}}</h1>
-            <div ng-repeat="tagType in tags">
-                <table class="table table-condensed" ng-show="tagType">
-                    <th></th>
-                    <th>Your Value</th>
-                    <th>Their Value</th>
-                    <tr ng-repeat="tag in tagType">
-                        <td>{{tag.name}}</td>
-                        <td>{{tag.userValue}}</td>
-                        <td>{{tag.value}}</td>
-                    </tr>
-                </table>
+            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
+                <span class="dashbox-icon-dingbat">➁</span><br>Low
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
+                <span class="dashbox-icon-dingbat">➂</span><br>Medium
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
+                <span class="dashbox-icon-dingbat">➃</span><br>High
             </div>
         </div>
     </div>
-</div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Indicate Interest</div>
+        <div class="dashbox dashbox-content">
+            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
+                <span class="dashbox-icon-dingbat">➀</span><br>None
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
+                <span class="dashbox-icon-dingbat">➁</span><br>Low
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
+                <span class="dashbox-icon-dingbat">➂</span><br>Medium
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
+                <span class="dashbox-icon-dingbat">➃</span><br>High
+            </div>
+            <div ng-repeat="tags in processedTags">
+                <br>
+                <div ng-repeat="tagType in tags">
+                    <table class="table table-condensed text-left" ng-show="tagType">
+                        <th width="40%">{{tags.importance === 'must' ? 'Must Have' : 'Nice to Have'}}</th>
+                        <th width="20%">Your Value</th>
+                        <th width="20%">Their Value</th>
+                        <th width="20%">Comparison {{'(' + score + '% Match)'}}</th>
+                        <tr ng-repeat="tag in tagType">
+                            <td width="40%">{{tag.name}}</td>
+                            <td width="20%">{{tag.userValue}}</td>
+                            <td width="20%">{{tag.value}}</td>
+                            <td><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, tag.value, tag.userValue)[1]}"></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Additional Questions</div>
+        <form ng-submit="submit()">
+            <table class="formbox formbox-freetext">
+                <tr ng-show="questions" ng-repeat="question in questions | filter: {active: true}">
+                    <td>{{ question.question }}</td>
+                    <td><textarea type="text" size="40" ng-model="answers[question.index].answer" required></textarea></td>
+                </tr>
+            </table>
+            <div class="formbox-footer">
+                <input class="content-button" type="submit" value="{{submitText}}" ng-disabled="pendingRequest === 0">
+            </div>
+        </form>
+    </div>
+
 </div><!-- end row -->
 </div><!-- end ng-show -->

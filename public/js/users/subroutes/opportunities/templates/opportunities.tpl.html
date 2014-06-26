@@ -14,10 +14,13 @@
         <div class="row">
         <div class="tablebox-title">{{ category.info.name }}</div>
         <table class="tablebox">
-            <tr class="tablebox-content" ng-repeat="opportunity in category.opportunities" ui-sref="users.opportunities.detail({_id: opportunity._id})">
-                <td width="85%">
+            <tr class="tablebox-content" ng-repeat="opportunity in category.opportunities | orderBy: 'company.name'" ui-sref="users.opportunities.detail({_id: opportunity._id})">
+                <td width="70%">
                     <div class="tablebox-leader">{{ opportunity.company.name }}</div>
                     <div>{{ opportunity.jobTitle }}</div>
+                </td>
+                <td width="15%" class="tablebox-tag" style="vertical-align: middle">
+                    <div class="tablebox-tag">{{ getGuidance(opportunity, user)[1] }}% match</div>
                 </td>
                 <td width="15%" class="tablebox-tag" style="vertical-align: middle">
                     <div class="tablebox-tag">interest: {{ opportunity.interest || 'n/a'}}</div>

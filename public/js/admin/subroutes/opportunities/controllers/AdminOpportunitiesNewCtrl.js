@@ -1,6 +1,6 @@
 app.controller('AdminOpportunitiesNewCtrl',
-  ['$scope', '$stateParams', '$state', 'Opportunity', 'User', 'Tag', 'Category', 'Company',
-  function ($scope, $stateParams, $state, Opportunity, User, Tag, Category, Company) {
+  ['$scope', '$stateParams', '$state', 'Opportunity', 'User', 'Tag', 'Category', 'Company', '$q',
+  function ($scope, $stateParams, $state, Opportunity, User, Tag, Category, Company, $q) {
 
   User.getAll().then(function (users) {
     // need populate users with tags info
@@ -100,25 +100,56 @@ app.controller('AdminOpportunitiesNewCtrl',
       }
     }
 
-    var oppData = {};
-    // no _id; need to create opportunity first
-    oppData.active = $scope.basic.active;
-    oppData.approved = $scope.basic.approved;
-    oppData.description = $scope.basic.description;
-    oppData.questions = $scope.guidance.questions;
-    oppData.jobTitle = $scope.basic.title;
-    oppData.category = $scope.basic.category._id;
-    oppData.company = $scope.basic.company._id;
-    oppData.links = $scope.basic.links;
-    oppData.notes = $scope.basic.notes ? [ {text: $scope.basic.notes} ] : [];
-    oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
-    oppData.tags = $scope.guidance.tags.map(function (tag) {
-      return {tag: tag.data._id, value: tag.value, importance: tag.importance};
+    var handleCompany = function(){
+      var deferred = $q.defer();
+      if(!$scope.basic.company._id){
+        Company.create($scope.basic.company).then(function(data){
+          $scope.basic.company._id = data._id;
+          deferred.resolve();
+        });
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    }
+
+    var handleCategory = function(){
+      var deferred = $q.defer();
+      if(!$scope.basic.category._id){
+        Category.create($scope.basic.category).then(function(data){
+          $scope.basic.category._id = data._id;
+          deferred.resolve();
+        });
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    }
+
+    handleCompany().then(function(){
+      return handleCategory();
+    }).then(function(){
+      var oppData = {};
+      // no _id; need to create opportunity first
+      oppData.active = $scope.basic.active;
+      oppData.approved = $scope.basic.approved;
+      oppData.description = $scope.basic.description;
+      oppData.questions = $scope.guidance.questions;
+      oppData.jobTitle = $scope.basic.title;
+      oppData.category = $scope.basic.category._id;
+      oppData.company = $scope.basic.company._id;
+      oppData.links = $scope.basic.links;
+      oppData.notes = $scope.basic.notes ? [ {text: $scope.basic.notes} ] : [];
+      oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
+      oppData.tags = $scope.guidance.tags.map(function (tag) {
+        return {tag: tag.data._id, value: tag.value, importance: tag.importance};
+      });
+
+      Opportunity.create(oppData).then(function(data){
+        $state.go('admin.opportunities.detail', { _id : data._id});
+      });
     });
 
-    Opportunity.create(oppData).then(function(data){
-      $state.go('admin.opportunities.detail', { _id : data._id});
-    });
   };
 
   $scope.removeFrom = function (index, array) {
@@ -248,6 +279,23 @@ app.controller('AdminOpportunitiesNewCtrl',
     } else if (icon ==='glyphicon-plus') {
       return 'grey';
     }
+  };
+
+  $scope.addNewCompany = function(companyName){
+    var newCompany = {name: companyName};
+    $scope.companies.push(newCompany);
+    $scope.basic.company = $scope.companies[$scope.companies.length - 1];
+    $scope.creatingCompany = false;
+  };
+
+  $scope.addNewCategory = function(categoryName){
+    var newCategory = {
+      name: categoryName,
+      type: 'Opportunity'
+    };
+    $scope.categories.push(newCategory);
+    $scope.basic.category = $scope.categories[$scope.categories.length - 1];
+    $scope.creatingCategory = false;
   };
 
 }]);

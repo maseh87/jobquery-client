@@ -1,7 +1,8 @@
-app.controller('UsersOpportunitiesDetailCtrl', ['$scope', 'UsersOpportunity', '$stateParams', 'GuidanceService',
-function($scope, UsersOpportunity, $stateParams, GuidanceService) {
+app.controller('UsersOpportunitiesDetailCtrl',
+  ['$scope', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
+  function($scope, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
-  $scope.submitText = '✔  Submit';
+  $scope.submitText = '✔  Submit Answers';
   $scope.pendingRequests = 0;
 
   var addIndexAsProperty = function(arrayOfObjects){
@@ -14,9 +15,7 @@ function($scope, UsersOpportunity, $stateParams, GuidanceService) {
   $scope.updateInterest = function (value) {
     if (!$scope.match) { return undefined; }
     $scope.match.userInterest = value;
-    UsersOpportunity.update($scope.match).then(function(){
-      console.log("Success!");
-    });
+    UsersOpportunity.update($scope.match).then(function () { });
   };
   $scope.hasInterest = function (value) {
     if (!$scope.match) { return undefined; }
@@ -40,20 +39,23 @@ function($scope, UsersOpportunity, $stateParams, GuidanceService) {
         });
       }
     }
-    
+
     $scope.match = match;
     $scope.answers = $scope.match.answers;
     $scope.questions = addIndexAsProperty(questions);
     $scope.opportunity = opportunity;
-    var processedTags = GuidanceService.processTags(opportunity, user);
+    var guidanceResult = GuidanceService.processTags(opportunity, user);
+    var processedTags = guidanceResult[0];
+    $scope.score = guidanceResult[1];
     $scope.processedTags = [processedTags.must, processedTags.nice];
+    $scope.calculateFit = generateGlyphs.calculateFit;
   });
 
   $scope.submit = function() {
     $scope.submitText = 'Submitting...';
     $scope.pendingRequests++;
     UsersOpportunity.update($scope.match).then(function(){
-      $scope.submitText = 'Save Successful';
+      $scope.submitText = '✔  Save Successful';
       $scope.pendingRequests--;
     });
   };
