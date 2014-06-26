@@ -60,7 +60,9 @@ function ($scope, UsersOpportunity, GuidanceService) {
     UsersOpportunity.update($scope.match).then(function(){
       $scope.submitText = 'Fetching Next';
       $scope.matches.splice(0, 1);
-      getNextOpportunity();
+      if($scope.matches.length > 0){
+        getNextOpportunity();
+      }
     });
   };
 
