@@ -250,4 +250,14 @@ app.controller('AdminOpportunitiesNewCtrl',
     }
   };
 
+  $scope.saveNewCompany = function(companyName){
+    var newCompany = {name: companyName}
+    Company.create({name: companyName}).then(function(data){
+      newCompany._id = data._id;
+      $scope.companies.push(newCompany);
+      $scope.basic.company = $scope.companies[$scope.companies.length - 1];
+      $scope.creating = false;
+    });
+  };
+
 }]);
