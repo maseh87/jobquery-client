@@ -15,14 +15,24 @@
         <div class="formbox-title">Basic Information</div>
         <table class="formbox formbox-basic">
             <tr>
-                <td>{{ opportunity.description }}</td>
-                <td>
-                    <span>Company: {{ opportunity.company.name}}</span><br>
-                    <span>Title: {{ opportunity.jobTitle }}</span><br>
-                    <div ng-repeat="link in opportunity.links">
-                        <span ng-show="$first">Read more:</span>
-                        <span><a ng-href="{{link.url}}">{{link.url}}</a></span> 
-                    </div>
+                <td width="60%">
+                    {{ opportunity.description }}
+                </td>
+                <td width="40%">
+                    <table>
+                        <tr>
+                            <th>Company:</th>
+                            <td>{{ opportunity.company.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Title:</th>
+                            <td>{{ opportunity.jobTitle }}</td>
+                        </tr>
+                        <tr ng-repeat="link in opportunity.links">
+                            <th>URL:</th>
+                            <td><a ng-href="{{link.url}}">{{link.url}}</a></td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
@@ -43,6 +53,23 @@
             <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
                 <span class="dashbox-icon-dingbat">➃</span><br>High
             </div>
+            <div ng-repeat="tags in processedTags">
+                <br>
+                <div ng-repeat="tagType in tags">
+                    <table class="table table-condensed text-left" ng-show="tagType">
+                        <th width="40%">{{tags.importance === 'must' ? 'Must Have' : 'Nice to Have'}}</th>
+                        <th width="20%">Your Value</th>
+                        <th width="20%">Their Value</th>
+                        <th width="20%">Comparison {{'(' + score + '% Match)'}}</th>
+                        <tr ng-repeat="tag in tagType">
+                            <td width="40%">{{tag.name}}</td>
+                            <td width="20%">{{tag.userValue}}</td>
+                            <td width="20%">{{tag.value}}</td>
+                            <td><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, tag.value, tag.userValue)[1]}"></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -59,26 +86,6 @@
             <input class="content-button" type="submit" value="{{submitText}}" ng-disabled="pendingRequest === 0">
         </div>
     </form>
-
-    <div class="col-md-6">
-        <h1>Guidance ({{ score + '%' }} Match)</h1>
-        <div ng-repeat="tags in processedTags">
-            <h1>{{$first ? 'Must Have' : 'Nice to Have'}}</h1>
-            <div ng-repeat="tagType in tags">
-                <table class="table table-condensed" ng-show="tagType">
-                    <th></th>
-                    <th>Your Value</th>
-                    <th>Their Value</th>
-                    <th>Comparison</th>
-                    <tr ng-repeat="tag in tagType">
-                        <td>{{tag.name}}</td>
-                        <td>{{tag.userValue}}</td>
-                        <td>{{tag.value}}</td>
-                        <td><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, tag.value, tag.userValue)[1]}"></span></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
     </div>
 </div><!-- end row -->
 </div>

@@ -43,6 +43,11 @@ app.factory('GuidanceService', function(){
           type:         tag.tag.type,
           importance:   tag.importance
         });
+        // define 'importance' but not enumerable
+        Object.defineProperty(processed.must, 'importance', {
+          value: 'must',
+          enumerable: false
+        });
         // calculate scores for 'must'
         if (tag.tag.type === 'scale') {
           if (userTags[tag.tag._id] >= tag.value) {
@@ -63,6 +68,11 @@ app.factory('GuidanceService', function(){
           userValue:    userTags[tag.tag._id],
           type:         tag.tag.type,
           importance:   tag.importance
+        });
+        // define 'importance' but not enumerable
+        Object.defineProperty(processed.nice, 'importance', {
+          value: 'nice',
+          enumerable: false
         });
         // calculate scores for 'nice'
         // half-weight for 'nice', but can only ever be positive
