@@ -158,7 +158,7 @@
                     <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.score + '%' }}</td>
+                    <td>{{ user.points[1] === 0 ? '-' : user.score + '%' }}</td>
                     <td>{{ user.interest === 0 ? 'N/A' : user.interest }}</td>
                     <td ng-repeat="tag in filteredTags">
                         <span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, user.tags[tag.data._id])" ng-style="{color: colorIcons(calculateFit(tag.importance, tag.value, user.tags[tag.data._id]))}"></span>

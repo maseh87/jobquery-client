@@ -173,14 +173,22 @@ app.controller('AdminOpportunitiesDetailCtrl',
 
     // calculate summary stats
     $scope.filteredStats = {};
-    $scope.filteredTags.forEach(function (tag) {
-      $scope.filteredStats[tag.data._id] = {
-        importance: tag.importance,
-        threshold: tag.value,
-        type: tag.data.type,
-        count: 0
-      };
-    });
+    if ($scope.filteredTags.length > 0) {
+      $scope.filteredTags.forEach(function (tag) {
+        $scope.filteredStats[tag.data._id] = {
+          importance: tag.importance,
+          threshold: tag.value,
+          type: tag.data.type,
+          count: 0
+        };
+      });
+    } else {
+      // zero scores if no tags
+      $scope.declared.forEach(function (user) {
+        user.points[0] = 0;
+        user.points[1] = 0;
+      });
+    }
 
     // count # of people meeting thresholds
     Object.keys($scope.filteredStats).forEach(function (tagId) {

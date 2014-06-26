@@ -46,6 +46,8 @@ app.controller('AdminOpportunitiesNewCtrl',
         _id: user._id,
         name: user.name,
         email: user.email,
+        points: [0, 0], // default: [points, possible points]
+        score: 0, // points[0] / points[1]
         tags: (function () {
           var tagsByKeys = {};
           user.tags.forEach(function (tag) {
@@ -141,7 +143,6 @@ app.controller('AdminOpportunitiesNewCtrl',
         break;
       }
     }
-    console.log('$scope.guidance.tags:', $scope.guidance.tags);
   };
 
   $scope.updateGuidance = function () {
@@ -153,13 +154,22 @@ app.controller('AdminOpportunitiesNewCtrl',
 
     // calculate summary stats
     $scope.filteredStats = {};
-    $scope.filteredTags.forEach(function (tag) {
-      $scope.filteredStats[tag.data._id] = {
-        threshold: tag.value,
-        type: tag.data.type,
-        count: 0
-      };
-    });
+    if ($scope.filteredTags.length > 0) {
+      $scope.filteredTags.forEach(function (tag) {
+        $scope.filteredStats[tag.data._id] = {
+          importance: tag.importance,
+          threshold: tag.value,
+          type: tag.data.type,
+          count: 0
+        };
+      });
+    } else {
+      // zero scores if no tags
+      $scope.declared.forEach(function (user) {
+        user.points[0] = 0;
+        user.points[1] = 0;
+      });
+    }
 
     Object.keys($scope.filteredStats).forEach(function (tagId) {
       if ($scope.filteredStats[tagId].type === 'scale') {
@@ -176,6 +186,67 @@ app.controller('AdminOpportunitiesNewCtrl',
         });
       }
     });
+
+    // calculate match results per user
+    $scope.declared.forEach(function (user) {
+      // loop over all tags to compare & calculate match score
+      Object.keys($scope.filteredStats).forEach(function (tagId) {
+        // must have
+        if ($scope.filteredStats[tagId].importance === 'must') {
+          if ($scope.filteredStats[tagId].type === 'scale') {
+            if (user.tags[tagId] >= $scope.filteredStats[tagId].threshold) {
+              // only add points if threshold is met
+              user.points[0] += Number(user.tags[tagId]);
+            }
+            // but always add to the denominator
+            user.points[1] += Number($scope.filteredStats[tagId].threshold);
+          } else if ($scope.filteredStats[tagId].type === 'binary') {
+            if (user.tags[tagId] === $scope.filteredStats[tagId].threshold) {
+              user.points[0] += 4; // assume perfect score
+            }
+            user.points[1] += 4; // assume binary questions are out of 4
+          }
+        } else { // nice to have
+          // if met, gross up top and bottom by user's score
+          if ($scope.filteredStats[tagId].type === 'scale' &&
+            user.tags[tagId] >= $scope.filteredStats[tagId].threshold) {
+            user.points[0] += Number(user.tags[tagId] * 0.50);
+            user.points[1] += Number(user.tags[tagId] * 0.50);
+          } else if ($scope.filteredStats[tagId].type === 'binary' &&
+            user.tags[tagId] === $scope.filteredStats[tagId].threshold) {
+              user.points[0] += 4 * 0.50;
+              user.points[1] += 4 * 0.50;
+          }
+        }
+      });
+      user.score = Number((user.points[0] / user.points[1] * 100).toFixed(0));
+    });
+  };
+
+  $scope.calculateFit = function (tagType, tagThreshold, userLevel) {
+    if (tagType === 'must') {
+      if (userLevel >= tagThreshold) {
+        return 'glyphicon-thumbs-up';
+      } else {
+        return 'glyphicon-remove';
+      }
+    } else {
+      if (userLevel >= tagThreshold) {
+        return 'glyphicon-plus';
+      } else {
+        return '';
+      }
+    }
+  };
+
+  $scope.colorIcons = function (icon) {
+    if (icon === 'glyphicon-thumbs-up') {
+      return 'green';
+    } else if (icon ==='glyphicon-remove') {
+      return 'red';
+    } else if (icon ==='glyphicon-plus') {
+      return 'grey';
+    }
   };
 
 }]);
