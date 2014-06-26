@@ -23,16 +23,14 @@ app.factory('Scheduler', ['Opportunity', 'User', '$q', function(Opportunity, Use
 
   var slotQueueGeneration = function (opportunities, candidatesMap, numberOfSlots) {
     var slots = [];
-
-    populateSlots = function (oppertunity) {
-      slots[i] = slots[i] === undefined ? [] : slots[i];
-      // define order of candidates per slot
-      slots[i].push(Object.keys(candidatesMap));
-    };
     console.log('Before slots');
-
-    for (var i = 0; i < numberOfSlots; i++) {
-      opportunities.forEach(populateSlots);
+    for (var i = 0; i < opportunities.length; i++) {
+      slots[i] = slots[i] === undefined ? [] : slots[i];
+      for (var j = 0; j < numberOfSlots; j++) {
+        slots[i][j] = slots[i][j] === undefined ? [] : slots[i][j];
+        // define order of candidates per slot
+        slots[i][j] = Object.keys(candidatesMap);
+      }
     }
 
     return slots;
@@ -66,10 +64,11 @@ app.factory('Scheduler', ['Opportunity', 'User', '$q', function(Opportunity, Use
   var assignSlots = function (queuedSlots) {
     var board = [];
     // generate board
-    for (var i = 0; i < queuedSlots[0].length; i++) {
+    for (var i = 0; i < queuedSlots.length; i++) {
       board.push([]);
     }
 
+    console.log('board', board);
     do {
       doPass(board, queuedSlots);
     }
@@ -93,9 +92,10 @@ app.factory('Scheduler', ['Opportunity', 'User', '$q', function(Opportunity, Use
   var doPass = function (board, queuedSlots) {
     for (var i = 0; i < queuedSlots.length; i++) {
       for (var j = 0; j < queuedSlots[i].length; j++) {
+        console.log('pass',i,j, queuedSlots[i][j] );
         if (board[i][j] === undefined) {
           // assign slot
-          board[i][j] = candidatesMap[queuedSlots[i][j].pop()];
+          board[i][j] = queuedSlots[i][j].pop();
           // check constraints
             // remove assignment
         }
@@ -108,14 +108,15 @@ app.factory('Scheduler', ['Opportunity', 'User', '$q', function(Opportunity, Use
     schedule : function(numberOfslots) {
       var queuedSlots;
       retrieveData().then(function (data) {
+        var assigned;
+        console.log('Data Retrieved', queuedSlots);
         // opportunities, candidates, numberOfSlots
         queuedSlots = prepareData(data[0], data[1], numberOfslots);
         console.log('Queued', queuedSlots);
-        //
+        assigned = assignSlots(queuedSlots);
         console.log('Assigned',assignSlots(queuedSlots));
-        return null;
+        return assigned;
       });
-      return "Hi " + name + "!";
     }
   };
 }]);
