@@ -1,5 +1,6 @@
-app.controller('UsersOpportunitiesDetailCtrl', ['$scope', 'UsersOpportunity', '$stateParams', 'GuidanceService',
-function($scope, UsersOpportunity, $stateParams, GuidanceService) {
+app.controller('UsersOpportunitiesDetailCtrl',
+  ['$scope', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
+  function($scope, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
   $scope.submitText = 'Submit';
   $scope.pendingRequests = 0;
@@ -28,13 +29,16 @@ function($scope, UsersOpportunity, $stateParams, GuidanceService) {
         });
       }
     }
-    
+
     $scope.match = match;
     $scope.answers = $scope.match.answers;
     $scope.questions = addIndexAsProperty(questions);
     $scope.opportunity = opportunity;
-    var processedTags = GuidanceService.processTags(opportunity, user);
+    var guidanceResult = GuidanceService.processTags(opportunity, user);
+    var processedTags = guidanceResult[0];
+    $scope.score = guidanceResult[1];
     $scope.processedTags = [processedTags.must, processedTags.nice];
+    $scope.calculateFit = generateGlyphs.calculateFit;
   });
 
   $scope.submit = function(){
