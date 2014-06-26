@@ -66,8 +66,8 @@
                 <tbody>
                     <tr ng-repeat="tag in types.binary | orderBy: 'tag.position' track by $index">
                         <td>{{tag.tag.label}}</td>
-                        <td><input type="radio" id="radioBox" name="{{ category + 'binary' + $index}}" value="yes" ng-model="tag.value"><label></label></td>
-                        <td><input type="radio" id="radioBox" name="{{ category + 'binary' + $index}}" value="no" ng-model="tag.value"><label></label></td>
+                        <td ng-click="tag.value = 'yes'"><input type="radio" id="radioBox" name="{{ category + 'binary' + $index}}" value="yes" ng-model="tag.value"><label></label></td>
+                        <td ng-click="tag.value = 'no'"><input type="radio" id="radioBox" name="{{ category + 'binary' + $index}}" value="no" ng-model="tag.value"><label></label></td>
                     </tr>
                 </tbody>
             </table>
@@ -85,10 +85,10 @@
                 <tbody>
                     <tr ng-repeat="tag in types.scale | orderBy: 'tag.position' track by $index">
                         <td>{{tag.tag.label}}</td>
-                        <td><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="1" ng-model="tag.value"><label></label></td>
-                        <td><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="2" ng-model="tag.value"><label></label></td>
-                        <td><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="3" ng-model="tag.value"><label></label></td>
-                        <td><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="4" ng-model="tag.value"><label></label></td>
+                        <td ng-click="tag.value = 1"><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="1" ng-model="tag.value"><label></label></td>
+                        <td ng-click="tag.value = 2"><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="2" ng-model="tag.value"><label></label></td>
+                        <td ng-click="tag.value = 3"><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="3" ng-model="tag.value"><label></label></td>
+                        <td ng-click="tag.value = 4"><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="4" ng-model="tag.value"><label></label></td>
                     </tr>
                 </tbody>
             </table>
