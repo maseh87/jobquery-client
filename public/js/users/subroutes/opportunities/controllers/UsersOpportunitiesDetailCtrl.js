@@ -11,13 +11,11 @@ app.controller('UsersOpportunitiesDetailCtrl',
       return item;
     });
   };
-  
+
   $scope.updateInterest = function (value) {
     if (!$scope.match) { return undefined; }
     $scope.match.userInterest = value;
-    UsersOpportunity.update($scope.match).then(function(){
-      console.log("Success!");
-    });
+    UsersOpportunity.update($scope.match).then(function () { });
   };
   $scope.hasInterest = function (value) {
     if (!$scope.match) { return undefined; }

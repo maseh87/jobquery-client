@@ -10,43 +10,46 @@
 </div>
 
 <div ng-show="opportunity">
+<div class="row">
     <div class="section container-fluid">
-        <div class="row">
-            <span>{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</span>
-        </div>
-        <div class="row">
-            <div class="col-xs-6">{{ opportunity.description }}</div>
-            <div class="col-xs-6">
-                <table class="table">
-                    <tr>
-                        <td>Company:</td>
-                        <td>{{opportunity.company.name}}</td>
-                    </tr>
-                    <tr>
-                        <td>Title:</td>
-                        <td>{{opportunity.jobTitle}}</td>
-                    </tr>
-                    <tr ng-repeat="link in opportunity.links">
-                        <td><span ng-show="$first">URL:</span></td>
-                        <td><a ng-href="{{link.url}}">{{link.url}}</a></td>
-                    </tr>
-                </table>
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Basic Information</div>
+        <table class="formbox formbox-basic">
+            <tr>
+                <td>{{ opportunity.description }}</td>
+                <td>
+                    <span>Company: {{ opportunity.company.name}}</span><br>
+                    <span>Title: {{ opportunity.jobTitle }}</span><br>
+                    <div ng-repeat="link in opportunity.links">
+                        <span ng-show="$first">Read more:</span>
+                        <span><a ng-href="{{link.url}}">{{link.url}}</a></span> 
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Indicate Interest</div>
+        <div class="dashbox dashbox-content">
+            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
+                <span class="dashbox-icon-dingbat">➀</span><br>None
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
+                <span class="dashbox-icon-dingbat">➁</span><br>Low
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
+                <span class="dashbox-icon-dingbat">➂</span><br>Medium
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
+                <span class="dashbox-icon-dingbat">➃</span><br>High
             </div>
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="content-section container-fluid">
+    <div class="formbox-title">Additional Questions</div>
         <form ng-submit="submit()">
-            <h2>Interest</h2>
-            <input type="radio" id="radio1" ng-value="1" name="interest" ng-model="match.userInterest" required>
-            <label for="radio1" type="radio" id="radio1">1</label>
-            <input type="radio" id="radio2" ng-value="2" name="interest" ng-model="match.userInterest" required>
-            <label for="radio2" type="radio" id="radio2">2</label>
-            <input type="radio" id="radio3" ng-value="3" name="interest" ng-model="match.userInterest" required>
-            <label for="radio3" type="radio" id="radio3">3</label>
-            <input type="radio" id="radio4" ng-value="4" name="interest" ng-model="match.userInterest" required>
-            <label for="radio4" type="radio" id="radio4">4</label>
-
             <div ng-show="questions">
                 <h2>Questions</h2>
                 <div ng-repeat="question in questions | filter:{active: true}">
@@ -55,7 +58,7 @@
                 </div>
             </div>
 
-            <input type="submit" value="{{submitText}}" ng-disabled="pendingRequest === 0">
+            <input class="content-button" type="submit" value="{{submitText}}" ng-disabled="pendingRequest === 0">
         </form>
     </div>
 
@@ -79,4 +82,5 @@
             </div>
         </div>
     </div>
+</div><!-- end row -->
 </div>
