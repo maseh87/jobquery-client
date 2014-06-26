@@ -19,7 +19,7 @@
                 <table class="table table-condensed">
                 <tr>
                     <td>Company:</td>
-                    <td><select ng-model="basic.company" ng-options="company.name for company in companies"></select></td>
+                    <td><select ng-model="basic.company" ng-options="company.name for company in companies | orderBy:'name'"></select></td>
                 </tr>
                 <tr>
                     <td>Title:</td>
