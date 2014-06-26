@@ -34,10 +34,11 @@
                     <td>Active:</td>
                     <td><input type="checkbox" ng-model="basic.active" ng-disabled="readOnly"></td>
                 </tr>
-                <tr>
+                <!-- New opportunities must be approved, so do not even provide this option -->
+<!--                 <tr>
                     <td>Public:</td>
                     <td><input type="checkbox" ng-model="basic.approved" ng-disabled="readOnly"></td>
-                </tr>
+                </tr> -->
                   <tr>
                     <td>Group:</td>
                     <td><select ng-model="basic.category" ng-options="category.name for category in categories" ng-disabled="readOnly"></select></td>

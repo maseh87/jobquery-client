@@ -3,6 +3,7 @@ app.controller('AdminOpportunitiesNewCtrl',
   function ($scope, $stateParams, $state, Opportunity, User, Tag, Category, Company) {
 
   User.getAll().then(function (users) {
+    // need populate users with tags info
     $scope.mapToView(users);
   });
 
@@ -51,7 +52,7 @@ app.controller('AdminOpportunitiesNewCtrl',
         tags: (function () {
           var tagsByKeys = {};
           user.tags.forEach(function (tag) {
-            tagsByKeys[tag.tag._id] = tag.value;
+            tagsByKeys[tag.tag] = tag.value;
           });
           return tagsByKeys;
         })()
@@ -95,7 +96,7 @@ app.controller('AdminOpportunitiesNewCtrl',
       // check for empty links
       if (currentLink.title === '' || currentLink.url === '') {
         $scope.basic.links.splice(k, 1);
-        j -= 1;
+        k -= 1;
       }
     }
 
