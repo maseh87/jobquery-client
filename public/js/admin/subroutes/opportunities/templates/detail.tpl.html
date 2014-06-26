@@ -1,5 +1,8 @@
+<form name="oppForm" ng-submit="toggleEdit()">
 <div class="content-header">
-    <div class="content-header-block"></div>
+    <div class="content-header-block text-left">
+        <input class="content-button" type="submit" ng-value="editButtonText" ng-click="updateGuidance()">
+    </div>
     <div class="content-header-block">
         <div class="content-title">Opportunity Dossier</div>
         <div class="content-tagline">View or edit opportunity</div>
@@ -8,8 +11,7 @@
 
 <h3>Basic Information</h3>
 
-<form name="oppForm" ng-submit="toggleEdit()">
-    <input class="btn" ng-class="readOnly ? 'btn-primary' : 'btn-success'" type="submit" ng-value="editButtonText" ng-click="updateGuidance()"></input>
+
     <br />
     <br />
 
