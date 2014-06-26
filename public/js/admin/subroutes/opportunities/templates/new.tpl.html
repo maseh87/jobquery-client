@@ -19,7 +19,15 @@
                 <table class="table table-condensed">
                 <tr>
                     <td>Company:</td>
-                    <td><select ng-model="basic.company" ng-options="company.name for company in companies"></select></td>
+                    <td ng-show="!creating">
+                        <select ng-model="basic.company" ng-options="company.name for company in companies | orderBy:'name'"></select> or
+                        <button type="button" ng-click="creating = true">Add New Company</button>
+                    </td>
+                    <td ng-show="creating">
+                        <input ng-model="newCompany" placeholder="Enter Company Name">
+                        <button type="button" ng-click="saveNewCompany(newCompany)">Save</button>
+                        <button type="button" ng-click="creating = false">Cancel</button>
+                    </td>
                 </tr>
                 <tr>
                     <td>Title:</td>
