@@ -73,8 +73,9 @@ app.factory('Scheduler', ['Opportunity', 'User', '$q', function(Opportunity, Use
     console.log('board', board);
     do {
       doPass(board, queuedSlots);
+      debugger;
     }
-    while (!solutionFound(board));
+    while (solutionFound(board) === false);
 
     return board;
   };
@@ -84,6 +85,7 @@ app.factory('Scheduler', ['Opportunity', 'User', '$q', function(Opportunity, Use
     for (var i = 0; i < board.length; i++) {
       for (var j = 0; j < board[i].length; j++) {
         if (board[i][j] === undefined) {
+          console.log('board',board,i,j);
           validSolution = false;
         }
       }
@@ -111,18 +113,36 @@ app.factory('Scheduler', ['Opportunity', 'User', '$q', function(Opportunity, Use
 var constraintsValid = function (board) {
   var isValid = true;
   // check candidate is not assigned twice in the same time slot
-  isValid = isValid && oneCandidatePerTimeSlot(board);
+  isValid = isValid && oneCandidatePerTimeSlotConstraint(board);
+  isValid = isValid && oneCandidatePerOppertunityConstraint(board);
   // check candidate is not assigned twice to interview with the same oppertunity
   return isValid;
 };
 
-var oneCandidatePerTimeSlot = function (board) {
+var oneCandidatePerTimeSlotConstraint = function (board) {
   var valid = true;
   var unique;
   for (var y = 0; y < board[0].length; y++) {
     unique = {};
     for (var x = 0; x < board.length; x++) {
-      console.log(unique);
+      if (board[x][y] !== undefined) {
+        unique[board[x][y]] = unique[board[x][y]] === undefined ? 0 : unique[board[x][y]];
+        unique[board[x][y]]++;
+        if (unique[board[x][y]] > 1) {
+          valid = false;
+        }
+      }
+    }
+  }
+  return valid;
+};
+
+var oneCandidatePerOppertunityConstraint = function (board) {
+  var valid = true;
+  var unique;
+  for (var x = 0; x < board.length; x++) {
+    unique = {};
+    for (var y = 0; y < board[x].length; y++) {
       if (board[x][y] !== undefined) {
         unique[board[x][y]] = unique[board[x][y]] === undefined ? 0 : unique[board[x][y]];
         unique[board[x][y]]++;
@@ -145,7 +165,7 @@ var oneCandidatePerTimeSlot = function (board) {
         queuedSlots = prepareData(data[0], data[1], numberOfslots);
         console.log('Queued', queuedSlots);
         assigned = assignSlots(queuedSlots);
-        console.log('Assigned',assignSlots(queuedSlots));
+        console.log('Assigned',assigned);
         return assigned;
       });
     }
