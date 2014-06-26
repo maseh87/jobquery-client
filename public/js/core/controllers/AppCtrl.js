@@ -7,13 +7,14 @@ app.run(['$rootScope', '$state', '$location', 'localStorageService',
   function ($rootScope, $state, $location, localStorageService) {
 
   // enumerate routes that don't need authentication
-  var routesThatDontRequireAuth = ['/login','login'];
+  var routesThatDontRequireAuth = ['login', 'send', 'reset'];
 
   // check if current location matches route
   var routeClean = function (route) {
     var needsAuthorization = true;
     routesThatDontRequireAuth.forEach(function (noAuthRoute) {
-      if(noAuthRoute === route){
+      var regex = new RegExp(noAuthRoute, 'g');
+      if(route.match(regex)){
         needsAuthorization = false;
       }
     });
