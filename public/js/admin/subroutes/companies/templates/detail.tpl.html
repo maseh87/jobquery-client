@@ -67,25 +67,23 @@
     <br />
     <br />
 
-    <h4>Associated Opportunities</h4>
 
-    <div class="section container-fluid" ng-show="opportunities">
+    <div class="content-section container-fluid" ng-show="opportunities">
         <div class="row">
-            <table class="table">
-            <thead>
-                <tr>
-                    <th></th><!-- empty table header -->
-                    <th>Role</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="opportunity in opportunities">
-                    <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
-                    <td>{{ opportunity.jobTitle }}</td>
-                    <td>{{ opportunity.description }}</td>
-                </tr>
-            </tbody>
+            <div class="tablebox-title">Associated Opportunities</div>
+            <table class="tablebox">
+                <thead>
+                    <tr class="tablebox-header">
+                        <th>Role</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="tablebox-content" ng-repeat="opportunity in opportunities" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
+                        <td>{{ opportunity.jobTitle }}</td>
+                        <td>{{ opportunity.description }}</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
