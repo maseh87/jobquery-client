@@ -2,7 +2,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
   ['$scope', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
   function($scope, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
-  $scope.submitText = 'Submit';
+  $scope.submitText = '✔  Submit Answers';
   $scope.pendingRequests = 0;
 
   var addIndexAsProperty = function(arrayOfObjects){
@@ -57,7 +57,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
     $scope.submitText = 'Submitting...';
     $scope.pendingRequests++;
     UsersOpportunity.update($scope.match).then(function(){
-      $scope.submitText = 'Save Successful';
+      $scope.submitText = '✔  Save Successful';
       $scope.pendingRequests--;
     });
   };
