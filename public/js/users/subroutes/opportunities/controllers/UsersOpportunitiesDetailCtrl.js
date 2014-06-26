@@ -14,8 +14,15 @@ app.controller('UsersOpportunitiesDetailCtrl',
 
   $scope.updateInterest = function (value) {
     if (!$scope.match) { return undefined; }
-    $scope.match.userInterest = value;
-    UsersOpportunity.update($scope.match).then(function () { });
+    var answersFilled = $scope.match.answers.every(function (answerObj) {
+      return answerObj.answer !== "" && answerObj.answer !== undefined;
+    });
+    if (answersFilled === false) { 
+      window.alert("Please fill out the additional guidance questions below before indicating interest.");
+    } else {
+      $scope.match.userInterest = value;
+      UsersOpportunity.update($scope.match).then(function () { });      
+    }
   };
   $scope.hasInterest = function (value) {
     if (!$scope.match) { return undefined; }
