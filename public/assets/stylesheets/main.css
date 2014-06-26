@@ -8,6 +8,9 @@ body {
 table {
     border-collapse: collapse;
 }
+.omega { padding-right: 0px; }
+.alpha { padding-left: 0px; }
+
 .sidebar-container a { color: #F0F0F0; }
 .sidebar-container a:hover { color: #c9e3ef; text-decoration: none; }
 

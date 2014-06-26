@@ -14,11 +14,11 @@ app.controller('AdminOpportunitiesDetailCtrl',
   .then(function (categories) { $scope.categories = categories; });
 
   $scope.readOnly = true;
-  $scope.editButtonText = "✎  Edit";
+  $scope.editButtonText = "✎  Edit Opportunity";
   $scope.toggleEdit = function () {
     if (!$scope.readOnly) { $scope.save(); }
     $scope.readOnly = !$scope.readOnly;
-    $scope.editButtonText = $scope.readOnly ? "✎  Edit" : "✔  Save";
+    $scope.editButtonText = $scope.readOnly ? "✎  Edit Opportunity" : "✔  Save Opportunity";
   };
 
   $scope.basic = {};

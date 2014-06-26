@@ -2,7 +2,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
   ['$scope', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
   function($scope, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
-  $scope.submitText = 'Submit';
+  $scope.submitText = '✔  Submit Answers';
   $scope.pendingRequests = 0;
 
   var addIndexAsProperty = function(arrayOfObjects){
@@ -11,6 +11,17 @@ app.controller('UsersOpportunitiesDetailCtrl',
       return item;
     });
   };
+
+  $scope.updateInterest = function (value) {
+    if (!$scope.match) { return undefined; }
+    $scope.match.userInterest = value;
+    UsersOpportunity.update($scope.match).then(function () { });
+  };
+  $scope.hasInterest = function (value) {
+    if (!$scope.match) { return undefined; }
+    return $scope.match.userInterest === value;
+  };
+
 
   UsersOpportunity.get($stateParams._id).then(function(data){
     var match = data.match;
@@ -42,10 +53,11 @@ app.controller('UsersOpportunitiesDetailCtrl',
   });
 
   $scope.submit = function(){
+    console.log($scope.match);
     $scope.submitText = 'Submitting...';
     $scope.pendingRequests++;
     UsersOpportunity.update($scope.match).then(function(){
-      $scope.submitText = 'Save Successful';
+      $scope.submitText = '✔  Save Successful';
       $scope.pendingRequests--;
     });
   };
