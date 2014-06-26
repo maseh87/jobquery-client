@@ -6,7 +6,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
 
   $stateProvider
     .state('home', {
-      url: '/',
+      url: '',
       templateUrl: '/js/core/templates/home.tpl.html',
       resolve: {
         redirect: ['$location', 'localStorageService', function ($location, localStorageService) {
@@ -29,6 +29,16 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       url: '/login',
       templateUrl: '/js/core/templates/login.tpl.html',
       controller: 'LoginCtrl'
+    })
+    .state('reset', {
+      url: '/reset/:resetHash',
+      templateUrl: '/js/core/templates/reset.tpl.html',
+      controller: 'ResetCtrl'
+    })
+    .state('send', {
+      url: '/send',
+      templateUrl: '/js/core/templates/send.tpl.html',
+      controller: 'SendCtrl'
     });
 
 }]);

@@ -2,11 +2,12 @@ app
   .factory('authHttpInterceptor', ['localStorageService', '$location', function (localStorageService, $location) {
    return {
      'request': function(config) {
+      console.log(config);
        config.headers = config.headers || {};
        if (localStorageService.get('token')) {
          config.headers.Authorization = 'Bearer ' + localStorageService.get('token');
        }
-       if (!isTokenInDate(localStorageService)) {
+       if (!isTokenInDate(localStorageService) && checkAuthorizedRoutes(config.url)) {
          $location.path('/login');
        }
        return config;
@@ -17,6 +18,18 @@ app
   .config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('authHttpInterceptor');
   }]);
+
+var checkAuthorizedRoutes = function(url){
+  if(url.match(/send/g)){
+    return false;
+  } else if (url.match(/reset/g)) {
+    return false;
+  } else if (url.match(/auth/g)) {
+    return false;
+  } else {
+    return true;
+  }
+};
 
 var isTokenInDate = function (localStorageService) {
   var tokenDate = new Date(JSON.parse(localStorageService.get('token-date')));

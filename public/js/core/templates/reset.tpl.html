@@ -1,0 +1,18 @@
+<div class="login-splash">
+  <div class="login-container text-right">
+    <span class="login-subtitle">Less work. More jobs.</span><br>
+    <span class="login-title">jobQuery</span>
+  </div>
+  <div class="login-container">
+    <form>
+    <div class="login-box">
+      <span class="login-label">New Password</span><br>
+      <input type="input" class="login-field" name="e-mail" ng-model="password" autofocus>
+    </div>
+    <div class="login-box">
+      <input type="submit" value="Send Password Reset" class="login-button" ng-value="submitting ? 'Signing In...' : 'Login'" ng-disabled="submitting" ng-click="updatePassword(password)">
+    </div>
+    </form>
+  </div>
+  <div class="login-bg"></div>
+</div>
