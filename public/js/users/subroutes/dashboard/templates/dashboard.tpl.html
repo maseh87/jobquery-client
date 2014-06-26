@@ -1,8 +1,8 @@
 <h1 class="body-heading">Opportunity Dossier</h1>
-<h2 ng-show="matches.length">{{$scope.matches.length}} Opportunities Left to Fill Out</h2>
+<h2 ng-show="matches.length">{{matches.length}} Opportunities Left to Fill Out</h2>
 <h2 ng-show="matches.length === 0">No more opportunities left to fill out</h2>
 
-<div ng-show="opportunity">
+<div ng-show="opportunity && matches.length">
     <div class="section container-fluid">
         <div class="row">
             <span>{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</span>
