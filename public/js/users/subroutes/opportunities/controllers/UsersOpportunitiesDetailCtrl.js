@@ -16,7 +16,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
     if (!$scope.match) { return undefined; }
     var answersFilled = $scope.match.answers.every(function (answerObj) {
       return answerObj.answer !== "" && answerObj.answer !== undefined;
-    });
+    }); // returns true if $scope.match.answers is empty
     if (answersFilled === false) { 
       window.alert("Please fill out the additional guidance questions below before indicating interest.");
     } else {
