@@ -2,7 +2,6 @@ app
   .factory('authHttpInterceptor', ['localStorageService', '$location', function (localStorageService, $location) {
    return {
      'request': function(config) {
-      console.log(config);
        config.headers = config.headers || {};
        if (localStorageService.get('token')) {
          config.headers.Authorization = 'Bearer ' + localStorageService.get('token');
