@@ -1,5 +1,6 @@
-app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 
-  function ($scope, $state, Match, Opportunity, User) {
+app.controller('AdminMatchesCtrl',
+  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'SERVER_URL',
+  function ($scope, $state, $http, Match, Opportunity, User, SERVER_URL) {
 
   Match.getAll().then(function (matchData) {
     User.getAll().then(function (users) {
@@ -19,7 +20,7 @@ app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', 'Opportunity', 
         var match = matchData;
         var column = oppColumnMap[match.opportunity];
         var row = match.user;
-        match.value = (match.adminOverride > 0) ? match.adminOverride : match.userInterest; 
+        match.value = (match.adminOverride > 0) ? match.adminOverride : match.userInterest;
         if (!matrix.hasOwnProperty(row)) { matrix[row] = []; }
         matrix[row][column] = match;
       });
@@ -29,19 +30,66 @@ app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', 'Opportunity', 
     });
   });
 
-  $scope.edit = function(match) { 
+  $scope.edit = function(match) {
     // console.log(match); // EDIT NOT IMPLEMENTED YET
   };
 
   $scope.isOverridden = function (match) {
     return match.adminOverride > 0 ? 'gridbox-highlight-blue' : '';
   };
+
+  $scope.downloadData = function () {
+    $http.get(SERVER_URL + '/api/matches/download')
+    .success(function () {
+      if (arguments[1] === 200) {
+        $scope.dataToDownload = arguments[0];
+        download(arguments[0], 'exported', 'text/csv');
+      }
+    });
+  };
+
+  function download(strData, strFileName, strMimeType) {
+    var D = document,
+        a = D.createElement("a");
+        strMimeType= strMimeType || "application/octet-stream";
+
+
+    if (navigator.msSaveBlob) { // IE10
+        return navigator.msSaveBlob(new Blob([strData], {type: strMimeType}), strFileName);
+    } /* end if(navigator.msSaveBlob) */
+
+
+    if ('download' in a) { //html5 A[download]
+        a.href = "data:" + strMimeType + "," + encodeURIComponent(strData);
+        a.setAttribute("download", strFileName);
+        a.innerHTML = "downloading...";
+        D.body.appendChild(a);
+        setTimeout(function() {
+            a.click();
+            D.body.removeChild(a);
+        }, 66);
+        return true;
+    } /* end if('download' in a) */
+
+
+    //do iframe dataURL download (old ch+FF):
+    var f = D.createElement("iframe");
+    D.body.appendChild(f);
+    f.src = "data:" +  strMimeType   + "," + encodeURIComponent(strData);
+
+    setTimeout(function() {
+        D.body.removeChild(f);
+    }, 333);
+    return true;
+} /* end download() */
+
+
 }]);
 
 /*
 
 keyMap is an object of oppIds
-{ 
+{
     oppId: colId,
     oppId: colId,
 }
