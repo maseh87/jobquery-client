@@ -1,8 +1,20 @@
-<h1>Invite Candidates</h1>
-<p>Input one or more e-mail addresses and press invite</p>
-<form name="emailForm" novalidate="novalidate" >
-    <textarea rows="10" cols="50" name="emails" ng-init="" ng-Model="emails" ng-pattern="emailCSVPattern()" required> </textarea>
-    <div ng-show="showAlert">{{alertMessage}}</div>
-    <div><button ng-disabled="emailForm.$invalid" ng-click="sendEmails(emails); hideMessage()" class="btn btn-primary" >Invite</button></div>
-</form>
+<div class="content-header">
+    <div class="content-header-block text-left">
+        <!-- buttons -->
+    </div>
+    <div class="content-header-block">
+        <div class="content-title">New Candidates</div>
+        <div class="content-tagline">Invite candidates via e-mail</div>
+    </div>
+</div>
+
+<div class="dashbox-title">Copy and paste candidate e-mails</div>
+<div class="formbox dashbox dashbox-content">
+    <form name="emailForm" novalidate="novalidate">
+        <textarea style="width: 100%;" rows="5" name="emails" ng-init="" ng-Model="emails" ng-pattern="emailCSVPattern()" required> </textarea>
+        <div class="tablebox-tag text-center" ng-show="showAlert">{{alertMessage}}</div><br>
+        <div><button ng-disabled="emailForm.$invalid" ng-click="sendEmails(emails); hideMessage()" class="content-button" >✎ Invite candidates</button></div>
+    </form>
+</div>
+
 <div ui-view></div>
