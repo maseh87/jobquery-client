@@ -3,12 +3,14 @@
     <h1>Now Loading Survey Creator...</h1>
     <img src="assets/images/ajax-bar.gif">
 </div>
+
 <div ng-show="categories">
     <h1>Survey Creator</h1>
 
     <form ng-repeat="category in categories" ng-hide="category.active === false">
         <h1>
-            <input type="text" ng-model="category.name" ng-readonly="category.readOnly">
+            <input type="text" ng-model="category.name" ng-readonly="category.readOnly" placeholder="Category Name">
+            <input type="text" ng-model="category.label" ng-readonly="category.readOnly" placeholder="Description">
             <button type="button" ng-click="category.readOnly = false" ng-show="category.readOnly">Edit</button>
             <button type="button" ng-click="category.readOnly = true; saveCategory(category)" ng-show="!category.readOnly">Save</button>
             <button type="button" ng-click="category.readOnly = true; removeCategory(category)" ng-show="!category.readOnly && !category.tags.length">Remove</button>
@@ -22,13 +24,14 @@
                 <th>isPublic</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
-            <tr ng-repeat="tag in category.tags track by $index">
-                <td><input type="textbox" ng-model="tag.name" ng-readonly="tag.readOnly"></td>
+            <tr ng-repeat="tag in category.tags">
                 <td><input type="text" ng-model="tag.label" ng-readonly="tag.readOnly"></td>
+                <td><input type="textbox" ng-model="tag.name" ng-readonly="tag.readOnly"></td>
                 <td>
                     <select name="catSelect" ng-model="tag.newCatId" ng-disabled="tag.readOnly">
-                        <option ng-repeat="category in categories" ng-value="category._id" ng-selected="{{tag.category._id === category._id}}">{{category.name}}</option>
+                        <option ng-repeat="category in categories" ng-value="category._id" ng-selected="{{tag.category._id === category._id || tag.category === category._id}}">{{category.name}}</option>
                     </select>
                 </td>
                 <td>
@@ -40,13 +43,17 @@
                 </td>
                 <td><input type="checkbox" ng-model="tag.isPublic" ng-disabled="tag.readOnly"></td>
                 <td>
-                    <button type="button" ng-click="tag.readOnly = false" ng-show="tag.readOnly">Edit</button>
-                    <button type="button" ng-click="tag.readOnly = true; save(tag, $index, category)" ng-hide="tag.readOnly">Save</button>
-                    <button type="button" ng-click="remove(tag, $index, category)" ng-show="!tag.readOnly">Remove</button>
+                    <button type="button" ng-click="tag.readOnly = false; tag.delete = false;" ng-show="tag.readOnly" class="btn btn-primary">Edit</button>
+                    <button type="button" ng-click="tag.readOnly = true; save(tag, $index, category)" ng-hide="tag.readOnly || tag.delete" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-danger" ng-click="remove(tag, $index, category)" ng-show="!tag.readOnly && tag.delete">Are You Sure?</button>
                 </td>
-                <td>
-                    <button type="button" ng-click="moveUp($index, category)" ng-show="!$first">Up</button>
-                    <button type="button" ng-click="moveDown($index, category)" ng-show="!$last">Down</button>
+                <td ng-show="tag.readOnly">
+                    <span ng-click="moveUp($index, category)" ng-show="!$first" class="glyphicon glyphicon-arrow-up pointer"></span>
+                    <span ng-click="moveDown($index, category)" ng-show="!$last" class="glyphicon glyphicon-arrow-down pointer"></span>
+                </td>
+                <td ng-show="!tag.readOnly">
+                    <button type="button" class="btn btn-danger" ng-click="tag.delete = true" ng-show="!tag.readOnly && !tag.delete">Remove</button>
+                    <button type="button" class="btn btn-default" ng-click="tag.delete = false" ng-show="!tac.readOnly && tag.delete">Cancel</button>
                 </td>
             </tr>
         </table>

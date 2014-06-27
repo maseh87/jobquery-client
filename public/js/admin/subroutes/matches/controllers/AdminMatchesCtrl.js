@@ -1,59 +1,103 @@
-app.controller('AdminMatchesCtrl', ['$scope', '$state', 'Match', function ($scope, $state, Match) {
+app.controller('AdminMatchesCtrl',
+  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'SERVER_URL',
+  function ($scope, $state, $http, Match, Opportunity, User, SERVER_URL) {
 
-  var matrixify = function (matchArray) {
+  Match.getAll().then(function (matchData) {
+    User.getAll().then(function (users) {
+      $scope.users = users;
+      $scope.matches = matchData.matches;
+      $scope.opportunities = matchData.opportunities;
 
-    var normUsers = {};
-    var normUserIndex = 0;
+      var oppColumnMap = {};
+      var userMap = {};
+      var matrix = {};
 
-    var normOpps = {};
-    var normOppIndex = 0;
+      // generate key map
+      $scope.opportunities.forEach(function (opportunity, i) { oppColumnMap[opportunity._id] = i; });
+      $scope.users.forEach(function (user, i) { userMap[user._id] = user.name; });
 
-    var matrix = [];
+      $scope.matches.forEach(function (matchData) {
+        var match = matchData;
+        var column = oppColumnMap[match.opportunity];
+        var row = match.user;
+        match.value = (match.adminOverride > 0) ? match.adminOverride : match.userInterest;
+        if (!matrix.hasOwnProperty(row)) { matrix[row] = []; }
+        matrix[row][column] = match;
+      });
 
-    //Iterate through the matchArray
-    matchArray.forEach(function (match) {
-      var userId = match.userId;
-      var oppId = match.oppId;
-
-      if (normUsers[userId] === undefined) {
-        normUsers[userId] = normUserIndex;
-        normUserIndex++;
-      }
-
-      if (normOpps[oppId] === undefined) {
-        normOpps[oppId] = normOppIndex;
-        normOppIndex++;
-      }
-
-      var userIndex = normUsers[userId];
-      var oppIndex = normOpps[oppId];
-
-      //First check to see if the row exists
-      if (!Array.isArray(matrix[userIndex])) {
-        matrix[userIndex] = [];
-      }
-
-      //Now add nulls until the length = oppIndex + 1;
-      for (var i = matrix[userIndex].length - 1; i < oppIndex; i++) {
-        matrix[userIndex].push(null);
-      }
-
-      //Add the userInterest at the appropriate place;
-      matrix[userIndex][oppIndex] = match.userInterest;
+      $scope.matrix = matrix;
+      $scope.userMap = userMap;
     });
-
-    //Finally fill out the candidates with nulls to normalize row width
-    matrix.forEach(function (column) {
-      while (column.length < normOppIndex) {
-        column.push(null);
-      }
-    });
-
-    return matrix;
-  };
-
-  Match.getAll().then(function (matches) {
-    $scope.matrix = matrixify(matches);
   });
 
+  $scope.edit = function(match) {
+    // console.log(match); // EDIT NOT IMPLEMENTED YET
+  };
+
+  $scope.isOverridden = function (match) {
+    return match.adminOverride > 0 ? 'gridbox-highlight-blue' : '';
+  };
+
+  $scope.downloadData = function () {
+    $http.get(SERVER_URL + '/api/matches/download')
+    .success(function () {
+      if (arguments[1] === 200) {
+        $scope.dataToDownload = arguments[0];
+        download(arguments[0], 'exported', 'text/csv');
+      }
+    });
+  };
+
+  function download(strData, strFileName, strMimeType) {
+    var D = document,
+        a = D.createElement("a");
+        strMimeType= strMimeType || "application/octet-stream";
+
+
+    if (navigator.msSaveBlob) { // IE10
+        return navigator.msSaveBlob(new Blob([strData], {type: strMimeType}), strFileName);
+    } /* end if(navigator.msSaveBlob) */
+
+
+    if ('download' in a) { //html5 A[download]
+        a.href = "data:" + strMimeType + "," + encodeURIComponent(strData);
+        a.setAttribute("download", strFileName);
+        a.innerHTML = "downloading...";
+        D.body.appendChild(a);
+        setTimeout(function() {
+            a.click();
+            D.body.removeChild(a);
+        }, 66);
+        return true;
+    } /* end if('download' in a) */
+
+
+    //do iframe dataURL download (old ch+FF):
+    var f = D.createElement("iframe");
+    D.body.appendChild(f);
+    f.src = "data:" +  strMimeType   + "," + encodeURIComponent(strData);
+
+    setTimeout(function() {
+        D.body.removeChild(f);
+    }, 333);
+    return true;
+} /* end download() */
+
+
 }]);
+
+/*
+
+keyMap is an object of oppIds
+{
+    oppId: colId,
+    oppId: colId,
+}
+
+matrix is an object of objects...
+{
+  // first prepopulate with userIds
+  userId: [ {matchId, userInterest}, {matchId, userInterest} ]
+  userId: [ {matchId, userInterest}, {matchId, userInterest} ]
+}
+*/

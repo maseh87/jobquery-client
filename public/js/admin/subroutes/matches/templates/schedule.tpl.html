@@ -1,24 +1,19 @@
-<div ui-view>
     <div class="content-header">
         <div class="content-header-block text-left">
             <span class="content-action">
-                <span class="glyphicon glyphicon-calendar"></span>
-                <span ui-sref="admin.matches.schedule">See Schedule</span>
-            </span>
-            <span class="content-action">
-                <span class="glyphicon glyphicon-download"></span>
-                <span ng-click="downloadData()">Download Data</span>
+                <span class="glyphicon glyphicon-th"></span>
+                <span ui-sref="admin.matches.all">See Matches</span>
             </span>
         </div>
         <div class="content-header-block">
-            <div class="content-title">Matches</div>
-            <div class="content-tagline">View or edit the match grid</div>
+            <div class="content-title">Scheduling</div>
+            <div class="content-tagline">View the scheduling grid</div>
         </div>
     </div>
 
     <div class="content-section container-fluid">
         <div class="row">
-        <div class="gridbox-title">Candidate - Opportunity Match Grid</div>
+        <div class="gridbox-title">Scheduling Grid</div>
         <div class="content-scrollable">
         <table class="gridbox">
         <thead>
@@ -30,10 +25,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="gridbox-content" ng-repeat="(userId, row) in matrix">
+            <tr class="gridbox-content" ng-repeat="slot in schedule">
                 <th ui-sref="admin.candidates.detail({_id: userId})">{{ userMap[userId] }}</th>
-                <td ng-repeat="match in row track by $index" ng-class="isOverridden(match)">
-                    <input ng-model="match.value" ng-click="edit(match)">
+                <td ng-repeat="opportunity in slot track by $index" ng-class="isOverridden(match)">
+                    <span ng-repeat="candidate in opportunity track by $index">{{ userMap[candidate] }}</span><br>
                 </td>
             </tr>
         </tbody>
@@ -41,4 +36,3 @@
         </div>
         </div>
     </div>
-</div>

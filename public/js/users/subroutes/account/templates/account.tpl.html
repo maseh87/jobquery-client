@@ -1,67 +1,82 @@
-<h1>Profile Information</h1>
-<h2>View or Edit Your Profile</h2>
-
-<!-- <div>
-    <h3>Job Search Status</h3>
-    <input type="radio" id="radio1" value="1" name="searchStage" ng-model="user.searchStage">
-    <label for="radio1" type="radio" id="radio1">Early</label>
-    <input type="radio" id="radio2" value="2" name="searchStage" ng-model="user.searchStage">
-    <label for="radio2" type="radio" id="radio2">Mid</label>
-    <input type="radio" id="radio3" value="3" name="searchStage" ng-model="user.searchStage">
-    <label for="radio3" type="radio" id="radio3">Late</label>
-    <input type="radio" id="radio4" value="4" name="searchStage" ng-model="user.searchStage">
-    <label for="radio4" type="radio" id="radio4">Closed</label>
-</div> -->
-<!--
-<button ng-init="readOnly=true" ng-click="readOnly=false" ng-show="readOnly">+ Edit Profile</button>
-<button ng-click="readOnly=true; update()" ng-show="!readOnly">Save Profile</button> -->
+<div class="content-header">
+    <div class="content-header-block text-left">
+        <span class="content-action">
+            <span class="glyphicon glyphicon-ok"></span>
+            <span ng-click="update()">{{submitText}}</span>
+        </span>
+    </div>
+    <div class="content-header-block">
+        <div class="content-title">Candidate Survey</div>
+        <div class="content-tagline">View or complete your candidate survey</div>
+    </div>
+</div>
 
 <form ng-submit="update()">
-    <table class="table">
-        <tr>
-            <th>Name:</th>
-            <td><input type="text" size="40" ng-model="user.name" required></td>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <td><input type="text" size="40" ng-model="user.email" required></td>
-        </tr>
-        <tr>
-            <th>Github:</th>
-            <td><input type="text" size="40" ng-model="user.github"></td>
-        </tr>
-        <tr>
-            <th>LinkedIn:</th>
-            <td><input type="text" size="40" ng-model="user.linkedin"></td>
-        </tr>
-    </table>
+<div class="row">
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Basic Information</div>
+        <table class="formbox formbox-basic">
+            <tr>
+                <th>Name</th>
+                <td><input type="text" size="40" ng-model="user.name" required></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><input type="text" size="40" ng-model="user.email" required></td>
+            </tr>
+            <tr>
+                <th>Github</th>
+                <td><input type="text" size="40" ng-model="user.github"></td>
+            </tr>
+            <tr>
+                <th>LinkedIn</th>
+                <td><input type="text" size="40" ng-model="user.linkedin"></td>
+            </tr>
+        </table>
+    </div>
 
-    <h3>New Candidate Survey</h3>
+    <div class="content-section container-fluid" ng-if="user">
+        <div class="dashbox-title">Job Search Status</div>
+        <div class="dashbox dashbox-content">
+            <div class="dashbox-icon" ng-click="updateSearchStage('Early')" ng-class="{'dashbox-icon-active':isSearchStage('Early')}">
+                <span class="dashbox-icon-dingbat">➀</span><br>Early
+            </div>
+            <div class="dashbox-icon" ng-click="updateSearchStage('Mid-Late')" ng-class="{'dashbox-icon-active':isSearchStage('Mid-Late')}">
+                <span class="dashbox-icon-dingbat">➁</span><br>Mid/Late
+            </div>
+            <div class="dashbox-icon" ng-click="updateSearchStage('Closing')" ng-class="{'dashbox-icon-active':isSearchStage('Closing')}">
+                <span class="dashbox-icon-dingbat">➂</span><br>Closing
+            </div>
+            <div class="dashbox-icon" ng-click="updateSearchStage('Accepted')" ng-class="{'dashbox-icon-active':isSearchStage('Accepted')}">
+                <span class="dashbox-icon-dingbat">➃</span><br>Accepted
+            </div>
+        </div>
+    </div>
 
-    <div ng-repeat="(category, types) in tags">
-        <h4>{{category}}<h4>
+    <div class="content-section container-fluid" ng-repeat="(category, types) in tags">
+        <div class="formbox-title">{{category}}</div>
+
         <div ng-show="types.hasOwnProperty('binary')">
-            <!-- <h5>Binary Questions</h5> -->
-            <table class="table">
+            <table class="formbox formbox-numerical">
                 <thead>
-                    <th></th>
+                    <th><div class="formbox-subtitle">{{ labels[category] }}</div></th>
                     <th>Yes</th>
                     <th>No</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="tag in types.binary | orderBy: 'tag.position' track by $index">
                         <td>{{tag.tag.label}}</td>
-                        <td><input type="radio" name="{{ category + 'binary' + $index}}" value="yes" ng-model="tag.value"></td>
-                        <td><input type="radio" name="{{ category + 'binary' + $index}}" value="no" ng-model="tag.value"></td>
+                        <td ng-click="tag.value = 'yes'"><input type="radio" id="radioBox" name="{{ category + 'binary' + $index}}" value="yes" ng-model="tag.value"><label></label></td>
+                        <td ng-click="tag.value = 'no'"><input type="radio" id="radioBox" name="{{ category + 'binary' + $index}}" value="no" ng-model="tag.value"><label></label></td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
         <div ng-show="types.hasOwnProperty('scale')">
-            <!-- <h5>Scale Questions</h5> -->
-            <table class="table">
+            <table class="formbox formbox-numerical">
                 <thead>
-                    <th></th>
+                    <th><div class="formbox-subtitle">{{ labels[category] }}</div></th>
                     <th>1</th>
                     <th>2</th>
                     <th>3</th>
@@ -70,25 +85,34 @@
                 <tbody>
                     <tr ng-repeat="tag in types.scale | orderBy: 'tag.position' track by $index">
                         <td>{{tag.tag.label}}</td>
-                        <td><input type="radio" name="{{ category + 'scale' + $index}}" value="1" ng-model="tag.value"></td>
-                        <td><input type="radio" name="{{ category + 'scale' + $index}}" value="2" ng-model="tag.value"></td>
-                        <td><input type="radio" name="{{ category + 'scale' + $index}}" value="3" ng-model="tag.value"></td>
-                        <td><input type="radio" name="{{ category + 'scale' + $index}}" value="4" ng-model="tag.value"></td>
+                        <td ng-click="tag.value = 1"><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="1" ng-model="tag.value"><label></label></td>
+                        <td ng-click="tag.value = 2"><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="2" ng-model="tag.value"><label></label></td>
+                        <td ng-click="tag.value = 3"><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="3" ng-model="tag.value"><label></label></td>
+                        <td ng-click="tag.value = 4"><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="4" ng-model="tag.value"><label></label></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-         <div ng-show="types.hasOwnProperty('text')">
-            <!-- <h5>Text Questions</h5> -->
-            <table class="table">
+
+        <div ng-show="types.hasOwnProperty('text')">
+            <table class="formbox formbox-freetext">
                 <tr ng-repeat="tag in types.text | orderBy: 'tag.position' track by $index">
-                <td>{{tag.tag.label}}</td>
-                <td><textarea cols="50" rows="2" name="{{ category + 'text' + $index}}" ng-model="tag.value"></textarea></td>
+                    <td>{{tag.tag.label}}</td>
+                    <td><textarea name="{{ category + 'text' + $index}}" ng-model="tag.value"></textarea></td>
+                </tr>
             </table>
-            </tr>
         </div>
+
     </div>
 
-    <input type="submit">
+    <div class="content-section container-fluid">
+        <div class="formbox-footer">
+            <span class="content-action">
+                <span class="glyphicon glyphicon-ok"></span>
+                <span ng-click="update()">{{submitText}}</span>
+            </span>
+        </div>
+    </div>
+</div>
 </form>
 

@@ -1,0 +1,60 @@
+.formbox, .formbox-title {
+    color: #606060;
+    box-shadow: 1px 0px 2px #E4E4E4;
+    width: 100%;
+}
+.formbox-title, .formbox-footer {
+    font-weight: 500; font-size: 1.25rem;
+    text-transform: uppercase;
+    background-color: #E4E4E4;
+    width: 100%;
+}
+.formbox-title { padding: 5px 12px 5px 12px; text-align: right; }
+.formbox-subtitle { font-weight: 400; text-align: left; }
+.formbox-footer { padding: 10px 12px 10px 12px; text-align: center; margin-bottom: 20px;}
+.formbox {
+    background-color: #FEFEFE;
+    padding: 5px;
+    
+    vertical-align: top;
+    font-size: 1.25rem; font-weight: 200;
+}
+.formbox td, .formbox th { 
+    padding-top: 4px; padding-bottom: 4px;
+    padding-left: 7px; padding-right: 7px;
+    border-bottom: 2px solid #F4F4F4; }
+.formbox th { font-weight: 400; text-align: center; }
+.formbox input, .formbox textarea { border: 1px solid #CCCCCC; border-radius: 2px; padding: 3px;}
+.formbox input:focus, .formbox textarea:focus { border: 1px solid #5598c1; outline: none; background-color: #F4F4F4; }
+.formbox tr:last-child td, .formbox tr:last-child th { border-bottom: 0px; }
+
+.formbox-basic th { width: 40%; text-align: right;} 
+.formbox-basic td { width: 60%; padding-top: 7px; padding-bottom: 7px; }
+
+.formbox-numerical th, .formbox-numerical td { width: 7%; text-align: center; }
+.formbox-numerical th:first-child, .formbox-numerical td:first-child { width: 72%; text-align: left;}
+.formbox-binary th, .formbox-binary td { width: 12%; }
+.formbox-binary th:first-child, .formbox-binary td:first-child { width: 76%; }
+.formbox-numerical td:first-child, .formbox-binary td:first-child { 
+    padding-right: 5%;
+    text-align: left;
+    font-weight: 300;
+}
+
+.formbox-freetext th, .formbox-freetext td { width: 50%; }
+.formbox-freetext th:first-child, .formbox-freetext td:first-child { font-weight: 300; }
+.formbox-freetext input, .formbox-freetext textarea { width: 100%; resize: vertical; margin-bottom: -5px;}
+
+.formbox input[type="radio"] {
+    content: url('../images/radio_unchecked.png') no-repeat;
+    display: inline-block;
+    width: 18px; height: 18px;
+}
+.formbox input[type="radio"]:checked {
+    content: url('../images/radio_checked.png') no-repeat;
+    width: 18px; height: 18px;
+}
+.formbox input[type="radio"]:hover, .formbox input[type="submit"] { cursor: pointer; }
+.formbox input[type="submit"] {
+    content: url('../images/submit.png');
+}

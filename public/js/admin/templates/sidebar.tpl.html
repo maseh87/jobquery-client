@@ -1,9 +1,41 @@
 <div><img class="sidebar-logo" src="/assets/images/logo.png"></div>
-<!-- <div class="sidebar-item" ui-sref-active="sidebar-active"><a ui-sref="admin.dashboard">Dashboard</a></div> -->
-<!-- <div class="sidebar-item" ui-sref-active="sidebar-active"><a ui-sref="admin.account">Profile</a></div> -->
-<div class="sidebar-item" ui-sref-active="sidebar-active"><a ui-sref="admin.opportunities.all">Opportunities</a></div>
-<div class="sidebar-item" ui-sref-active="sidebar-active"><a ui-sref="admin.companies.all">Companies</a></div>
-<div class="sidebar-item" ui-sref-active="sidebar-active"><a ui-sref="admin.candidates.new">Invite Candidates</a></div>
-<!-- <div class="sidebar-item" ui-sref-active="sidebar-active"><a ui-sref="admin.matches.all">Matches</a></div> -->
-<div class="sidebar-item" ui-sref-active="sidebar-active"><a ui-sref="admin.tags.all">Tags</a></div>
-<div class="sidebar-logout" ui-sref-active="sidebar-active"><a ui-sref="login">Logout</a></div>
+
+<!-- <div id="sidebar-dashboard" class="sidebar-item">
+    <a ui-sref="admin.dashboard">Dashboard</a>
+    <span class="sidebar-glyphicon glyphicon glyphicon-dashboard"></span>
+</div> -->
+
+<!-- <div id="sidebar-profile" class="sidebar-item">
+    <a ui-sref="admin.account">Profile</a>
+    <span class="sidebar-glyphicon glyphicon glyphicon-cog"></span>
+</div> -->
+
+<div id="sidebar-opportunities" class="sidebar-item">
+    <a ui-sref="admin.opportunities.all">Opportunities</a>
+    <span class="sidebar-glyphicon glyphicon glyphicon-briefcase"></span>
+</div>
+
+<div id="sidebar-companies" class="sidebar-item">
+    <a ui-sref="admin.companies.all">Companies</a>
+    <span class="sidebar-glyphicon glyphicon glyphicon-tower"></span>
+</div>
+
+<div id="sidebar-candidates" class="sidebar-item">
+    <a ui-sref="admin.candidates.new">Invite Candidates</a>
+    <span class="sidebar-glyphicon glyphicon glyphicon-user"></span>
+</div>
+
+<div id="sidebar-matches" class="sidebar-item">
+    <a ui-sref="admin.matches.all">Matches</a>
+    <span class="sidebar-glyphicon glyphicon glyphicon-th"></span>
+</div>
+
+<div id="sidebar-tags" class="sidebar-item">
+    <a ui-sref="admin.tags.all">Tags</a>
+    <span class="sidebar-glyphicon glyphicon glyphicon-tags"></span>
+</div>
+
+<div class="sidebar-logout">
+    <a ui-sref="login">Logout</a>
+    <span class="sidebar-glyphicon glyphicon glyphicon-off"></span>
+</div>

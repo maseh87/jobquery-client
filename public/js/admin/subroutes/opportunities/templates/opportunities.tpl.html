@@ -1,35 +1,41 @@
-<div ui-view>
-    <h3 class="body-heading">Opportunities</h3><br>
-    <h4 class="body-tagline">View, create or edit job opportunities</h4>
+<div ui-view ng-init="sorter = 'company'">
+    <div class="content-header">
+        <div class="content-header-block text-left">
+            <span class="content-action">
+                <span class="glyphicon glyphicon-plus"></span>
+                <span ui-sref="admin.opportunities.new">Create New Opportunity</span>
+            </span>
+        </div>
+        <div class="content-header-block">
+            <div class="content-title">Opportunities</div>
+            <div class="content-tagline">View, create or edit job opportunities</div>
+        </div>
+    </div>
 
-    <div class="section container-fluid" ng-repeat="(groupName, group) in groups">
+    <div class="content-section container-fluid" ng-repeat="(groupName, group) in groups">
         <div class="row">
-            <span><a ui-sref="admin.opportunities.new">+ New Opportunity</a></span>
-            <span>{{ groupName }}</span>
-        </div>
-        <div class="row">
-            <table class="table">
-            <thead>
-                <tr>
-                    <th></th><!-- empty table header -->
-                    <th>Company</th>
-                    <th>Title</th>
-                    <th>Declared Candidates</th>
-                    <th>Interest 3+</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="(name, opportunity) in group">
-                    <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail Link</a></td>
-                    <td>{{ opportunity.company }}</td>
-                    <td>{{ opportunity.title }}</td>
-                    <td>{{ opportunity.declared }}</td>
-                    <td>{{ opportunity.interested }}</td>
-                    <td>{{ opportunity.description }}</td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
+        <div class="tablebox-title">{{ groupName }}</div>
+        <table class="tablebox">
+        <thead>
+            <tr class="tablebox-header">
+                <th width="20%" class="pointer" ng-click="sorter = 'company'; reverse = !reverse">Company</th>
+                <th width="20%" class="pointer" ng-click="sorter = 'title'; reverse = !reverse">Title</th>
+                <th width="7%" class="pointer" ng-click="sorter = 'approved'; reverse = !reverse">Public?</th>
+                <th width="9%" class="pointer" ng-click="sorter = 'declared'; reverse = !reverse">Declared</th>
+                <th width="9%" class="pointer" ng-click="sorter = 'interested'; reverse = !reverse">Interest 3+</th>
+                <th width="34%" class="pointer" ng-click="sorter = 'internalNotes'; reverse = !reverse">Internal Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tablebox-content" ng-repeat="opportunity in group | orderBy:sorter:reverse" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
+                <td>{{ opportunity.company }}</td>
+                <td>{{ opportunity.title }}</td>
+                <td><input type="checkbox" ng-model="opportunity.approved" ng-disabled="true"></td>
+                <td>{{ opportunity.declared }}</td>
+                <td>{{ opportunity.interested }}</td>
+                <td>{{ opportunity.internalNotes }}</td>
+            </tr>
+        </tbody>
+        </table>
     </div>
 </div>

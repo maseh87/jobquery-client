@@ -1,0 +1,42 @@
+.dashbox {
+    background-color: #FEFEFE;
+    padding: 5px;
+    
+    vertical-align: top;
+    margin: auto auto;
+    font-size: 1.25rem; font-weight: 200;
+    text-align: center;
+
+    box-shadow: 1px 1px 1px #E0E0E0;
+}
+
+.dashbox-title {
+    color: #606060; background-color: #E4E4E4;
+    box-shadow: 1px 0px 2px #E4E4E4;
+
+    width: 100%; padding: 5px 12px 5px 12px;
+
+    font-weight: 400; font-size: 1.25rem;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.dashbox-icon {
+    display: inline-block;
+
+    margin: 7px;
+    height: 96px; width: 96px;
+
+    border: 1px solid #CCCCCC;
+    border-radius: 2px;
+    color: #CCCCCC;
+
+    text-transform: uppercase;
+    text-align: center;
+}
+.dashbox-icon:hover { color: #c9e3ef; cursor: pointer;}
+.dashbox-icon-active { background-color: #5598c1; color: #F0F0F0; border: 1px solid #F0F0F0;}
+
+.dashbox-icon-dingbat {
+    font-size: 48px;
+}

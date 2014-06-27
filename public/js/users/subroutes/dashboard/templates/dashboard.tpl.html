@@ -1,46 +1,75 @@
-<h1 class="body-heading">Dashboard</h1>
+<h1 class="body-heading">Opportunity Dossier</h1>
+<h2 ng-show="matches.length">{{matches.length}} Opportunities Left to Fill Out</h2>
+<h2 ng-show="matches.length === 0">No more opportunities left to fill out</h2>
 
-<div class="section container-fluid">
-    <div class="row">
-        <span>{{ opportunities[0].company.name }}: {{ opportunities[0].jobTitle }}</span>
+<div ng-show="opportunity && matches.length">
+    <div class="section container-fluid">
+        <div class="row">
+            <span>{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</span>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">{{ opportunity.description }}</div>
+            <div class="col-xs-6">
+                <table class="table">
+                    <tr>
+                        <td>Company:</td>
+                        <td>{{opportunity.company.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Title:</td>
+                        <td>{{opportunity.jobTitle}}</td>
+                    </tr>
+                    <tr>
+                        <td>URL:</td>
+                        <td>{{opportunity.links[0].url}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6">{{ opportunities[0].description }}</div>
-        <div class="col-xs-6">
-            <table class="table">
-                <tr>
-                    <td>Company:</td>
-                    <td>{{opportunities[0].company.name}}</td>
-                </tr>
-                <tr>
-                    <td>Title:</td>
-                    <td>{{opportunities[0].jobTitle}}</td>
-                </tr>
-                <tr>
-                    <td>URL:</td>
-                    <td>{{opportunities[0].links[0]}}</td>
-                </tr>
-            </table>
+
+    <div class="col-md-6">
+        <form ng-submit="submit()">
+            <h2>Interest</h2>
+            <input type="radio" id="radio1" ng-value="1" name="interest" ng-model="match.userInterest" required>
+            <label for="radio1" type="radio" id="radio1">1</label>
+            <input type="radio" id="radio2" ng-value="2" name="interest" ng-model="match.userInterest" required>
+            <label for="radio2" type="radio" id="radio2">2</label>
+            <input type="radio" id="radio3" ng-value="3" name="interest" ng-model="match.userInterest" required>
+            <label for="radio3" type="radio" id="radio3">3</label>
+            <input type="radio" id="radio4" ng-value="4" name="interest" ng-model="match.userInterest" required>
+            <label for="radio4" type="radio" id="radio4">4</label>
+
+            <div ng-show="questions">
+                <h2>Questions</h2>
+                <div ng-repeat="question in questions | filter:{active:true}">
+                    <h3>{{question.question}}</h3>
+                    <input ng-model="answers[question.index].answer" required>
+                </div>
+            </div>
+
+            <input type="submit" value="{{submitText}}" ng-disabled="pendingRequests === 0">
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h1>Guidance ({{ score + '%' }} Match)</h1>
+        <div ng-repeat="tags in processedTags">
+            <h1>{{$first ? 'Must Have' : 'Nice to Have'}}</h1>
+            <div ng-repeat="tagType in tags">
+                <table class="table table-condensed" ng-show="tagType">
+                    <th></th>
+                    <th>Your Value</th>
+                    <th>Their Value</th>
+                    <th>Comparison</th>
+                    <tr ng-repeat="tag in tagType">
+                        <td>{{tag.name}}</td>
+                        <td>{{tag.userValue}}</td>
+                        <td>{{tag.value}}</td>
+                        <td><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, tag.value, tag.userValue)[1]}"></span></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>
-
-<form ng-submit="submit()">
-    <h2>Interest</h2>
-    <input type="radio" id="radio1" value="1" name="interest" ng-model="opportunities[0].match.interest">
-    <label for="radio1" type="radio" id="radio1">1</label>
-    <input type="radio" id="radio2" value="2" name="interest" ng-model="opportunities[0].match.interest">
-    <label for="radio2" type="radio" id="radio2">2</label>
-    <input type="radio" id="radio3" value="3" name="interest" ng-model="opportunities[0].match.interest">
-    <label for="radio3" type="radio" id="radio3">3</label>
-    <input type="radio" id="radio4" value="4" name="interest" ng-model="opportunities[0].match.interest">
-    <label for="radio4" type="radio" id="radio4">4</label>
-
-    <h2>Questions</h2>
-    <div ng-repeat="question in opportunities[0].questions track by $index">
-        <p>{{question.text}}</p>
-        <textarea rows="3" cols="80" ng-model="opportunities[0].match.answers[$index]"></textarea>
-    </div>
-
-    <input type="submit">
-</form>

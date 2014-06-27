@@ -1,92 +1,191 @@
-<h3 class="body-heading">New Opportunity</h3><br>
-<h4 class="body-tagline">Create a new opportunity</h4>
-
-<div class="section container-fluid">
-    <div class="row">
-        <span ng-click="save()">Save New Opportunity</span>
-        <span>Basic Information</span>
+<div class="content-header">
+    <div class="content-header-block"></div>
+    <div class="content-header-block">
+        <div class="content-title">Opportunities</div>
+        <div class="content-tagline">Create a new opportunity</div>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            Enter a brief description for the opportunity:
-            <input type="text" ng-readonly="readOnly" ng-model="basic.description">
+</div>
+
+
+
+<form name="oppForm" ng-submit="save()">
+    <div class="formbox content-section container-fluid">
+    <input type="submit" value="✚  Create New Opportunity"></input>
+    <br />
+    <br />
+
+    <div class="content-section container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table table-condensed">
+                <tr>
+                    <td>Company:</td>
+                    <td ng-show="!creatingCompany">
+                        <select ng-model="basic.company" ng-options="company.name for company in companies | orderBy:'name'"></select> or
+                        <button type="button" ng-click="creatingCompany = true">Add New Company</button>
+                    </td>
+                    <td ng-show="creatingCompany">
+                        <input ng-model="newCompany" placeholder="Enter Company Name">
+                        <button type="button" ng-click="addNewCompany(newCompany)">Save</button>
+                        <button type="button" ng-click="creatingCompany = false">Cancel</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Title:</td>
+                    <td><input size="50" ng-readonly="readOnly" type="text" ng-model="basic.title" required></td>
+                </tr>
+                <tr>
+                <tr>
+                    <td>Description:</td>
+                    <td><textarea ng-model="basic.description" cols="50" rows="3" ng-disabled="readOnly" spellcheck required></textarea></td>
+                </tr>
+                <tr>
+                    <td>Active:</td>
+                    <td><input type="checkbox" ng-model="basic.active" ng-disabled="readOnly"></td>
+                </tr>
+                <!-- New opportunities must be approved, so do not even provide this option -->
+<!--                 <tr>
+                    <td>Public:</td>
+                    <td><input type="checkbox" ng-model="basic.approved" ng-disabled="readOnly"></td>
+                </tr> -->
+                  <tr>
+                    <td>Group:</td>
+                    <td ng-show="!creatingCategory">
+                        <select ng-model="basic.category" ng-options="category.name for category in categories" ng-disabled="readOnly"></select> or
+                        <button type="button" ng-click="creatingCategory = true">Add New Group</button>
+                    </td>
+                    <td ng-show="creatingCategory">
+                        <input ng-model="newCategory" placeholder="Enter Group Name">
+                        <button type="button" ng-click="addNewCategory(newCategory)">Save</button>
+                        <button type="button" ng-click="creatingCategory = false">Cancel</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Links:</td>
+                    <td>
+                        <div ng-repeat="link in basic.links">
+                            <input size="25" type="text" ng-model="link.title" ng-readonly="readOnly" placeholder="Link title">
+                            <input size="50" type="url" ng-model="link.url" ng-readonly="readOnly" placeholder="URL">
+                            <a ng-href="{{link.url}}" target="_blank"><span class="glyphicon glyphicon-new-window"></span><a/>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, basic.links)" value="Remove"></input>
+                        </div>
+                        <input type="button" class="btn btn-default btn-xs" ng-show="!readOnly" ng-click="addTo(basic.links, {title: '', url: ''})" value="+ Add New"></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Notes:</td>
+                    <td><textarea cols="50" rows="3" ng-readonly="readOnly" ng-model="basic.notes"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Internal Notes:</td>
+                    <td><textarea cols="50" rows="3" ng-readonly="readOnly" ng-model="basic.internal"></textarea></td>
+                </tr>
+                </table>
+            </div>
         </div>
-        <div class="col-xs-6">
-            <table class="table">
-            <tr>
-                <td>Company:</td>
-                <td><select ng-model="basic.company" ng-options="company.name for company in companies"></select></td>
-            </tr>
-            <tr>
-                <td>Title:</td>
-                <td><input type="text" ng-readonly="readOnly" ng-model="basic.title"></td>
-            </tr>
-            <tr>
-                <td>Active:</td>
-                <td><input type="text" ng-readonly="readOnly" ng-model="basic.active"></td>
-            </tr>
-            <tr>
-                <td>Group:</td>
-                <td><select ng-model="basic.category" ng-options="category.name for category in categories"></select></td>
-            </tr>
-            <tr>
-                <td>Links:</td>
-                <td>
-                    <div ng-repeat="link in basic.links">
-                        <input type="text" ng-readonly="readOnly" ng-model="link.title" placeholder="Add new title here">
-                        <input type="text" ng-readonly="readOnly" ng-model="link.url" placeholder="Add new link here">
-                        <span ng-show="!readOnly" ng-click="removeFrom(basic.links, link, 'url')">Remove</span>
-                    </div>
-                    <span ng-show="!readOnly" ng-click="addTo(basic.links, {title: 'title', url: ''})">+ Add New</span>
-                </td>
-            </tr>
-            <tr>
-                <td>Internal Notes:</td>
-                <td><input type="text" ng-readonly="readOnly" ng-model="basic.internal"></td>
-            </tr>
+    </div>
+    <input class="btn btn-success" type="submit" value="✚  Create New Opportunity"></input>
+    <br />
+    <br />
+
+    <h4>Guidance Parameters</h4>
+    <div class="section container-fluid">
+        <div class="row">
+            <div class="col-xs-6">
+                <table class="table">
+                    <div>Tags Associated</div>
+                    <tr>
+                        <td>
+                            <div ng-repeat="tagView in guidance.tags"><select ng-disabled="readOnly" ng-model="tagView.importance" ng-change="updateGuidance()">
+                                    <option value="must" selected>Must Have</option>
+                                    <option value="nice">Nice to Have</option>
+                                </select>
+                                <select ng-disabled="readOnly" ng-model="tagView.data._id" ng-options="tag._id as tag.name group by tag.category.name for tag in tags | orderBy: 'name'" ng-change="showCorrectValues(tagView, tagView.data._id); updateGuidance()"></select>
+                                <select ng-disabled="readOnly" ng-show="tagView.data.type === 'scale'" ng-model="tagView.value" ng-change="updateGuidance()">
+                                    <option value="3">3 (Agree)</option>
+                                    <option value="4">4 (Agree Strongly)</option>
+                                </select>
+                                <select ng-disabled="readOnly" ng-show="tagView.data.type === 'binary'" ng-model="tagView.value" ng-change="updateGuidance()">
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                                <select ng-disabled="readOnly" ng-show="tagView.data.type === 'text'" ng-model="tagView.value">
+                                    <option value="text">Free Text</option>
+                                </select>
+                                <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.tags); updateGuidance()" value="Remove"></input>
+                            </div>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.tags, {value: 1, importance: 'must'})" value="+ Add New"></input>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-6">
+                <table class="table table-condensed">
+                    <div>Extra Questions</div>
+                    <tr>
+                        <td>
+                            <div ng-repeat="question in guidance.questions">
+                                <textarea cols="50" rows="2" ng-readonly="readOnly" ng-model="question.question"></textarea>
+                                <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.questions)" value="Remove"></input>
+                            </div>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.questions, {question: ''})" value="+ Add New"></input>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="section container-fluid">
+        <div class="row">
+            <span>Declared Candidates</span>
+            <table class="table table-condensed">
+            <tbody>
+            <tr><td class="glyphicon glyphicon-thumbs-up"> (Must Have) Meets or Exceeds</td></tr>
+            <tr><td class="glyphicon glyphicon-remove"> (Must Have) Does not Meet</td></tr>
+            <tr><td class="glyphicon glyphicon-plus"> (Nice to Have) Meets or Exceeds</td></tr>
+            </tbody>
             </table>
         </div>
-    </div>
-</div>
-
-<div class="section container-fluid">
-    <div class="row">
-        <span>Guidance Parameters</span>
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <table class="table">
+        <div class="row">
+            <table class="table table-striped table-condensed">
+            <thead>
+                <th></th><!-- Empty table header-->
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>% Match</th>
+                <th ng-repeat="tag in filteredTags">{{ tag.data.name }}</th>
+            </thead>
+            <tbody>
                 <tr>
-                    <td>Extra Questions</td>
-                    <td>
-                        <div ng-repeat="question in guidance.questions">
-                            <input ng-readonly="readOnly" ng-model="question.question">
-                            <span ng-show="!readOnly" ng-click="removeFrom(guidance.questions, question, 'question')">Remove</span>
-                        </div>
-                        <span ng-show="!readOnly" ng-click="addTo(guidance.questions, {question: ''})">+ Add New</span>
+                    <th></th><!-- Empty table header-->
+                    <th></th><!-- Empty table header-->
+                    <th># Meeting or Exceeding
+                    </th>
+                    <th></th><!-- Empty table header-->
+                    <th ng-repeat="tag in filteredTags">
+                        <p>{{ filteredStats[tag.data._id].type === 'text' ? '' : filteredStats[tag.data._id].count}}</p>
+                    </th>
+                </tr>
+                <tr ng-repeat-start="user in declared | orderBy: ['-score', 'name']">
+                    <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.points[1] === 0 ? '-' : user.score + '%' }}</td>
+                    <td ng-repeat="tag in filteredTags">
+                        <span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, user.tags[tag.data._id])" ng-style="{color: colorIcons(calculateFit(tag.importance, tag.value, user.tags[tag.data._id]))}"></span>
                     </td>
                 </tr>
-            </table>            
-        </div>
-        <div class="col-xs-6">
-            <table class="table">
-                <tr>
-                    <td>Tags Associated</td>
-                    <td>
-                        <div ng-repeat="tagView in guidance.tags">
-                            <select ng-model="tagView.data" ng-options="tag.name for tag in tags"></select>
-                            <input ng-readonly="readOnly" ng-model="tagView.value">
-                            <select ng-model="tagView.importance">
-                                <option value="must" selected>Must have</option>
-                                <option value="nice">Nice to have</option>
-                                <option value="unimportant">Unimportant</option>
-                            </select>
-                            <span ng-show="!readOnly" ng-click="removeFrom(guidance.tags, tagView, 'name')">Remove</span>
-                        </div>
-                        <span ng-show="!readOnly" ng-click="addTo(guidance.tags, {name: '', value: 0})">+ Add New</span>
-                    </td>
+                <!-- repeat everything 10th row -->
+                <tr ng-repeat-end ng-if="$index > 0 && $index % 10 === 0">
+                    <th></th><!-- Empty table header-->
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>% Match</th>
+                    <th ng-repeat="tag in filteredTags">{{ tag.data.name }}</th>
                 </tr>
-            </table>  
+            </tbody>
         </div>
     </div>
-</div>
+    </div>
+</form>

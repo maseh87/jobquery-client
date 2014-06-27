@@ -11,18 +11,28 @@
     <link rel="stylesheet" href="assets/stylesheets/main.css">
     <link rel="stylesheet" href="assets/stylesheets/login.css">
     <link rel="stylesheet" href="assets/stylesheets/widgets.css">
-    <link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300' rel='stylesheet' type='text/css'>
-
+    <link rel="stylesheet" href="assets/stylesheets/tablebox.css">
+    <link rel="stylesheet" href="assets/stylesheets/formbox.css">
+    <link rel="stylesheet" href="assets/stylesheets/gridbox.css">
+    <link rel="stylesheet" href="assets/stylesheets/dashbox.css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,500,600' rel='stylesheet' type='text/css'>
     <!-- JS -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- build:remove -->
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-mocks/angular-mocks.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/angular-local-storage/angular-local-storage.min.js"></script>
-    <script src="node_modules/faker/faker.js"></script>
+    <!-- /build -->
 
+
+    <!--build:js lib/jobquery.master.min.js-->
+    <script src="js/appdev.js"></script>
+    <!--/build -->
+
+    <!-- build:remove -->
+    <script src="node_modules/faker/faker.js"></script>
     <!-- ANGULAR CUSTOM -->
     <!-- Mocks -->
     <script src="mocks/companies.js"></script>
@@ -37,11 +47,13 @@
     <script src="mocks/crosslink.js"></script>
 
     <!-- Top Level -->
-    <script src="js/app.js"></script>
-    <script src="js/appDev.js"></script>
     <script src="js/core/state.js"></script>
     <script src="js/core/controllers/AppCtrl.js"></script>
     <script src="js/core/controllers/LoginCtrl.js"></script>
+    <script src="js/core/controllers/ResetCtrl.js"></script>
+    <script src="js/core/controllers/SendCtrl.js"></script>
+
+    <script src="js/core/services/AuthService.js"></script>
 
     <!--Models -->
     <script src="js/core/services/AuthInterceptor.js"></script>
@@ -65,6 +77,8 @@
     <script src="js/users/state.js"></script>
     <script src="js/users/controllers/UsersCtrl.js"></script>
     <script src="js/users/controllers/UsersSidebarCtrl.js"></script>
+
+    <script src="js/users/services/GuidanceService.js"></script>
 
     <!-- users.dashboard -->
     <script src="js/users/subroutes/dashboard/state.js"></script>
@@ -124,6 +138,8 @@
     <!-- admin.matches -->
     <script src="js/admin/subroutes/matches/state.js"></script>
     <script src="js/admin/subroutes/matches/controllers/AdminMatchesCtrl.js"></script>
+    <script src="js/admin/subroutes/matches/controllers/AdminMatchesScheduleCtrl.js"></script>
+    <script src="js/admin/subroutes/matches/services/SchedulerServ.js"></script>
 
     <!-- admin.messages -->
     <script src="js/admin/subroutes/messages/state.js"></script>
@@ -152,6 +168,7 @@
     <!-- admin.tags -->
     <script src="js/admin/subroutes/tags/state.js"></script>
     <script src="js/admin/subroutes/tags/controllers/AdminTagsCtrl.js"></script>
+    <!-- /build -->
 
 </head>
 <body ng-app="jobQuery" ng-controller="AppCtrl">

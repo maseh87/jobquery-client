@@ -1,32 +1,35 @@
 <div ui-view>
-    <h3 class="body-heading">Opportunities</h3><br>
-    <h4 class="body-tagline">View Opportunities</h4>
+    <div class="content-header">
+        <div class="content-header-block text-left">
+            <!-- buttons -->
+        </span>
+        </div>
+        <div class="content-header-block">
+            <div class="content-title">Opportunities</div>
+            <div class="content-tagline">View job opportunities</div>
+        </div>
+    </div>
 
-    <div class="section container-fluid" ng-repeat="(groupName, group) in groups">
+    <div class="content-section container-fluid" ng-repeat="category in categories">
         <div class="row">
-            <span>{{ groupName }}</span>
-        </div>
-        <div class="row">
-            <table class="table">
-            <thead>
-                <tr>
-                    <th></th><!-- empty table header -->
-                    <th>Company</th>
-                    <th>Title</th>
-                    <th>Location</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="(name, opportunity) in group">
-                    <td><a ui-sref="admin.opportunities.detail({_id: opportunity._id})">Detail</a></td>
-                    <td>{{ opportunity.company }}</td>
-                    <td>{{ opportunity.title }}</td>
-                    <td>{{ opportunity.location }}</td>
-                    <td>{{ opportunity.declared }}</td>
-                    <td>{{ opportunity.interested }}</td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
+        <div class="tablebox-title">{{ category.info.name }}</div>
+        <table class="tablebox">
+            <tr class="tablebox-content" ng-repeat="opportunity in category.opportunities | orderBy: 'company.name'" ui-sref="users.opportunities.detail({_id: opportunity._id})">
+                <td width="50%">
+                    <div class="tablebox-leader">{{ opportunity.company.name }}</div>
+                    <div>{{ opportunity.jobTitle }}</div>
+                </td>
+                <td width="30%" class="tablebox-tag" style="vertical-align: middle">
+                    <div class="graph-box">
+                        <div class="graph-bar" style="width: {{ getGuidance(opportunity, user)[1] }}%">&nbsp;</div>
+                    </div>
+                    <div class="graph-tag">{{ getGuidance(opportunity, user)[1] }}% match</div>
+                </td>
+                <td width="20%" class="tablebox-tag" style="vertical-align: bottom">
+                    <span>your interest: </span>
+                    <span class="tablebox-important"> {{ opportunity.interest || 'n/a'}}</span>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>

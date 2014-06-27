@@ -7,8 +7,10 @@ app.config(['$stateProvider', function ($stateProvider) {
       resolve: {
         redirect: ['$location', 'localStorageService', function ($location, localStorageService) {
           var isAdmin = localStorageService.get('isAdmin');
-          if(!isAdmin){
+          if(isAdmin === 'false'){
             $location.path('/login');
+          } else {
+            if($location.path() === '/admin') $location.path('/admin/opportunities');
           }
         }]
       },

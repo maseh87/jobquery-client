@@ -19,6 +19,9 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
             category.tags = [];
             categories[category._id] = category;
           }
+          if(category.name.match(/New Category/)){
+            category.name = 'New Category';
+          }
         });
         categories.uncategorized = {
           name: 'uncategorized',
@@ -41,7 +44,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
           }
         });
         delete categories.uncategorized;
-        //Step 5. Resolve Descrepancies
+        //Step 5. Resolve Discrepancies
         var promises = [];
         var sortPosition = function (a, b) {
           return a.position - b.position;
@@ -125,7 +128,7 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
   };
 
   $scope.save = function (tag, index, category) {
-    if (typeof tag.category !== 'string' && tag.newCatId !== tag.category._id) {
+    if (typeof tag.category !== 'string' && tag.newCatId && tag.newCatId !== tag.category._id) {
       swapCategories(tag, index, category).then(function () {
         return $scope.save(tag, index);
       });
@@ -147,7 +150,8 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
   $scope.add = function (category) {
     category.tags.push({
       category: category._id,
-      position: category.tags.length
+      position: category.tags.length,
+      isPublic: false
     });
   };
 
@@ -202,21 +206,26 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
 
   $scope.addCategory = function () {
     var newCategory = {
-      name: 'New Category',
+      name: 'New Category ' + Math.floor(Math.random() * 1000000),
       type: 'Tag'
     };
+    $scope.pendingRequests++;
     Category.create(newCategory).then(function (category) {
+      $scope.pendingRequests--;
       newCategory._id = category._id;
       $scope.categories[category._id] = {
         _id: newCategory._id,
         type: 'Tag',
-        name: 'New Category'
+        name: 'New Category',
+        tags: []
       };
     });
   };
 
   $scope.saveCategory = function (category) {
+    $scope.pendingRequests++;
     Category.update(category).then(function (category) {
+      $scope.pendingRequests--;
       console.log('category updated');
     });
   };
@@ -225,7 +234,9 @@ app.controller('AdminTagsCtrl', ['$scope', 'Tag', 'Category', '$q',
     var date = new Date();
     category.active = false;
     category.name = category.name + ' ' + date;
+    $scope.pendingRequests++;
     Category.update(category).then(function(category){
+      $scope.pendingRequests--;
       delete $scope.categories[category._id];
     });
   };

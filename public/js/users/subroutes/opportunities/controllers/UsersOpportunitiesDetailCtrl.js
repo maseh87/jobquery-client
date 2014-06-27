@@ -1,32 +1,76 @@
-app.controller('UsersOpportunitiesDetailCtrl', ['$scope', 'Opportunity', 'Match',
-  function($scope, Opportunity, Match) {
+app.controller('UsersOpportunitiesDetailCtrl',
+  ['$scope', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
+  function($scope, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
-  Opportunity.getAll().then(function (opportunities) {
-    $scope.opportunities = opportunities;
-  });
+  $scope.submitText = '✔  Submit Answers';
+  $scope.pendingRequests = 0;
 
-  Match.getAll().then(function (matches) {
-    $scope.matches = matches;
-  });
+  var addIndexAsProperty = function(arrayOfObjects){
+    return arrayOfObjects.map(function(item, index){
+      item.index = index;
+      return item;
+    });
+  };
 
-  $scope.$watch('matches', function (matches) {
-    var interest = {};
-    if (!matches) return null;
-    if (!$scope.opportunities) return null;
+  $scope.updateInterest = function (value) {
+    if (!$scope.match) { return undefined; }
 
-    matches.data.forEach(function (match) {
-      if (!interest[match.oppId]) { interest[match.oppId] = 0; }
-      if (match.userInterest >= 3) { interest[match.oppId]++; }
+    $scope.match.answers = $scope.match.answers.map(function(answerObj){
+      if(answerObj.answer === '') answerObj.answer = ' ';
+      return answerObj;
     });
 
-    $scope.opportunities.forEach(function (opportunity) {
-      opportunity.userInterest = interest[opportunity._id];
-    });
+    $scope.match.userInterest = value;
+    UsersOpportunity.update($scope.match).then(function () { });      
+  };
+  
+  $scope.hasInterest = function (value) {
+    if (!$scope.match) { return undefined; }
+    return $scope.match.userInterest === value;
+  };
+
+  UsersOpportunity.get($stateParams._id).then(function(data){
+    var match = data.match;
+    var opportunity = match.opportunity;
+    var questions = opportunity.questions;
+    var user = data.user;
+
+    var numQuestions = questions.length;
+    var numAnswers = match.answers.length;
+    var difference = numQuestions - numAnswers;
+
+    if(questions.length !== match.answers.length){
+      for(var i = 0; i < difference; i++){
+        match.answers.push({
+          answer: ' '
+        });
+      }
+    }
+
+    $scope.match = match;
+    $scope.answers = $scope.match.answers;
+    $scope.questions = addIndexAsProperty(questions);
+    $scope.opportunity = opportunity;
+    var guidanceResult = GuidanceService.processTags(opportunity, user);
+    var processedTags = guidanceResult[0];
+    $scope.score = guidanceResult[1];
+    $scope.processedTags = [processedTags.must, processedTags.nice];
+    $scope.calculateFit = generateGlyphs.calculateFit;
   });
 
-  $scope.groups = {};
-  $scope.modelToView = function () {
+  $scope.submit = function() {
+    $scope.submitText = 'Submitting...';
+    $scope.pendingRequests++;
 
+    $scope.match.answers = $scope.match.answers.map(function(object){
+      if(object.answer === '') object.answer = ' ';
+      return object;
+    });
+
+    UsersOpportunity.update($scope.match).then(function(){
+      $scope.submitText = '✔  Save Successful';
+      $scope.pendingRequests--;
+    });
   };
 
 }]);
