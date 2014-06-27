@@ -22,7 +22,9 @@ app.controller('AdminSidebarCtrl', ['$scope', '$rootScope', '$state', function (
         var newState = Object.keys(sidebarIds).filter(function (state) {
             return toState.name.indexOf(state) > -1;
         })[0];
-        $scope.currentStateHeading = newState;
-        document.getElementById(sidebarIds[newState]).classList.add('sidebar-active');
+        if (newState) { 
+            $scope.currentStateHeading = newState;
+            document.getElementById(sidebarIds[newState]).classList.add('sidebar-active');
+        }
     });
 }]);
