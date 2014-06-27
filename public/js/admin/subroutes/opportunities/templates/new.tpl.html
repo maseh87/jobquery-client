@@ -153,6 +153,8 @@
                 <th></th><!-- Empty table header-->
                 <th><div class="text-left">Name</div></th>
                 <th><div class="text-left">E-mail</div></th>
+                <th><div class="text-left">Group</div></th>
+                <th><div class="text-left">Stage</div></th>
                 <th><div class="text-center">Match</div></th>
                 <th ng-repeat="tag in filteredTags"><div class="text-center">{{ tag.data.name }}</div></th>
             </thead>
@@ -162,6 +164,8 @@
                     <th></th><!-- Empty table header-->
                     <th><div class="text-left"># Meeting or Exceeding</div></th>
                     <th></th><!-- Empty table header-->
+                    <th></th><!-- Empty table header-->
+                    <th></th><!-- Empty table header-->
                     <th ng-repeat="tag in filteredTags">
                         <p class="text-center">{{ filteredStats[tag.data._id].type === 'text' ? '' : filteredStats[tag.data._id].count}}</p>
                     </th>
@@ -170,6 +174,8 @@
                     <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
+                    <td>{{ user.category }}</td>
+                    <td>{{ user.searchStage }}</td>
                     <td><div class="text-center">{{ user.points[1] === 0 ? '-' : user.score + '%' }}</div></td>
                     <td ng-repeat="tag in filteredTags">
                         <p class="text-center"><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, user.tags[tag.data._id])[0]" ng-style="{color: calculateFit(tag.importance, tag.value, user.tags[tag.data._id])[1]}"></span></p>
@@ -180,6 +186,8 @@
                     <th></th><!-- Empty table header-->
                     <th><div class="text-left">Name</div></th>
                     <th><div class="text-left">E-mail</div></th>
+                    <th><div class="text-left">Group</div></th>
+                    <th><div class="text-left">Stage</div></th>
                     <th><div class="text-center">Match</div></th>
                     <th ng-repeat="tag in filteredTags"><div class="text-center">{{ tag.data.name }}</div></th>
                 </tr>

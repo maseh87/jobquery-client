@@ -64,6 +64,8 @@ app.controller('AdminOpportunitiesDetailCtrl',
         name: matchModel.user.name,
         email: matchModel.user.email,
         interest: matchModel.userInterest,
+        category: matchModel.user.category.name,
+        searchStage: matchModel.user.searchStage,
         points: [0, 0], // default: [points, possible points]
         score: 0, // points[0] / points[1]
         tags: (function () {
