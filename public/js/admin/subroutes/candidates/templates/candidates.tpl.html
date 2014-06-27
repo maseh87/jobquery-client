@@ -36,18 +36,18 @@
         <table class="tablebox">
             <thead>
                 <tr class="tablebox-header">
-                    <th width="12%" class="name">Name</th>
-                    <th width="9%">Attending</th>
-                    <th width="9%" class="interestDeclared">Interest Declared</th>
-                    <th width="9%" class="interestThreeOrGreater">Interest > 3 Count</th>
-                    <th width="15%" class="github">Github</th>
-                    <th width="20%" class="email">Email</th>
-                    <th width="14%" class="location">Location</th>
-                    <th width="12%" class="stage">Job Search Stage</th>
+                    <th width="12%" class="pointer" ng-click="sorter='name'; reverse=!reverse">Name</th>
+                    <th width="9%" class="pointer" ng-click="sorter='attending'; reverse=!reverse">Attending</th>
+                    <th width="9%" class="pointer" ng-click="sorter='interestDeclared'; reverse=!reverse">Interest Declared</th>
+                    <th width="9%" class="pointer" ng-click="sorter='interestThreeOrGreater'; reverse=!reverse">Interest > 3 Count</th>
+                    <th width="15%" class="pointer" ng-click="sorter='github'; reverse=!reverse">Github</th>
+                    <th width="20%" class="pointer" ng-click="sorter='email'; reverse=!reverse">Email</th>
+                    <th width="14%" class="pointer" ng-click="sorter='city'; reverse=!reverse">Location</th>
+                    <th width="12%" class="pointer" ng-click="sorter='searchStage'; reverse=!reverse">Job Search Stage</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in group | filter:query" class="tablebox-content" ui-sref="admin.candidates.detail({_id: user._id})">
+                <tr ng-repeat="user in group | orderBy:sorter:reverse" class="tablebox-content" ui-sref="admin.candidates.detail({_id: user._id})">
                     <td class="name">{{user.name}}</td>
                     <td>{{user.attending ? 'Yes' : 'No'}}</td>
                     <td class="interestDeclared">{{user.interestDeclared}}</td>
