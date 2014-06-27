@@ -1,4 +1,4 @@
-<div ui-view>
+<div ui-view ng-init="sorter = 'company'">
     <div class="content-header">
         <div class="content-header-block text-left">
             <span class="content-action">
@@ -19,16 +19,16 @@
         <table class="tablebox">
         <thead>
             <tr class="tablebox-header">
-                <th width="20%">Company</th>
-                <th width="20%">Title</th>
-                <th width="7%">Public?</th>
-                <th width="9%">Declared</th>
-                <th width="9%">Interest 3+</th>
-                <th width="34%">Internal Notes</th>
+                <th width="20%" class="pointer" ng-click="sorter = 'company'; reverse = !reverse">Company</th>
+                <th width="20%" class="pointer" ng-click="sorter = 'title'; reverse = !reverse">Title</th>
+                <th width="7%" class="pointer" ng-click="sorter = 'approved'; reverse = !reverse">Public?</th>
+                <th width="9%" class="pointer" ng-click="sorter = 'declared'; reverse = !reverse">Declared</th>
+                <th width="9%" class="pointer" ng-click="sorter = 'interested'; reverse = !reverse">Interest 3+</th>
+                <th width="34%" class="pointer" ng-click="sorter = 'internalNotes'; reverse = !reverse">Internal Notes</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="tablebox-content" ng-repeat="opportunity in group | orderBy: 'company'" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
+            <tr class="tablebox-content" ng-repeat="opportunity in group | orderBy:sorter:reverse" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
                 <td>{{ opportunity.company }}</td>
                 <td>{{ opportunity.title }}</td>
                 <td><input type="checkbox" ng-model="opportunity.approved" ng-disabled="true"></td>
