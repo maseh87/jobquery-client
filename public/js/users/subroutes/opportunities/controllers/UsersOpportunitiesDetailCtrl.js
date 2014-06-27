@@ -17,9 +17,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
     var answersFilled = $scope.match.answers.every(function (answerObj) {
       return answerObj.answer !== "" && answerObj.answer !== undefined;
     }); // returns true if $scope.match.answers is empty
-    if (answersFilled === false) { 
-      window.alert("Please fill out the additional guidance questions below before indicating interest.");
-    } else {
+    if (answersFilled === true) { 
       $scope.match.userInterest = value;
       UsersOpportunity.update($scope.match).then(function () { });      
     }
