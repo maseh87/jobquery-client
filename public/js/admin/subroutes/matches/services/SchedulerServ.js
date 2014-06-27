@@ -1,48 +1,57 @@
-app.factory('Scheduler', ['Opportunity', 'User', '$q', function(Opportunity, User, $q) {
+app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportunity, User, Match, $q) {
   var candidatesMap;
 
   var retrieveData  = function() {
     var data = [];
       data.push(Opportunity.getAll());
       data.push(User.getAll());
+      data.push(Match.getAll());
       console.log('getting data');
       return $q.all(data);
   };
 
-  var prepareData  = function(opportunities, candidates, numberOfslots) {
+  var prepareData  = function(opportunities, candidates, matches, numberOfslots) {
     var opportunitiesMap;
     var slotQueues;
+    var matchesMap;
 
+    matchesMap       = createMatchesMap(matches);
     candidates       = filterActiveCandidates(candidates);
     opportunities    = filterActiveOpportunities(opportunities);
+    console.log('cans', candidates.length);
     candidatesMap    = convertToMap(candidates);
     // opportunitiesMap = convertToMap(opportunities);
-    slotQueues = slotQueueGeneration(opportunities, candidatesMap, numberOfslots);
+    slotQueues = slotQueueGeneration(opportunities, candidatesMap, matchesMap, numberOfslots);
     return slotQueues;
   };
 
-  var slotQueueGeneration = function (opportunities, candidatesMap, numberOfSlots) {
-    var slots = [];
-    console.log('Before slots');
-    for (var i = 0; i < opportunities.length; i++) {
-      slots[i] = slots[i] === undefined ? [] : slots[i];
-      for (var j = 0; j < numberOfSlots; j++) {
-        slots[i][j] = slots[i][j] === undefined ? [] : slots[i][j];
-        // define order of candidates per slot
-        slots[i][j] = Object.keys(candidatesMap);
-      }
+  var createMatchesMap = function (matches) {
+    var matchesMap = {};
+
+    for (var i = 0; i < matches.matches.length; i++) {
+      matchesMap[matches.matches[i].user] = matchesMap[matches.matches[i].user] === undefined ? {} : matchesMap[matches.matches[i].user] ;
+      matchesMap[matches.matches[i].user][matches.matches[i].opportunity] = matches.matches[i];
     }
 
-    return slots;
+    return matchesMap;
   };
 
   var filterActiveCandidates = function (candidates) {
     return candidates.filter(function (candidate) {
        if(candidate.isAdmin) return false;
-       if(!candidate.attending) return false;
-       if(!candidate.isRegistered) return false;
+       //if(!candidate.attending) return false;
+       //if(!candidate.isRegistered) return false;
        return true;
     });
+  };
+
+  var filterActiveOpportunities = function (opportunities) {
+    opportunities = opportunities.filter(function (opportunity) {
+       if(!opportunity.active) return false;
+       return true;
+    });
+    //TODO REMOVE REMOVE HARDCODED oppertunities restriction
+    return opportunities.slice(0,5);
   };
 
   var convertToMap = function (models) {
@@ -54,13 +63,35 @@ app.factory('Scheduler', ['Opportunity', 'User', '$q', function(Opportunity, Use
     return mappedModels;
   };
 
-  var filterActiveOpportunities = function (opportunities) {
-    opportunities = opportunities.filter(function (opportunity) {
-       if(!opportunity.active) return false;
-       return true;
-    });
-    //TODO REMOVE REMOVE HARDCODED oppertunities
-    return opportunities.slice(0,5);
+  var slotQueueGeneration = function (opportunities, candidatesMap, matchesMap, numberOfSlots) {
+    var slots = [];
+    var candidates = [];
+    var candidateIds = Object.keys(candidatesMap);
+    var interestSort = function (a, b) {
+      return a.interest - b.interest;
+    };
+
+    console.log('Before slots', matchesMap);
+    for (var x = 0; x < opportunities.length; x++) {
+      slots[x] = slots[x] === undefined ? [] : slots[x];
+      for (var y = 0; y < numberOfSlots; y++) {
+        slots[x][y] = slots[x][y] === undefined ? [] : slots[x][y];
+        // define order of candidates per slot
+        slots[x][y] = candidateIds;
+        // get interest for each oppertunity and candidate intersection
+        for (var i = 0; i < candidateIds.length; i++) {
+          candidates.push({
+            id : candidateIds[i],
+            interest : matchesMap[candidateIds[i]][opportunities[x]._id].userInterest
+          });
+        }
+
+        candidates.sort(interestSort);
+        slots[x][y] = candidates;
+        candidates = [];
+      }
+    }
+    return slots;
   };
 
   var assignSlots = function (queuedSlots) {
@@ -69,11 +100,10 @@ app.factory('Scheduler', ['Opportunity', 'User', '$q', function(Opportunity, Use
     for (var i = 0; i < queuedSlots.length; i++) {
       board.push([]);
     }
-
+    //debugger;
     console.log('board', board);
     do {
       doPass(board, queuedSlots);
-      debugger;
     }
     while (solutionFound(board) === false);
 
@@ -126,9 +156,9 @@ var oneCandidatePerTimeSlotConstraint = function (board) {
     unique = {};
     for (var x = 0; x < board.length; x++) {
       if (board[x][y] !== undefined) {
-        unique[board[x][y]] = unique[board[x][y]] === undefined ? 0 : unique[board[x][y]];
-        unique[board[x][y]]++;
-        if (unique[board[x][y]] > 1) {
+        unique[board[x][y].id] = unique[board[x][y].id] === undefined ? 0 : unique[board[x][y].id];
+        unique[board[x][y].id]++;
+        if (unique[board[x][y].id] > 1) {
           valid = false;
         }
       }
@@ -144,9 +174,9 @@ var oneCandidatePerOppertunityConstraint = function (board) {
     unique = {};
     for (var y = 0; y < board[x].length; y++) {
       if (board[x][y] !== undefined) {
-        unique[board[x][y]] = unique[board[x][y]] === undefined ? 0 : unique[board[x][y]];
-        unique[board[x][y]]++;
-        if (unique[board[x][y]] > 1) {
+        unique[board[x][y].id] = unique[board[x][y].id] === undefined ? 0 : unique[board[x][y].id];
+        unique[board[x][y].id]++;
+        if (unique[board[x][y].id] > 1) {
           valid = false;
         }
       }
@@ -160,9 +190,9 @@ var oneCandidatePerOppertunityConstraint = function (board) {
       var queuedSlots;
       retrieveData().then(function (data) {
         var assigned;
-        console.log('Data Retrieved', queuedSlots);
-        // opportunities, candidates, numberOfSlots
-        queuedSlots = prepareData(data[0], data[1], numberOfslots);
+        console.log('Data Retrieved', data);
+        // opportunities, candidates, matches, numberOfSlots
+        queuedSlots = prepareData(data[0], data[1], data[2], numberOfslots);
         console.log('Queued', queuedSlots);
         assigned = assignSlots(queuedSlots);
         console.log('Assigned',assigned);
