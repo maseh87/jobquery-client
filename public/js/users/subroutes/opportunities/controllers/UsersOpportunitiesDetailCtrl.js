@@ -14,14 +14,16 @@ app.controller('UsersOpportunitiesDetailCtrl',
 
   $scope.updateInterest = function (value) {
     if (!$scope.match) { return undefined; }
-    var answersFilled = $scope.match.answers.every(function (answerObj) {
-      return answerObj.answer !== "" && answerObj.answer !== undefined;
-    }); // returns true if $scope.match.answers is empty
-    if (answersFilled === true) { 
-      $scope.match.userInterest = value;
-      UsersOpportunity.update($scope.match).then(function () { });      
-    }
+
+    $scope.match.answers = $scope.match.answers.map(function(answerObj){
+      if(answerObj.answer === '') answerObj.answer = ' ';
+      return answerObj;
+    });
+
+    $scope.match.userInterest = value;
+    UsersOpportunity.update($scope.match).then(function () { });      
   };
+  
   $scope.hasInterest = function (value) {
     if (!$scope.match) { return undefined; }
     return $scope.match.userInterest === value;
@@ -40,7 +42,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
     if(questions.length !== match.answers.length){
       for(var i = 0; i < difference; i++){
         match.answers.push({
-          answer: ''
+          answer: ' '
         });
       }
     }
