@@ -61,6 +61,12 @@ app.controller('UsersOpportunitiesDetailCtrl',
   $scope.submit = function() {
     $scope.submitText = 'Submitting...';
     $scope.pendingRequests++;
+
+    $scope.match.answers = $scope.match.answers.map(function(object){
+      if(object.answer === '') object.answer = ' ';
+      return object;
+    });
+
     UsersOpportunity.update($scope.match).then(function(){
       $scope.submitText = '✔  Save Successful';
       $scope.pendingRequests--;
