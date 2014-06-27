@@ -56,6 +56,13 @@
         </div>
     </div>
 
+    <div class="content-section container-fluid" ng-if="isSearchStage('Accepted')">
+        <div class="dashbox-title">Accepted Job Survey</div>
+        <div class="dashbox dashbox-content">
+            
+        </div>
+    </div>
+
     <div class="content-section container-fluid" ng-repeat="(category, types) in tags">
         <div class="formbox-title">{{category}}</div>
 
