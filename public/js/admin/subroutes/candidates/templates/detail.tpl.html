@@ -111,11 +111,13 @@
     <thead>
         <th class="pointer" ng-click="sorter='companyName'; reverse=!reverse">Company</th>
         <th class="pointer" ng-click="sorter='jobTitle'; reverse=!reverse">Job Title</th>
+        <th class="pointer" ng-click="sorter='category'; reverse=!reverse">Category</th>
         <th class="pointer" ng-click="sorter='userInterest'; reverse=!reverse">Interest</th>
     </thead>
     <tr ng-repeat="match in matches | orderBy:sorter:reverse">
         <td>{{match.companyName}}</td>
         <td>{{match.jobTitle}}</td>
+        <td>{{match.category}}</td>
         <td>{{match.userInterest ? match.userInterest : 'N/A'}}</td>
     </tr>
 </table>

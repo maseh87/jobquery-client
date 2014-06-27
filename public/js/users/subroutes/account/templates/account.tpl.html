@@ -38,6 +38,9 @@
     <div class="content-section container-fluid" ng-if="user">
         <div class="dashbox-title">Job Search Status</div>
         <div class="dashbox dashbox-content">
+            <div class="dashbox-icon" ng-click="updateSearchStage('Out')" ng-class="{'dashbox-icon-active':isSearchStage('Out')}">
+                <span class="dashbox-icon-dingbat">ⓞ</span><br>Opt Out
+            </div>
             <div class="dashbox-icon" ng-click="updateSearchStage('Early')" ng-class="{'dashbox-icon-active':isSearchStage('Early')}">
                 <span class="dashbox-icon-dingbat">➀</span><br>Early
             </div>
@@ -50,6 +53,13 @@
             <div class="dashbox-icon" ng-click="updateSearchStage('Accepted')" ng-class="{'dashbox-icon-active':isSearchStage('Accepted')}">
                 <span class="dashbox-icon-dingbat">➃</span><br>Accepted
             </div>
+        </div>
+    </div>
+
+    <div class="content-section container-fluid" ng-if="isSearchStage('Accepted')">
+        <div class="dashbox-title">Accepted Job Survey</div>
+        <div class="dashbox dashbox-content">
+            
         </div>
     </div>
 
