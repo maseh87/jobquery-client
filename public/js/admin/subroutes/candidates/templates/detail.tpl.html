@@ -32,7 +32,13 @@
                 <input type="text" ng-readonly="readOnly" ng-model="user.city" value="{{user.city}}"/>
             </td>
             <td class="searchStage">
-                <input type="text" ng-readonly="readOnly" ng-model="user.searchStage" value="{{user.searchStage}}"/>
+                <select ng-model="user.searchStage" ng-disabled="readOnly">
+                    <option value="Out">Opted Out</option>
+                    <option value="Early">Early</option>
+                    <option value="Mid/Late">Mid/Late</option>
+                    <option value="Closing">Closing</option>
+                    <option value="Accepted">Accepted</option>
+                </select>
             </td>
             <td>
                 <input type="checkbox" ng-disabled="readOnly" ng-model="user.attending">
