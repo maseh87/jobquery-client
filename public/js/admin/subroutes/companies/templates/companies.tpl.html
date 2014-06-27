@@ -18,15 +18,15 @@
         <table class="tablebox">
             <thead>
                 <tr class="tablebox-header">
-                    <th class="name">Name</th>
-                    <th class="url">URL</th>
-                    <th class="opportunities"># Opportunities</th>
-                    <th class="location">City</th>
-                    <th class="tagline">Tagline</th>
+                    <th class="pointer" ng-click="sorter='name'; reverse=!reverse">Name</th>
+                    <th class="pointer">URL</th>
+                    <th class="pointer" ng-click="sorter='opportunities.length'; reverse=!reverse"># Opportunities</th>
+                    <th class="pointer" ng-click="sorter='city'; reverse=!reverse">City</th>
+                    <th class="pointer" ng-click="sorter='tagline'; reverse=!reverse">Tagline</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="tablebox-content" ng-repeat="company in companies | orderBy: 'name'" ui-sref="admin.companies.detail({_id: company._id})">
+                <tr class="tablebox-content" ng-repeat="company in companies | orderBy:sorter:reverse" ui-sref="admin.companies.detail({_id: company._id})">
                     <td class="name">{{company.name}}</td>
                     <td class="url"><a ng-href="{{company.links[0].url}}" target="_blank">
                         {{company.links[0].title}}</a></td>
