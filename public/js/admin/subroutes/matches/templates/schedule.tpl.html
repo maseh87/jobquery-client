@@ -19,7 +19,7 @@
         <thead>
             <tr class="gridbox-header">
                 <th></th><!-- empty table header-->
-                <th ng-repeat="(key, opportunity) in opportunities" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
+                <th ng-repeat="opportunity in opportunities" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
                     {{ opportunity.company.name }}: {{ opportunity.jobTitle }}
                 </th>
             </tr>
