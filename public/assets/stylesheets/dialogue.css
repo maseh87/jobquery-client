@@ -1,0 +1,35 @@
+.dialogue-box {
+    position: absolute; z-index: 500;
+    box-sizing: border-box;
+
+    width: 300px; height: 200px;
+    left: 60%; top: 35%;
+
+    background-color: #FEFEFE;
+    box-shadow: 1px 0px 2px #E4E4E4;
+    border: 1px solid #5598c1;
+}
+
+.dialogue-box input {
+    padding: 8px; height: 30px;
+
+    border-radius: 1px; border: none; outline: none;
+    box-shadow: 1px 1px 1px #E0E0E0;
+    
+    font-weight: 400; font-size: 1.125rem;
+    color: #F0F0F0; text-transform: uppercase;
+    background-color: #5598c1;
+}
+.dialogue-box input:hover { color: #c9e3ef; cursor: pointer; }
+
+.dialogue-title {
+    padding: 5px 12px 5px 12px; text-align: right;
+
+    font-weight: 300; text-transform: uppercase;
+    background-color: #E4E4E4;
+}
+
+.dialogue-content {
+    height: 180px; width: 300px;
+    color: #606060; font-weight: 100;
+}
