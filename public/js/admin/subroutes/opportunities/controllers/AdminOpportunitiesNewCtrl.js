@@ -47,7 +47,7 @@ app.controller('AdminOpportunitiesNewCtrl',
         _id: user._id,
         name: user.name,
         email: user.email,
-        category: user.category.name,
+        category: user.category ? user.category.name : 'N/A',
         searchStage: user.searchStage,
         points: [0, 0], // default: [points, possible points]
         score: 0, // points[0] / points[1]
