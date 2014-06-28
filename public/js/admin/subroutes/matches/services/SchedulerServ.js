@@ -299,6 +299,18 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
     return valid;
   };
 
+  var processOutput = function (output) {
+    var schedule         = {};
+
+    output.opportunities = output.opportunities;
+    for (var i = 0; i < output.schedule.length; i++) {
+      schedule[output.opportunities[i]._id] = output.schedule[i];
+    }
+    output.schedule = schedule;
+
+    return output;
+  };
+
   return {
     schedule : function(numberOfslots) {
       var processedInput;
@@ -307,11 +319,13 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
         var CANDIDATES_INDEX     = 1;
         var MATCHES_INDEX        = 2;
         var assigned;
+        var output;
         console.log('Data Retrieved', data);
         processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfslots);
         console.log('Queued', processedInput);
         output = runAssignment(processedInput);
-        console.log('Assigned',output.schedule);
+        console.log('Assigned',output);
+        output = processOutput(output);
 
         return output;
       });
