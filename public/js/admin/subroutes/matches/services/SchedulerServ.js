@@ -22,6 +22,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
     matchesMap    = createMatchesMap(matches);
     candidatesMap = convertToMap(candidates);
 
+    data.opportunities = opportunities;
     data.constraints.maxInterviews = Math.ceil(numberOfSlots * opportunities.length / candidates.length);
     data.constraints.numberOfCandidates = candidates.length;
     data.slotQueues = slotQueueGeneration(opportunities, candidatesMap, matchesMap, numberOfSlots);
@@ -96,17 +97,21 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
   };
 
   var runAssignment = function (data) {
-    var board = [];
-    // generate board
+    var output = {};
+    var schedule = [];
+    // generate schedule
     for (var i = 0; i < data.slotQueues.length; i++) {
-      board.push([]);
+      schedule.push([]);
     }
     do {
-      doPass(board, data);
+      doPass(schedule, data);
     }
-    while (isSolution(board) === false);
+    while (isSolution(schedule) === false);
 
-    return board;
+    output.schedule      = schedule;
+    output.opportunities = data.opportunities;
+
+    return output;
   };
 
   var doPass = function (board, data) {
@@ -305,20 +310,10 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
         console.log('Data Retrieved', data);
         processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfslots);
         console.log('Queued', processedInput);
-        assigned = runAssignment(processedInput);
-        console.log('Assigned',assigned);
+        output = runAssignment(processedInput);
+        console.log('Assigned',output.schedule);
 
-        var interviewCount = {};
-
-        for (var x = 0; x < assigned.length; x++) {
-          for (var y = 0; y < assigned[x].length; y++) {
-            if (assigned[x][y] !== undefined) {
-              interviewCount[assigned[x][y].id] = interviewCount[assigned[x][y].id] === undefined ? 0 : interviewCount[assigned[x][y].id];
-              interviewCount[assigned[x][y].id]++;
-            }
-          }
-        }
-        return assigned;
+        return output;
       });
     }
   };
