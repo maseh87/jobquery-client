@@ -2,6 +2,9 @@ app.controller('AdminOpportunitiesDetailCtrl',
   ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category', 'generateGlyphs',
   function ($scope, $stateParams, Opportunity, Match, Tag, Category, generateGlyphs) {
 
+  $scope.sorter = 'score';
+  $scope.reverse = true;
+
   Match.getUsers($stateParams._id).then(function (data) {
     $scope.mapToView(data.opportunity, data.matches);
     $scope.oppData = data.opportunity;
