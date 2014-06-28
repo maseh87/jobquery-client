@@ -2,6 +2,9 @@ app.controller('AdminOpportunitiesNewCtrl',
   ['$scope', '$stateParams', '$state', 'Opportunity', 'User', 'Tag', 'Category', 'Company', '$q', 'generateGlyphs',
   function ($scope, $stateParams, $state, Opportunity, User, Tag, Category, Company, $q, generateGlyphs) {
 
+  $scope.sorter = 'name';
+  $scope.reverse = false;
+
   User.getAll().then(function (users) {
     // need populate users with tags info
     $scope.mapToView(users);
