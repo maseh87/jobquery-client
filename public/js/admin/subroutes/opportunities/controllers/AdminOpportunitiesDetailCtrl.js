@@ -59,11 +59,22 @@ app.controller('AdminOpportunitiesDetailCtrl',
       if (matchModel.userInterest >= 3) {
         $scope.interestThreeOrAbove +=1 ;
       }
+
+      //Normalize question and answer arrays.
+      matchModel.answers = matchModel.answers || [];
+      var numQuestions = guidance.questions.length;
+      var numAnswers = matchModel.answers.length;
+      var difference = numQuestions - numAnswers;
+      for(var i = 0; i < difference; i++){
+        matchModel.answers.push({answer: ''});
+      }
+
       return {
         _id: matchModel.user._id,
         name: matchModel.user.name,
         email: matchModel.user.email,
         interest: matchModel.userInterest,
+        answers: matchModel.answers,
         category: matchModel.user.category.name,
         searchStage: matchModel.user.searchStage,
         points: [0, 0], // default: [points, possible points]
