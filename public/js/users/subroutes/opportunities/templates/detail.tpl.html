@@ -17,10 +17,10 @@
             <tr>
                 <td>{{ company.description }}</td>
                 <td>
-                    <span>{{ company.name }}</span><br>
-                    <span>{{ company.city }}, {{ company.country }}</span><br>
-                    <span>{{ company.tagline }}</span>
-                    <div ng-repeat="link in company.links">
+                    <span class="type-subtitle">{{ company.city }}, {{ company.country }}</span><br>
+                    <span class="type-title">{{ company.name }}</span><br>
+                    <span class="type-tagline">{{ company.tagline }}</span><br><br>
+                    <div class="type-linkbox" ng-repeat="link in company.links">
                         <span ng-show="$first">Read more:</span><br>
                         <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                     </div>
@@ -35,7 +35,7 @@
             <tr>
                 <td>{{ opportunity.description }}</td>
                 <td>
-                    <span>Title: {{ opportunity.jobTitle }}</span><br>
+                    <span class="type-title">{{ opportunity.jobTitle }}</span><br>
                     <div ng-repeat="link in opportunity.links">
                         <span ng-show="$first">Read more:</span><br>
                         <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
