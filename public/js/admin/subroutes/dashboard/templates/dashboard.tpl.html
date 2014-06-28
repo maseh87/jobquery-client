@@ -46,8 +46,8 @@
                 </td>
                 <td>
                     <select ng-model="entry.processed" ng-change="updateMatch(entry)">
-                        <option ng-selected="entry.processed === true">Yes</option>
-                        <option ng-selected="entry.processed === false">No</option>
+                        <option ng-value="true">true</option>
+                        <option ng-value="false">false</option>
                     </select>
                 </td>
                 <td>{{entry.updatedAt}}</td>
