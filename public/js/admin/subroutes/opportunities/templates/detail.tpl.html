@@ -119,6 +119,9 @@
             </table>
         </div>
         <div class="row">
+            
+            <button type="button" ng-init="hideQuestions = true; hideTags = false" ng-click="hideQuestions = !hideQuestions; hideTags = !hideTags">Toggle Questions and Tags</button>
+
             <table class="table table-striped table-condensed">
             <thead>
                 <th></th><!-- Empty table header-->
@@ -128,7 +131,8 @@
                 <th><div class="text-left">Stage</div></th>
                 <th><div class="text-center">Match</div></th>
                 <th><div class="text-center">Interest</div></th>
-                <th ng-repeat="tag in filteredTags"><div class="text-center">{{ tag.data.name }}</div></th>
+                <th ng-repeat="tag in filteredTags" ng-show="!hideTags"><div class="text-center">{{ tag.data.name }}</div></th>
+                <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"><div class="text-center">{{question.question}}</div></th>
             </thead>
             <tbody>
                 <tr>
@@ -143,9 +147,10 @@
                     <th></th><!-- Empty table header-->
                     <th></th><!-- Empty table header-->
                     <th></th><!-- Empty table header-->
-                    <th ng-repeat="tag in filteredTags">
+                    <th ng-repeat="tag in filteredTags" ng-show="!hideTags">
                         <p class="text-center">{{ filteredStats[tag.data._id].type === 'text' ? '' : filteredStats[tag.data._id].count}}</p>
                     </th>
+                    <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"></th><!-- Empty table header-->
                 </tr>
                 <tr ng-repeat-start="user in declared | orderBy: ['-score', 'name']">
                     <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
@@ -155,12 +160,13 @@
                     <td>{{ user.searchStage }}</td>
                     <td><div class="text-center">{{ user.points[1] === 0 ? '-' : user.score + '%' }}</div></td>
                     <td><div class="text-center">{{ user.interest === 0 ? 'N/A' : user.interest }}</div></td>
-                    <td ng-repeat="tag in filteredTags">
+                    <td ng-repeat="tag in filteredTags" ng-show="!hideTags">
                         <p class="text-center"><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, user.tags[tag.data._id])[0]" ng-style="{color: calculateFit(tag.importance, tag.value, user.tags[tag.data._id])[1]}"></span></p>
                     </td>
+                    <td ng-repeat="answerObject in user.answers" ng-show="!hideQuestions"><p class="text-center">{{answerObject.answer}}</p></td>
                 </tr>
                 <!-- repeat everything 10th row -->
-                <tr ng-repeat-end ng-if="$index > 0 && $index % 10 === 0">
+                <tr ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last">
                     <th></th><!-- Empty table header-->
                     <th><div class="text-left">Name</div></th>
                     <th><div class="text-left">E-mail</div></th>
@@ -168,7 +174,8 @@
                     <th><div class="text-left">Stage</div></th>
                     <th><div class="text-center">Match</div></th>
                     <th><div class="text-center">Interest</div></th>
-                    <th ng-repeat="tag in filteredTags"><div class="text-center">{{ tag.data.name }}</div></th>
+                    <th ng-repeat="tag in filteredTags" ng-show="!hideTags"><div class="text-center">{{ tag.data.name }}</div></th>
+                    <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"><div class="text-center">{{question.question}}</div></th>
                 </tr>
             </tbody>
         </div>
