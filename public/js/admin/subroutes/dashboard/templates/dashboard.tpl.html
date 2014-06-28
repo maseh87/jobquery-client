@@ -1,24 +1,26 @@
-<div class="row">
-    <div class="col-md-2">
-        <h4>Candidate Name</h4>
-        <input ng-model="candidateNameQuery">
-        <h4>Candidate Group</h4>
-        <div ng-repeat="category in candidateCategories">
-            <span>{{category.name}}</span>
-            <input type="checkbox" ng-model="category.selected">
-        </div>
-        <h4>Opportunity Group</h4>
-        <div ng-repeat="category in opportunityCategories">
-            <span>{{category.name}}</span>
-            <input type="checkbox" ng-model="category.selected">
-        </div>
-        <h4>Interest</h4>
-        <input ng-model="interestQuery" placeholder="Greater than">
-        <h4>Override</h4>
-        <input ng-model="overrideQuery" placeholder="Greater than">
-        <h4>Processed</h4>
-        <input type="checkbox" ng-init="processedQuery = false" ng-model="processedQuery">
+<div style="position:fixed">
+    <h4>Candidate Name</h4>
+    <input ng-model="candidateNameQuery">
+    <h4>Candidate Group</h4>
+    <div ng-repeat="category in candidateCategories">
+        <span>{{category.name}}</span>
+        <input type="checkbox" ng-model="category.selected">
     </div>
+    <h4>Opportunity Group</h4>
+    <div ng-repeat="category in opportunityCategories">
+        <span>{{category.name}}</span>
+        <input type="checkbox" ng-model="category.selected">
+    </div>
+    <h4>Interest</h4>
+    <input ng-model="interestQuery" placeholder="Greater than">
+    <h4>Override</h4>
+    <input ng-model="overrideQuery" placeholder="Greater than">
+    <h4>Processed</h4>
+    <input type="checkbox" ng-init="processedQuery = false" ng-model="processedQuery">
+</div>
+
+<div class="row">
+    <div class="col-md-2"></div>
     <div class="col-md-10">
         <table class="table">
             <tr>
