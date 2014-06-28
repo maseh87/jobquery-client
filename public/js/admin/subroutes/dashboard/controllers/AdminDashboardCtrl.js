@@ -71,10 +71,24 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   });
 
   $scope.customQuery = function(entry){
+
+    //Filter for processed
+    if($scope.processedQuery !== entry.processed) return false;
+
     //Filter for candidate name
     if($scope.candidateNameQuery){
       var regex = new RegExp($scope.candidateNameQuery, 'i');
       if(!entry.candidate.match(regex)) return false;
+    }
+
+    //Filter for interest >= input number
+    if($scope.interestQuery){
+      if($scope.interestQuery > entry.interest) return false;
+    }
+
+    //Filter for admin override >= input number
+    if($scope.overrideQuery){
+      if($scope.overrideQuery > entry.override) return false;
     }
 
     //Filter for candidate category
@@ -106,18 +120,6 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
       if(!validOpportunityCategory) return false;
     }
 
-    //Filter for interest >= input number
-    if($scope.interestQuery){
-      if($scope.interestQuery > entry.interest) return false;
-    }
-
-    //Filter for admin override >= input number
-    if($scope.overrideQuery){
-      if($scope.overrideQuery > entry.override) return false;
-    }
-
-    //Filter for processed
-    if($scope.processedQuery !== entry.processed) return false;
 
     return true;
   };
