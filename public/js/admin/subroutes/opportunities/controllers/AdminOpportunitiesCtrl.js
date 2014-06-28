@@ -1,5 +1,5 @@
-app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
-  function ($scope, Opportunity, Match) {
+app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'DialogueService', 
+  function ($scope, Opportunity, Match, DialogueService) {
 
   Match.getAll().then(function (data) {
     $scope.mapToView(data.matches, data.opportunities);
