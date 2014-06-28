@@ -19,7 +19,7 @@ app.factory('DialogueService', function () {
   };
 
   serviceMethods.hide = function () {
-    serviceMethods._hidden = false;
+    serviceMethods._hidden = true;
     document.getElementById('dialogue-box').setAttribute('style', 'display: none');
   };
 
