@@ -10,19 +10,24 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
       return $q.all(data);
   };
 
-  var prepareData  = function(opportunities, candidates, matches, numberOfslots) {
+  var prepareData  = function(opportunities, candidates, matches, numberOfSlots) {
+    var data = {};
+    data.constraints = {};
     var opportunitiesMap;
     var slotQueues;
     var matchesMap;
 
-    matchesMap       = createMatchesMap(matches);
-    candidates       = filterActiveCandidates(candidates);
-    opportunities    = filterActiveOpportunities(opportunities);
-    console.log('cans', candidates.length);
-    candidatesMap    = convertToMap(candidates);
+
+    matchesMap    = createMatchesMap(matches);
+    candidates    = filterActiveCandidates(candidates);
+    opportunities = filterActiveOpportunities(opportunities);
+    candidatesMap = convertToMap(candidates);
     // opportunitiesMap = convertToMap(opportunities);
-    slotQueues = slotQueueGeneration(opportunities, candidatesMap, matchesMap, numberOfslots);
-    return slotQueues;
+
+    data.constraints.maxInterviews = Math.ceil(numberOfSlots * opportunities.length / candidates.length);
+    data.constraints.numberOfCandidates = candidates.length;
+    data.slotQueues = slotQueueGeneration(opportunities, candidatesMap, matchesMap, numberOfSlots);
+    return data;
   };
 
   var createMatchesMap = function (matches) {
@@ -51,7 +56,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
        return true;
     });
     //TODO REMOVE REMOVE HARDCODED oppertunities restriction
-    return opportunities.slice(0,5);
+    return opportunities.slice(0,10);
   };
 
   var convertToMap = function (models) {
@@ -71,7 +76,6 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
       return a.interest - b.interest;
     };
 
-    console.log('Before slots', matchesMap);
     for (var x = 0; x < opportunities.length; x++) {
       slots[x] = slots[x] === undefined ? [] : slots[x];
       for (var y = 0; y < numberOfSlots; y++) {
@@ -94,20 +98,76 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
     return slots;
   };
 
-  var assignSlots = function (queuedSlots) {
+  var runAssignment = function (data) {
     var board = [];
     // generate board
-    for (var i = 0; i < queuedSlots.length; i++) {
+    for (var i = 0; i < data.slotQueues.length; i++) {
       board.push([]);
     }
-    //debugger;
-    console.log('board', board);
     do {
-      doPass(board, queuedSlots);
+      doPass(board, data);
+
     }
     while (solutionFound(board) === false);
 
     return board;
+  };
+
+  var doPass = function (board, data) {
+    var slotApplied;
+    var changeLastPass = false;
+    var temp;
+    data.tempQueues = data.tempQueues || [];
+    for (var x = 0; x < data.slotQueues.length; x++) {
+      for (var y = 0; y < data.slotQueues[x].length; y++) {
+        if (board[x][y] === undefined) {
+          data.tempQueues[x] = data.tempQueues[x] || [];
+          data.tempQueues[x][y] = data.tempQueues[x][y] || [];
+
+          if (data.changeLastPass) {
+            // append temp array back on to the slot queues
+            if (data.tempQueues[x][y].length > 0) {
+              //debugger;
+            }
+            data.slotQueues[x][y] = data.slotQueues[x][y].concat(data.tempQueues[x][y]);
+            data.tempQueues[x][y] = [];
+          }
+
+          // assign slot
+          board[x][y] = data.slotQueues[x][y].pop();
+          slotApplied = true;
+          if (board[x][y] === undefined) {
+            slotApplied = false;
+          }
+          // check hard constraints
+          if(!hardConstraintsValid(board, data.constraints)) {
+            // remove assignment
+            board[x][y] = undefined;
+            slotApplied = false;
+          }
+
+          // check soft constraints
+          if(!softConstraintsValid(board, data.constraints)) {
+            // if there was an assignment on the last pass
+            if (data.changeLastPass) {
+              // push back on to queue
+              data.slotQueues[x][y].push(board[x][y]);
+            } else {
+              // push onto temp queue
+              data.tempQueues[x][y].unshift(board[x][y]);
+            }
+
+            board[x][y] = undefined;
+            slotApplied = false;
+
+          }
+          if (slotApplied) {
+            changeLastPass = true;
+          }
+        }
+      }
+    }
+    data.changeLastPass = changeLastPass;
   };
 
   var solutionFound = function (board) {
@@ -115,7 +175,6 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
     for (var i = 0; i < board.length; i++) {
       for (var j = 0; j < board[i].length; j++) {
         if (board[i][j] === undefined) {
-          console.log('board',board,i,j);
           validSolution = false;
         }
       }
@@ -123,29 +182,21 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
     return validSolution;
   };
 
-  var doPass = function (board, queuedSlots) {
-    console.log('pass', board );
-    for (var x = 0; x < queuedSlots.length; x++) {
-      for (var y = 0; y < queuedSlots[x].length; y++) {
-        if (board[x][y] === undefined) {
-          // assign slot
-          board[x][y] = queuedSlots[x][y].pop();
-          // check constraints
-          if(!constraintsValid(board)) {
-            // remove assignment
-            board[x][y] = undefined;
-          }
-        }
-      }
-    }
-  };
-
-var constraintsValid = function (board) {
+var hardConstraintsValid = function (board, constraints) {
   var isValid = true;
   // check candidate is not assigned twice in the same time slot
   isValid = isValid && oneCandidatePerTimeSlotConstraint(board);
-  isValid = isValid && oneCandidatePerOppertunityConstraint(board);
   // check candidate is not assigned twice to interview with the same oppertunity
+  isValid = isValid && oneCandidatePerOppertunityConstraint(board);
+  isValid = isValid && maxNumberOfInterviewsPerCandidateConstraint(board, constraints.maxInterviews);
+  return isValid;
+};
+
+var softConstraintsValid = function (board, constraints) {
+  var isValid = true;
+
+  isValid = isValid && fairnessPerCandidate(board, constraints.numberOfCandidates);
+
   return isValid;
 };
 
@@ -185,17 +236,94 @@ var oneCandidatePerOppertunityConstraint = function (board) {
   return valid;
 };
 
+var maxNumberOfInterviewsPerCandidateConstraint = function (board, maxInterviews) {
+  var valid = true;
+  board.interviewCount = {};
+
+  for (var x = 0; x < board.length; x++) {
+    for (var y = 0; y < board[x].length; y++) {
+      if (board[x][y] !== undefined) {
+        board.interviewCount[board[x][y].id] = board.interviewCount[board[x][y].id] === undefined ? 0 : board.interviewCount[board[x][y].id];
+        board.interviewCount[board[x][y].id]++;
+        if (board.interviewCount[board[x][y].id] > maxInterviews) {
+          valid = false;
+        }
+      }
+    }
+  }
+  return valid;
+};
+
+var fairnessPerCandidate = function (board, numberOfCandidates) {
+  var valid = true;
+  var interviewCount = {};
+  var interviewsDelta = 0;
+  var minInterviews;
+  var maxInterviews;
+  var count;
+
+  for (var x = 0; x < board.length; x++) {
+    for (var y = 0; y < board[x].length; y++) {
+      if (board[x][y] !== undefined) {
+        interviewCount[board[x][y].id] = interviewCount[board[x][y].id] === undefined ? 0 : interviewCount[board[x][y].id];
+        interviewCount[board[x][y].id]++;
+      }
+    }
+  }
+
+  // if all candidates have been assigned at least once
+  if (Object.keys(interviewCount).length === numberOfCandidates) {
+    for (count in interviewCount) {
+      minInterviews = minInterviews === undefined ? interviewCount[count] : minInterviews;
+      maxInterviews = maxInterviews === undefined ? interviewCount[count] : maxInterviews;
+
+      // set max
+      if (interviewCount[count] > maxInterviews) {
+        maxInterviews = interviewCount[count];
+      }
+      // set min
+      if (interviewCount[count] < minInterviews) {
+        minInterviews = interviewCount[count];
+      }
+    }
+
+    if (maxInterviews - minInterviews > 1) {
+      valid = false;
+    }
+
+  } else {
+    for (count in interviewCount) {
+      if (interviewCount[count] > 1) {
+        valid = false;
+      }
+    }
+  }
+
+  return valid;
+};
+
   return {
     schedule : function(numberOfslots) {
-      var queuedSlots;
+      var processedInput;
       retrieveData().then(function (data) {
         var assigned;
         console.log('Data Retrieved', data);
         // opportunities, candidates, matches, numberOfSlots
-        queuedSlots = prepareData(data[0], data[1], data[2], numberOfslots);
-        console.log('Queued', queuedSlots);
-        assigned = assignSlots(queuedSlots);
+        processedInput = prepareData(data[0], data[1], data[2], numberOfslots);
+        console.log('Queued', processedInput);
+        assigned = runAssignment(processedInput);
         console.log('Assigned',assigned);
+
+        var interviewCount = {};
+
+        for (var x = 0; x < assigned.length; x++) {
+          for (var y = 0; y < assigned[x].length; y++) {
+            if (assigned[x][y] !== undefined) {
+              interviewCount[assigned[x][y].id] = interviewCount[assigned[x][y].id] === undefined ? 0 : interviewCount[assigned[x][y].id];
+              interviewCount[assigned[x][y].id]++;
+            }
+          }
+        }
         return assigned;
       });
     }
