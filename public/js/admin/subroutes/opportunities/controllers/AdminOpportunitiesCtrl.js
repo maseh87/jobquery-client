@@ -40,6 +40,24 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
     });
   };
 
+  $scope.includeAllActive = true;
+  $scope.includeAllPublic = true;
+
+  $scope.toggleC = function (attribute) {
+    $scope[attribute] = !$scope[attribute];
+  };
+
+  $scope.excludingMachine = function () {
+    return function (item) {
+      if ( (!$scope.includeAllActive && !item.active) ||
+           (!$scope.includeAllPublic && !item.approved) ){
+        return false;
+      } else {
+        return true;
+      }
+    };
+  };
+
   $scope.toggleCheckbox = function (opp, property) {
     var opportunityToUpdate = {};
     opportunityToUpdate._id = opp._id;
@@ -48,3 +66,4 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
   };
 
 }]);
+

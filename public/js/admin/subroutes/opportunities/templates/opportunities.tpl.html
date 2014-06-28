@@ -12,8 +12,11 @@
         </div>
     </div>
 
+    <div><input type="checkbox" ng-model="includeAllActive" ng-click="toggleC('includeAllActive')"> Include Non-Active</input></div>
+    <div><input type="checkbox" ng-model="includeAllPublic" ng-click="toggleC('includeAllPublic')"> Include Non-Public</input></div>
     <div class="content-section container-fluid" ng-repeat="(groupName, group) in groups">
         <div class="row">
+
         <div class="tablebox-title">{{ groupName }}</div>
         <table class="tablebox">
         <thead>
@@ -28,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="tablebox-content" ng-repeat="opportunity in group | orderBy:sorter:reverse">
+            <tr class="tablebox-content" ng-repeat="opportunity in group | filter:excludingMachine('blah') | orderBy:sorter:reverse">
                 <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.company }}</td>
                 <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.title }}</td>
                 <td><input type="checkbox" ng-model="opportunity.active" ng-click="toggleCheckbox(opportunity, 'active')"></td>
