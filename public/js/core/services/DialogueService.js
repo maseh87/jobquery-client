@@ -9,6 +9,11 @@ app.factory('DialogueService', function () {
     document.getElementById('dialogue-content').innerHTML = message;
   };
 
+  serviceMethods.clear = function() {
+    document.getElementById('dialogue-title').innerHTML = "";
+    document.getElementById('dialogue-content').innerHTML = "";
+  };
+
   serviceMethods.toggle = function () {
     serviceMethods._hidden ? serviceMethods.show() : serviceMethods.hide();
   };
