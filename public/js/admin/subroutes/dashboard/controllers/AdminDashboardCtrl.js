@@ -31,7 +31,11 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     candidateCategories = {};
     opportunityCategories = {};
 
-    matches.forEach(function(matchObj){
+    for(var i = 0; i < matches.length; i++){
+      var matchObj = matches[i];
+
+      if(matchObj.userInterest === 0) continue;
+
       var opportunityCategory = opportunities[matchObj.opportunity].category;
       var candidateCategory = users[matchObj.user].category;
 
@@ -47,7 +51,7 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
         override: matchObj.adminOverride,
         processed: matchObj.isProcessed
       });
-    });
+    }
 
     candidateCategories = arrayify(candidateCategories);
     opportunityCategories = arrayify(opportunityCategories);
