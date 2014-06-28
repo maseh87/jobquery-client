@@ -31,7 +31,11 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     candidateCategories = {};
     opportunityCategories = {};
 
-    matches.forEach(function(matchObj){
+    for(var i = 0; i < matches.length; i++){
+      var matchObj = matches[i];
+
+      if(matchObj.userInterest === 0) continue;
+
       var opportunityCategory = opportunities[matchObj.opportunity].category;
       var candidateCategory = users[matchObj.user].category;
 
@@ -47,7 +51,7 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
         override: matchObj.adminOverride,
         processed: matchObj.isProcessed
       });
-    });
+    }
 
     candidateCategories = arrayify(candidateCategories);
     opportunityCategories = arrayify(opportunityCategories);
@@ -67,10 +71,24 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   });
 
   $scope.customQuery = function(entry){
+
+    //Filter for processed
+    if($scope.processedQuery !== entry.processed) return false;
+
     //Filter for candidate name
     if($scope.candidateNameQuery){
       var regex = new RegExp($scope.candidateNameQuery, 'i');
       if(!entry.candidate.match(regex)) return false;
+    }
+
+    //Filter for interest >= input number
+    if($scope.interestQuery){
+      if($scope.interestQuery > entry.interest) return false;
+    }
+
+    //Filter for admin override >= input number
+    if($scope.overrideQuery){
+      if($scope.overrideQuery > entry.override) return false;
     }
 
     //Filter for candidate category
@@ -102,18 +120,6 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
       if(!validOpportunityCategory) return false;
     }
 
-    //Filter for interest >= input number
-    if($scope.interestQuery){
-      if($scope.interestQuery > entry.interest) return false;
-    }
-
-    //Filter for admin override >= input number
-    if($scope.overrideQuery){
-      if($scope.overrideQuery > entry.override) return false;
-    }
-
-    //Filter for processed
-    if($scope.processedQuery !== entry.processed) return false;
 
     return true;
   };
