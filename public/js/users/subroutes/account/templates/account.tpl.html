@@ -1,8 +1,8 @@
 <div class="content-header">
-    <div class="content-header-block text-left">
+    <div class="content-header-block text-left" ng-click="update()">
         <span class="content-action">
             <span class="glyphicon glyphicon-ok"></span>
-            <span ng-click="update()">{{submitText}}</span>
+            <span>{{submitText}}</span>
         </span>
     </div>
     <div class="content-header-block">
@@ -59,7 +59,7 @@
     <div class="content-section container-fluid" ng-if="user && isSearchStage('Accepted')">
         <div class="dashbox-title">Accepted Job Survey</div>
         <div class="dashbox dashbox-content">
-            
+
         </div>
     </div>
 
@@ -117,9 +117,9 @@
 
     <div class="content-section container-fluid">
         <div class="formbox-footer">
-            <span class="content-action">
+            <span class="content-action" ng-click="update()">
                 <span class="glyphicon glyphicon-ok"></span>
-                <span ng-click="update()">{{submitText}}</span>
+                <span>{{submitText}}</span>
             </span>
         </div>
     </div>
