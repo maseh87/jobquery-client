@@ -15,17 +15,25 @@ app.controller('AdminSidebarCtrl', ['$scope', '$rootScope', '$state', function (
     };
 
     $scope.currentStateHeading = "opportunities";
+    document.getElementById(sidebarIds[$scope.currentStateHeading]).classList.add('sidebar-active');
+
+    var getNewState = function (toState) {
+        var defaultState = "opportunities";
+        for (var state in sidebarIds) {
+            if (toState.hasOwnProperty("name") && toState.name.indexOf(state) > -1) { return state; }
+        }
+        return defaultState;
+    };
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState) {
         var fromState = $scope.currentStateHeading;
-        document.getElementById(sidebarIds[fromState]).classList.remove('sidebar-active');
+        $scope.currentStateHeading = getNewState(toState);
 
-        var newState = Object.keys(sidebarIds).filter(function (state) {
-            return toState.name.indexOf(state) > -1;
-        })[0];
-        if (newState) { 
-            $scope.currentStateHeading = newState;
-            document.getElementById(sidebarIds[newState]).classList.add('sidebar-active');
-        }
+        var $fromState = document.getElementById(sidebarIds[fromState]);
+        var $toState = document.getElementById(sidebarIds[$scope.currentStateHeading]);
+
+        if ($fromState) { $fromState.classList.remove('sidebar-active'); }
+        if ($toState) { $toState.classList.add('sidebar-active'); }
     });
+
 }]);
