@@ -39,5 +39,15 @@ app
       });
     };
 
+    matchMethods.batchProcess = function(arrayOfIds){
+      return $http({
+        method: 'PUT',
+        url: SERVER_URL + '/api/matches/batchProcess',
+        data: { ids: arrayOfIds }
+      }).then(function(response){
+        return response.data;
+      });
+    };
+
     return matchMethods;
   }]);
