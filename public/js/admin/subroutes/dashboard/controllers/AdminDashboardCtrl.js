@@ -35,8 +35,8 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
       var opportunityCategory = opportunities[matchObj.opportunity].category;
       var candidateCategory = users[matchObj.user].category;
 
-      candidateCategories[candidateCategory._id] = candidateCategory;
-      opportunityCategories[opportunityCategory._id] = opportunityCategory;
+      if(candidateCategory) candidateCategories[candidateCategory._id] = candidateCategory;
+      if(opportunityCategory) opportunityCategories[opportunityCategory._id] = opportunityCategory;
 
       results.push({
         candidate: users[matchObj.user].name,
