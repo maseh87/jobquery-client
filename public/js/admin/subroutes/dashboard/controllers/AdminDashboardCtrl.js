@@ -40,9 +40,9 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
 
       results.push({
         candidate: users[matchObj.user].name,
-        candidateGroup: users[matchObj.user].category.name,
+        candidateGroup: users[matchObj.user].category ? users[matchObj.user].category.name : null,
         company: opportunities[matchObj.opportunity].company.name,
-        opportunityGroup: opportunities[matchObj.opportunity].category.name,
+        opportunityGroup: opportunities[matchObj.opportunity].category ? opportunities[matchObj.opportunity].category.name : null,
         interest: matchObj.userInterest,
         override: matchObj.adminOverride,
         processed: matchObj.isProcessed
