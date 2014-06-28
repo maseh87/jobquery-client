@@ -1,9 +1,10 @@
-app.controller('AdminCandidatesCtrl', ['User', 'Match', '$scope', function (User, Match, $scope) {
+app.controller('AdminCandidatesCtrl',
+  ['$http', '$scope', 'User', 'Match', 'SERVER_URL',
+   function ($http, $scope, User, Match, SERVER_URL) {
 
   $scope.query = '';
 
   User.getAll().then(function (users) {
-    console.log(users);
     $scope.users = users;
     var groups = {};
     var userMap = {};
@@ -43,6 +44,51 @@ app.controller('AdminCandidatesCtrl', ['User', 'Match', '$scope', function (User
     });
 
   });
+
+  $scope.downloadData = function () {
+    $http.get(SERVER_URL + '/api/users/download')
+    .success(function () {
+      if (arguments[1] === 200) {
+        $scope.dataToDownload = arguments[0];
+        download(arguments[0], 'exported', 'text/csv');
+      }
+    });
+  };
+
+  function download(strData, strFileName, strMimeType) {
+    var D = document,
+        a = D.createElement("a");
+        strMimeType= strMimeType || "application/octet-stream";
+
+
+    if (navigator.msSaveBlob) { // IE10
+        return navigator.msSaveBlob(new Blob([strData], {type: strMimeType}), strFileName);
+    } /* end if(navigator.msSaveBlob) */
+
+
+    if ('download' in a) { //html5 A[download]
+        a.href = "data:" + strMimeType + "," + encodeURIComponent(strData);
+        a.setAttribute("download", strFileName);
+        a.innerHTML = "downloading...";
+        D.body.appendChild(a);
+        setTimeout(function() {
+            a.click();
+            D.body.removeChild(a);
+        }, 66);
+        return true;
+    } /* end if('download' in a) */
+
+
+    //do iframe dataURL download (old ch+FF):
+    var f = D.createElement("iframe");
+    D.body.appendChild(f);
+    f.src = "data:" +  strMimeType   + "," + encodeURIComponent(strData);
+
+    setTimeout(function() {
+        D.body.removeChild(f);
+    }, 333);
+    return true;
+  } /* end download() */
 
 
 }]);
