@@ -21,6 +21,8 @@
         <option ng-value="true">Processed</option>
         <option ng-value="false">Unprocessed</option>
     </select>
+    <h5>Process All</h5>
+    <button ng-click="batchProcess()">BUTTON OF DOOM</button>
 </div>
 
 <div class="row">
@@ -44,7 +46,7 @@
                 <td>{{entry.company}}</td>
                 <td>{{entry.opportunityGroup}}</td>
                 <td>{{entry.interest}}</td>
-                <td>{{entry.override}}</td>
+                <td>{{entry.override || ''}}</td>
                 <td>
                     <input ng-keypress="updateMatch(entry, $event)" ng-model="entry.internalNotes">
                 </td>
