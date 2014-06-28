@@ -15,12 +15,12 @@ app.factory('DialogueService', function () {
 
   serviceMethods.show = function () {
     serviceMethods._hidden = false;
-    document.getElementById('dialogue-box').setAttribute('display', 'block');
+    document.getElementById('dialogue-box').setAttribute('style', 'display: block');
   };
 
   serviceMethods.hide = function () {
     serviceMethods._hidden = false;
-    document.getElementById('dialogue-box').setAttribute('display', 'none');
+    document.getElementById('dialogue-box').setAttribute('style', 'display: none');
   };
 
   return serviceMethods;

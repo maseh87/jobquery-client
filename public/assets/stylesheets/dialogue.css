@@ -1,4 +1,4 @@
-.dialogue-box {
+#dialogue-box {
     position: fixed; z-index: 500;
     box-sizing: border-box;
 
@@ -11,7 +11,7 @@
     border: 1px solid #C0C0C0;
 }
 
-.dialogue-box input {
+#dialogue-box input {
     padding: 8px; height: 30px;
 
     border-radius: 1px; border: none; outline: none;
@@ -21,16 +21,16 @@
     color: #F0F0F0; text-transform: uppercase;
     background-color: #5598c1;
 }
-.dialogue-box input:hover { color: #c9e3ef; cursor: pointer; }
+#dialogue-box input:hover { color: #c9e3ef; cursor: pointer; }
 
-.dialogue-title {
+#dialogue-title {
     padding: 5px 12px 5px 12px; text-align: right;
 
     font-weight: 400; text-transform: uppercase;
     background-color: #E4E4E4;
 }
 
-.dialogue-content {
+#dialogue-content {
     padding: 12px 12px 5px 12px;
     height: 180px; width: 250px;
     color: #606060; font-weight: 200;
