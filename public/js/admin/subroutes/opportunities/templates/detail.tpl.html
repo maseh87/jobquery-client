@@ -160,7 +160,7 @@
                     </td>
                 </tr>
                 <!-- repeat everything 10th row -->
-                <tr ng-repeat-end ng-if="$index > 0 && $index % 10 === 0">
+                <tr ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last">
                     <th></th><!-- Empty table header-->
                     <th><div class="text-left">Name</div></th>
                     <th><div class="text-left">E-mail</div></th>
