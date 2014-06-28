@@ -1,6 +1,6 @@
 app.controller('AdminOpportunitiesNewCtrl',
-  ['$scope', '$stateParams', '$state', 'Opportunity', 'User', 'Tag', 'Category', 'Company', '$q',
-  function ($scope, $stateParams, $state, Opportunity, User, Tag, Category, Company, $q) {
+  ['$scope', '$stateParams', '$state', 'Opportunity', 'User', 'Tag', 'Category', 'Company', '$q', 'generateGlyphs',
+  function ($scope, $stateParams, $state, Opportunity, User, Tag, Category, Company, $q, generateGlyphs) {
 
   User.getAll().then(function (users) {
     // need populate users with tags info
@@ -47,6 +47,8 @@ app.controller('AdminOpportunitiesNewCtrl',
         _id: user._id,
         name: user.name,
         email: user.email,
+        category: user.category ? user.category.name : 'N/A',
+        searchStage: user.searchStage,
         points: [0, 0], // default: [points, possible points]
         score: 0, // points[0] / points[1]
         tags: (function () {
@@ -111,7 +113,7 @@ app.controller('AdminOpportunitiesNewCtrl',
         deferred.resolve();
       }
       return deferred.promise;
-    }
+    };
 
     var handleCategory = function(){
       var deferred = $q.defer();
@@ -124,7 +126,7 @@ app.controller('AdminOpportunitiesNewCtrl',
         deferred.resolve();
       }
       return deferred.promise;
-    }
+    };
 
     handleCompany().then(function(){
       return handleCategory();
@@ -179,10 +181,10 @@ app.controller('AdminOpportunitiesNewCtrl',
 
   $scope.updateGuidance = function () {
     // filtered guidance = no text type
-    // $scope.filteredTags = $scope.guidance.tags.filter(function (tag) {
-    //   return (tag.value !== 'text');
-    // });
-    $scope.filteredTags = $scope.guidance.tags;
+    $scope.filteredTags = $scope.guidance.tags.filter(function (tag) {
+      return (tag.value !== 'text');
+    });
+    // $scope.filteredTags = $scope.guidance.tags;
 
     // calculate summary stats
     $scope.filteredStats = {};
@@ -195,13 +197,13 @@ app.controller('AdminOpportunitiesNewCtrl',
           count: 0
         };
       });
-    } else {
-      // zero scores if no tags
-      $scope.declared.forEach(function (user) {
-        user.points[0] = 0;
-        user.points[1] = 0;
-      });
     }
+
+    // reset scores to recalculate
+    $scope.declared.forEach(function (user) {
+      user.points[0] = 0;
+      user.points[1] = 0;
+    });
 
     Object.keys($scope.filteredStats).forEach(function (tagId) {
       if ($scope.filteredStats[tagId].type === 'scale') {
@@ -228,26 +230,15 @@ app.controller('AdminOpportunitiesNewCtrl',
           if ($scope.filteredStats[tagId].type === 'scale') {
             if (user.tags[tagId] >= $scope.filteredStats[tagId].threshold) {
               // only add points if threshold is met
-              user.points[0] += Number(user.tags[tagId]);
+              user.points[0] += 1;
             }
             // but always add to the denominator
-            user.points[1] += Number($scope.filteredStats[tagId].threshold);
+            user.points[1] += 1;
           } else if ($scope.filteredStats[tagId].type === 'binary') {
             if (user.tags[tagId] === $scope.filteredStats[tagId].threshold) {
-              user.points[0] += 4; // assume perfect score
+              user.points[0] += 1;
             }
-            user.points[1] += 4; // assume binary questions are out of 4
-          }
-        } else { // nice to have
-          // if met, gross up top and bottom by user's score
-          if ($scope.filteredStats[tagId].type === 'scale' &&
-            user.tags[tagId] >= $scope.filteredStats[tagId].threshold) {
-            user.points[0] += Number(user.tags[tagId] * 0.50);
-            user.points[1] += Number(user.tags[tagId] * 0.50);
-          } else if ($scope.filteredStats[tagId].type === 'binary' &&
-            user.tags[tagId] === $scope.filteredStats[tagId].threshold) {
-              user.points[0] += 4 * 0.50;
-              user.points[1] += 4 * 0.50;
+            user.points[1] += 1;
           }
         }
       });
@@ -255,31 +246,7 @@ app.controller('AdminOpportunitiesNewCtrl',
     });
   };
 
-  $scope.calculateFit = function (tagType, tagThreshold, userLevel) {
-    if (tagType === 'must') {
-      if (userLevel >= tagThreshold) {
-        return 'glyphicon-thumbs-up';
-      } else {
-        return 'glyphicon-remove';
-      }
-    } else {
-      if (userLevel >= tagThreshold) {
-        return 'glyphicon-plus';
-      } else {
-        return '';
-      }
-    }
-  };
-
-  $scope.colorIcons = function (icon) {
-    if (icon === 'glyphicon-thumbs-up') {
-      return 'green';
-    } else if (icon ==='glyphicon-remove') {
-      return 'red';
-    } else if (icon ==='glyphicon-plus') {
-      return 'grey';
-    }
-  };
+  $scope.calculateFit = generateGlyphs.calculateFit;
 
   $scope.addNewCompany = function(companyName){
     var newCompany = {name: companyName};

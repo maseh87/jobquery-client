@@ -81,7 +81,7 @@ app.controller('AdminMatchesCtrl',
         D.body.removeChild(f);
     }, 333);
     return true;
-} /* end download() */
+  } /* end download() */
 
 
 }]);

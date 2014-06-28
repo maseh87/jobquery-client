@@ -72,7 +72,7 @@
                                 <option value="must" selected>Must Have</option>
                                 <option value="nice">Nice to Have</option>
                             </select>
-                            <select ng-disabled="readOnly" ng-model="tagView.data._id" ng-options="tag._id as tag.name group by tag.category.name for tag in tags | orderBy: 'name'" ng-change="showCorrectValues(tagView, tagView.data._id); updateGuidance()"></select>
+                            <select ng-disabled="readOnly" ng-model="tagView.data._id" ng-options="tag._id as tag.name group by tag.category.name for tag in tags | orderBy: 'name'" ng-change="showCorrectValues(tagView, tagView.data._id); updateGuidance(); defaultValues(tagView)"></select>
                             <select ng-disabled="readOnly" ng-show="tagView.data.type === 'scale'" ng-model="tagView.value" ng-change="updateGuidance()">
                                 <option value="3">3 (Agree)</option>
                                 <option value="4">4 (Agree Strongly)</option>
@@ -84,9 +84,9 @@
                             <select ng-disabled="readOnly" ng-show="tagView.data.type === 'text'" ng-model="tagView.value">
                                 <option value="text">Free Text</option>
                             </select>
-                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.tags)" value="Remove"></input>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.tags); updateGuidance()" value="Remove"></input>
                         </div>
-                        <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.tags, {value: 1, importance: 'must'})" value="+ Add New"></input>
+                        <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.tags, {importance: 'must'})" value="+ Add New"></input>
                     </td>
                 </tr>
             </table>
@@ -98,7 +98,7 @@
                     <td>
                         <div ng-repeat="question in guidance.questions | filter:{active:true}">
                             <textarea cols="50" rows="2" ng-readonly="readOnly" ng-model="question.question"></textarea>
-                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom(question)" value="Remove"></input>
+                            <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="removeFrom($index, guidance.questions)" value="Remove"></input>
                         </div>
                         <input type="button" ng-show="!readOnly" class="btn btn-default btn-xs" ng-click="addTo(guidance.questions, {question: '', active: true})" value="+ Add New"></input>
                     </td>
@@ -119,48 +119,63 @@
             </table>
         </div>
         <div class="row">
+
+            <button type="button" ng-init="hideQuestions = true; hideTags = false" ng-click="hideQuestions = !hideQuestions; hideTags = !hideTags">Toggle Questions and Tags</button>
+
             <table class="table table-striped table-condensed">
             <thead>
                 <th></th><!-- Empty table header-->
-                <th>Name</th>
-                <th>E-mail</th>
-                <th>% Match</th>
-                <th>Interest</th>
-                <th ng-repeat="tag in filteredTags">{{ tag.data.name }}</th>
+                <th><div class="text-left">Name</div></th>
+                <th><div class="text-left">E-mail</div></th>
+                <th><div class="text-left">Group</div></th>
+                <th><div class="text-left">Stage</div></th>
+                <th><div class="text-center">Match</div></th>
+                <th><div class="text-center">Interest</div></th>
+                <th ng-repeat="tag in filteredTags" ng-show="!hideTags"><div class="text-center">{{ tag.data.name }}</div></th>
+                <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"><div class="text-center">{{question.question}}</div></th>
             </thead>
             <tbody>
                 <tr>
                     <th></th><!-- Empty table header-->
                     <th></th><!-- Empty table header-->
                     <th>
-                        # Meeting or Exceeding
-                        <p>({{interestResponses}} Responses |
+                        <div class="text-left"># Meeting or Exceeding</div>
+                        <p class="text-left">({{interestResponses}} Responses |
                         {{interestThreeOrAbove}} Interested)</p>
                     </th>
                     <th></th><!-- Empty table header-->
                     <th></th><!-- Empty table header-->
-                    <th ng-repeat="tag in filteredTags">
-                        <p>{{ filteredStats[tag.data._id].type === 'text' ? '' : filteredStats[tag.data._id].count}}</p>
+                    <th></th><!-- Empty table header-->
+                    <th></th><!-- Empty table header-->
+                    <th ng-repeat="tag in filteredTags" ng-show="!hideTags">
+                        <p class="text-center">{{ filteredStats[tag.data._id].type === 'text' ? '' : filteredStats[tag.data._id].count}}</p>
                     </th>
+                    <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"></th><!-- Empty table header-->
                 </tr>
                 <tr ng-repeat-start="user in declared | orderBy: ['-score', 'name']">
                     <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.points[1] === 0 ? '-' : user.score + '%' }}</td>
-                    <td>{{ user.interest === 0 ? 'N/A' : user.interest }}</td>
-                    <td ng-repeat="tag in filteredTags">
-                        <span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, user.tags[tag.data._id])" ng-style="{color: colorIcons(calculateFit(tag.importance, tag.value, user.tags[tag.data._id]))}"></span>
+                    <td>{{ user.category }}</td>
+                    <td>{{ user.searchStage }}</td>
+                    <td><div class="text-center">{{ user.points[1] === 0 ? '-' : user.score + '%' }}</div></td>
+                    <td><div class="text-center">{{ user.interest === 0 ? 'N/A' : user.interest }}</div></td>
+                    <td ng-repeat="tag in filteredTags" ng-show="!hideTags">
+                        <p class="text-center"><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, user.tags[tag.data._id])[0]" ng-style="{color: calculateFit(tag.importance, tag.value, user.tags[tag.data._id])[1]}"></span></p>
                     </td>
+                    <td ng-repeat="answerObject in user.answers" ng-show="!hideQuestions"><p class="text-center">{{answerObject.answer || 'N/A'}}</p></td>
                 </tr>
                 <!-- repeat everything 10th row -->
-                <tr ng-repeat-end ng-if="$index > 0 && $index % 10 === 0">
+                <tr ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last">
                     <th></th><!-- Empty table header-->
-                    <th>Name</th>
-                    <th>E-mail</th>
-                    <th>% Match</th>
-                    <th>Interest</th>
-                    <th ng-repeat="tag in filteredTags">{{ tag.data.name }}</th>
+                    <th><div class="text-left">Name</div></th>
+                    <th><div class="text-left">E-mail</div></th>
+                    <th><div class="text-left">Group</div></th>
+                    <th><div class="text-left">Stage</div></th>
+                    <th><div class="text-center">Match</div></th>
+                    <th><div class="text-center">Interest</div></th>
+                    <th ng-repeat="tag in filteredTags" ng-show="!hideTags"><div class="text-center">{{ tag.data.name }}</div></th>
+                    <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"><div class="text-center">{{question.question}}</div></th>
                 </tr>
             </tbody>
         </div>

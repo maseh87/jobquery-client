@@ -1,7 +1,7 @@
 app.controller('AdminCandidatesDetailCtrl', ['User', '$scope', '$stateParams', 'Match', 'Company', 'Tag', 'Category', '$q',
 function (User, $scope, $stateParams, Match, Company, Tag, Category, $q) {
 
-  var user, companies, matches, categories;
+  var user, companies, matches, categories, opportunityCategories;
 
   var bindUserCategory = function(user, categories){
     var categoryId = user.category._id;
@@ -22,12 +22,15 @@ function (User, $scope, $stateParams, Match, Company, Tag, Category, $q) {
       return Company.getAll();
     }).then(function(data){
       companies = data;
-      $scope.matches = parseData(matches, companies);
       $scope.user = user;
       return Category.getAll('User');
     }).then(function(data){
       categories = data;
+      return Category.getAll('Opportunity');
+    }).then(function(data){
+      opportunityCategories = data;
       $scope.categories = categories;
+      $scope.matches = parseData(matches, companies);
       bindUserCategory($scope.user, $scope.categories);
     });
   };
@@ -56,13 +59,14 @@ function (User, $scope, $stateParams, Match, Company, Tag, Category, $q) {
 
   var parseData = function(matches, companies){
     var parsed = [];
+    categoriesObj = objectify(opportunityCategories);
     companies = objectify(companies);
-
     matches.forEach(function(match){
       parsed.push({
         companyName: companies[match.opportunity.company].name,
         jobTitle: match.opportunity.jobTitle,
-        userInterest: match.userInterest
+        userInterest: match.userInterest,
+        category: categoriesObj[match.opportunity.category].name
       });
     });
 

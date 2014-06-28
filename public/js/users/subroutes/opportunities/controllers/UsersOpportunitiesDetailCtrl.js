@@ -1,6 +1,6 @@
 app.controller('UsersOpportunitiesDetailCtrl',
-  ['$scope', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
-  function($scope, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
+  ['$scope', '$timeout', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
+  function($scope, $timeout, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
   $scope.submitText = '✔  Submit Answers';
   $scope.pendingRequests = 0;
@@ -21,9 +21,9 @@ app.controller('UsersOpportunitiesDetailCtrl',
     });
 
     $scope.match.userInterest = value;
-    UsersOpportunity.update($scope.match).then(function () { });      
+    UsersOpportunity.update($scope.match).then(function () { });
   };
-  
+
   $scope.hasInterest = function (value) {
     if (!$scope.match) { return undefined; }
     return $scope.match.userInterest === value;
@@ -56,6 +56,8 @@ app.controller('UsersOpportunitiesDetailCtrl',
     $scope.score = guidanceResult[1];
     $scope.processedTags = [processedTags.must, processedTags.nice];
     $scope.calculateFit = generateGlyphs.calculateFit;
+
+    $scope.company = data.match.opportunity.company;
   });
 
   $scope.submit = function() {
@@ -70,6 +72,9 @@ app.controller('UsersOpportunitiesDetailCtrl',
     UsersOpportunity.update($scope.match).then(function(){
       $scope.submitText = '✔  Save Successful';
       $scope.pendingRequests--;
+      $timeout(function () {
+        $scope.submitText = '✔  Submit Answers';
+      }, 3000);
     });
   };
 

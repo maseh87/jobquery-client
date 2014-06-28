@@ -12,22 +12,39 @@
 <div ng-show="opportunity">
 <div class="row">
     <div class="content-section container-fluid">
-        <div class="formbox-title">Basic Information</div>
+        <div class="formbox-title">Company Information</div>
         <table class="formbox formbox-basic">
             <tr>
-                <td>{{ opportunity.description }}</td>
+                <td>{{ company.description }}</td>
                 <td>
-                    <span>Company: {{ opportunity.company.name}}</span><br>
-                    <span>Title: {{ opportunity.jobTitle }}</span><br>
-                    <div ng-repeat="link in opportunity.links">
-                        <span ng-show="$first">Read more:</span>
-                        <span><a ng-href="{{link.url}}">{{link.url}}</a></span> 
+                    <span class="type-subtitle">{{ company.city }}, {{ company.country }}</span><br>
+                    <span class="type-title">{{ company.name }}</span><br>
+                    <span class="type-tagline">{{ company.tagline }}</span><br><br>
+                    <div class="type-linkbox" ng-repeat="link in company.links">
+                        <span ng-show="$first">Read more:</span><br>
+                        <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                     </div>
                 </td>
             </tr>
         </table>
     </div>
-    
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Opportunity Information</div>
+        <table class="formbox formbox-basic">
+            <tr>
+                <td>{{ opportunity.description }}</td>
+                <td>
+                    <span class="type-title">{{ opportunity.jobTitle }}</span><br>
+                    <div ng-repeat="link in opportunity.links">
+                        <span ng-show="$first">Read more:</span><br>
+                        <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
     <div class="content-section container-fluid">
         <div class="formbox-title">Indicate Interest</div>
         <div class="dashbox dashbox-content">
@@ -50,7 +67,7 @@
                         <th width="40%">{{tags.importance === 'must' ? 'Must Have' : 'Nice to Have'}}</th>
                         <th width="20%">Your Value</th>
                         <th width="20%">Their Value</th>
-                        <th width="20%">Comparison {{'(' + score + '% Match)'}}</th>
+                        <th width="20%">Comparison <p>{{'(' + score + '% match for employer)'}}</p></th>
                         <tr ng-repeat="tag in tagType">
                             <td width="40%">{{tag.name}}</td>
                             <td width="20%">{{tag.userValue}}</td>

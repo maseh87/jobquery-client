@@ -1,8 +1,8 @@
 <div class="content-header">
-    <div class="content-header-block text-left">
+    <div class="content-header-block text-left" ng-click="update()">
         <span class="content-action">
             <span class="glyphicon glyphicon-ok"></span>
-            <span ng-click="update()">{{submitText}}</span>
+            <span>{{submitText}}</span>
         </span>
     </div>
     <div class="content-header-block">
@@ -38,10 +38,13 @@
     <div class="content-section container-fluid" ng-if="user">
         <div class="dashbox-title">Job Search Status</div>
         <div class="dashbox dashbox-content">
+            <div class="dashbox-icon" ng-click="updateSearchStage('Out')" ng-class="{'dashbox-icon-active':isSearchStage('Out')}">
+                <span class="dashbox-icon-dingbat">⦸</span><br>Opt Out
+            </div>
             <div class="dashbox-icon" ng-click="updateSearchStage('Early')" ng-class="{'dashbox-icon-active':isSearchStage('Early')}">
                 <span class="dashbox-icon-dingbat">➀</span><br>Early
             </div>
-            <div class="dashbox-icon" ng-click="updateSearchStage('Mid-Late')" ng-class="{'dashbox-icon-active':isSearchStage('Mid-Late')}">
+            <div class="dashbox-icon" ng-click="updateSearchStage('Mid/Late')" ng-class="{'dashbox-icon-active':isSearchStage('Mid/Late')}">
                 <span class="dashbox-icon-dingbat">➁</span><br>Mid/Late
             </div>
             <div class="dashbox-icon" ng-click="updateSearchStage('Closing')" ng-class="{'dashbox-icon-active':isSearchStage('Closing')}">
@@ -50,6 +53,13 @@
             <div class="dashbox-icon" ng-click="updateSearchStage('Accepted')" ng-class="{'dashbox-icon-active':isSearchStage('Accepted')}">
                 <span class="dashbox-icon-dingbat">➃</span><br>Accepted
             </div>
+        </div>
+    </div>
+
+    <div class="content-section container-fluid" ng-if="user && isSearchStage('Accepted')">
+        <div class="dashbox-title">Accepted Job Survey</div>
+        <div class="dashbox dashbox-content">
+
         </div>
     </div>
 
@@ -107,9 +117,9 @@
 
     <div class="content-section container-fluid">
         <div class="formbox-footer">
-            <span class="content-action">
+            <span class="content-action" ng-click="update()">
                 <span class="glyphicon glyphicon-ok"></span>
-                <span ng-click="update()">{{submitText}}</span>
+                <span>{{submitText}}</span>
             </span>
         </div>
     </div>

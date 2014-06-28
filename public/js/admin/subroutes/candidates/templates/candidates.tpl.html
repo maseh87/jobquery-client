@@ -1,9 +1,13 @@
 <div ui-view>
     <div class="content-header">
         <div class="content-header-block text-left">
-            <span class="content-action">
+            <span class="content-action" ui-sref="admin.candidates.new">
                 <span class="glyphicon glyphicon-plus"></span>
-                <span ui-sref="admin.candidates.new">Invite Candidates</span>
+                <span>Invite Candidates</span>
+            </span>
+            <span class="content-action" ng-click="downloadData()">
+                <span class="glyphicon glyphicon-download"></span>
+                <span>Download Data</span>
             </span>
         </span>
         </div>
@@ -55,10 +59,10 @@
                     <td class="github"><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
                     <td class="email"><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
                     <td class="location">{{user.city}}</td>
-                    <td class="stage">{{user.searchStage}}</td>
+                    <td class="stage">{{user.searchStage === 'Out' ? 'Opted Out' : user.searchStage}}</td>
                 </tr>
             </tbody>
         </table>
     <div>
 
-</div>   
+</div>

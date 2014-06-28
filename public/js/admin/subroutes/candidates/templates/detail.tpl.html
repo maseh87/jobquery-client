@@ -32,7 +32,13 @@
                 <input type="text" ng-readonly="readOnly" ng-model="user.city" value="{{user.city}}"/>
             </td>
             <td class="searchStage">
-                <input type="text" ng-readonly="readOnly" ng-model="user.searchStage" value="{{user.searchStage}}"/>
+                <select ng-model="user.searchStage" ng-disabled="readOnly">
+                    <option value="Out">Opted Out</option>
+                    <option value="Early">Early</option>
+                    <option value="Mid/Late">Mid/Late</option>
+                    <option value="Closing">Closing</option>
+                    <option value="Accepted">Accepted</option>
+                </select>
             </td>
             <td>
                 <input type="checkbox" ng-disabled="readOnly" ng-model="user.attending">
@@ -111,11 +117,13 @@
     <thead>
         <th class="pointer" ng-click="sorter='companyName'; reverse=!reverse">Company</th>
         <th class="pointer" ng-click="sorter='jobTitle'; reverse=!reverse">Job Title</th>
+        <th class="pointer" ng-click="sorter='category'; reverse=!reverse">Category</th>
         <th class="pointer" ng-click="sorter='userInterest'; reverse=!reverse">Interest</th>
     </thead>
     <tr ng-repeat="match in matches | orderBy:sorter:reverse">
         <td>{{match.companyName}}</td>
         <td>{{match.jobTitle}}</td>
+        <td>{{match.category}}</td>
         <td>{{match.userInterest ? match.userInterest : 'N/A'}}</td>
     </tr>
 </table>

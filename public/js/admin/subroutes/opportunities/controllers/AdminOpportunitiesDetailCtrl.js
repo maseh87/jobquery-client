@@ -1,6 +1,6 @@
 app.controller('AdminOpportunitiesDetailCtrl',
-  ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category',
-  function ($scope, $stateParams, Opportunity, Match, Tag, Category) {
+  ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category', 'generateGlyphs',
+  function ($scope, $stateParams, Opportunity, Match, Tag, Category, generateGlyphs) {
 
   Match.getUsers($stateParams._id).then(function (data) {
     $scope.mapToView(data.opportunity, data.matches);
@@ -59,11 +59,24 @@ app.controller('AdminOpportunitiesDetailCtrl',
       if (matchModel.userInterest >= 3) {
         $scope.interestThreeOrAbove +=1 ;
       }
+
+      //Normalize question and answer arrays.
+      matchModel.answers = matchModel.answers || [];
+      var numQuestions = guidance.questions.length;
+      var numAnswers = matchModel.answers.length;
+      var difference = numQuestions - numAnswers;
+      for(var i = 0; i < difference; i++){
+        matchModel.answers.push({answer: ''});
+      }
+
       return {
         _id: matchModel.user._id,
         name: matchModel.user.name,
         email: matchModel.user.email,
         interest: matchModel.userInterest,
+        answers: matchModel.answers,
+        category: matchModel.user.category ? matchModel.user.category.name : 'N/A',
+        searchStage: matchModel.user.searchStage,
         points: [0, 0], // default: [points, possible points]
         score: 0, // points[0] / points[1]
         tags: (function () {
@@ -142,12 +155,25 @@ app.controller('AdminOpportunitiesDetailCtrl',
     $scope.updateGuidance();
   };
 
-  $scope.removeFrom = function (question) {
-    question.active = false;
+  $scope.removeFrom = function (index, array) {
+    array.splice(index, 1);
   };
 
   $scope.addTo = function (array, field) {
     array.push(field);
+  };
+
+  $scope.defaultValues = function (tagView) {
+    if (!tagView.value) {
+      if (tagView.data.type === 'scale') {
+          tagView.value = 4;
+        } else if (tagView.data.type === 'binary') {
+          tagView.value = 'yes';
+        } else {
+          tagView.value = 'text';
+        }
+      console.log('default tagView.value:', tagView.value);
+    }
   };
 
   $scope.showCorrectValues = function (tag, id) {
@@ -165,11 +191,11 @@ app.controller('AdminOpportunitiesDetailCtrl',
   };
 
   $scope.updateGuidance = function () {
-    // filtered guidance = no text type
-    // $scope.filteredTags = $scope.guidance.tags.filter(function (tag) {
-    //   return (tag.value !== 'text');
-    // });
-  $scope.filteredTags = $scope.guidance.tags;
+  // filtered guidance = no text type
+  $scope.filteredTags = $scope.guidance.tags.filter(function (tag) {
+    return (tag.value !== 'text');
+  });
+  // $scope.filteredTags = $scope.guidance.tags;
 
     // calculate summary stats
     $scope.filteredStats = {};
@@ -182,13 +208,13 @@ app.controller('AdminOpportunitiesDetailCtrl',
           count: 0
         };
       });
-    } else {
-      // zero scores if no tags
-      $scope.declared.forEach(function (user) {
-        user.points[0] = 0;
-        user.points[1] = 0;
-      });
     }
+
+    // reset scores to recalculate
+    $scope.declared.forEach(function (user) {
+      user.points[0] = 0;
+      user.points[1] = 0;
+    });
 
     // count # of people meeting thresholds
     Object.keys($scope.filteredStats).forEach(function (tagId) {
@@ -216,26 +242,15 @@ app.controller('AdminOpportunitiesDetailCtrl',
           if ($scope.filteredStats[tagId].type === 'scale') {
             if (user.tags[tagId] >= $scope.filteredStats[tagId].threshold) {
               // only add points if threshold is met
-              user.points[0] += Number(user.tags[tagId]);
+              user.points[0] += 1;
             }
             // but always add to the denominator
-            user.points[1] += Number($scope.filteredStats[tagId].threshold);
+            user.points[1] += 1;
           } else if ($scope.filteredStats[tagId].type === 'binary') {
             if (user.tags[tagId] === $scope.filteredStats[tagId].threshold) {
-              user.points[0] += 4; // assume perfect score
+              user.points[0] += 1;
             }
-            user.points[1] += 4; // assume binary questions are out of 4
-          }
-        } else { // nice to have
-          // if met, gross up top and bottom by user's score
-          if ($scope.filteredStats[tagId].type === 'scale' &&
-            user.tags[tagId] >= $scope.filteredStats[tagId].threshold) {
-            user.points[0] += Number(user.tags[tagId] * 0.50);
-            user.points[1] += Number(user.tags[tagId] * 0.50);
-          } else if ($scope.filteredStats[tagId].type === 'binary' &&
-            user.tags[tagId] === $scope.filteredStats[tagId].threshold) {
-              user.points[0] += 4 * 0.50;
-              user.points[1] += 4 * 0.50;
+            user.points[1] += 1;
           }
         }
       });
@@ -243,32 +258,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
     });
   };
 
-  $scope.calculateFit = function (tagType, tagThreshold, userLevel) {
-    if (tagType === 'must') {
-      if (userLevel >= tagThreshold) {
-        return 'glyphicon-thumbs-up';
-      } else {
-        return 'glyphicon-remove';
-      }
-    } else {
-      if (userLevel >= tagThreshold) {
-        return 'glyphicon-plus';
-      } else {
-        return '';
-      }
-    }
-  };
-
-  $scope.colorIcons = function (icon) {
-    if (icon === 'glyphicon-thumbs-up') {
-      return 'green';
-    } else if (icon ==='glyphicon-remove') {
-      return 'red';
-    } else if (icon ==='glyphicon-plus') {
-      return 'grey';
-    }
-  };
-
+  $scope.calculateFit = generateGlyphs.calculateFit;
 
 }]);
 

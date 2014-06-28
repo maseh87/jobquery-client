@@ -52,14 +52,16 @@ app.factory('GuidanceService', function(){
         if (tag.tag.type === 'scale') {
           if (userTags[tag.tag._id] >= tag.value) {
             // add if threshold is met
-            points[0] += Number(userTags[tag.tag._id]);
+            // points[0] += Number(userTags[tag.tag._id]);
+            points[0] += 1; // limited to tag.value
           }
-          points[1] += Number(tag.value); // always add to denominator
+          // points[1] += Number(tag.value); // always add to denominator
+          points[1] += 1;
         } else if (tag.tag.type ==='binary') {
           if (userTags[tag.tag._id] === tag.value) {
-            points[0] += 4; // assume perfect score
+            points[0] += 1; // assume perfect score
           }
-          points[1] += 4; // assume binary questions are out of 4
+          points[1] += 1; // assume binary questions are out of 4
         }
       } else if (tag.importance === 'nice'){
         processed.nice[tag.tag.type].push({
@@ -74,19 +76,20 @@ app.factory('GuidanceService', function(){
           value: 'nice',
           enumerable: false
         });
+        // disabled
         // calculate scores for 'nice'
         // half-weight for 'nice', but can only ever be positive
-        if (tag.tag.type === 'scale') {
-          if (userTags[tag.tag._id] >= tag.value) {
-            points[0] += Number(userTags[tag.tag._id] * 0.50);
-            points[1] += Number(userTags[tag.tag._id] * 0.50);
-          }
-        } else if (tag.tag.type ==='binary') {
-          if (userTags[tag.tag._id] === tag.value) {
-            points[0] += 4 * 0.50;
-            points[1] += 4 * 0.50;
-          }
-        }
+        // if (tag.tag.type === 'scale') {
+        //   if (userTags[tag.tag._id] >= tag.value) {
+        //     points[0] += Number(userTags[tag.tag._id] * 0.50);
+        //     points[1] += Number(userTags[tag.tag._id] * 0.50);
+        //   }
+        // } else if (tag.tag.type ==='binary') {
+        //   if (userTags[tag.tag._id] === tag.value) {
+        //     points[0] += 4 * 0.50;
+        //     points[1] += 4 * 0.50;
+        //   }
+        // }
       }
     });
 
