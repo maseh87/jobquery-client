@@ -27,3 +27,8 @@
     text-align: center;
     font-weight: 200; font-size: 1.125rem;
 }
+
+.type-title { font-size: 2rem; font-weight: 200; text-transform: uppercase; }
+.type-subtitle { font-size: 1.25rem; font-weight: 300; }
+.type-tagline { font-size: 1.25rem; font-weight: 300;}
+.type-linkbox { padding-top: 10px;}
