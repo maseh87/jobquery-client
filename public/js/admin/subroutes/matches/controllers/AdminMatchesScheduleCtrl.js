@@ -1,4 +1,4 @@
-app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler'
+app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 
   function ($scope, $state, Match, Opportunity, User, Scheduler) {
 
     var schedulerOutput = Scheduler.schedule(); 
@@ -7,7 +7,7 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
     $scope.opportunities = schedulerOutput.opportunities;
     $scope.schedule = schedulerOutput.schedule;
 
-    
+
 
 /*
 output = {
