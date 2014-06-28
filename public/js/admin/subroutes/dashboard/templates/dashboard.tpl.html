@@ -12,9 +12,9 @@
         <input type="checkbox" ng-model="category.selected">
     </div>
     <h4>Interest</h4>
-    <input ng-model="interestQuery" placeholder="Greater than">
+    <input ng-model="interestQuery" placeholder="At Least">
     <h4>Override</h4>
-    <input ng-model="overrideQuery" placeholder="Greater than">
+    <input ng-model="overrideQuery" placeholder="At Least">
     <h4>Processed</h4>
     <input type="checkbox" ng-init="processedQuery = false" ng-model="processedQuery">
 </div>
@@ -31,6 +31,7 @@
                 <th class="pointer" ng-click="sorter='interest';reverse=!reverse">Interest</th>
                 <th class="pointer" ng-click="sorter='override';reverse=!reverse">Override</th>
                 <th class="pointer" ng-click="sorter='processed';reverse=!reverse">Processed</th>
+                <th class="pointer" ng-click="sorter='updatedAt';reverse=!reverse">Last Updated</th>
             </tr>
             <tr ng-repeat="entry in entries | filter:customQuery | orderBy:sorter:reverse">
                 <td>{{entry.candidate}}</td>
@@ -39,7 +40,13 @@
                 <td>{{entry.opportunityGroup}}</td>
                 <td>{{entry.interest}}</td>
                 <td>{{entry.override}}</td>
-                <td>{{entry.processed}}</td>
+                <td>
+                    <select ng-model="entry.processed" ng-change="updateMatch(entry)">
+                        <option ng-selected="entry.processed === true">Yes</option>
+                        <option ng-selected="entry.processed === false">No</option>
+                    </select>
+                </td>
+                <td>{{entry.updatedAt}}</td>
             </tr>
         </table>
     </div>

@@ -29,5 +29,15 @@ app
       });
     };
 
+    matchMethods.update = function (matchObject) {
+      return $http({
+        method: 'PUT',
+        url: SERVER_URL + '/api/matches',
+        data: matchObject
+      }).then(function(response){
+        return response.data;
+      });
+    };
+
     return matchMethods;
   }]);

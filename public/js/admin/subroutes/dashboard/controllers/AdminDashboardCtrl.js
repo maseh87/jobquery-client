@@ -43,13 +43,15 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
       if(opportunityCategory) opportunityCategories[opportunityCategory._id] = opportunityCategory;
 
       results.push({
+        _id: matchObj._id,
         candidate: users[matchObj.user].name,
         candidateGroup: users[matchObj.user].category ? users[matchObj.user].category.name : null,
         company: opportunities[matchObj.opportunity].company.name,
         opportunityGroup: opportunities[matchObj.opportunity].category ? opportunities[matchObj.opportunity].category.name : null,
         interest: matchObj.userInterest,
         override: matchObj.adminOverride,
-        processed: matchObj.isProcessed
+        processed: matchObj.isProcessed,
+        updatedAt: matchObj.updatedAt
       });
     }
 
@@ -70,10 +72,17 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     $scope.opportunityCategories = opportunityCategories;
   });
 
+  $scope.updateMatch = function(entry){
+    entry.isProcessed = entry.processed;
+    Match.update(entry).then(function(data){
+      console.log('Match Updated');
+    });
+  };
+
   $scope.customQuery = function(entry){
 
     //Filter for processed
-    if($scope.processedQuery !== entry.processed) return false;
+    // if($scope.processedQuery !== entry.processed) return false;
 
     //Filter for candidate name
     if($scope.candidateNameQuery){
