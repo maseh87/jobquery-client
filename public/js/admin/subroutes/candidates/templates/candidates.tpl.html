@@ -1,13 +1,13 @@
 <div ui-view>
     <div class="content-header">
         <div class="content-header-block text-left">
-            <span class="content-action">
+            <span class="content-action" ui-sref="admin.candidates.new">
                 <span class="glyphicon glyphicon-plus"></span>
-                <span ui-sref="admin.candidates.new">Invite Candidates</span>
+                <span>Invite Candidates</span>
             </span>
-            <span class="content-action">
+            <span class="content-action" ng-click="downloadData()">
                 <span class="glyphicon glyphicon-download"></span>
-                <span ng-click="downloadData()">Download Data</span>
+                <span>Download Data</span>
             </span>
         </span>
         </div>

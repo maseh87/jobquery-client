@@ -1,5 +1,7 @@
-app.controller('UsersAccountCtrl', ['$scope', 'UsersAccount', 'UserTag', 
-function ($scope, UsersAccount, UserTag) {
+app.controller('UsersAccountCtrl',
+  ['$scope', '$timeout', 'UsersAccount', 'UserTag',
+  function ($scope, $timeout, UsersAccount, UserTag) {
+
   $scope.pendingRequests = 0;
   $scope.submitText = 'Save Your Profile';
 
@@ -49,6 +51,9 @@ function ($scope, UsersAccount, UserTag) {
       $scope.submitText = 'Save Successful';
       $scope.pendingRequests--;
       console.log('User account information updated successfully');
+      $timeout(function () {
+        $scope.submitText = 'Save Your Profile';
+      }, 3000);
     });
   };
 
