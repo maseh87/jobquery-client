@@ -12,12 +12,28 @@
 <div ng-show="opportunity">
 <div class="row">
     <div class="content-section container-fluid">
-        <div class="formbox-title">Basic Information</div>
+        <div class="formbox-title">Company Information</div>
         <table class="formbox formbox-basic">
             <tr>
                 <td>{{ opportunity.description }}</td>
                 <td>
                     <span>Company: {{ opportunity.company.name}}</span><br>
+                    <span>Title: {{ opportunity.jobTitle }}</span><br>
+                    <div ng-repeat="link in opportunity.links">
+                        <span ng-show="$first">Read more:</span>
+                        <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Basic Information</div>
+        <table class="formbox formbox-basic">
+            <tr>
+                <td>{{ opportunity.description }}</td>
+                <td>
                     <span>Title: {{ opportunity.jobTitle }}</span><br>
                     <div ng-repeat="link in opportunity.links">
                         <span ng-show="$first">Read more:</span>

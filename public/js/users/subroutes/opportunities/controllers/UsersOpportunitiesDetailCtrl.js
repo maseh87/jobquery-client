@@ -56,6 +56,8 @@ app.controller('UsersOpportunitiesDetailCtrl',
     $scope.score = guidanceResult[1];
     $scope.processedTags = [processedTags.must, processedTags.nice];
     $scope.calculateFit = generateGlyphs.calculateFit;
+    
+    $scope.company = data.match.opportunity.company;
   });
 
   $scope.submit = function() {
