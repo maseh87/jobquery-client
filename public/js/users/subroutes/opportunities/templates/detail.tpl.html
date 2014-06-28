@@ -67,7 +67,7 @@
                         <th width="40%">{{tags.importance === 'must' ? 'Must Have' : 'Nice to Have'}}</th>
                         <th width="20%">Your Value</th>
                         <th width="20%">Their Value</th>
-                        <th width="20%">Comparison {{'(' + score + '% Match)'}}</th>
+                        <th width="20%">Comparison <p>{{'(' + score + '% match for employer)'}}</p></th>
                         <tr ng-repeat="tag in tagType">
                             <td width="40%">{{tag.name}}</td>
                             <td width="20%">{{tag.userValue}}</td>
