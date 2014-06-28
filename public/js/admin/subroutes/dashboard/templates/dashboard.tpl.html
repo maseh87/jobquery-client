@@ -16,7 +16,11 @@
     <h4>Override</h4>
     <input ng-model="overrideQuery" placeholder="At Least">
     <h4>Processed</h4>
-    <input type="checkbox" ng-init="processedQuery = false" ng-model="processedQuery">
+    <select ng-init="processedQuery = 'all'" ng-model="processedQuery">
+        <option ng-selected="true" ng-value="'all'">All</option>
+        <option ng-value="true">Processed</option>
+        <option ng-value="false">Unprocessed</option>
+    </select>
 </div>
 
 <div class="row">

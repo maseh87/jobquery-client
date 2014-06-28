@@ -92,7 +92,8 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   $scope.customQuery = function(entry){
 
     //Filter for processed
-    // if($scope.processedQuery !== entry.processed) return false;
+    if($scope.processedQuery === 'true' && entry.processed === false) return false;
+    if($scope.processedQuery === 'false' && entry.processed === true) return false;
 
     //Filter for candidate name
     if($scope.candidateNameQuery){
