@@ -22,6 +22,7 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
       opportunity._id = oppModel._id;
       opportunity.company = oppModel.company.name;
       opportunity.title = oppModel.jobTitle;
+      opportunity.active = oppModel.active;
       opportunity.approved = oppModel.approved;
       opportunity.internalNotes =
         oppModel.internalNotes.length > 0 ? oppModel.internalNotes[0].text : null;
@@ -37,6 +38,13 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
       if (match.userInterest > 0) { allOpportunities[oppId].declared++; }
       if (match.userInterest > 2) { allOpportunities[oppId].interested++; }
     });
+  };
+
+  $scope.toggleCheckbox = function (opp, property) {
+    var opportunityToUpdate = {};
+    opportunityToUpdate._id = opp._id;
+    opportunityToUpdate[property] = !opp[property];
+    Opportunity.update(opportunityToUpdate);
   };
 
 }]);
