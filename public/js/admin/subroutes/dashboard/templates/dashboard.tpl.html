@@ -1,2 +1,44 @@
-<h3>Admin.Dashboard Template</h3>
-<div>Welcome {{admin.name}}</div>
+<div class="row">
+    <div class="col-md-2">
+        <h4>Candidate Name</h4>
+        <input ng-model="candidateNameQuery">
+        <h4>Candidate Group</h4>
+        <div ng-repeat="category in candidateCategories">
+            <span>{{category.name}}</span>
+            <input type="checkbox" ng-model="category.selected">
+        </div>
+        <h4>Opportunity Group</h4>
+        <div ng-repeat="category in opportunityCategories">
+            <span>{{category.name}}</span>
+            <input type="checkbox" ng-model="category.selected">
+        </div>
+        <h4>Interest</h4>
+        <input ng-model="interestQuery">
+        <h4>Override</h4>
+        <input ng-model="overrideQuery">
+        <h4>Processed</h4>
+        <input type="checkbox" ng-init="processedQuery = false" ng-model="processedQuery">
+    </div>
+    <div class="col-md-10">
+        <table class="table">
+            <tr>
+                <th>Candidate</th>
+                <th>Candidate Group</th>
+                <th>Company</th>
+                <th>Opportunity Group</th>
+                <th>Interest</th>
+                <th>Override</th>
+                <th>Processed</th>
+            </tr>
+            <tr ng-repeat="entry in entries | filter:customQuery">
+                <td>{{entry.candidate}}</td>
+                <td>{{entry.candidateGroup}}</td>
+                <td>{{entry.company}}</td>
+                <td>{{entry.opportunityGroup}}</td>
+                <td>{{entry.interest}}</td>
+                <td>{{entry.override}}</td>
+                <td>{{entry.processed}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
