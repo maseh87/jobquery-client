@@ -30,6 +30,7 @@
                 <th class="pointer" ng-click="sorter='opportunityGroup';reverse=!reverse">Opportunity Group</th>
                 <th class="pointer" ng-click="sorter='interest';reverse=!reverse">Interest</th>
                 <th class="pointer" ng-click="sorter='override';reverse=!reverse">Override</th>
+                <th class="pointer" ng-click="sorter='internalNotes';reverse=!reverse">Internal Notes</th>
                 <th class="pointer" ng-click="sorter='processed';reverse=!reverse">Processed</th>
                 <th class="pointer" ng-click="sorter='updatedAt';reverse=!reverse">Last Updated</th>
             </tr>
@@ -40,6 +41,9 @@
                 <td>{{entry.opportunityGroup}}</td>
                 <td>{{entry.interest}}</td>
                 <td>{{entry.override}}</td>
+                <td>
+                    <input ng-keypress="updateMatch(entry, $event)" ng-model="entry.internalNotes">
+                </td>
                 <td>
                     <select ng-model="entry.processed" ng-change="updateMatch(entry)">
                         <option ng-selected="entry.processed === true">Yes</option>

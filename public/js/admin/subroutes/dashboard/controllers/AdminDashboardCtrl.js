@@ -51,6 +51,7 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
         interest: matchObj.userInterest,
         override: matchObj.adminOverride,
         processed: matchObj.isProcessed,
+        internalNotes: matchObj.internalNotes,
         updatedAt: matchObj.updatedAt
       });
     }
@@ -72,11 +73,20 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     $scope.opportunityCategories = opportunityCategories;
   });
 
-  $scope.updateMatch = function(entry){
-    entry.isProcessed = entry.processed;
-    Match.update(entry).then(function(data){
-      console.log('Match Updated');
-    });
+  $scope.updateMatch = function(entry, event){
+    if(event && (event.keyCode === 13)){
+      Match.update({
+        _id: entry._id,
+        internalNotes: entry.internalNotes
+      }).then(function(data){
+        console.log('Match updated');
+      })
+    } else if (!event) {
+      entry.isProcessed = entry.processed;
+      Match.update(entry).then(function(data){
+        console.log('Match Updated');
+      });
+    }
   };
 
   $scope.customQuery = function(entry){
