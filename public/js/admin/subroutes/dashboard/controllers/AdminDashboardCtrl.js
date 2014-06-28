@@ -1,6 +1,12 @@
-app.controller('AdminDashboardCtrl', ['$scope', '$stateParams', 'User', function ($scope, $stateParams, User) {
+app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scope, Match, User) {
 
-  User.get($stateParams._id).then(function (admin) {
-    $scope.admin = admin;
+  var matches, users;
+
+  Match.getAll().then(function(data){
+    matches = data.matches;
+    return User.getAll();
+  }).then(function(data){
+    users = data;
   });
+
 }]);
