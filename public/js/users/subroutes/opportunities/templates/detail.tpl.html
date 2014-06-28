@@ -15,7 +15,7 @@
         <div class="formbox-title">Company Information</div>
         <table class="formbox formbox-basic">
             <tr>
-                <td>{{ company.description }}</td>
+                <td><img ng-show="{{ company.media[0].url }}" src="{{ company.media[0].url }}"></td>
                 <td>
                     <span class="type-subtitle">{{ company.city }}, {{ company.country }}</span><br>
                     <span class="type-title">{{ company.name }}</span><br>
