@@ -12,10 +12,39 @@
 <div ng-show="opportunity">
 <div class="row">
     <div class="content-section container-fluid">
+
+<!--
+__v: 3
+_id: "53ae3231f1c5d4680f4c79ef"
+address: "0547 Luella Dale"
+city: "Parkerfort"
+country: "Wales"
+createdAt: "2014-06-28T03:10:41.600Z"
+description: "scale real-time technologies"
+geo: Array[2]
+links: Array[1]
+0: Object
+_id: "53ae3231f1c5d4680f4c79f0"
+title: "clear-thinking"
+url: "http://lorempixel.com/640/480"
+__proto__: Object
+length: 1
+__proto__: Array[0]
+media: Array[1]
+0: Object
+length: 1
+__proto__: Array[0]
+name: "Aufderhar, Spinka and Prohaska"
+opportunities: Array[3]
+state: "California"
+tagline: "Exclusive full-range structure"
+updatedAt: "2014-06-28T03:10:42.345Z"
+-->
+
         <div class="formbox-title">Company Information</div>
         <table class="formbox formbox-basic">
             <tr>
-                <td>{{ opportunity.description }}</td>
+                <td>{{ opportunity.meida[0] }}</td>
                 <td>
                     <span>Company: {{ opportunity.company.name}}</span><br>
                     <span>Title: {{ opportunity.jobTitle }}</span><br>
