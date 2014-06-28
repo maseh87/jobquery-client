@@ -13,24 +13,24 @@
             <input type="checkbox" ng-model="category.selected">
         </div>
         <h4>Interest</h4>
-        <input ng-model="interestQuery">
+        <input ng-model="interestQuery" placeholder="Greater than">
         <h4>Override</h4>
-        <input ng-model="overrideQuery">
+        <input ng-model="overrideQuery" placeholder="Greater than">
         <h4>Processed</h4>
         <input type="checkbox" ng-init="processedQuery = false" ng-model="processedQuery">
     </div>
     <div class="col-md-10">
         <table class="table">
             <tr>
-                <th>Candidate</th>
-                <th>Candidate Group</th>
-                <th>Company</th>
-                <th>Opportunity Group</th>
-                <th>Interest</th>
-                <th>Override</th>
-                <th>Processed</th>
+                <th class="pointer" ng-click="sorter='candidate';reverse=!reverse">Candidate</th>
+                <th class="pointer" ng-click="sorter='candidateGroup';reverse=!reverse">Candidate Group</th>
+                <th class="pointer" ng-click="sorter='company';reverse=!reverse">Company</th>
+                <th class="pointer" ng-click="sorter='opportunityGroup';reverse=!reverse">Opportunity Group</th>
+                <th class="pointer" ng-click="sorter='interest';reverse=!reverse">Interest</th>
+                <th class="pointer" ng-click="sorter='override';reverse=!reverse">Override</th>
+                <th class="pointer" ng-click="sorter='processed';reverse=!reverse">Processed</th>
             </tr>
-            <tr ng-repeat="entry in entries | filter:customQuery">
+            <tr ng-repeat="entry in entries | filter:customQuery | orderBy:sorter:reverse">
                 <td>{{entry.candidate}}</td>
                 <td>{{entry.candidateGroup}}</td>
                 <td>{{entry.company}}</td>
