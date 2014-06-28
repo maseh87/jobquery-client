@@ -12,28 +12,33 @@
         </div>
     </div>
 
+    <div><input type="checkbox" ng-model="includeAllActive" ng-click="toggleC('includeAllActive')"> Include Non-Active</input></div>
+    <div><input type="checkbox" ng-model="includeAllPublic" ng-click="toggleC('includeAllPublic')"> Include Non-Public</input></div>
     <div class="content-section container-fluid" ng-repeat="(groupName, group) in groups">
         <div class="row">
+
         <div class="tablebox-title">{{ groupName }}</div>
         <table class="tablebox">
         <thead>
             <tr class="tablebox-header">
                 <th width="20%" class="pointer" ng-click="sorter = 'company'; reverse = !reverse">Company</th>
                 <th width="20%" class="pointer" ng-click="sorter = 'title'; reverse = !reverse">Title</th>
+                <th width="7%" class="pointer" ng-click="sorter = 'active'; reverse = !reverse">Active?</th>
                 <th width="7%" class="pointer" ng-click="sorter = 'approved'; reverse = !reverse">Public?</th>
-                <th width="9%" class="pointer" ng-click="sorter = 'declared'; reverse = !reverse">Declared</th>
-                <th width="9%" class="pointer" ng-click="sorter = 'interested'; reverse = !reverse">Interest 3+</th>
-                <th width="34%" class="pointer" ng-click="sorter = 'internalNotes'; reverse = !reverse">Internal Notes</th>
+                <th width="8%" class="pointer" ng-click="sorter = 'declared'; reverse = !reverse">Declared</th>
+                <th width="8%" class="pointer" ng-click="sorter = 'interested'; reverse = !reverse">Interest 3+</th>
+                <th width="30%" class="pointer" ng-click="sorter = 'internalNotes'; reverse = !reverse">Internal Notes</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="tablebox-content" ng-repeat="opportunity in group | orderBy:sorter:reverse" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
-                <td>{{ opportunity.company }}</td>
-                <td>{{ opportunity.title }}</td>
-                <td><input type="checkbox" ng-model="opportunity.approved" ng-disabled="true"></td>
-                <td>{{ opportunity.declared }}</td>
-                <td>{{ opportunity.interested }}</td>
-                <td>{{ opportunity.internalNotes }}</td>
+            <tr class="tablebox-content" ng-repeat="opportunity in group | filter:excludingMachine('blah') | orderBy:sorter:reverse">
+                <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.company }}</td>
+                <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.title }}</td>
+                <td><input type="checkbox" ng-model="opportunity.active" ng-click="toggleCheckbox(opportunity, 'active')"></td>
+                <td><input type="checkbox" ng-model="opportunity.approved" ng-click="toggleCheckbox(opportunity, 'approved')"></td>
+                <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.declared }}</td>
+                <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.interested }}</td>
+                <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.internalNotes }}</td>
             </tr>
         </tbody>
         </table>
