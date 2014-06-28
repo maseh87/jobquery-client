@@ -7,10 +7,11 @@ app.controller('AdminSidebarCtrl', ['$scope', '$rootScope', '$state', function (
         'dashboard': 'sidebar-dashboard',
         'opportunities': 'sidebar-opportunities',
         'companies': 'sidebar-companies',
+        'account': 'sidebar-account',
         'profile': 'sidebar-profile',
         'candidates': 'sidebar-candidates',
         'matches': 'sidebar-matches',
-        'tags': 'sidebar-tags'
+        'tags': 'sidebar-tags',
     };
 
     $scope.currentStateHeading = "opportunities";
