@@ -57,4 +57,20 @@ app.controller('UsersAccountCtrl',
     });
   };
 
+  $scope.updatePassword = function(user){
+    var oldPassword = user.password;
+    var newPassword = user.newPassword;
+    var newPasswordConfirm = user.newPasswordConfirm;
+    if(newPasswordConfirm === newPassword){
+      UsersAccount.update({
+        _id: user._id,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        newPasswordConfirm: newPasswordConfirm
+      }).then(function(response){
+        console.log('Password Updated');
+      });
+    }
+  };
+
 }]);

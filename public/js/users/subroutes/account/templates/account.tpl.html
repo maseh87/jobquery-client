@@ -53,6 +53,28 @@
         </table>
     </div>
 
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Change Password</div>
+        <table class="formbox formbox-basic">
+            <tr>
+                <th>Old Password</th>
+                <td><input type="text" size="40" ng-model="user.password"></td>
+            </tr>
+            <tr>
+                <th>New Password</th>
+                <td><input type="password" size="40" ng-model="user.newPassword"></td>
+            </tr>
+            <tr>
+                <th>Confirm New Password</th>
+                <td><input type="password" size="40" ng-model="user.newPasswordConfirm"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><button type="button" ng-click="updatePassword(user)">Submit</button></td>
+            </tr>
+        </table>
+    </div>
+
     <div class="content-section container-fluid" ng-if="user">
         <div class="dashbox-title">Job Search Status</div>
         <div class="dashbox dashbox-content">
