@@ -82,7 +82,8 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
       if(entry.override) updatedMatch.adminOverride = entry.override;
 
       Match.update(updatedMatch).then(function(data){
-        console.log('Match updated');
+        entry.editingInternalNotes = false;
+        entry.editingOverride = false;
       });
     } else if (!event) {
       entry.isProcessed = entry.processed;

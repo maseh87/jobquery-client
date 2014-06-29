@@ -46,11 +46,13 @@
                 <td>{{entry.company}}</td>
                 <td>{{entry.opportunityGroup}}</td>
                 <td>{{entry.interest}}</td>
-                <td>
-                    <input ng-keypress="updateMatch(entry, $event)" ng-model="entry.override">
+                <td ng-click="entry.editingOverride = true">
+                    <span ng-show="!entry.editingOverride">{{entry.override}}</span>
+                    <input ng-keypress="updateMatch(entry, $event)" ng-model="entry.override" ng-show="entry.editingOverride">
                 </td>
-                <td>
-                    <input ng-keypress="updateMatch(entry, $event)" ng-model="entry.internalNotes">
+                <td ng-click="entry.editingInternalNotes = true">
+                    <span ng-show="!entry.editingInternalNotes">{{entry.internalNotes}}</span>
+                    <input ng-keypress="updateMatch(entry, $event)" ng-model="entry.internalNotes" ng-show="entry.editingInternalNotes">
                 </td>
                 <td>
                     <select ng-model="entry.processed" ng-change="updateMatch(entry)">
