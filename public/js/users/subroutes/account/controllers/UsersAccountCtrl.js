@@ -32,7 +32,10 @@ app.controller('UsersAccountCtrl',
   $scope.updateSearchStage = function (value) { $scope.user.searchStage = value; };
   $scope.isSearchStage = function (value) { return $scope.user.searchStage === value; };
 
-  $scope.update = function () {
+  $scope.update = function (user) {
+    delete user.password;
+    delete user.newPassword;
+    delete user.newPasswordConfirm;
     // re-compile tags
     var compiledTags = [];
     for (var key in $scope.tags) {
@@ -43,7 +46,6 @@ app.controller('UsersAccountCtrl',
       }
     }
     $scope.user.tags = compiledTags;
-
     // send for update
     $scope.pendingRequests++;
     $scope.submitText = 'Saving...';
@@ -55,6 +57,22 @@ app.controller('UsersAccountCtrl',
         $scope.submitText = 'Save Your Profile';
       }, 2000);
     });
+  };
+
+  $scope.updatePassword = function(user){
+    var oldPassword = user.password;
+    var newPassword = user.newPassword;
+    var newPasswordConfirm = user.newPasswordConfirm;
+    if(newPasswordConfirm === newPassword){
+      UsersAccount.update({
+        _id: user._id,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        newPasswordConfirm: newPasswordConfirm
+      }).then(function(response){
+        console.log('Password Updated');
+      });
+    }
   };
 
 }]);

@@ -22,8 +22,11 @@ app.factory('User', ['UserResource', 'SERVER_URL', '$http' ,function (UserResour
     return UserResource.update({_id: user._id}, user).$promise;
   };
 
-  userMethods.invite = function (emails) {
-    return $http.post(SERVER_URL + '/api/invite', emails);
+  userMethods.invite = function (emails, category) {
+    var data = {};
+    data.emails = emails;
+    if(category) data.category = category._id;
+    return $http.post(SERVER_URL + '/api/invite', data);
   };
 
   userMethods.login = function (profile) {
