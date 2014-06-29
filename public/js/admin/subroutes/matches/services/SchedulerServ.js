@@ -312,7 +312,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
   };
 
   return {
-    schedule : function(numberOfslots) {
+    schedule : function(numberOfslots, callback) {
       var processedInput;
       retrieveData().then(function (data) {
         var OPPORTUNITIES_INDEX  = 0;
@@ -327,7 +327,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
         console.log('Assigned',output);
         output = processOutput(output);
 
-        return output;
+        callback(output);
       });
     }
   };
