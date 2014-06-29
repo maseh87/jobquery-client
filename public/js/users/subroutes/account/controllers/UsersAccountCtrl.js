@@ -32,7 +32,10 @@ app.controller('UsersAccountCtrl',
   $scope.updateSearchStage = function (value) { $scope.user.searchStage = value; };
   $scope.isSearchStage = function (value) { return $scope.user.searchStage === value; };
 
-  $scope.update = function () {
+  $scope.update = function (user) {
+    delete user.password;
+    delete user.newPassword;
+    delete user.newPasswordConfirm;
     // re-compile tags
     var compiledTags = [];
     for (var key in $scope.tags) {
@@ -43,7 +46,6 @@ app.controller('UsersAccountCtrl',
       }
     }
     $scope.user.tags = compiledTags;
-
     // send for update
     $scope.pendingRequests++;
     $scope.submitText = 'Saving...';
