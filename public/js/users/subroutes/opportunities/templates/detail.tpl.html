@@ -68,7 +68,7 @@
         <div class="dashbox dashbox-content">
             <div ng-repeat="tags in processedTags" ng-if="tags">
                 <br>
-                <div ng-repeat="tagType in tags">
+                <div ng-repeat="(key, tagType) in tags">
                     <table class="table table-condensed text-left" ng-show="tagType">
                         <thead>
                             <th width="40%">{{tags.importance === 'must' ? 'Must Have' : 'Nice to Have'}}</th>
@@ -81,7 +81,7 @@
                                 <td width="40%">{{tag.name}}</td>
                                 <td width="20%">{{tag.userValue}}</td>
                                 <td width="20%">{{tag.value}}</td>
-                                <td><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, tag.value, tag.userValue)[1]}"></span></td>
+                                <td><span class="glyphicon" ng-class="calculateFit(tag.importance, key, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, key, tag.value, tag.userValue)[1]}"></span></td>
                             </tr>
                         </tbody>
                     </table>

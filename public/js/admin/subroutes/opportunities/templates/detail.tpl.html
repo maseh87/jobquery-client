@@ -161,7 +161,7 @@
                     <td><div class="text-center">{{ user.points[1] === 0 ? '-' : user.score + '%' }}</div></td>
                     <td><div class="text-center">{{ user.interest === 0 ? 'N/A' : user.interest }}</div></td>
                     <td ng-repeat="tag in filteredTags" ng-show="!hideTags">
-                        <p class="text-center"><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, user.tags[tag.data._id])[0]" ng-style="{color: calculateFit(tag.importance, tag.value, user.tags[tag.data._id])[1]}"></span></p>
+                        <p class="text-center"><span class="glyphicon" ng-class="calculateFit(tag.importance, filteredStats[tag.data._id].type, tag.value, user.tags[tag.data._id])[0]" ng-style="{color: calculateFit(tag.importance, filteredStats[tag.data._id].type, tag.value, user.tags[tag.data._id])[1]}"></span></p>
                     </td>
                     <td ng-repeat="answerObject in user.answers" ng-show="!hideQuestions"><p class="text-center">{{answerObject.answer || 'N/A'}}</p></td>
                 </tr>

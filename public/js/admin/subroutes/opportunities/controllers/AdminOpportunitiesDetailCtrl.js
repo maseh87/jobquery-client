@@ -175,7 +175,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
         } else {
           tagView.value = 'text';
         }
-      console.log('default tagView.value:', tagView.value);
     }
   };
 
