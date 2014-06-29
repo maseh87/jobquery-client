@@ -51,7 +51,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in group | orderBy:sorter:reverse" class="tablebox-content" ui-sref="admin.candidates.detail({_id: user._id})">
+                <tr ng-repeat="user in group | filter:ExcludeAccepted() | orderBy:sorter:reverse" class="tablebox-content" ui-sref="admin.candidates.detail({_id: user._id})">
                     <td class="name">{{user.name}}</td>
                     <td>{{user.attending ? 'Yes' : 'No'}}</td>
                     <td class="interestDeclared">{{user.interestDeclared}}</td>

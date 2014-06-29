@@ -152,7 +152,7 @@
                     </th>
                     <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"></th><!-- Empty table header-->
                 </tr>
-                <tr ng-repeat-start="user in declared | orderBy:sorter:reverse">
+                <tr ng-repeat-start="user in declared | filter:ExcludeAccepted() | orderBy:sorter:reverse">
                     <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>

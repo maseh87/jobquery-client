@@ -170,7 +170,7 @@
                         <p class="text-center">{{ filteredStats[tag.data._id].type === 'text' ? '' : filteredStats[tag.data._id].count}}</p>
                     </th>
                 </tr>
-                <tr ng-repeat-start="user in declared | orderBy:sorter:reverse">
+                <tr ng-repeat-start="user in declared | filter:ExcludeAccepted() | orderBy:sorter:reverse">
                     <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>

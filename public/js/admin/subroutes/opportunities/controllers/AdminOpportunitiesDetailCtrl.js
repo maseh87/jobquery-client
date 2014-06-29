@@ -263,5 +263,15 @@ app.controller('AdminOpportunitiesDetailCtrl',
 
   $scope.calculateFit = generateGlyphs.calculateFit;
 
+  $scope.ExcludeAccepted = function () {
+    return function (item) {
+      if (item.searchStage === 'Accepted') {
+        return false;
+      } else {
+        return true;
+      }
+    };
+  };
+
 }]);
 

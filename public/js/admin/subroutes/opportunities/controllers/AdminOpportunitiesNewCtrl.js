@@ -268,4 +268,14 @@ app.controller('AdminOpportunitiesNewCtrl',
     $scope.creatingCategory = false;
   };
 
+  $scope.ExcludeAccepted = function () {
+    return function (item) {
+      if (item.searchStage === 'Accepted') {
+        return false;
+      } else {
+        return true;
+      }
+    };
+  };
+
 }]);
