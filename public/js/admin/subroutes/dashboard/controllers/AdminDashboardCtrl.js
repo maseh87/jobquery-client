@@ -94,9 +94,12 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   };
 
   $scope.batchProcess = function(){
-    var process = $scope.entries.filter($scope.customQuery).map(function(entry){return entry._id});
+    var entries = $scope.entries.filter($scope.customQuery);
+    var process = entries.map(function(entry){return entry._id});
     Match.batchProcess(process).then(function(response){
-      console.log(response);
+      entries.forEach(function(entry){
+        entry.processed = true;
+      });
     });
   };
 
