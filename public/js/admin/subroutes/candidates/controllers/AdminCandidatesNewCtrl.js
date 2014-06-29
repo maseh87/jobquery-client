@@ -1,4 +1,8 @@
-app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function (User, $scope) {
+app.controller('AdminCandidatesNewCtrl', ['User', '$scope', 'Category', function (User, $scope, Category) {
+
+  Category.getAll('User').then(function(categories){
+    $scope.categories = categories;
+  });
 
   var parseEmails = function(emailStrings){
     return emailStrings
@@ -15,7 +19,7 @@ app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function (User, $sco
       // or fix that ng-pattern does not get engaged until something is enterd
     } else {
       var emails = parseEmails(emailStrings);
-      User.invite(emails)
+      User.invite(emails, $scope.category)
         .success(function (data) {
           if(Array.isArray(data) && data.length > 0) {
             $scope.alertMessage = 'Please remove the following existing users and send again: ' + (data).join(',');
@@ -59,4 +63,18 @@ app.controller('AdminCandidatesNewCtrl', ['User', '$scope', function (User, $sco
         }
     };
   });
+
+  $scope.addNewCategory = function(newCategoryName){
+    var newCategory = {
+      name: newCategoryName,
+      type: 'User'
+    };
+    Category.create(newCategory).then(function(response){
+      newCategory._id = response._id;
+      $scope.categories.push(newCategory);
+      $scope.category = $scope.categories[$scope.categories.length - 1];
+      $scope.creatingCategory = false;
+    })
+  };
+
 }]);
