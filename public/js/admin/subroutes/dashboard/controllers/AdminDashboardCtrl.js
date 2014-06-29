@@ -75,12 +75,15 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
 
   $scope.updateMatch = function(entry, event){
     if(event && (event.keyCode === 13)){
-      Match.update({
-        _id: entry._id,
-        internalNotes: entry.internalNotes
-      }).then(function(data){
+
+      var updatedMatch = {};
+      updatedMatch._id = entry._id;
+      if(entry.internalNotes) updatedMatch.internalNotes = entry.internalNotes;
+      if(entry.override) updatedMatch.adminOverride = entry.override;
+
+      Match.update(updatedMatch).then(function(data){
         console.log('Match updated');
-      })
+      });
     } else if (!event) {
       entry.isProcessed = entry.processed;
       Match.update(entry).then(function(data){

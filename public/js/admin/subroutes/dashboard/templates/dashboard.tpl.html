@@ -46,7 +46,9 @@
                 <td>{{entry.company}}</td>
                 <td>{{entry.opportunityGroup}}</td>
                 <td>{{entry.interest}}</td>
-                <td>{{entry.override || ''}}</td>
+                <td>
+                    <input ng-keypress="updateMatch(entry, $event)" ng-model="entry.override">
+                </td>
                 <td>
                     <input ng-keypress="updateMatch(entry, $event)" ng-model="entry.internalNotes">
                 </td>
