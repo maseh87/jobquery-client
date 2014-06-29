@@ -51,17 +51,14 @@ app.factory('GuidanceService', function(){
         // calculate scores for 'must'
         if (tag.tag.type === 'scale') {
           if (userTags[tag.tag._id] >= tag.value) {
-            // add if threshold is met
-            // points[0] += Number(userTags[tag.tag._id]);
-            points[0] += 1; // limited to tag.value
+            points[0] += 1;
           }
-          // points[1] += Number(tag.value); // always add to denominator
           points[1] += 1;
         } else if (tag.tag.type ==='binary') {
           if (userTags[tag.tag._id] === tag.value) {
-            points[0] += 1; // assume perfect score
+            points[0] += 1;
           }
-          points[1] += 1; // assume binary questions are out of 4
+          points[1] += 1;
         }
       } else if (tag.importance === 'nice'){
         processed.nice[tag.tag.type].push({
@@ -93,8 +90,12 @@ app.factory('GuidanceService', function(){
       }
     });
 
-    score = Number((points[0] / points[1] * 100).toFixed(0));
-
+    // default score to 100% if there are no criteria
+    if (points[1] === 0) {
+      score = 100;
+    } else {
+      score = Number((points[0] / points[1] * 100).toFixed(0));
+    }
     return [processed, score];
   };
 
@@ -104,43 +105,4 @@ app.factory('GuidanceService', function(){
     }
   };
 
-});
-
-app.factory('generateGlyphs', function () {
-
-  var service = {};
-
-  var findGlyph = function (tagType, tagThreshold, userLevel) {
-    if (tagType === 'must') {
-      if (userLevel >= tagThreshold) {
-        return 'glyphicon-thumbs-up';
-      } else {
-        return 'glyphicon-remove';
-      }
-    } else {
-      if (userLevel >= tagThreshold) {
-        return 'glyphicon-plus';
-      } else {
-        return '';
-      }
-    }
-  };
-
-  var colorIcons = function (icon) {
-    if (icon === 'glyphicon-thumbs-up') {
-      return 'green';
-    } else if (icon ==='glyphicon-remove') {
-      return 'red';
-    } else if (icon ==='glyphicon-plus') {
-      return 'grey';
-    }
-  };
-
-  service.calculateFit = function (tagType, tagThreshold, userLevel) {
-    var icon = findGlyph(tagType, tagThreshold, userLevel);
-    var color = colorIcons(icon);
-    return [icon, color];
-  };
-
-  return service;
 });

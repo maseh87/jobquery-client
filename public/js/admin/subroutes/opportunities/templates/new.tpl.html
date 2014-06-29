@@ -178,7 +178,7 @@
                     <td>{{ user.searchStage }}</td>
                     <td><div class="text-center">{{ user.points[1] === 0 ? '-' : user.score + '%' }}</div></td>
                     <td ng-repeat="tag in filteredTags">
-                        <p class="text-center"><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, user.tags[tag.data._id])[0]" ng-style="{color: calculateFit(tag.importance, tag.value, user.tags[tag.data._id])[1]}"></span></p>
+                        <p class="text-center"><span class="glyphicon" ng-class="calculateFit(tag.importance, filteredStats[tag.data._id].type, tag.value, user.tags[tag.data._id])[0]" ng-style="{color: calculateFit(tag.importance, filteredStats[tag.data._id].type, tag.value, user.tags[tag.data._id])[1]}"></span></p>
                     </td>
                 </tr>
                 <!-- repeat everything 10th row -->

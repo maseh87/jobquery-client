@@ -147,7 +147,12 @@ app.controller('AdminOpportunitiesNewCtrl',
       oppData.notes = $scope.basic.notes ? [ {text: $scope.basic.notes} ] : [];
       oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
       oppData.tags = $scope.guidance.tags.map(function (tag) {
-        return {tag: tag.data._id, value: tag.value, importance: tag.importance};
+        return {
+          tag: tag.data._id,
+          value: tag.value,
+          importance: tag.importance,
+          type: tag.data.type
+        };
       });
 
       Opportunity.create(oppData).then(function(data){

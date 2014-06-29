@@ -14,11 +14,11 @@ app.controller('UsersSidebarCtrl', ['$scope', '$rootScope', '$state', function (
         'tags': 'sidebar-tags',
     };
 
-    $scope.currentStateHeading = "opportunities";
+    $scope.currentStateHeading = "account";
     document.getElementById(sidebarIds[$scope.currentStateHeading]).classList.add('sidebar-active');
 
     var getNewState = function (toState) {
-        var defaultState = "opportunities";
+        var defaultState = "account";
         for (var state in sidebarIds) {
             if (toState.hasOwnProperty("name") && toState.name.indexOf(state) > -1) { return state; }
         }

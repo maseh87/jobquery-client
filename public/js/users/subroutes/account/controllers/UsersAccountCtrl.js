@@ -53,7 +53,7 @@ app.controller('UsersAccountCtrl',
       console.log('User account information updated successfully');
       $timeout(function () {
         $scope.submitText = 'Save Your Profile';
-      }, 3000);
+      }, 2000);
     });
   };
 
