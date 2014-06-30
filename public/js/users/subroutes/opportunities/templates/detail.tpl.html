@@ -33,7 +33,7 @@
         <div class="formbox-title">Opportunity Information</div>
         <table class="formbox formbox-basic">
             <tr>
-                <td>{{ opportunity.description }}</td>
+                <td style="white-space:pre-wrap">{{ opportunity.description }}</td>
                 <td>
                     <span class="type-title">{{ opportunity.jobTitle }}</span><br>
                     <div ng-repeat="link in opportunity.links">
