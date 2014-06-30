@@ -64,7 +64,7 @@ app.controller('UsersAccountCtrl',
     var oldPassword = user.password;
     var newPassword = user.newPassword;
     var newPasswordConfirm = user.newPasswordConfirm;
-    if(newPasswordConfirm === newPassword){
+    if(oldPassword && (newPasswordConfirm === newPassword)){
       $scope.passwordText = 'Updating Password';
       UsersAccount.update({
         _id: user._id,
@@ -72,8 +72,14 @@ app.controller('UsersAccountCtrl',
         newPassword: newPassword,
         newPasswordConfirm: newPasswordConfirm
       }).then(function(response){
-      $scope.passwordText = '✔ Password Saved';
+        $scope.passwordText = '✔ Password Saved';
+      }, function(err){
+        $scope.passwordText = 'Incorrect Credentials';
       });
+    } else if (newPasswordConfirm !== newPassword) {
+      $scope.passwordText = 'Password Must Match Confirmation';
+    } else {
+      $scope.passwordText = 'Fill All Fields';
     }
   };
 
