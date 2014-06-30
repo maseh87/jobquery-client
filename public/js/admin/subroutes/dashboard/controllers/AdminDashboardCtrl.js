@@ -148,10 +148,9 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
 
   var daysToMilliseconds = function(days){
     return days * 24 * 60 * 60 * 1000;
-  }
+  };
 
   $scope.fetchAll = function(date, processed){
-    console.log(date, processed);
     var time = new Date().getTime();
     var isProcessed;
 
@@ -179,10 +178,26 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
       return User.getAll();
     }).then(function(data){
       users = data;
-      $scope.entries = processEntries(matches, users, opportunities);
+      $scope.allEntries = processEntries(matches, users, opportunities);
+      $scope.filterEntries();
       $scope.candidateCategories = candidateCategories;
       $scope.opportunityCategories = opportunityCategories;
     });
+  };
+
+  $scope.filterEntries = function(){
+    $scope.filteredEntries = $scope.allEntries.filter($scope.customQuery);
+    $scope.currentPage = 1;
+    $scope.totalPages = Math.floor($scope.filteredEntries.length / 10);
+    $scope.populateEntries($scope.currentPage);
+  };
+
+  $scope.populateEntries = function(page){
+    $scope.currentPage = page;
+    var numPerPage = 10;
+    var start = page * numPerPage;
+    var end = start + numPerPage;
+    $scope.entries = $scope.filteredEntries.slice(start, end);
   };
 
   initialize();
