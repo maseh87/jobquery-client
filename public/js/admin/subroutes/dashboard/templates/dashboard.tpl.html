@@ -40,17 +40,17 @@
     <div class="col-md-10">
         <table class="table">
             <tr>
-                <th class="pointer" ng-click="sorter='candidate';reverse=!reverse">Candidate</th>
-                <th class="pointer" ng-click="sorter='candidateGroup';reverse=!reverse">Candidate Group</th>
-                <th class="pointer" ng-click="sorter='company';reverse=!reverse">Company</th>
-                <th class="pointer" ng-click="sorter='opportunityGroup';reverse=!reverse">Opportunity Group</th>
-                <th class="pointer" ng-click="sorter='interest';reverse=!reverse">Interest</th>
-                <th class="pointer" ng-click="sorter='override';reverse=!reverse">Override</th>
-                <th class="pointer" ng-click="sorter='internalNotes';reverse=!reverse">Internal Notes</th>
-                <th class="pointer" ng-click="sorter='processed';reverse=!reverse">Processed</th>
-                <th class="pointer" ng-click="sorter='updatedAt';reverse=!reverse">Last Updated</th>
+                <th class="pointer" ng-click="sorter='candidate';sort(sorter)">Candidate</th>
+                <th class="pointer" ng-click="sorter='candidateGroup';sort(sorter)">Candidate Group</th>
+                <th class="pointer" ng-click="sorter='company';sort(sorter)">Company</th>
+                <th class="pointer" ng-click="sorter='opportunityGroup';sort(sorter)">Opportunity Group</th>
+                <th class="pointer" ng-click="sorter='interest';sort(sorter)">Interest</th>
+                <th class="pointer" ng-click="sorter='override';sort(sorter)">Override</th>
+                <th class="pointer" ng-click="sorter='internalNotes';sort(sorter)">Internal Notes</th>
+                <th class="pointer" ng-click="sorter='processed';sort(sorter)">Processed</th>
+                <th class="pointer" ng-click="sorter='updatedAt';sort(sorter)">Last Updated</th>
             </tr>
-            <tr ng-repeat="entry in entries | orderBy:sorter:reverse track by entry._id">
+            <tr ng-repeat="entry in entries track by entry._id">
                 <td>{{entry.candidate}}</td>
                 <td>{{entry.candidateGroup}}</td>
                 <td>{{entry.company}}</td>

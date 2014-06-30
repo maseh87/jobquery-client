@@ -1,9 +1,11 @@
 app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scope, Match, User) {
 
-  var matches, users, opportunities, candidateCategories, opportunityCategories;
+  var matches, users, opportunities, candidateCategories, opportunityCategories, sorter, reverse;
+  reverse = false;
   $scope.candidateCategoryQuery = {};
 
   var initialize = function(){
+    $scope.sorter = 'updatedAt';
     $scope.fetchAll('week', false);
   };
 
@@ -199,6 +201,29 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     var end = start + numPerPage;
     $scope.entries = $scope.filteredEntries.slice(start, end);
   };
+
+  $scope.sort = function(){
+    if($scope.sorter !== sorter){
+      sorter = $scope.sorter;
+      reverse = false;
+    } else {
+      reverse = !reverse;
+    }
+    $scope.filteredEntries.sort(function(a, b){
+      if(typeof a[sorter] === 'number'){
+        if(a[sorter] < b[sorter]) return reverse ? -1 : 1;
+        if(a[sorter] > b[sorter]) return reverse ? 1 : -1;
+        return 0;
+      } else {
+        if(a[sorter] > b[sorter]) return reverse ? -1 : 1;
+        if(a[sorter] < b[sorter]) return reverse ? 1 : -1;
+        return 0;
+      }
+    });
+    $scope.populateEntries(1);
+  };
+
+  // $scope.$watchGroup(['sorter', 'reverse'], $scope.sort);
 
   initialize();
 
