@@ -2,10 +2,11 @@ app
   .factory('Match', ['$http', 'SERVER_URL', function ($http, SERVER_URL) {
     var matchMethods = {};
 
-    matchMethods.getAll = function () {
+    matchMethods.getAll = function (queryParams) {
       return $http({
         method: 'GET',
-        url: SERVER_URL + '/api/matches'
+        url: SERVER_URL + '/api/matches',
+        params: queryParams
       }).then(function (response) {
         return response.data;
       });

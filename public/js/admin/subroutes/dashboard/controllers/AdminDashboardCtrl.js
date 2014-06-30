@@ -3,6 +3,10 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   var matches, users, opportunities, candidateCategories, opportunityCategories;
   $scope.candidateCategoryQuery = {};
 
+  var initialize = function(){
+    $scope.fetchAll('week', false);
+  };
+
   var objectify = function(arrayOfObjects){
     var objectified = {};
 
@@ -62,17 +66,6 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     return results;
   };
 
-  Match.getAll().then(function(data){
-    matches = data.matches;
-    opportunities = data.opportunities;
-    return User.getAll();
-  }).then(function(data){
-    users = data;
-    $scope.entries = processEntries(matches, users, opportunities);
-    $scope.candidateCategories = candidateCategories;
-    $scope.opportunityCategories = opportunityCategories;
-  });
-
   $scope.updateMatch = function(entry, event){
     if(event && (event.keyCode === 13)){
 
@@ -104,11 +97,6 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   };
 
   $scope.customQuery = function(entry){
-
-    //Filter for processed
-    if($scope.processedQuery === 'true' && entry.processed === false) return false;
-    if($scope.processedQuery === 'false' && entry.processed === true) return false;
-
     //Filter for candidate name
     if($scope.candidateNameQuery){
       var regex = new RegExp($scope.candidateNameQuery, 'i');
@@ -157,5 +145,46 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
 
     return true;
   };
+
+  var daysToMilliseconds = function(days){
+    return days * 24 * 60 * 60 * 1000;
+  }
+
+  $scope.fetchAll = function(date, processed){
+    console.log(date, processed);
+    var time = new Date().getTime();
+    var isProcessed;
+
+    switch(date){
+      case 'week':
+        var date = new Date(time - daysToMilliseconds(7));
+        break;
+      case 'month':
+        var date = new Date(time - daysToMilliseconds(30));
+        break;
+      case 'all':
+        date = null;
+        break;
+    }
+
+    processed === 'all' ? isProcessed = null : isProcessed = processed;
+
+    var queryParams = {};
+    queryParams.isProcessed = isProcessed;
+    if(date) queryParams.fromDate = date.toJSON();
+
+    Match.getAll(queryParams).then(function(data){
+      matches = data.matches;
+      opportunities = data.opportunities;
+      return User.getAll();
+    }).then(function(data){
+      users = data;
+      $scope.entries = processEntries(matches, users, opportunities);
+      $scope.candidateCategories = candidateCategories;
+      $scope.opportunityCategories = opportunityCategories;
+    });
+  };
+
+  initialize();
 
 }]);
