@@ -8,7 +8,7 @@
     padding-left: 12px;
     
     text-align: left;
-    font-weight: 500; font-size: 0.9em;
+    font-weight: 500; font-size: 1em;
     text-transform: uppercase;
     background-color: #E4E4E4;
 }
@@ -19,14 +19,14 @@
     border-bottom: 3px solid #F4F4F4;
     
     vertical-align: middle;
-    font-size: 0.9em; font-weight: 400;
+    font-size: 1em; font-weight: 400;
 }
 .tablebox-content td {
     padding: 5px;
     border-bottom: 2px solid #F4F4F4;
     
     vertical-align: top;
-    font-size: 0.9em; font-weight: 200;
+    font-size: 1em; font-weight: 200;
 }
 .tablebox-content td:first-child, .tablebox-header th:first-child {
     padding-left: 10px;

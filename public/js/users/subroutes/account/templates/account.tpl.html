@@ -108,7 +108,10 @@
         <div ng-show="types.hasOwnProperty('binary')">
             <table class="formbox formbox-numerical">
                 <thead>
-                    <th><div class="formbox-subtitle">{{ labels[category] }}</div></th>
+                    <tr><div class="formbox-question">{{ labels[category] }}</div></tr>
+                </thead>
+                <thead>
+                    <th></th>
                     <th>Yes</th>
                     <th>No</th>
                 </thead>
@@ -123,9 +126,13 @@
         </div>
 
         <div ng-show="types.hasOwnProperty('scale')">
+            
             <table class="formbox formbox-numerical">
                 <thead>
-                    <th><div class="formbox-subtitle">{{ labels[category] }}</div></th>
+                    <tr><div class="formbox-question">{{ labels[category] }}</div></tr>
+                </thead>
+                <thead>
+                    <th></th>
                     <th>1</th>
                     <th>2</th>
                     <th>3</th>
