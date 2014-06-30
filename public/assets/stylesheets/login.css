@@ -72,3 +72,6 @@
 .login-button:active {
     background-color: #CCCCCC;
 }
+
+.login-reset { padding-top: 3px; font-size: 0.8em; }
+.login-reset:hover { cursor: pointer; color: #bedcea;}
