@@ -27,17 +27,20 @@
         <option value="month">Month</option>
         <option value="all">All Time</option>
     </select>
-    <h4>Page</h4>
-    <button type="button" ng-click="currentPage > 1 && populateEntries(currentPage - 1)">Lower</button>
-    {{currentPage}}/{{totalPages}}
-    <button type="button" ng-click="currentPage < totalPages && populateEntries(currentPage + 1)">Higher</button>
-    <h4>Process All</h4>
-    <button ng-click="batchProcess()">BUTTON OF DOOM</button>
+    <div ng-show="filteredEntries">
+        <h4>Page</h4>
+        <button type="button" ng-click="currentPage > 1 && populateEntries(currentPage - 1)">Lower</button>
+        {{currentPage}}/{{totalPages}}
+        <button type="button" ng-click="currentPage < totalPages && populateEntries(currentPage + 1)">Higher</button>
+        <h4>Process All</h4>
+        <button ng-click="batchProcess()">Process {{filteredEntries.length}} Matches</button>
+    </div>
 </div>
 
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-10">
+        <h1 ng-show="filteredEntries.length === 0">No Entries To Show</h1>
         <table class="table">
             <tr>
                 <th class="pointer" ng-click="sorter='candidate';sort(sorter)">Candidate</th>
