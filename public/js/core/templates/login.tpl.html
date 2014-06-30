@@ -15,8 +15,8 @@
     </div>
     <div class="login-box">
       <span class="login-label">Password</span><br>
-      <input type="password" class="login-field" name="password" ng-model="password">
-      <div class="login-reset" ui-sref="send">⟲ Reset Password?</div>
+      <input type="password" class="login-field" name="password" ng-model="password"><br>
+      <span class="login-reset" ui-sref="send">⟲ Reset Password?</span>
     </div>
     <div class="login-box">
       <input type="submit" class="login-button" ng-value="submitting ? 'Signing In...' : 'Login'" ng-disabled="submitting" ng-click="submit(email,password)"><br>
