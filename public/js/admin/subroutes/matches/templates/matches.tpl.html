@@ -20,23 +20,35 @@
         <div class="row">
         <div class="gridbox-title">Candidate - Opportunity Match Grid</div>
         <div class="content-scrollable">
-        <table class="gridbox">
-        <thead>
-            <tr class="gridbox-header">
-                <th></th><!-- empty table header-->
-                <th ng-repeat="(key, opportunity) in opportunities" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
-                    {{ opportunity.company.name }}: {{ opportunity.jobTitle }}
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="gridbox-content" ng-repeat="(userId, row) in matrix">
-                <th ui-sref="admin.candidates.detail({_id: userId})">{{ userMap[userId] }}</th>
-                <td ng-repeat="match in row track by $index" ng-class="isOverridden(match)">
-                    <input ng-model="match.value" ng-click="edit(match)">
-                </td>
-            </tr>
-        </tbody>
+        <table class="matchTable">
+            <thead>
+                <tr class="gridbox-header">
+                    <th style="min-width: 200px; max-width: 200px"></th><!-- empty table header-->
+                    <th class="pointer" style="min-width: 100px; max-width: 100px" ng-repeat-start="(key, opportunity) in opportunities">
+                        {{ opportunity.company.name }}: {{ opportunity.jobTitle }}
+                    </th>
+                    <th ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="gridbox-content" ng-repeat-start="(userId, row) in matrix">
+                    <td style="min-width: 200px; max-width: 200px; font-weight: 400">{{ userMap[userId] }}</td>
+                    <td style="min-width: 100px; max-width: 100px; font-weight: 600" ng-repeat-start="match in row track by $index">
+                        <input class="text-center" ng-model="match.value" ng-blur="edit(match)" ng-class="isOverridden(match)" type="number" min="1" max="4" required></input>
+                    </td>
+                    <td ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last" style="min-width: 200px; max-width: 200px; font-weight: 400">{{ userMap[userId] }}
+                    </td>
+                </tr>
+                <tr class="gridbox-header"ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last">
+                    <th style="min-width: 200px; max-width: 200px"></th><!-- empty table header-->
+                    <th class="pointer" style="min-width: 100px; max-width: 100px" ng-repeat-start="(key, opportunity) in opportunities">
+                        {{ opportunity.company.name }}: {{ opportunity.jobTitle }}
+                    </th>
+                    <th ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last">
+                    </th>
+                </tr>
+            </tbody>
         </table>
         </div>
         </div>
