@@ -68,7 +68,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
 
   var slotQueueGeneration = function (opportunities, candidatesMap, matchesMap, numberOfSlots) {
     var slots = [];
-    var candidates = [];
+    var candidatesInterestQueue = [];
     var candidateIds = Object.keys(candidatesMap);
     var interestSort = function (a, b) {
       return a.interest - b.interest;
@@ -77,20 +77,17 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
     for (var x = 0; x < opportunities.length; x++) {
       slots[x] = slots[x] === undefined ? [] : slots[x];
       for (var y = 0; y < numberOfSlots; y++) {
-        slots[x][y] = slots[x][y] === undefined ? [] : slots[x][y];
-        // define order of candidates per slot
-        slots[x][y] = candidateIds;
         // get interest for each oppertunity and candidate intersection
         for (var i = 0; i < candidateIds.length; i++) {
-          candidates.push({
+          candidatesInterestQueue.push({
             id : candidateIds[i],
             interest : matchesMap[candidateIds[i]][opportunities[x]._id].userInterest
           });
         }
-
-        candidates.sort(interestSort);
-        slots[x][y] = candidates;
-        candidates = [];
+        // sort candidate by interest
+        candidatesInterestQueue.sort(interestSort);
+        slots[x][y] = candidatesInterestQueue;
+        candidatesInterestQueue = [];
       }
     }
     return slots;
