@@ -16,12 +16,18 @@
     <h4>Override</h4>
     <input ng-model="overrideQuery" placeholder="At Least">
     <h4>Processed</h4>
-    <select ng-init="processedQuery = 'all'" ng-model="processedQuery">
-        <option ng-selected="true" ng-value="'all'">All</option>
+    <select ng-init="processedQuery = false" ng-model="processedQuery" ng-change="fetchAll(dateRange, processedQuery)">
+        <option ng-value="'all'">All</option>
         <option ng-value="true">Processed</option>
-        <option ng-value="false">Unprocessed</option>
+        <option ng-selected="true" ng-value="false">Unprocessed</option>
     </select>
-    <h5>Process All</h5>
+    <h4>Date Range</h4>
+    <select ng-init="dateRange = 'week'" ng-model="dateRange" ng-change="fetchAll(dateRange, processedQuery)">
+        <option ng-selected="true" value="week">Week</option>
+        <option value="month">Month</option>
+        <option value="all">All Time</option>
+    </select>
+    <h4>Process All</h4>
     <button ng-click="batchProcess()">BUTTON OF DOOM</button>
 </div>
 
@@ -40,7 +46,7 @@
                 <th class="pointer" ng-click="sorter='processed';reverse=!reverse">Processed</th>
                 <th class="pointer" ng-click="sorter='updatedAt';reverse=!reverse">Last Updated</th>
             </tr>
-            <tr ng-repeat="entry in entries | filter:customQuery | orderBy:sorter:reverse">
+            <tr ng-repeat="entry in entries | filter:customQuery | orderBy:sorter:reverse track by entry._id">
                 <td>{{entry.candidate}}</td>
                 <td>{{entry.candidateGroup}}</td>
                 <td>{{entry.company}}</td>
