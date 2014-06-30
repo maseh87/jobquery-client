@@ -2,9 +2,10 @@
     color: #606060;
     box-shadow: 1px 0px 2px #E4E4E4;
     width: 100%;
+    font-size: 0.9em;
 }
 .formbox-title, .formbox-footer {
-    font-weight: 500; font-size: 1.25em;
+    font-weight: 500;
     text-transform: uppercase;
     background-color: #E4E4E4;
     width: 100%;
@@ -17,7 +18,7 @@
     padding: 5px;
     
     vertical-align: top;
-    font-size: 1.25em; font-weight: 200;
+    font-size: 0.9em; font-weight: 200;
 }
 .formbox td, .formbox th { 
     padding-top: 4px; padding-bottom: 4px;

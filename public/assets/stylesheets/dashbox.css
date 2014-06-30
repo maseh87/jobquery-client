@@ -4,7 +4,7 @@
     
     vertical-align: top;
     margin: auto auto;
-    font-size: 1.25em; font-weight: 200;
+    font-size: 0.9em; font-weight: 200;
     text-align: center;
 
     box-shadow: 1px 1px 1px #E0E0E0;
@@ -16,7 +16,7 @@
 
     width: 100%; padding: 5px 12px 5px 12px;
 
-    font-weight: 400; font-size: 1.25em;
+    font-weight: 400; font-size: 0.9em;
     text-transform: uppercase;
     text-align: right;
 }

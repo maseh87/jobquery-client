@@ -1,9 +1,6 @@
 <div class="content-header">
-    <div class="content-header-block text-left" ng-click="update()">
-        <span class="content-action">
-            <span class="glyphicon glyphicon-ok"></span>
-            <span>{{submitText}}</span>
-        </span>
+    <div class="content-header-block text-left">
+        <button class="content-button" type="submit" ng-click="update(user)">{{ submitText }}</button>
     </div>
     <div class="content-header-block">
         <div class="content-title">Candidate Survey</div>
@@ -70,7 +67,9 @@
             </tr>
             <tr>
                 <th></th>
-                <td><button type="button" ng-click="updatePassword(user)">Submit</button></td>
+                <td>
+                <button class="content-button" ng-click="updatePassword(user)">✎ Change Password</button>
+                </td>
             </tr>
         </table>
     </div>
@@ -157,10 +156,7 @@
 
     <div class="content-section container-fluid">
         <div class="formbox-footer">
-            <span class="content-action" ng-click="update(user)">
-                <span class="glyphicon glyphicon-ok"></span>
-                <span>{{submitText}}</span>
-            </span>
+            <button class="content-button" type="submit" ng-click="update(user)">{{ submitText }}</button>
         </div>
     </div>
 </div>
