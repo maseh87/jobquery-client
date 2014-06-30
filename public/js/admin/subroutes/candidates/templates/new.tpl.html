@@ -23,7 +23,7 @@
     <button type="button" ng-click="creatingCategory = true">Add New Category</button>
 </div>
 <div ng-show="creatingCategory">
-    <input ng-model="newCategory" placeholder="Enter Category Name">
+    <input ng-model="newCategory" placeholder="Enter Category Name" ng-keypress="interceptEnter($event)">
     <button type="button" ng-click="addNewCategory(newCategory)">Save</button>
     <button type="button" ng-click="creatingCategory = false">Cancel</button>
 </div>

@@ -25,7 +25,7 @@
                         <button type="button" ng-click="creatingCompany = true">Add New Company</button>
                     </td>
                     <td ng-show="creatingCompany">
-                        <input ng-model="newCompany" placeholder="Enter Company Name">
+                        <input ng-model="newCompany" placeholder="Enter Company Name" ng-keypress="interceptCompany($event)">
                         <button type="button" ng-click="addNewCompany(newCompany)">Save</button>
                         <button type="button" ng-click="creatingCompany = false">Cancel</button>
                     </td>
@@ -55,7 +55,7 @@
                         <button type="button" ng-click="creatingCategory = true">Add New Group</button>
                     </td>
                     <td ng-show="creatingCategory">
-                        <input ng-model="newCategory" placeholder="Enter Group Name">
+                        <input ng-model="newCategory" placeholder="Enter Group Name" ng-keypress="interceptCategory($event)">
                         <button type="button" ng-click="addNewCategory(newCategory)">Save</button>
                         <button type="button" ng-click="creatingCategory = false">Cancel</button>
                     </td>
