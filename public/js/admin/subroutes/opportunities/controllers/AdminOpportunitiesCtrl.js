@@ -1,5 +1,5 @@
-app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
-  function ($scope, Opportunity, Match) {
+app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'DialogueService', 
+  function ($scope, Opportunity, Match, DialogueService) {
 
   Match.getAll().then(function (data) {
     $scope.mapToView(data.matches, data.opportunities);
@@ -22,6 +22,7 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
       opportunity._id = oppModel._id;
       opportunity.company = oppModel.company.name;
       opportunity.title = oppModel.jobTitle;
+      opportunity.active = oppModel.active;
       opportunity.approved = oppModel.approved;
       opportunity.internalNotes =
         oppModel.internalNotes.length > 0 ? oppModel.internalNotes[0].text : null;
@@ -39,4 +40,30 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match',
     });
   };
 
+  $scope.includeAllActive = true;
+  $scope.includeAllPublic = true;
+
+  $scope.toggleC = function (attribute) {
+    $scope[attribute] = !$scope[attribute];
+  };
+
+  $scope.excludingMachine = function () {
+    return function (item) {
+      if ( (!$scope.includeAllActive && !item.active) ||
+           (!$scope.includeAllPublic && !item.approved) ){
+        return false;
+      } else {
+        return true;
+      }
+    };
+  };
+
+  $scope.toggleCheckbox = function (opp, property) {
+    var opportunityToUpdate = {};
+    opportunityToUpdate._id = opp._id;
+    opportunityToUpdate[property] = !opp[property];
+    Opportunity.update(opportunityToUpdate);
+  };
+
 }]);
+

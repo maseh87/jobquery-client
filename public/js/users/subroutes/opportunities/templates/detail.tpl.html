@@ -15,7 +15,7 @@
         <div class="formbox-title">Company Information</div>
         <table class="formbox formbox-basic">
             <tr>
-                <td>{{ company.description }}</td>
+                <td><img ng-show="{{ company.media[0].url }}" src="{{ company.media[0].url }}"></td>
                 <td>
                     <span class="type-subtitle">{{ company.city }}, {{ company.country }}</span><br>
                     <span class="type-title">{{ company.name }}</span><br>
@@ -33,7 +33,7 @@
         <div class="formbox-title">Opportunity Information</div>
         <table class="formbox formbox-basic">
             <tr>
-                <td>{{ opportunity.description }}</td>
+                <td style="white-space:pre-wrap">{{ opportunity.description }}</td>
                 <td>
                     <span class="type-title">{{ opportunity.jobTitle }}</span><br>
                     <div ng-repeat="link in opportunity.links">
@@ -60,20 +60,30 @@
             <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
                 <span class="dashbox-icon-dingbat">➃</span><br>High
             </div>
-            <div ng-repeat="tags in processedTags">
+        </div>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">What the Employer Is Looking For</div>
+        <div class="dashbox dashbox-content">
+            <div ng-repeat="tags in processedTags" ng-if="tags">
                 <br>
-                <div ng-repeat="tagType in tags">
+                <div ng-repeat="(key, tagType) in tags">
                     <table class="table table-condensed text-left" ng-show="tagType">
-                        <th width="40%">{{tags.importance === 'must' ? 'Must Have' : 'Nice to Have'}}</th>
-                        <th width="20%">Your Value</th>
-                        <th width="20%">Their Value</th>
-                        <th width="20%">Comparison <p>{{'(' + score + '% match for employer)'}}</p></th>
-                        <tr ng-repeat="tag in tagType">
-                            <td width="40%">{{tag.name}}</td>
-                            <td width="20%">{{tag.userValue}}</td>
-                            <td width="20%">{{tag.value}}</td>
-                            <td><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, tag.value, tag.userValue)[1]}"></span></td>
-                        </tr>
+                        <thead>
+                            <th width="40%">{{tags.importance === 'must' ? 'Must Have' : 'Nice to Have'}}</th>
+                            <th width="20%">Your Profile</th>
+                            <th width="20%">Recommended for This Opportunity</th>
+                            <th width="20%">Comparison <span>{{'(' + score + '% match for employer)'}}</span></th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tag in tagType">
+                                <td width="40%">{{tag.name}}</td>
+                                <td width="20%">{{tag.userValue}}</td>
+                                <td width="20%">{{tag.value}}</td>
+                                <td><span class="glyphicon" ng-class="calculateFit(tag.importance, key, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, key, tag.value, tag.userValue)[1]}"></span></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

@@ -1,9 +1,6 @@
 <div class="content-header">
-    <div class="content-header-block text-left" ng-click="update()">
-        <span class="content-action">
-            <span class="glyphicon glyphicon-ok"></span>
-            <span>{{submitText}}</span>
-        </span>
+    <div class="content-header-block text-left">
+        <button class="content-button" type="submit" ng-click="update(user)">{{ submitText }}</button>
     </div>
     <div class="content-header-block">
         <div class="content-title">Candidate Survey</div>
@@ -31,6 +28,48 @@
             <tr>
                 <th>LinkedIn</th>
                 <td><input type="text" size="40" ng-model="user.linkedin"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Primary Job Search Location</div>
+        <table class="formbox formbox-basic">
+            <tr>
+                <th>City</th>
+                <td><input type="text" size="40" ng-model="user.city"></td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td><input type="text" size="40" ng-model="user.state"></td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td><input type="text" size="40" ng-model="user.country"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Change Password</div>
+        <table class="formbox formbox-basic">
+            <tr>
+                <th>Old Password</th>
+                <td><input type="text" size="40" ng-model="user.password"></td>
+            </tr>
+            <tr>
+                <th>New Password</th>
+                <td><input type="password" size="40" ng-model="user.newPassword"></td>
+            </tr>
+            <tr>
+                <th>Confirm New Password</th>
+                <td><input type="password" size="40" ng-model="user.newPasswordConfirm"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                <button class="content-button" ng-click="updatePassword(user)">✎ Change Password</button>
+                </td>
             </tr>
         </table>
     </div>
@@ -117,10 +156,7 @@
 
     <div class="content-section container-fluid">
         <div class="formbox-footer">
-            <span class="content-action" ng-click="update()">
-                <span class="glyphicon glyphicon-ok"></span>
-                <span>{{submitText}}</span>
-            </span>
+            <button class="content-button" type="submit" ng-click="update(user)">{{ submitText }}</button>
         </div>
     </div>
 </div>

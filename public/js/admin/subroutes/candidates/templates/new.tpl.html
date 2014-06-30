@@ -17,4 +17,13 @@
     </form>
 </div>
 
-<div ui-view></div>
+<h1>Assign Category</h1>
+<div ng-show="!creatingCategory">
+    <select ng-model="category" ng-options="category.name for category in categories | orderBy:'name'"></select> or
+    <button type="button" ng-click="creatingCategory = true">Add New Category</button>
+</div>
+<div ng-show="creatingCategory">
+    <input ng-model="newCategory" placeholder="Enter Category Name">
+    <button type="button" ng-click="addNewCategory(newCategory)">Save</button>
+    <button type="button" ng-click="creatingCategory = false">Cancel</button>
+</div>

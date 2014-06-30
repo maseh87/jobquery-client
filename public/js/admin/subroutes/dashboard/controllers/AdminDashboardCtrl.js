@@ -43,13 +43,16 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
       if(opportunityCategory) opportunityCategories[opportunityCategory._id] = opportunityCategory;
 
       results.push({
+        _id: matchObj._id,
         candidate: users[matchObj.user].name,
         candidateGroup: users[matchObj.user].category ? users[matchObj.user].category.name : null,
         company: opportunities[matchObj.opportunity].company.name,
         opportunityGroup: opportunities[matchObj.opportunity].category ? opportunities[matchObj.opportunity].category.name : null,
         interest: matchObj.userInterest,
         override: matchObj.adminOverride,
-        processed: matchObj.isProcessed
+        processed: matchObj.isProcessed,
+        internalNotes: matchObj.internalNotes,
+        updatedAt: matchObj.updatedAt
       });
     }
 
@@ -70,10 +73,41 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     $scope.opportunityCategories = opportunityCategories;
   });
 
+  $scope.updateMatch = function(entry, event){
+    if(event && (event.keyCode === 13)){
+
+      var updatedMatch = {};
+      updatedMatch._id = entry._id;
+      if(entry.internalNotes) updatedMatch.internalNotes = entry.internalNotes;
+      if(entry.override) updatedMatch.adminOverride = entry.override;
+
+      Match.update(updatedMatch).then(function(data){
+        entry.editingInternalNotes = false;
+        entry.editingOverride = false;
+      });
+    } else if (!event) {
+      entry.isProcessed = entry.processed;
+      Match.update(entry).then(function(data){
+        console.log('Match Updated');
+      });
+    }
+  };
+
+  $scope.batchProcess = function(){
+    var entries = $scope.entries.filter($scope.customQuery);
+    var process = entries.map(function(entry){return entry._id});
+    Match.batchProcess(process).then(function(response){
+      entries.forEach(function(entry){
+        entry.processed = true;
+      });
+    });
+  };
+
   $scope.customQuery = function(entry){
 
     //Filter for processed
-    if($scope.processedQuery !== entry.processed) return false;
+    if($scope.processedQuery === 'true' && entry.processed === false) return false;
+    if($scope.processedQuery === 'false' && entry.processed === true) return false;
 
     //Filter for candidate name
     if($scope.candidateNameQuery){

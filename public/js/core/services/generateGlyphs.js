@@ -2,15 +2,18 @@ app.factory('generateGlyphs', function () {
 
   var service = {};
 
-  var findGlyph = function (tagType, tagThreshold, userLevel) {
-    if (tagType === 'must') {
-      if (userLevel >= tagThreshold) {
+  var findGlyph = function (importance, type, tagThreshold, userLevel) {
+
+    if (importance === 'must') {
+      if ( (userLevel >= tagThreshold && type === 'scale') ||
+           (userLevel === tagThreshold && type === 'binary') ) {
         return 'glyphicon-thumbs-up';
       } else {
         return 'glyphicon-remove';
       }
-    } else {
-      if (userLevel >= tagThreshold) {
+    } else if (importance === 'nice') {
+      if ( (userLevel >= tagThreshold && type === 'scale') ||
+           (userLevel === tagThreshold && type === 'binary') ) {
         return 'glyphicon-plus';
       } else {
         return '';
@@ -28,8 +31,8 @@ app.factory('generateGlyphs', function () {
     }
   };
 
-  service.calculateFit = function (tagType, tagThreshold, userLevel) {
-    var icon = findGlyph(tagType, tagThreshold, userLevel);
+  service.calculateFit = function (importance, type, tagThreshold, userLevel) {
+    var icon = findGlyph(importance, type, tagThreshold, userLevel);
     var color = colorIcons(icon);
     return [icon, color];
   };

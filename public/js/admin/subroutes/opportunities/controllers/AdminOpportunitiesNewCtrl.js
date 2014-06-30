@@ -2,6 +2,9 @@ app.controller('AdminOpportunitiesNewCtrl',
   ['$scope', '$stateParams', '$state', 'Opportunity', 'User', 'Tag', 'Category', 'Company', '$q', 'generateGlyphs',
   function ($scope, $stateParams, $state, Opportunity, User, Tag, Category, Company, $q, generateGlyphs) {
 
+  $scope.sorter = 'name';
+  $scope.reverse = false;
+
   User.getAll().then(function (users) {
     // need populate users with tags info
     $scope.mapToView(users);
@@ -144,7 +147,12 @@ app.controller('AdminOpportunitiesNewCtrl',
       oppData.notes = $scope.basic.notes ? [ {text: $scope.basic.notes} ] : [];
       oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
       oppData.tags = $scope.guidance.tags.map(function (tag) {
-        return {tag: tag.data._id, value: tag.value, importance: tag.importance};
+        return {
+          tag: tag.data._id,
+          value: tag.value,
+          importance: tag.importance,
+          type: tag.data.type
+        };
       });
 
       Opportunity.create(oppData).then(function(data){
@@ -263,6 +271,16 @@ app.controller('AdminOpportunitiesNewCtrl',
     $scope.categories.push(newCategory);
     $scope.basic.category = $scope.categories[$scope.categories.length - 1];
     $scope.creatingCategory = false;
+  };
+
+  $scope.ExcludeAccepted = function () {
+    return function (item) {
+      if (item.searchStage === 'Accepted') {
+        return false;
+      } else {
+        return true;
+      }
+    };
   };
 
 }]);

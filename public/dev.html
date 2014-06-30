@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="assets/stylesheets/formbox.css">
     <link rel="stylesheet" href="assets/stylesheets/gridbox.css">
     <link rel="stylesheet" href="assets/stylesheets/dashbox.css">
-    <link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,500,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="assets/stylesheets/dialogue.css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway:200,300,400,500' rel='stylesheet' type='text/css'>
     <!-- JS -->
 
     <!-- build:remove -->
@@ -54,6 +55,8 @@
     <script src="js/core/controllers/SendCtrl.js"></script>
 
     <script src="js/core/services/AuthService.js"></script>
+    <script src="js/core/services/DialogueService.js"></script>
+    <script src="js/core/services/generateGlyphs.js"></script>
 
     <!--Models -->
     <script src="js/core/services/AuthInterceptor.js"></script>
@@ -180,6 +183,11 @@
 </div>
 <div class="content-container">
     <div ui-view="main"></div>
+</div>
+
+<div id="dialogue-box" style="display: none">
+    <div id="dialogue-title"></div>
+    <div id="dialogue-content"></div>
 </div>
 
 </body>

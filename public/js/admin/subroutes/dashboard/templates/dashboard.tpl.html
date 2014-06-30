@@ -1,24 +1,32 @@
-<div class="row">
-    <div class="col-md-2">
-        <h4>Candidate Name</h4>
-        <input ng-model="candidateNameQuery">
-        <h4>Candidate Group</h4>
-        <div ng-repeat="category in candidateCategories">
-            <span>{{category.name}}</span>
-            <input type="checkbox" ng-model="category.selected">
-        </div>
-        <h4>Opportunity Group</h4>
-        <div ng-repeat="category in opportunityCategories">
-            <span>{{category.name}}</span>
-            <input type="checkbox" ng-model="category.selected">
-        </div>
-        <h4>Interest</h4>
-        <input ng-model="interestQuery" placeholder="Greater than">
-        <h4>Override</h4>
-        <input ng-model="overrideQuery" placeholder="Greater than">
-        <h4>Processed</h4>
-        <input type="checkbox" ng-init="processedQuery = false" ng-model="processedQuery">
+<div style="position:fixed">
+    <h4>Candidate Name</h4>
+    <input ng-model="candidateNameQuery">
+    <h4>Candidate Group</h4>
+    <div ng-repeat="category in candidateCategories">
+        <span>{{category.name}}</span>
+        <input type="checkbox" ng-model="category.selected">
     </div>
+    <h4>Opportunity Group</h4>
+    <div ng-repeat="category in opportunityCategories">
+        <span>{{category.name}}</span>
+        <input type="checkbox" ng-model="category.selected">
+    </div>
+    <h4>Interest</h4>
+    <input ng-model="interestQuery" placeholder="At Least">
+    <h4>Override</h4>
+    <input ng-model="overrideQuery" placeholder="At Least">
+    <h4>Processed</h4>
+    <select ng-init="processedQuery = 'all'" ng-model="processedQuery">
+        <option ng-selected="true" ng-value="'all'">All</option>
+        <option ng-value="true">Processed</option>
+        <option ng-value="false">Unprocessed</option>
+    </select>
+    <h5>Process All</h5>
+    <button ng-click="batchProcess()">BUTTON OF DOOM</button>
+</div>
+
+<div class="row">
+    <div class="col-md-2"></div>
     <div class="col-md-10">
         <table class="table">
             <tr>
@@ -28,7 +36,9 @@
                 <th class="pointer" ng-click="sorter='opportunityGroup';reverse=!reverse">Opportunity Group</th>
                 <th class="pointer" ng-click="sorter='interest';reverse=!reverse">Interest</th>
                 <th class="pointer" ng-click="sorter='override';reverse=!reverse">Override</th>
+                <th class="pointer" ng-click="sorter='internalNotes';reverse=!reverse">Internal Notes</th>
                 <th class="pointer" ng-click="sorter='processed';reverse=!reverse">Processed</th>
+                <th class="pointer" ng-click="sorter='updatedAt';reverse=!reverse">Last Updated</th>
             </tr>
             <tr ng-repeat="entry in entries | filter:customQuery | orderBy:sorter:reverse">
                 <td>{{entry.candidate}}</td>
@@ -36,8 +46,21 @@
                 <td>{{entry.company}}</td>
                 <td>{{entry.opportunityGroup}}</td>
                 <td>{{entry.interest}}</td>
-                <td>{{entry.override}}</td>
-                <td>{{entry.processed}}</td>
+                <td ng-click="entry.editingOverride = true">
+                    <span ng-show="!entry.editingOverride">{{entry.override}}</span>
+                    <input ng-keypress="updateMatch(entry, $event)" ng-model="entry.override" ng-if="entry.editingOverride">
+                </td>
+                <td ng-click="entry.editingInternalNotes = true">
+                    <span ng-show="!entry.editingInternalNotes">{{entry.internalNotes}}</span>
+                    <input ng-keypress="updateMatch(entry, $event)" ng-model="entry.internalNotes" ng-if="entry.editingInternalNotes">
+                </td>
+                <td>
+                    <select ng-model="entry.processed" ng-change="updateMatch(entry)">
+                        <option ng-value="true">true</option>
+                        <option ng-value="false">false</option>
+                    </select>
+                </td>
+                <td>{{entry.updatedAt}}</td>
             </tr>
         </table>
     </div>

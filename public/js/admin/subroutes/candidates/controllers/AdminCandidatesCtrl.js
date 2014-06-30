@@ -90,5 +90,15 @@ app.controller('AdminCandidatesCtrl',
     return true;
   } /* end download() */
 
+  $scope.ExcludeAccepted = function () {
+    return function (item) {
+      if (item.searchStage === 'Accepted') {
+        return false;
+      } else {
+        return true;
+      }
+    };
+  };
+
 
 }]);

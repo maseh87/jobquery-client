@@ -2,6 +2,9 @@ app.controller('AdminOpportunitiesDetailCtrl',
   ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category', 'generateGlyphs',
   function ($scope, $stateParams, Opportunity, Match, Tag, Category, generateGlyphs) {
 
+  $scope.sorter = 'score';
+  $scope.reverse = true;
+
   Match.getUsers($stateParams._id).then(function (data) {
     $scope.mapToView(data.opportunity, data.matches);
     $scope.oppData = data.opportunity;
@@ -172,7 +175,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
         } else {
           tagView.value = 'text';
         }
-      console.log('default tagView.value:', tagView.value);
     }
   };
 
@@ -259,6 +261,16 @@ app.controller('AdminOpportunitiesDetailCtrl',
   };
 
   $scope.calculateFit = generateGlyphs.calculateFit;
+
+  $scope.ExcludeAccepted = function () {
+    return function (item) {
+      if (item.searchStage === 'Accepted') {
+        return false;
+      } else {
+        return true;
+      }
+    };
+  };
 
 }]);
 

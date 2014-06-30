@@ -2,15 +2,16 @@ app.controller('UsersOpportunitiesCtrl',
   ['$scope', 'UsersOpportunity', '$state', 'GuidanceService',
   function ($scope, UsersOpportunity, $state, GuidanceService) {
 
-  $scope.getGuidance = GuidanceService.processTags;
+  $scope.sorter = 'company.name';
 
   var formatOpportunities = function(opportunities, interest){
     var categories = {};
     for(var i = 0; i < opportunities.length; i++){
       var opportunity = opportunities[i];
       opportunity.interest = interest[opportunity._id];
+      opportunity.match = GuidanceService.processTags(opportunity, $scope.user)[1];
       var catId = opportunity.category._id;
-      if(!categories[catId]) categories[catId] = { info: opportunity.category, opportunities: [] }
+      if(!categories[catId]) categories[catId] = { info: opportunity.category, opportunities: [] };
       categories[catId].opportunities.push(opportunity);
     }
     return categories;
@@ -25,11 +26,12 @@ app.controller('UsersOpportunitiesCtrl',
   };
 
   UsersOpportunity.getAll().then(function (data) {
+    $scope.user = data.user;
+
     var opportunities = data.opportunities;
     var matches = data.matches;
     var interest = formatMatches(matches);
     var categories = formatOpportunities(opportunities, interest);
-    $scope.user = data.user;
     $scope.categories = categories;
   });
 

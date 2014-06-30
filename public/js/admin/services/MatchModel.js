@@ -29,5 +29,25 @@ app
       });
     };
 
+    matchMethods.update = function (matchObject) {
+      return $http({
+        method: 'PUT',
+        url: SERVER_URL + '/api/matches',
+        data: matchObject
+      }).then(function(response){
+        return response.data;
+      });
+    };
+
+    matchMethods.batchProcess = function(arrayOfIds){
+      return $http({
+        method: 'PUT',
+        url: SERVER_URL + '/api/matches/batchProcess',
+        data: { ids: arrayOfIds }
+      }).then(function(response){
+        return response.data;
+      });
+    };
+
     return matchMethods;
   }]);
