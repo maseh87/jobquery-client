@@ -34,9 +34,9 @@ app.controller('UsersAccountCtrl',
   $scope.isSearchStage = function (value) { return $scope.user.searchStage === value; };
 
   $scope.update = function (user) {
-    delete user.password;
-    delete user.newPassword;
-    delete user.newPasswordConfirm;
+    if(user.password) delete user.password;
+    if(user.newPassword) delete user.newPassword;
+    if(user.newPasswordConfirm) delete user.newPasswordConfirm;
     // re-compile tags
     var compiledTags = [];
     for (var key in $scope.tags) {
