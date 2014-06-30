@@ -23,9 +23,9 @@ app.factory('generateGlyphs', function () {
 
   var colorIcons = function (icon) {
     if (icon === 'glyphicon-thumbs-up') {
-      return 'green';
+      return '#8ebe61';
     } else if (icon ==='glyphicon-remove') {
-      return 'red';
+      return '#bf5659';
     } else if (icon ==='glyphicon-plus') {
       return 'grey';
     }
