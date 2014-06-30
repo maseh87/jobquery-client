@@ -192,6 +192,7 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     $scope.currentPage = 1;
     $scope.totalPages = Math.floor($scope.filteredEntries.length / 10);
     $scope.populateEntries($scope.currentPage);
+    $scope.sort();
   };
 
   $scope.populateEntries = function(page){
@@ -210,7 +211,7 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
       reverse = !reverse;
     }
     $scope.filteredEntries.sort(function(a, b){
-      if(typeof a[sorter] === 'number'){
+      if(typeof a[sorter] === 'number' || sorter === 'updatedAt'){
         if(a[sorter] < b[sorter]) return reverse ? -1 : 1;
         if(a[sorter] > b[sorter]) return reverse ? 1 : -1;
         return 0;
@@ -222,8 +223,6 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     });
     $scope.populateEntries(1);
   };
-
-  // $scope.$watchGroup(['sorter', 'reverse'], $scope.sort);
 
   initialize();
 
