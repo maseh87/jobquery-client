@@ -4,6 +4,7 @@ app.controller('UsersAccountCtrl',
 
   $scope.pendingRequests = 0;
   $scope.submitText = '✔ Save Your Profile';
+  $scope.passwordText = '✎ Change Password';
 
   UsersAccount.get().then(function (user) {
     $scope.user = user;
@@ -64,13 +65,14 @@ app.controller('UsersAccountCtrl',
     var newPassword = user.newPassword;
     var newPasswordConfirm = user.newPasswordConfirm;
     if(newPasswordConfirm === newPassword){
+      $scope.passwordText = 'Updating Password';
       UsersAccount.update({
         _id: user._id,
         oldPassword: oldPassword,
         newPassword: newPassword,
         newPasswordConfirm: newPasswordConfirm
       }).then(function(response){
-        console.log('Password Updated');
+      $scope.passwordText = '✔ Password Saved';
       });
     }
   };
