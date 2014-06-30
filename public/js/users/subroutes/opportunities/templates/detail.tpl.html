@@ -4,70 +4,72 @@
     </span>
     </div>
     <div class="content-header-block">
-        <div class="content-title">Opportunity Dossier</div>
-        <div class="content-tagline">{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</div>
+        <div class="content-title">{{ opportunity.jobTitle }}</div>
+        <div class="content-tagline">{{ opportunity.company.name }}</div>
     </div>
 </div>
 
 <div ng-show="opportunity">
 <div class="row">
     <div class="content-section container-fluid">
-        <div class="formbox-title">Company Information</div>
-        <table class="formbox formbox-basic">
-            <tr>
-                <td><img ng-show="{{ company.media[0].url }}" src="{{ company.media[0].url }}"></td>
-                <td>
-                    <span class="type-subtitle">{{ company.city }}, {{ company.country }}</span><br>
-                    <span class="type-title">{{ company.name }}</span><br>
-                    <span class="type-tagline">{{ company.tagline }}</span><br><br>
-                    <div class="type-linkbox" ng-repeat="link in company.links">
-                        <span ng-show="$first">Read more:</span><br>
-                        <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <div class="formbox-title">
+
+            <table class="formbox-footer-pure">
+                <tr>
+                    <td width="60%">
+                    <img class="box-image" ng-show="{{ company.media[0].url }}" src="{{ company.media[0].url }}">
+                    <img class="box-image" src="assets/images/test-company-img.png">
+                    </td>
+                    <td class="text-left" style="height: 100%">
+                        <div class="float-container">
+                            <div class="float-container-row">
+                            <div class="float-top">
+                                <span class="type-header text-left">{{ company.name }}</span><br>
+                                <span class="type-subtitle">{{ company.city }}, {{ company.country }}</span><br>
+                            </div>
+                            </div>
+                            <div class="float-container-row">
+                            <div class="float-bottom">
+                                <span class="type-normal">{{ company.description }}</span><br>
+                                <div class="type-linkbox" ng-repeat="link in company.links">
+                                    <span ng-show="$first">Learn more:</span><br>
+                                    <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <div class="content-section container-fluid">
         <div class="formbox-title">Opportunity Information</div>
         <table class="formbox formbox-basic">
             <tr>
-                <td style="white-space:pre-wrap">{{ opportunity.description }}</td>
-                <td>
-                    <span class="type-title">{{ opportunity.jobTitle }}</span><br>
+                <th>Job Title</th>
+                <td class="type-header">{{ opportunity.jobTitle }}</td>
+            </tr>
+            <tr>
+                <th>Links</th>
+                <td>                        
                     <div ng-repeat="link in opportunity.links">
-                        <span ng-show="$first">Read more:</span><br>
                         <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td style="white-space:pre-wrap">{{ opportunity.description }}</td>
             </tr>
         </table>
     </div>
 
     <div class="content-section container-fluid">
-        <div class="formbox-title">Indicate Interest</div>
-        <div class="dashbox dashbox-content">
-            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
-                <span class="dashbox-icon-dingbat">➀</span><br>None
-            </div>
-            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
-                <span class="dashbox-icon-dingbat">➁</span><br>Low
-            </div>
-            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
-                <span class="dashbox-icon-dingbat">➂</span><br>Medium
-            </div>
-            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
-                <span class="dashbox-icon-dingbat">➃</span><br>High
-            </div>
-        </div>
-    </div>
-
-    <div class="content-section container-fluid">
         <div class="formbox-title">What the Employer Is Looking For</div>
-        <div class="dashbox dashbox-content">
+        <div class="tablebox tablebox-basic">
             <div ng-repeat="tags in processedTags" ng-if="tags">
-                <br>
                 <div ng-repeat="(key, tagType) in tags">
                     <table class="table table-condensed text-left" ng-show="tagType">
                         <thead>
@@ -89,6 +91,25 @@
             </div>
         </div>
     </div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Indicate Interest</div>
+        <div class="dashbox dashbox-content">
+            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
+                <span class="dashbox-icon-dingbat">➀</span><br>None
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
+                <span class="dashbox-icon-dingbat">➁</span><br>Low
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
+                <span class="dashbox-icon-dingbat">➂</span><br>Medium
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
+                <span class="dashbox-icon-dingbat">➃</span><br>High
+            </div>
+        </div>
+    </div>
+
 
     <div class="content-section container-fluid">
         <div class="formbox-title">Additional Questions</div>
