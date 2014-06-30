@@ -13,12 +13,10 @@
 <div class="row">
     <div class="content-section container-fluid">
         <div class="formbox-title">
-
             <table class="formbox-footer-pure">
                 <tr>
                     <td width="60%">
-                    <img class="box-image" ng-show="{{ company.media[0].url }}" src="{{ company.media[0].url }}">
-                    <img class="box-image" src="assets/images/test-company-img.png">
+                    <img class="box-image" src="{{ company.media[0].url }}">
                     </td>
                     <td class="text-left" style="height: 100%">
                         <div class="float-container">
@@ -67,34 +65,34 @@
     </div>
 
     <div class="content-section container-fluid">
-        <div class="formbox-title">What the Employer Is Looking For</div>
-        <div class="tablebox tablebox-basic">
-            <div ng-repeat="tags in processedTags" ng-if="tags">
-                <div ng-repeat="(key, tagType) in tags">
-                    <table class="table table-condensed text-left" ng-show="tagType">
-                        <thead>
-                            <th width="40%">{{tags.importance === 'must' ? 'Must Have' : 'Nice to Have'}}</th>
-                            <th width="20%">Your Profile</th>
-                            <th width="20%">Recommended for This Opportunity</th>
-                            <th width="20%">Comparison <span>{{'(' + score + '% match for employer)'}}</span></th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="tag in tagType">
-                                <td width="40%">{{tag.name}}</td>
-                                <td width="20%">{{tag.userValue}}</td>
-                                <td width="20%">{{tag.value}}</td>
-                                <td><span class="glyphicon" ng-class="calculateFit(tag.importance, key, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, key, tag.value, tag.userValue)[1]}"></span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="tablebox-title">What the Employer Is Looking For</div>
+        <div ng-repeat="tags in processedTags" ng-if="tags">
+            <table ng-repeat="(key, tagType) in tags" class="tablebox text-center" ng-show="tagType">
+                <thead>
+                    <tr class="tablebox-header">
+                        <th width="20%" class="text-center">{{tags.importance === 'must' ? 'Must Haves' : 'Nice to Haves'}}</th>
+                        <th width="25%" class="text-center">Your Profile</th>
+                        <th width="25%" class="text-center">Recommended for This Opportunity</th>
+                        <th width="30%" class="text-center">Comparison <br><span>{{'(' + score + '% match for employer)'}}</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tag in tagType" class="tablebox-content">
+                        <td width="20%">{{tag.name}}</td>
+                        <td width="25%">{{tag.userValue}}</td>
+                        <td width="25%">{{tag.value}}</td>
+                        <td width="30%"><span class="glyphicon" ng-class="calculateFit(tag.importance, key, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, key, tag.value, tag.userValue)[1]}"></span></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div class="content-section container-fluid">
         <div class="formbox-title">Indicate Interest</div>
-        <div class="dashbox dashbox-content">
+        <table class="formbox formbox-basic text-center">
+            <tr>
+            <td style="horizontal-align: center;">
             <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
                 <span class="dashbox-icon-dingbat">➀</span><br>None
             </div>
@@ -107,12 +105,9 @@
             <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
                 <span class="dashbox-icon-dingbat">➃</span><br>High
             </div>
-        </div>
-    </div>
-
-
-    <div class="content-section container-fluid">
-        <div class="formbox-title">Additional Questions</div>
+            </td>
+            </tr>
+        </table>
         <form ng-submit="submit()">
             <table class="formbox formbox-freetext">
                 <tr ng-show="questions" ng-repeat="question in questions | filter: {active: true}">
