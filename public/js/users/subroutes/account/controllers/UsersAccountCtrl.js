@@ -3,7 +3,7 @@ app.controller('UsersAccountCtrl',
   function ($scope, $timeout, UsersAccount, UserTag) {
 
   $scope.pendingRequests = 0;
-  $scope.submitText = 'Save Your Profile';
+  $scope.submitText = '✔ Save Your Profile';
 
   UsersAccount.get().then(function (user) {
     $scope.user = user;
@@ -50,11 +50,11 @@ app.controller('UsersAccountCtrl',
     $scope.pendingRequests++;
     $scope.submitText = 'Saving...';
     UsersAccount.update($scope.user).then(function (response) {
-      $scope.submitText = 'Save Successful';
+      $scope.submitText = '✔ Save Successful';
       $scope.pendingRequests--;
       console.log('User account information updated successfully');
       $timeout(function () {
-        $scope.submitText = 'Save Your Profile';
+        $scope.submitText = '✔ Save Your Profile';
       }, 2000);
     });
   };
