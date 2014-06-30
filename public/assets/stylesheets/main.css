@@ -147,7 +147,6 @@ table {
     font-weight: 200; font-size: 0.875em;
 }
 
-.type-title { font-size: 2em; font-weight: 200; text-transform: uppercase; }
-.type-subtitle { font-size: 1.25em; font-weight: 300; }
-.type-tagline { font-size: 1.25em; font-weight: 300;}
+.type-title { font-size: 1.5em; font-weight: 200; text-transform: uppercase; }
+.type-subtitle, .type-tagline { font-size: 0.9em; font-weight: 300; }
 .type-linkbox { padding-top: 10px;}
