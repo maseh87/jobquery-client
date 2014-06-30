@@ -31,25 +31,25 @@
 .login-subtitle, .login-title { padding-right: 16.6667%; }
 .login-subtitle {
     letter-spacing: 0.25px;
-    font-size: 1.5rem;
+    font-size: 1.375em;
 }
 .login-incorrect {
     padding-left: 3px;
-    font-size: 1.5rem;
-    color: #CCCCCC;
+    font-size: 1em;
+    color: #e4e0e0;
     font-weight: 300;
 }
 .login-title {
-    line-height: 3.25rem;
-    font-size: 4rem;
+    line-height: 0.75em;
+    font-size: 4em;
     font-weight: 200;
 }
 
 .login-box {
     padding-left: 8.3333%;
-    margin: 20px 0px 20px 0px;
+    margin: 32px 0px 25px 0px;
     font-weight: 300;
-    font-size: 1.25rem;
+    font-size: 1.125em;
 }
 .login-field, .login-button {
     border-radius: 5px;
@@ -59,12 +59,15 @@
 }
 .login-field {
     width: 270px;
-    color: #333;
+    font-size: 0.875em;
+    color: #606060;
 }
 .login-button {
     margin-top: 10px;
     width: 180px;
     color: #5598c1;
+    font-size: 0.875em;
+    font-weight: 300;
 }
 .login-button:active {
     background-color: #CCCCCC;
