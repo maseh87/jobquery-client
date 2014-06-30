@@ -5,6 +5,20 @@ app.controller('AdminOpportunitiesNewCtrl',
   $scope.sorter = 'name';
   $scope.reverse = false;
 
+  $scope.interceptCompany = function(e){
+    if(e.keyCode === 13){
+      e.preventDefault();
+      $scope.addNewCompany($scope.newCompany);
+    }
+  }
+
+  $scope.interceptCategory = function(e){
+    if(e.keyCode === 13){
+      e.preventDefault();
+      $scope.addNewCategory($scope.newCategory);
+    }
+  }
+
   User.getAll().then(function (users) {
     // need populate users with tags info
     $scope.mapToView(users);
