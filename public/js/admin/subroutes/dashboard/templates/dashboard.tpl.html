@@ -1,20 +1,20 @@
 <div style="position:fixed">
     <h4>Candidate Name</h4>
-    <input ng-model="candidateNameQuery">
+    <input ng-model="candidateNameQuery" ng-change="filterEntries()">
     <h4>Candidate Group</h4>
     <div ng-repeat="category in candidateCategories">
         <span>{{category.name}}</span>
-        <input type="checkbox" ng-model="category.selected">
+        <input type="checkbox" ng-model="category.selected" ng-change="filterEntries()">
     </div>
     <h4>Opportunity Group</h4>
     <div ng-repeat="category in opportunityCategories">
         <span>{{category.name}}</span>
-        <input type="checkbox" ng-model="category.selected">
+        <input type="checkbox" ng-model="category.selected" ng-change="filterEntries()">
     </div>
     <h4>Interest</h4>
-    <input ng-model="interestQuery" placeholder="At Least">
+    <input ng-model="interestQuery" placeholder="At Least" ng-change="filterEntries()">
     <h4>Override</h4>
-    <input ng-model="overrideQuery" placeholder="At Least">
+    <input ng-model="overrideQuery" placeholder="At Least" ng-change="filterEntries()">
     <h4>Processed</h4>
     <select ng-init="processedQuery = false" ng-model="processedQuery" ng-change="fetchAll(dateRange, processedQuery)">
         <option ng-value="'all'">All</option>
@@ -27,6 +27,10 @@
         <option value="month">Month</option>
         <option value="all">All Time</option>
     </select>
+    <h4>Page</h4>
+    <button type="button" ng-click="currentPage > 1 && populateEntries(currentPage - 1)">Lower</button>
+    {{currentPage}}/{{totalPages}}
+    <button type="button" ng-click="currentPage < totalPages && populateEntries(currentPage + 1)">Higher</button>
     <h4>Process All</h4>
     <button ng-click="batchProcess()">BUTTON OF DOOM</button>
 </div>
@@ -46,7 +50,7 @@
                 <th class="pointer" ng-click="sorter='processed';reverse=!reverse">Processed</th>
                 <th class="pointer" ng-click="sorter='updatedAt';reverse=!reverse">Last Updated</th>
             </tr>
-            <tr ng-repeat="entry in entries | filter:customQuery | orderBy:sorter:reverse track by entry._id">
+            <tr ng-repeat="entry in entries | orderBy:sorter:reverse track by entry._id">
                 <td>{{entry.candidate}}</td>
                 <td>{{entry.candidateGroup}}</td>
                 <td>{{entry.company}}</td>
