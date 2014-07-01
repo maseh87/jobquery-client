@@ -16,6 +16,8 @@
             <div class="content-tagline">View, invite, or edit candidates</div>
         </div>
     </div>
+    <span>Exclude Accepted/Opt-Out Candidates</span>
+    <input type="checkbox" ng-init="exclude = true" ng-model="exclude" ng-click="exclude = !exclude; toggleAccepted(exclude)">
 
 <!--     <div class="content-section container-fluid">
         <div class="formbox-title">Filter Candidates</div>
@@ -52,7 +54,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in group | filter:ExcludeAccepted() | orderBy:sorter:reverse" class="tablebox-content" ui-sref="admin.candidates.detail({_id: user._id})">
+                <tr ng-repeat="user in group | orderBy:sorter:reverse" class="tablebox-content" ui-sref="admin.candidates.detail({_id: user._id})">
                     <td class="name">{{user.name}}</td>
                     <td>{{user.attending ? 'Yes' : 'No'}}</td>
                     <td class="interestDeclared">{{user.interestDeclared}}</td>

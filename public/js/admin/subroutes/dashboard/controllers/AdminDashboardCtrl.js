@@ -4,6 +4,11 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   reverse = false;
   $scope.candidateCategoryQuery = {};
 
+  $scope.humanifyDate = function(date){
+    var newDate = new Date(date);
+    return newDate.toDateString();
+  };
+
   var initialize = function(){
     $scope.sorter = 'updatedAt';
     $scope.fetchAll('week', false);
@@ -89,9 +94,11 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   };
 
   $scope.batchProcess = function(){
-    var entries = $scope.entries.filter($scope.customQuery);
+    var entries = $scope.filteredEntries;
     var process = entries.map(function(entry){return entry._id});
     Match.batchProcess(process).then(function(response){
+      $scope.batchProcessConfirm = false;
+      $scope.batchProcessSuccess = true;
       entries.forEach(function(entry){
         entry.processed = true;
       });
@@ -190,14 +197,14 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   $scope.filterEntries = function(){
     $scope.filteredEntries = $scope.allEntries.filter($scope.customQuery);
     $scope.currentPage = 1;
-    $scope.totalPages = Math.floor($scope.filteredEntries.length / 10);
+    $scope.totalPages = Math.floor($scope.filteredEntries.length / 20);
     $scope.populateEntries($scope.currentPage);
     $scope.sort();
   };
 
   $scope.populateEntries = function(page){
     $scope.currentPage = page;
-    var numPerPage = 10;
+    var numPerPage = 20;
     var start = page * numPerPage;
     var end = start + numPerPage;
     $scope.entries = $scope.filteredEntries.slice(start, end);

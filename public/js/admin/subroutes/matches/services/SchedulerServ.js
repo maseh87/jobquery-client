@@ -9,7 +9,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
       return $q.all(data);
   };
 
-  var prepareData  = function (opportunities, candidates, matches, numberOfSlots, maxInterviews) {
+  var prepareData  = function (opportunities, candidates, matches, numberOfSlots, maxInterviews, minInterviews) {
     var data = {};
     data.constraints = {};
     var opportunitiesMap;
@@ -22,7 +22,9 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
     matchesMap    = createMatchesMap(matches);
     candidatesMap = convertToMap(candidates);
 
+    data.candidates    = candidates;
     data.opportunities = opportunities;
+    data.constraints.minInterviews = minInterviews;
     data.constraints.maxInterviews = maxInterviews;//Math.ceil(numberOfSlots * opportunities.length / candidates.length);
     data.constraints.numberOfCandidates = candidates.length;
     data.slotQueues = slotQueueGeneration(opportunities, candidatesMap, matchesMap, numberOfSlots);
@@ -39,12 +41,12 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
 
     return matchesMap;
   };
-
   var filterIneligibleCandidates = function (candidates) {
     return candidates.filter(function (candidate) {
-       if(candidate.isAdmin) return false;
-       //if(!candidate.attending) return false;
-       //if(!candidate.isRegistered) return false;
+      if(candidate.isAdmin) return false;
+      if(!candidate.attending) return false;
+      if(!candidate.isRegistered) return false;
+      if((candidate.searchStage === 'Out') || (candidate.searchStage === 'Accepted')) return false;
        return true;
     });
   };
@@ -73,6 +75,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
     var candidatesInterestQueue = [];
     var candidateIds = Object.keys(candidatesMap);
     var interest;
+    var isOverridden;
     var interestSort = function (a, b) {
       return a.interest - b.interest;
     };
@@ -85,12 +88,15 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
           // use admin override if it is applied
           if (matchesMap[candidateIds[i]][opportunities[x]._id].adminOverride > DO_NOT_USE_ADMIN_OVERRIDE) {
             interest = matchesMap[candidateIds[i]][opportunities[x]._id].adminOverride;
+            isOverridden = true;
           } else {
             interest = matchesMap[candidateIds[i]][opportunities[x]._id].userInterest;
+            isOverridden = false;
           }
           candidatesInterestQueue.push({
             id : candidateIds[i],
-            interest : interest
+            interest : interest,
+            isOverridden : isOverridden
           });
         }
         // sort candidate by interest
@@ -119,6 +125,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
 
     output.schedule      = schedule;
     output.opportunities = data.opportunities;
+    output.candidates    = data.candidates;
 
     return output;
   };
@@ -215,7 +222,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
   var softConstraintsValid = function (board, constraints) {
     var isValid = true;
 
-    isValid = isValid && fairnessPerCandidate(board, constraints.numberOfCandidates);
+    isValid = isValid && fairnessPerCandidate(board, constraints.numberOfCandidates, constraints.minInterviews);
 
     return isValid;
   };
@@ -274,7 +281,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
     return valid;
   };
 
-  var fairnessPerCandidate = function (board, numberOfCandidates) {
+  var fairnessPerCandidate = function (board, numberOfCandidates, minimum) {
     var MAX_INTERVIEW_DELTA = 1;
     var valid = true;
     var interviewCount = {};
@@ -290,6 +297,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
         }
       }
     }
+
 
     var keys = Object.keys(interviewCount).length ;
 
@@ -310,7 +318,9 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
       }
 
       if (maxInterviews - minInterviews > MAX_INTERVIEW_DELTA) {
-        valid = false;
+        if (minInterviews < minimum) {
+          valid = false;
+        }
       }
 
     } else {
@@ -326,18 +336,31 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
 
   var processOutput = function (output) {
     var schedule         = {};
+    var interviewCount = {};
 
-    output.opportunities = output.opportunities;
+    // calculate interview count
+    for (var x = 0; x < output.schedule.length; x++) {
+      for (var y = 0; y < output.schedule[x].length; y++) {
+        if (output.schedule[x][y] !== undefined && output.schedule[x][y] !== "BREAK") {
+          interviewCount[output.schedule[x][y].id] = interviewCount[output.schedule[x][y].id] === undefined ? 0 : interviewCount[output.schedule[x][y].id];
+          interviewCount[output.schedule[x][y].id]++;
+        }
+      }
+    }
+
+    // transform schedule to key value opp id -> to slot array
     for (var i = 0; i < output.schedule.length; i++) {
       schedule[output.opportunities[i]._id] = output.schedule[i];
     }
+
+    output.interviewCount = interviewCount;
     output.schedule = schedule;
 
     return output;
   };
 
   return {
-    schedule : function(numberOfRounds, maxInterviews, callback) {
+    schedule : function(numberOfRounds, maxInterviews, minInterviews, callback) {
       var processedInput;
       retrieveData().then(function (data) {
         var OPPORTUNITIES_INDEX  = 0;
@@ -346,11 +369,13 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
         var assigned;
         var output;
         console.log('Data Retrieved', data);
-        processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfRounds, maxInterviews);
+        processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfRounds, maxInterviews, minInterviews);
         console.log('Queued', processedInput);
         output = runAssignment(processedInput);
         console.log('Assigned',output);
         output = processOutput(output);
+
+
 
         callback(output);
       });

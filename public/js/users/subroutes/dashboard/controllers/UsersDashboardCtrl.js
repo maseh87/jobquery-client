@@ -1,9 +1,9 @@
 app.controller('UsersDashboardCtrl',
-  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs',
-  function ($scope, UsersOpportunity, GuidanceService, generateGlyphs) {
+  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService', 
+  function ($scope, UsersOpportunity, GuidanceService, generateGlyphs, DialogueService) {
 
   var matches;
-  $scope.submitText = 'Submit';
+  $scope.submitText = '✔ Submit Preferences';
   $scope.pendingRequests = 0;
 
   var initialize = function(){
@@ -25,10 +25,23 @@ app.controller('UsersDashboardCtrl',
     });
   };
 
+  var animateScroll = function () {
+    var delta = window.pageYOffset;
+    var frames = 30;
+    var period = 15;
+
+    for (var i = 1; i <= frames; i++) {
+      (function (scrollPos) {
+        setTimeout(function() { window.scrollTo(0, scrollPos); }, period * i);
+      })((frames - i) / frames * delta);
+    }
+  };
+
   var getNextOpportunity = function(){
     var nextOpportunityId = $scope.matches[0].opportunity;
+    animateScroll();
     return UsersOpportunity.get(nextOpportunityId).then(function(data){
-      $scope.submitText='Submit';
+      $scope.submitText='✔ Submit Preferences';
       $scope.pendingRequests--;
       var match = data.match;
       var opportunity = match.opportunity;
@@ -58,9 +71,28 @@ app.controller('UsersDashboardCtrl',
     });
   };
 
+
+  $scope.updateInterest = function (value) {
+    if (!$scope.match) { return undefined; }
+
+    $scope.match.answers = $scope.match.answers.map(function(answerObj){
+      if(answerObj.answer === '') answerObj.answer = ' ';
+      return answerObj;
+    });
+
+    $scope.match.userInterest = value;
+    UsersOpportunity.update($scope.match).then(function () { });
+  };
+
+  $scope.hasInterest = function (value) {
+    if (!$scope.match) { return undefined; }
+    return $scope.match.userInterest === value;
+  };
+
   $scope.submit = function(){
     $scope.submitText = 'Submitting...';
     $scope.pendingRequests++;
+
     UsersOpportunity.update($scope.match).then(function(){
       $scope.submitText = 'Fetching Next';
       $scope.matches.splice(0, 1);

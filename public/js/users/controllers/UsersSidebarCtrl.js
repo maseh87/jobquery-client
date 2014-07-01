@@ -14,11 +14,11 @@ app.controller('UsersSidebarCtrl', ['$scope', '$rootScope', '$state', function (
         'tags': 'sidebar-tags',
     };
 
-    $scope.currentStateHeading = "account";
+    $scope.currentStateHeading = $state.current.name.split('.')[1];
     document.getElementById(sidebarIds[$scope.currentStateHeading]).classList.add('sidebar-active');
 
     var getNewState = function (toState) {
-        var defaultState = "account";
+        var defaultState = "dashboard";
         for (var state in sidebarIds) {
             if (toState.hasOwnProperty("name") && toState.name.indexOf(state) > -1) { return state; }
         }

@@ -1,5 +1,13 @@
 app.factory('DialogueService', function () {
 
+  var $dialogue = document.getElementById('dialogue-box');
+  $dialogue.addEventListener('click', function() {
+    $dialogue.setAttribute('style', 'display: none');
+  });
+  $dialogue.addEventListener('blur', function() {
+    $dialogue.setAttribute('style', 'display: none');
+  });
+
   serviceMethods = {};
 
   serviceMethods._hidden = false;
@@ -26,6 +34,11 @@ app.factory('DialogueService', function () {
   serviceMethods.hide = function () {
     serviceMethods._hidden = true;
     document.getElementById('dialogue-box').setAttribute('style', 'display: none');
+  };
+
+  serviceMethods.clearAndHide = function () {
+    serviceMethods.hide();
+    serviceMethods.clear();
   };
 
   return serviceMethods;

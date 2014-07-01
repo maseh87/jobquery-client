@@ -4,10 +4,29 @@ app.controller('AdminCandidatesCtrl',
 
   $scope.query = '';
 
+  $scope.toggleAccepted = function(exclude){
+    exclude ? $scope.excludeAccepted() : $scope.includeAccepted();
+  };
+  
+  $scope.excludeAccepted = function () {
+    var results = {};
+    for(var key in $scope.allGroups){
+      results[key] = $scope.allGroups[key].filter(function(user){
+        if(user.searchStage !== 'Accepted' || user.searchStage !== 'Out') return true;
+        return false;
+      });
+    }
+    $scope.groups = results;
+  };
+
+  $scope.includeAccepted = function(){
+    $scope.groups = angular.copy($scope.allGroups);
+  };
+
   User.getAll().then(function (users) {
     $scope.users = users;
-    var groups = {};
     var userMap = {};
+    var groups = {};
     // split users into groups<key,user>
     users.forEach(function (user) {
       if (!user.category) {
@@ -40,7 +59,8 @@ app.controller('AdminCandidatesCtrl',
           }
         }
       }
-      $scope.groups = groups;
+      $scope.allGroups = angular.copy(groups);
+      $scope.excludeAccepted();
     });
 
   });
@@ -90,15 +110,7 @@ app.controller('AdminCandidatesCtrl',
     return true;
   } /* end download() */
 
-  $scope.ExcludeAccepted = function () {
-    return function (item) {
-      if (item.searchStage === 'Accepted') {
-        return false;
-      } else {
-        return true;
-      }
-    };
-  };
+  
 
 
 }]);
