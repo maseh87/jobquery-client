@@ -9,12 +9,7 @@
     </div>
 </div>
 
-<!--
-        <div ng-show="matches.length > 0" class="content-tagline">{{ matches.length }} opportunities left to fill out</div>
-        <div ng-show="matches.length === 0" class="content-tagline">No more opportunities to fill out</div>
--->
-
-<div class="row">
+<div class="row" ng-show="opportunity && matches.length">
     <div class="content-section container-fluid">
         <div ng-show="matches.length > 0" class="formbox-title">{{ matches.length }} opportunities left to fill out</div>
         <div ng-show="matches.length === 0" class="formbox-title">No more opportunities to fill out</div>        
@@ -59,45 +54,83 @@
     </div>
 
     <div class="content-section container-fluid">
+        <div class="formbox-title">Job Title: {{ opportunity.jobTitle }}</div>
+        <table class="tablebox tablebox-basic">
+            <tr class="tablebox-content tablebox-nohover">
+                <td style="white-space:pre-wrap;">{{ opportunity.description }}</td>
+            </tr>
+            <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
+                <td> 
+                    <span>Read more:</span>                       
+                    <div ng-repeat="link in opportunity.links">
+                        <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <div class="content-section container-fluid">
+        <div class="tablebox-title">What the Employer Is Looking For</div>
+        <div ng-repeat="tags in processedTags" ng-if="tags">
+            <table ng-repeat="(key, tagType) in tags" class="tablebox text-center" ng-show="tagType">
+                <thead>
+                    <tr class="tablebox-header">
+                        <th width="20%" class="text-center">{{tags.importance === 'must' ? 'Must Haves' : 'Nice to Haves'}}</th>
+                        <th width="25%" class="text-center">Your Profile</th>
+                        <th width="25%" class="text-center">Recommended for This Opportunity</th>
+                        <th width="30%" class="text-center">Comparison <br><span>{{'(' + score + '% match for employer)'}}</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tag in tagType" class="tablebox-content">
+                        <td width="20%">{{tag.name}}</td>
+                        <td width="25%">{{tag.userValue}}</td>
+                        <td width="25%">{{tag.value}}</td>
+                        <td width="30%"><span class="glyphicon" ng-class="calculateFit(tag.importance, key, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, key, tag.value, tag.userValue)[1]}"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-
-
-
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Indicate Interest</div>
+        <table class="formbox formbox-basic text-center">
+            <tr>
+            <td style="horizontal-align: center;">
+            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
+                <span class="dashbox-icon-dingbat">➀</span><br>None
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
+                <span class="dashbox-icon-dingbat">➁</span><br>Low
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
+                <span class="dashbox-icon-dingbat">➂</span><br>Medium
+            </div>
+            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
+                <span class="dashbox-icon-dingbat">➃</span><br>High
+            </div>
+            </td>
+            </tr>
+        </table>
+        <form ng-submit="submit()">
+            <table class="formbox formbox-freetext">
+                <tr ng-show="questions" ng-repeat="question in questions | filter: {active: true}">
+                    <td>{{ question.question }}</td>
+                    <td><textarea type="text" size="40" ng-model="answers[question.index].answer"></textarea></td>
+                </tr>
+            </table>
+            <div class="formbox-footer">
+                <input class="content-button" type="submit" value="{{submitText}}" ng-disabled="pendingRequest === 0">
+            </div>
+        </form>
+    </div>
 
 </div><!-- end row -->
 
-<div ng-show="opportunity && matches.length">
-    <div class="row">
-    <div class="section container-fluid">
-        <div class="row">
-            <span>{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</span>
-        </div>
-        <div class="row">
-            <div class="col-xs-6" style="white-space:pre-wrap">{{ opportunity.description }}</div>
-            <div class="col-xs-6">
-                <table class="table">
-                    <tr>
-                        <td>Company:</td>
-                        <td>{{opportunity.company.name}}</td>
-                    </tr>
-                    <tr>
-                        <td>Title:</td>
-                        <td>{{opportunity.jobTitle}}</td>
-                    </tr>
-                    <tr>
-                        <td>URL:</td>
-                        <td>{{opportunity.links[0].url}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-md-6">
+<!--     <div class="col-md-6">
         <form ng-submit="submit()">
             <h2>Interest</h2>
             <input type="radio" id="radio1" ng-value="1" name="interest" ng-model="match.userInterest" required>
@@ -120,25 +153,5 @@
             <input type="submit" value="{{submitText}}" ng-disabled="pendingRequests === 0">
         </form>
     </div>
-
-    <div class="col-md-6">
-        <h1>Guidance ({{ score + '%' }} Match)</h1>
-        <div ng-repeat="tags in processedTags">
-            <h1>{{$first ? 'Must Have' : 'Nice to Have'}}</h1>
-            <div ng-repeat="tagType in tags">
-                <table class="table table-condensed" ng-show="tagType">
-                    <th></th>
-                    <th>Your Value</th>
-                    <th>Their Value</th>
-                    <th>Comparison</th>
-                    <tr ng-repeat="tag in tagType">
-                        <td>{{tag.name}}</td>
-                        <td>{{tag.userValue}}</td>
-                        <td>{{tag.value}}</td>
-                        <td><span class="glyphicon" ng-class="calculateFit(tag.importance, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, tag.value, tag.userValue)[1]}"></span></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
 </div>
+ -->
