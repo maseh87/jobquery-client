@@ -4,6 +4,11 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   reverse = false;
   $scope.candidateCategoryQuery = {};
 
+  $scope.humanifyDate = function(date){
+    var newDate = new Date(date);
+    return newDate.toDateString();
+  };
+
   var initialize = function(){
     $scope.sorter = 'updatedAt';
     $scope.fetchAll('week', false);
