@@ -15,7 +15,7 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
         {time: '11:30am'}
     ];
 
-    var schedulerOutput = Scheduler.schedule(11, 10, function(output) { 
+    var schedulerOutput = Scheduler.schedule(11, 10, 6, function(output) {
         $scope.opportunities = output.opportunities;
         $scope.schedule = output.schedule;
         console.log(output);
