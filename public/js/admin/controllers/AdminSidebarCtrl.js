@@ -14,7 +14,7 @@ app.controller('AdminSidebarCtrl', ['$scope', '$rootScope', '$state', function (
         'tags': 'sidebar-tags',
     };
 
-    $scope.currentStateHeading = "dashboard";
+    $scope.currentStateHeading = $state.current.name.split('.')[1];
     document.getElementById(sidebarIds[$scope.currentStateHeading]).classList.add('sidebar-active');
 
     var getNewState = function (toState) {
