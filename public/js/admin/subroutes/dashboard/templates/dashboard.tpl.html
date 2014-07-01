@@ -1,54 +1,54 @@
-<div style="position:fixed" class="col-md-2">
-    <h4>Candidate Name</h4>
-    <input ng-model="candidateNameQuery" ng-change="filterEntries()">
-    <h4>Candidate Group</h4>
-    <div ng-repeat="category in candidateCategories">
-        <span>{{category.name}}</span>
-        <input type="checkbox" ng-model="category.selected" ng-change="filterEntries()">
-    </div>
-    <h4>Opportunity Group</h4>
-    <div ng-repeat="category in opportunityCategories">
-        <span>{{category.name}}</span>
-        <input type="checkbox" ng-model="category.selected" ng-change="filterEntries()">
-    </div>
-    <h4>Interest</h4>
-    <input ng-model="interestQuery" placeholder="At Least" ng-change="filterEntries()">
-    <h4>Override</h4>
-    <input ng-model="overrideQuery" placeholder="At Least" ng-change="filterEntries()">
-    <h4>Processed</h4>
-    <select ng-init="processedQuery = false" ng-model="processedQuery" ng-change="fetchAll(dateRange, processedQuery)">
-        <option ng-value="'all'">All</option>
-        <option ng-value="true">Processed</option>
-        <option ng-selected="true" ng-value="false">Unprocessed</option>
-    </select>
-    <h4>Date Range</h4>
-    <select ng-init="dateRange = 'week'" ng-model="dateRange" ng-change="fetchAll(dateRange, processedQuery)">
-        <option ng-selected="true" value="week">Week</option>
-        <option value="month">Month</option>
-        <option value="all">All Time</option>
-    </select>
-    <div ng-show="filteredEntries">
-        <h4>Page</h4>
-        <button type="button" ng-click="currentPage > 1 && populateEntries(currentPage - 1)">Lower</button>
-        {{currentPage}}/{{totalPages}}
-        <button type="button" ng-click="currentPage < totalPages && populateEntries(currentPage + 1)">Higher</button>
-        <h4>Process All</h4>
-        <div ng-show="batchProcessConfirm && !batchProcessSuccess">
-            <p>You're about to process {{filteredEntries.length}} matches. Continue?</p>
-            <button ng-click="batchProcess()">Yes</button>
-            <button ng-click="batchProcessConfirm = false">No</button>
-        </div>
-        <div ng-show="!batchProcessConfirm && !batchProcessSuccess">
-            <button ng-click="batchProcessConfirm = true">Process {{filteredEntries.length}} Matches</button>
-        </div>
-        <div ng-show="batchProcessSuccess">
-            {{filteredEntries.length}} Matches Processed Successfully. Refresh the page to process more entries.
-        </div>
-    </div>
-</div>
-
 <div class="row">
-    <div class="col-md-2"></div>
+    <div class="col-md-2">
+        <h4>Candidate Name</h4>
+        <input ng-model="candidateNameQuery" ng-change="filterEntries()">
+        <h4>Candidate Group</h4>
+        <div ng-repeat="category in candidateCategories">
+            <span>{{category.name}}</span>
+            <input type="checkbox" ng-model="category.selected" ng-change="filterEntries()">
+        </div>
+        <h4>Opportunity Group</h4>
+        <div ng-repeat="category in opportunityCategories">
+            <span>{{category.name}}</span>
+            <input type="checkbox" ng-model="category.selected" ng-change="filterEntries()">
+        </div>
+        <h4>Interest</h4>
+        <input ng-model="interestQuery" placeholder="At Least" ng-change="filterEntries()">
+        <h4>Override</h4>
+        <input ng-model="overrideQuery" placeholder="At Least" ng-change="filterEntries()">
+        <h4>Processed</h4>
+        <select ng-init="processedQuery = false" ng-model="processedQuery" ng-change="fetchAll(dateRange, processedQuery)">
+            <option ng-value="'all'">All</option>
+            <option ng-value="true">Processed</option>
+            <option ng-selected="true" ng-value="false">Unprocessed</option>
+        </select>
+        <h4>Date Range</h4>
+        <select ng-init="dateRange = 'week'" ng-model="dateRange" ng-change="fetchAll(dateRange, processedQuery)">
+            <option ng-selected="true" value="week">Week</option>
+            <option value="month">Month</option>
+            <option value="all">All Time</option>
+        </select>
+        <div ng-show="filteredEntries">
+            <h4>Page</h4>
+            <button type="button" ng-click="currentPage > 1 && populateEntries(currentPage - 1)">Lower</button>
+            {{currentPage}}/{{totalPages}}
+            <button type="button" ng-click="currentPage < totalPages && populateEntries(currentPage + 1)">Higher</button>
+            <h4>Process All</h4>
+            <div ng-show="batchProcessConfirm && !batchProcessSuccess">
+                <p>You're about to process {{filteredEntries.length}} matches. Continue?</p>
+                <button ng-click="batchProcess()">Yes</button>
+                <button ng-click="batchProcessConfirm = false">No</button>
+            </div>
+            <div ng-show="!batchProcessConfirm && !batchProcessSuccess">
+                <button ng-click="batchProcessConfirm = true">Process {{filteredEntries.length}} Matches</button>
+            </div>
+            <div ng-show="batchProcessSuccess">
+                {{filteredEntries.length}} Matches Processed Successfully. Refresh the page to process more entries.
+            </div>
+        </div>
+    </div>
+
+
     <div class="col-md-10">
         <h1 ng-show="filteredEntries.length === 0">No Entries To Show</h1>
         <table class="table">
