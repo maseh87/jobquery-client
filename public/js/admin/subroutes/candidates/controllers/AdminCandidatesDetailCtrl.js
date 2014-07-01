@@ -2,6 +2,7 @@ app.controller('AdminCandidatesDetailCtrl', ['User', '$scope', '$stateParams', '
 function (User, $scope, $stateParams, Match, Company, Tag, Category, $q) {
 
   var user, companies, matches, categories, opportunityCategories;
+  $scope.submitText = 'Update Candidate Info';
 
   var bindUserCategory = function(user, categories){
     var categoryId = user.category._id;
@@ -99,11 +100,13 @@ function (User, $scope, $stateParams, Match, Company, Tag, Category, $q) {
       return deferred.promise;
     };
 
+    $scope.submitText = 'Submitting...';
     handleCategory().then(function(){
       console.log(user);
       return User.update(user);
     }).then(function (updated) {
       $scope.updated = true;
+      $scope.submitText = 'Candidate Info Updated';
     },function (updated) {
       $scope.saveError = true;
     });
