@@ -197,14 +197,14 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   $scope.filterEntries = function(){
     $scope.filteredEntries = $scope.allEntries.filter($scope.customQuery);
     $scope.currentPage = 1;
-    $scope.totalPages = Math.floor($scope.filteredEntries.length / 10);
+    $scope.totalPages = Math.floor($scope.filteredEntries.length / 20);
     $scope.populateEntries($scope.currentPage);
     $scope.sort();
   };
 
   $scope.populateEntries = function(page){
     $scope.currentPage = page;
-    var numPerPage = 10;
+    var numPerPage = 20;
     var start = page * numPerPage;
     var end = start + numPerPage;
     $scope.entries = $scope.filteredEntries.slice(start, end);
