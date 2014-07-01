@@ -24,10 +24,10 @@
                     <th class="stage" >Job Search Stage</th>
                 </tr>
             </thead>
-            <tr class="tablebox-content">
+            <tr class="formbox formbox-basic">
                 <td class="readOnly">
-                    <button type="button" ng-init="readOnly = true" ng-model="readOnly" ng-click="readOnly=!readOnly">
-                        edit
+                    <button class="content-button" type="button" ng-init="readOnly = true" ng-model="readOnly" ng-click="readOnly=!readOnly">
+                        ✎ edit
                     </button>
                 </td>
                 <td class="name" >
@@ -55,75 +55,94 @@
         </table>
     </div>
 
-    <table class="table">
-        <h1>Add Private Tags</h1>
-        <select ng-model="addTag" ng-options="tag.name for tag in tags.private | filter:{value: null}"></select>
-        <button type="button" ng-click="addPrivateTag(addTag)">+ Add Tag</button>
-        <tr ng-repeat="tag in tags.private | filter:filter">
-            <td>{{tag.name}}</td>
+    <div class="content-section container-fluid">
+        <div class="tablebox-title">Add Private Tags</div>
+        <table class="tablebox">
+            <tr class="tablebox-header formbox">
+                <td class="text-center">
+                <select ng-model="addTag" ng-options="tag.name for tag in tags.private | filter:{value: null}"></select>
+                <button class="content-button" type="button" ng-click="addPrivateTag(addTag)">✚ Add Tag</button>
+                </td>
+            </tr>
+            <tr class="tablebox-content" ng-repeat="tag in tags.private | filter:filter">
+                <td>{{tag.name}}</td>
 
-            <td ng-show="tag.type === 'scale'"><select ng-model="tag.value" ng-options="number for number in [1, 2, 3, 4]"></select></td>
-            <td ng-show="tag.type === 'binary'"><select ng-model="tag.value" ng-options="response for response in ['yes', 'no']"></select></td>
-            <td ng-show="tag.type === 'text'"><input ng-model="tag.value"></td>
+                <td ng-show="tag.type === 'scale'"><select ng-model="tag.value" ng-options="number for number in [1, 2, 3, 4]"></select></td>
+                <td ng-show="tag.type === 'binary'"><select ng-model="tag.value" ng-options="response for response in ['yes', 'no']"></select></td>
+                <td ng-show="tag.type === 'text'"><input ng-model="tag.value"></td>
 
-            <td><button type="button" ng-click="removePrivateTag(tag)">Remove</button></td>
-        </tr>
-    </table>
+                <td><button class="content-button" type="button" ng-click="removePrivateTag(tag)">Remove</button></td>
+            </tr>
+        </table>
 
-    <div>
-        <h1>Change Categories</h1>
-        <div ng-show="!creatingCategory">
-            <select ng-model="user.category" ng-options="category.name for category in categories | orderBy:'name'"></select> or
-            <button type="button" ng-click="creatingCategory = true">Add New Category</button>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="tablebox-title">Change Categories</div>
+        <div class="formbox formbox-basic text-center" ng-show="!creatingCategory">
+            <select ng-model="user.category" ng-options="category.name for category in categories | orderBy:'name'"></select>
+            <span class="type-padded">or</span>
+            <button class="content-button" type="button" ng-click="creatingCategory = true">✚ Add New Category</button>
         </div>
-        <div ng-show="creatingCategory">
+        <div class="formbox formbox-basic text-center" ng-show="creatingCategory">
             <input ng-model="newCategory" placeholder="Enter Category Name" ng-keypress="interceptCategory($event)">
-            <button type="button" ng-click="addNewCategory(newCategory)">Save</button>
-            <button type="button" ng-click="creatingCategory = false">Cancel</button>
+            <button class="content-button" type="button" ng-click="addNewCategory(newCategory)">Save</button>
+            <button class="content-button" type="button" ng-click="creatingCategory = false">Cancel</button>
         </div>
+
     </div>
 
-    <div class="section container-fluid">
-        <div class="row">
-            <div class="col-xs-6">
-                <table class="table">
-                    <tr>
-                        <td>Linkedin:</td>
-                        <td>
-                            <input type="text" ng-readonly="readOnly" ng-model="user.linkedin" value="{{user.linkedin}}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>State:</td>
-                        <td>
-                            <input type="text" ng-readonly="readOnly" ng-model="user.state" value="{{user.state}}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Country:</td>
-                        <td>
-                            <input type="text" ng-readonly="readOnly" ng-model="user.country" value="{{user.country}}">
-                        </td>
-                    </tr>
-                </table>
-            </div>
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Other Information</div>
+        <table class="formbox formbox-basic">
+            <tr>
+                <th>Linkedin</th>
+                <td>
+                    <input type="text" ng-readonly="readOnly" ng-model="user.linkedin" value="{{user.linkedin}}">
+                </td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>
+                    <input type="text" ng-readonly="readOnly" ng-model="user.state" value="{{user.state}}">
+                </td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>
+                    <input type="text" ng-readonly="readOnly" ng-model="user.country" value="{{user.country}}">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-footer">
+            <input type="submit" class="content-button" value="Update Candidate Info">
         </div>
     </div>
-    <input type="submit">
 </form>
-</div>
 
-<table class="table">
-    <thead>
-        <th class="pointer" ng-click="sorter='companyName'; reverse=!reverse">Company</th>
-        <th class="pointer" ng-click="sorter='jobTitle'; reverse=!reverse">Job Title</th>
-        <th class="pointer" ng-click="sorter='category'; reverse=!reverse">Category</th>
-        <th class="pointer" ng-click="sorter='userInterest'; reverse=!reverse">Interest</th>
-    </thead>
-    <tr ng-repeat="match in matches | orderBy:sorter:reverse">
-        <td>{{match.companyName}}</td>
-        <td>{{match.jobTitle}}</td>
-        <td>{{match.category}}</td>
-        <td>{{match.userInterest ? match.userInterest : 'N/A'}}</td>
-    </tr>
-</table>
+    <div class="content-section container-fluid">
+        <div class="formbox-title">Interested Opportunities</div>
+        <table class="tablebox">
+            <thead>
+                <tr class="tablebox-header">
+                <th class="pointer" ng-click="sorter='companyName'; reverse=!reverse">Company</th>
+                <th class="pointer" ng-click="sorter='jobTitle'; reverse=!reverse">Job Title</th>
+                <th class="pointer" ng-click="sorter='category'; reverse=!reverse">Category</th>
+                <th class="pointer" ng-click="sorter='userInterest'; reverse=!reverse">Interest</th>
+                </tr>
+            </thead>
+            <tr class="tablebox-content" ng-repeat="match in matches | orderBy:sorter:reverse">
+                <td>{{match.companyName}}</td>
+                <td>{{match.jobTitle}}</td>
+                <td>{{match.category}}</td>
+                <td>{{match.userInterest ? match.userInterest : 'N/A'}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div><!-- end row-->
+
+
