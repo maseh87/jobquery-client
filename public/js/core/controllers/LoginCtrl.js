@@ -17,7 +17,7 @@ app.controller('LoginCtrl', ['User', '$state', '$scope', 'localStorageService',
           $state.go('admin.opportunities.all', { _id : response.data._id});
         } else {
           // got to default user route
-          $state.go('users.account', { _id : response.data._id});
+          $state.go('users.dashboard', { _id : response.data._id});
         }
       }, function(error) {
         $scope.submitting = false;

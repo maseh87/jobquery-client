@@ -1,8 +1,77 @@
-<h1 class="body-heading">Opportunity Dossier</h1>
-<h2 ng-show="matches.length">{{matches.length}} Opportunities Left to Fill Out</h2>
-<h2 ng-show="matches.length === 0">No more opportunities left to fill out</h2>
+<div class="content-header">
+    <div class="content-header-block text-left">
+        <!-- buttons -->
+    </span>
+    </div>
+    <div class="content-header-block">
+        <div class="content-title">Main Dashboard</div>
+        <div class="content-tagline">Fill out new opportunities</div>
+    </div>
+</div>
+
+<!--
+        <div ng-show="matches.length > 0" class="content-tagline">{{ matches.length }} opportunities left to fill out</div>
+        <div ng-show="matches.length === 0" class="content-tagline">No more opportunities to fill out</div>
+-->
+
+<div class="row">
+    <div class="content-section container-fluid">
+        <div ng-show="matches.length > 0" class="formbox-title">{{ matches.length }} opportunities left to fill out</div>
+        <div ng-show="matches.length === 0" class="formbox-title">No more opportunities to fill out</div>        
+        <table class="tablebox tablebox-basic">
+            <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
+                <td>Fill out your preferences for any new or remaining opportunities below!</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content-section container-fluid">
+        <div class="formbox-title">
+            <table class="formbox-footer-pure">
+                <tr>
+                    <td width="60%">
+                    <img class="box-image" src="{{ opportunity.company.media[0].url }}">
+                    </td>
+                    <td class="text-left" style="height: 100%">
+                        <div class="float-container">
+                            <div class="float-container-row">
+                            <div class="float-top">
+                                <span class="type-header text-left">{{ opportunity.company.name }}</span><br>
+                                <span class="type-subtitle" ng-show="opportunity.company.tagline">{{ opportunity.company.tagline }}<br></span>
+                                <span class="type-subtitle">{{ opportunity.company.city }} {{ opportunity.company.country }}</span>
+                            </div>
+                            </div>
+                            <br>
+                            <div class="float-container-row">
+                            <div class="float-bottom">
+                                <span class="type-normal">{{ opportunity.company.description }}</span><br>
+                                <div class="type-linkbox" ng-repeat="link in opportunity.company.links">
+                                    <span ng-show="$first">Learn more:</span><br>
+                                    <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="content-section container-fluid">
+    </div>
+
+    <div class="content-section container-fluid">
+    </div>
+
+
+
+
+
+</div><!-- end row -->
 
 <div ng-show="opportunity && matches.length">
+    <div class="row">
     <div class="section container-fluid">
         <div class="row">
             <span>{{ opportunity.company.name }}: {{ opportunity.jobTitle }}</span>
