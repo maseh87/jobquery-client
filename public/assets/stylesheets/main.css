@@ -153,6 +153,7 @@ table {
 .type-linkbox a:hover { text-decoration: none; }
 .type-normal { font-size: 1em; font-weight: 200; text-transform: none;}
 .type-header { font-size: 1.125em; font-weight: 400; text-transform: uppercase;}
+.type-padded { padding-left: 3px; padding-right: 3px;}
 
 .box-image { width: 100%; padding-right: 12px;}
 

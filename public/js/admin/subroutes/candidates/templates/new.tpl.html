@@ -8,6 +8,18 @@
     </div>
 </div>
 
+<div class="dashbox-title">Assign Category</div>
+<div class="formbox dashbox dashbox-content" ng-show="!creatingCategory">
+    <select ng-model="category" ng-options="category.name for category in categories | orderBy:'name'"></select>
+    <span class="type-padded">or</span>
+    <button type="button" class="content-button" ng-click="creatingCategory = true">✚ Add New Category</button>
+</div>
+<div class="formbox dashbox dashbox-content" ng-show="creatingCategory">
+    <input ng-model="newCategory" placeholder="Enter Category Name" ng-keypress="interceptEnter($event)">
+    <button type="button" class="content-button" ng-click="addNewCategory(newCategory)">✔ Save</button>
+    <button type="button" class="content-button" ng-click="creatingCategory = false">✖ Cancel</button>
+</div><br>
+
 <div class="dashbox-title">Copy and paste candidate e-mails</div>
 <div class="formbox dashbox dashbox-content">
     <form name="emailForm" novalidate="novalidate">
@@ -16,14 +28,4 @@
         <div><button ng-disabled="emailForm.$invalid" ng-click="sendEmails(emails); hideMessage()" class="content-button" >✎ Invite candidates</button></div>
     </form>
 </div>
-
-<h1>Assign Category</h1>
-<div ng-show="!creatingCategory">
-    <select ng-model="category" ng-options="category.name for category in categories | orderBy:'name'"></select> or
-    <button type="button" ng-click="creatingCategory = true">Add New Category</button>
-</div>
-<div ng-show="creatingCategory">
-    <input ng-model="newCategory" placeholder="Enter Category Name" ng-keypress="interceptEnter($event)">
-    <button type="button" ng-click="addNewCategory(newCategory)">Save</button>
-    <button type="button" ng-click="creatingCategory = false">Cancel</button>
-</div>
+<br>
