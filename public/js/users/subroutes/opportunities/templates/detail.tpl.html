@@ -44,23 +44,18 @@
     </div>
 
     <div class="content-section container-fluid">
-        <div class="formbox-title">Opportunity Information</div>
+        <div class="formbox-title">Job Title: {{ opportunity.jobTitle }}</div>
         <table class="tablebox tablebox-basic">
-            <tr>
-                <th>Job Title</th>
-                <td class="type-header">{{ opportunity.jobTitle }}</td>
+            <tr class="tablebox-content tablebox-nohover">
+                <td style="white-space:pre-wrap;">{{ opportunity.description }}</td>
             </tr>
-            <tr>
-                <th>Links</th>
-                <td>                        
+            <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
+                <td> 
+                    <span>Read more:</span>                       
                     <div ng-repeat="link in opportunity.links">
                         <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                     </div>
                 </td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td style="white-space:pre-wrap;">{{ opportunity.description }}</td>
             </tr>
         </table>
     </div>
