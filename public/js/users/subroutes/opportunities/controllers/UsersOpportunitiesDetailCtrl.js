@@ -2,7 +2,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
   ['$scope', '$timeout', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
   function($scope, $timeout, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
-  $scope.submitText = '✔  Submit Answers';
+  $scope.submitText = '✔  Submit Preferences';
   $scope.pendingRequests = 0;
 
   var addIndexAsProperty = function(arrayOfObjects){
@@ -73,7 +73,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
       $scope.submitText = '✔  Save Successful';
       $scope.pendingRequests--;
       $timeout(function () {
-        $scope.submitText = '✔  Submit Answers';
+        $scope.submitText = '✔  Submit Preferences';
       }, 3000);
     });
   };

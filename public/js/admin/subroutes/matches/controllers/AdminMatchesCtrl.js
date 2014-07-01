@@ -14,7 +14,14 @@ app.controller('AdminMatchesCtrl',
 
       // generate key map
       $scope.opportunities.forEach(function (opportunity, i) { oppColumnMap[opportunity._id] = i; });
-      $scope.users.forEach(function (user, i) { userMap[user._id] = user.name; });
+      $scope.users.forEach(function (user, i) {
+        if (user.name) {
+          userMap[user._id] = user.name;
+        } else {
+          // default to email if user has not filled in name
+          userMap[user._id] = user.email;
+        }
+      });
 
       $scope.matches.forEach(function (matchData) {
         var match = matchData;
@@ -31,11 +38,45 @@ app.controller('AdminMatchesCtrl',
   });
 
   $scope.edit = function(match) {
-    // console.log(match); // EDIT NOT IMPLEMENTED YET
+    // if user leaves blank, clear adminOverride and reverse to userInterest
+    if (match.value === undefined) {
+      console.log('undefined!');
+      match.adminOverride = 0;
+      match.value = match.userInterest;
+    } else {
+      // set adminOverride to be the new value
+      match.adminOverride = match.value;
+    }
+
+    // save update to server
+    Match.update(match);
+
   };
 
   $scope.isOverridden = function (match) {
-    return match.adminOverride > 0 ? 'gridbox-highlight-blue' : '';
+    // no adminOverride
+    if (match.adminOverride === 0) {
+      if (match.userInterest === 4) {
+        return 'gridbox-highlight-4';
+      } else if (match.userInterest === 3) {
+        return 'gridbox-highlight-3';
+      } else if (match.userInterest === 2) {
+        return 'gridbox-highlight-2';
+      } else if (match.userInterest === 1) {
+        return 'gridbox-highlight-1';
+      } else if (match.userInterest === 0) {
+        return 'gridbox-highlight-0';
+      }
+    // with adminOverride
+    } else {
+      if (match.adminOverride > match.userInterest) {
+        return 'gridbox-highlight-green';
+      } else if (match.adminOverride === match.userInterest) {
+        return 'gridbox-highlight-grey';
+      } else if (match.adminOverride < match.userInterest) {
+        return 'gridbox-highlight-red';
+      }
+    }
   };
 
   $scope.downloadData = function () {

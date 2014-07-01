@@ -148,5 +148,16 @@ table {
 }
 
 .type-title { font-size: 1.5em; font-weight: 200; text-transform: uppercase; }
-.type-subtitle, .type-tagline { font-size: 0.9em; font-weight: 300; }
-.type-linkbox { padding-top: 10px;}
+.type-subtitle, .type-tagline { font-size: 0.925em; font-weight: 300; text-transform: none;}
+.type-linkbox { padding-top: 10px; text-transform: none; font-weight: 300;}
+.type-linkbox a:hover { text-decoration: none; }
+.type-normal { font-size: 1em; font-weight: 200; text-transform: none;}
+.type-header { font-size: 1.125em; font-weight: 400; text-transform: uppercase;}
+.type-padded { padding-left: 3px; padding-right: 3px;}
+
+.box-image { width: 100%; padding-right: 12px;}
+
+.float-container { display: inline-table; min-height: 100%; }
+.float-container-row { display: table-row; }
+.float-top { display: table-cell; vertical-align: top; }
+.float-bottom { display: table-cell; vertical-align: bottom; }

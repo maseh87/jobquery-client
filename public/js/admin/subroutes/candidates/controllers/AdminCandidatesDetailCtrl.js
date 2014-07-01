@@ -137,6 +137,13 @@ function (User, $scope, $stateParams, Match, Company, Tag, Category, $q) {
     $scope.creatingCategory = false;
   };
 
+  $scope.interceptCategory = function(e){
+    if(e.keyCode === 13){
+      e.preventDefault();
+      $scope.addNewCategory($scope.newCategory);
+    }
+  }
+
   initialize();
 
 

@@ -2,7 +2,7 @@
     color: #606060;
     box-shadow: 1px 0px 2px #E4E4E4;
     width: 100%;
-    font-size: 0.9em;
+    font-size: 1em;
 }
 .formbox-title, .formbox-footer {
     font-weight: 500;
@@ -10,15 +10,24 @@
     background-color: #E4E4E4;
     width: 100%;
 }
-.formbox-title { padding: 5px 12px 5px 12px; text-align: right; }
+.formbox-title { padding: 5px 12px 5px 12px; text-align: left; }
 .formbox-subtitle { font-weight: 400; text-align: left; }
+.formbox-question { 
+    background-color: #FEFEFE; 
+    font-weight: 400; text-align: center; 
+    color: #606060;
+    padding: 5px 12px 5px 12px;
+
+    box-shadow: 1px 0px 2px #E4E4E4;
+}
 .formbox-footer { padding: 10px 12px 10px 12px; text-align: center; margin-bottom: 20px;}
+.formbox-footer-pure { padding: 10px 12px 10px 12px; text-align: center; margin-bottom: 0px; }
 .formbox {
     background-color: #FEFEFE;
     padding: 5px;
     
     vertical-align: top;
-    font-size: 0.9em; font-weight: 200;
+    font-size: 1em; font-weight: 200;
 }
 .formbox td, .formbox th { 
     padding-top: 4px; padding-bottom: 4px;

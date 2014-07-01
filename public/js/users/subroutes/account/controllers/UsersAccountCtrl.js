@@ -4,6 +4,7 @@ app.controller('UsersAccountCtrl',
 
   $scope.pendingRequests = 0;
   $scope.submitText = '✔ Save Your Profile';
+  $scope.passwordText = '✎ Change Password';
 
   UsersAccount.get().then(function (user) {
     $scope.user = user;
@@ -33,9 +34,9 @@ app.controller('UsersAccountCtrl',
   $scope.isSearchStage = function (value) { return $scope.user.searchStage === value; };
 
   $scope.update = function (user) {
-    delete user.password;
-    delete user.newPassword;
-    delete user.newPasswordConfirm;
+    if(user.password) delete user.password;
+    if(user.newPassword) delete user.newPassword;
+    if(user.newPasswordConfirm) delete user.newPasswordConfirm;
     // re-compile tags
     var compiledTags = [];
     for (var key in $scope.tags) {
@@ -63,15 +64,22 @@ app.controller('UsersAccountCtrl',
     var oldPassword = user.password;
     var newPassword = user.newPassword;
     var newPasswordConfirm = user.newPasswordConfirm;
-    if(newPasswordConfirm === newPassword){
+    if(oldPassword && (newPasswordConfirm === newPassword)){
+      $scope.passwordText = 'Updating Password';
       UsersAccount.update({
         _id: user._id,
         oldPassword: oldPassword,
         newPassword: newPassword,
         newPasswordConfirm: newPasswordConfirm
       }).then(function(response){
-        console.log('Password Updated');
+        $scope.passwordText = '✔ Password Saved';
+      }, function(err){
+        $scope.passwordText = 'Incorrect Credentials';
       });
+    } else if (newPasswordConfirm !== newPassword) {
+      $scope.passwordText = 'Password Must Match Confirmation';
+    } else {
+      $scope.passwordText = 'Fill All Fields';
     }
   };
 

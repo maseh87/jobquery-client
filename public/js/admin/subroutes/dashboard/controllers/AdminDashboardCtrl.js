@@ -1,7 +1,13 @@
 app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scope, Match, User) {
 
-  var matches, users, opportunities, candidateCategories, opportunityCategories;
+  var matches, users, opportunities, candidateCategories, opportunityCategories, sorter, reverse;
+  reverse = false;
   $scope.candidateCategoryQuery = {};
+
+  var initialize = function(){
+    $scope.sorter = 'updatedAt';
+    $scope.fetchAll('week', false);
+  };
 
   var objectify = function(arrayOfObjects){
     var objectified = {};
@@ -62,17 +68,6 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     return results;
   };
 
-  Match.getAll().then(function(data){
-    matches = data.matches;
-    opportunities = data.opportunities;
-    return User.getAll();
-  }).then(function(data){
-    users = data;
-    $scope.entries = processEntries(matches, users, opportunities);
-    $scope.candidateCategories = candidateCategories;
-    $scope.opportunityCategories = opportunityCategories;
-  });
-
   $scope.updateMatch = function(entry, event){
     if(event && (event.keyCode === 13)){
 
@@ -104,11 +99,6 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
   };
 
   $scope.customQuery = function(entry){
-
-    //Filter for processed
-    if($scope.processedQuery === 'true' && entry.processed === false) return false;
-    if($scope.processedQuery === 'false' && entry.processed === true) return false;
-
     //Filter for candidate name
     if($scope.candidateNameQuery){
       var regex = new RegExp($scope.candidateNameQuery, 'i');
@@ -157,5 +147,83 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
 
     return true;
   };
+
+  var daysToMilliseconds = function(days){
+    return days * 24 * 60 * 60 * 1000;
+  };
+
+  $scope.fetchAll = function(date, processed){
+    var time = new Date().getTime();
+    var isProcessed;
+
+    switch(date){
+      case 'week':
+        var date = new Date(time - daysToMilliseconds(7));
+        break;
+      case 'month':
+        var date = new Date(time - daysToMilliseconds(30));
+        break;
+      case 'all':
+        date = null;
+        break;
+    }
+
+    processed === 'all' ? isProcessed = null : isProcessed = processed;
+
+    var queryParams = {};
+    queryParams.isProcessed = isProcessed;
+    if(date) queryParams.fromDate = date.toJSON();
+
+    Match.getAll(queryParams).then(function(data){
+      matches = data.matches;
+      opportunities = data.opportunities;
+      return User.getAll();
+    }).then(function(data){
+      users = data;
+      $scope.allEntries = processEntries(matches, users, opportunities);
+      $scope.filterEntries();
+      $scope.candidateCategories = candidateCategories;
+      $scope.opportunityCategories = opportunityCategories;
+    });
+  };
+
+  $scope.filterEntries = function(){
+    $scope.filteredEntries = $scope.allEntries.filter($scope.customQuery);
+    $scope.currentPage = 1;
+    $scope.totalPages = Math.floor($scope.filteredEntries.length / 10);
+    $scope.populateEntries($scope.currentPage);
+    $scope.sort();
+  };
+
+  $scope.populateEntries = function(page){
+    $scope.currentPage = page;
+    var numPerPage = 10;
+    var start = page * numPerPage;
+    var end = start + numPerPage;
+    $scope.entries = $scope.filteredEntries.slice(start, end);
+  };
+
+  $scope.sort = function(){
+    if($scope.sorter !== sorter){
+      sorter = $scope.sorter;
+      reverse = false;
+    } else {
+      reverse = !reverse;
+    }
+    $scope.filteredEntries.sort(function(a, b){
+      if(typeof a[sorter] === 'number' || sorter === 'updatedAt'){
+        if(a[sorter] < b[sorter]) return reverse ? -1 : 1;
+        if(a[sorter] > b[sorter]) return reverse ? 1 : -1;
+        return 0;
+      } else {
+        if(a[sorter] > b[sorter]) return reverse ? -1 : 1;
+        if(a[sorter] < b[sorter]) return reverse ? 1 : -1;
+        return 0;
+      }
+    });
+    $scope.populateEntries(1);
+  };
+
+  initialize();
 
 }]);

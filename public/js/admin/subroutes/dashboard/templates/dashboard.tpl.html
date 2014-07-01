@@ -1,46 +1,59 @@
 <div style="position:fixed">
     <h4>Candidate Name</h4>
-    <input ng-model="candidateNameQuery">
+    <input ng-model="candidateNameQuery" ng-change="filterEntries()">
     <h4>Candidate Group</h4>
     <div ng-repeat="category in candidateCategories">
         <span>{{category.name}}</span>
-        <input type="checkbox" ng-model="category.selected">
+        <input type="checkbox" ng-model="category.selected" ng-change="filterEntries()">
     </div>
     <h4>Opportunity Group</h4>
     <div ng-repeat="category in opportunityCategories">
         <span>{{category.name}}</span>
-        <input type="checkbox" ng-model="category.selected">
+        <input type="checkbox" ng-model="category.selected" ng-change="filterEntries()">
     </div>
     <h4>Interest</h4>
-    <input ng-model="interestQuery" placeholder="At Least">
+    <input ng-model="interestQuery" placeholder="At Least" ng-change="filterEntries()">
     <h4>Override</h4>
-    <input ng-model="overrideQuery" placeholder="At Least">
+    <input ng-model="overrideQuery" placeholder="At Least" ng-change="filterEntries()">
     <h4>Processed</h4>
-    <select ng-init="processedQuery = 'all'" ng-model="processedQuery">
-        <option ng-selected="true" ng-value="'all'">All</option>
+    <select ng-init="processedQuery = false" ng-model="processedQuery" ng-change="fetchAll(dateRange, processedQuery)">
+        <option ng-value="'all'">All</option>
         <option ng-value="true">Processed</option>
-        <option ng-value="false">Unprocessed</option>
+        <option ng-selected="true" ng-value="false">Unprocessed</option>
     </select>
-    <h5>Process All</h5>
-    <button ng-click="batchProcess()">BUTTON OF DOOM</button>
+    <h4>Date Range</h4>
+    <select ng-init="dateRange = 'week'" ng-model="dateRange" ng-change="fetchAll(dateRange, processedQuery)">
+        <option ng-selected="true" value="week">Week</option>
+        <option value="month">Month</option>
+        <option value="all">All Time</option>
+    </select>
+    <div ng-show="filteredEntries">
+        <h4>Page</h4>
+        <button type="button" ng-click="currentPage > 1 && populateEntries(currentPage - 1)">Lower</button>
+        {{currentPage}}/{{totalPages}}
+        <button type="button" ng-click="currentPage < totalPages && populateEntries(currentPage + 1)">Higher</button>
+        <h4>Process All</h4>
+        <button ng-click="batchProcess()">Process {{filteredEntries.length}} Matches</button>
+    </div>
 </div>
 
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-10">
+        <h1 ng-show="filteredEntries.length === 0">No Entries To Show</h1>
         <table class="table">
             <tr>
-                <th class="pointer" ng-click="sorter='candidate';reverse=!reverse">Candidate</th>
-                <th class="pointer" ng-click="sorter='candidateGroup';reverse=!reverse">Candidate Group</th>
-                <th class="pointer" ng-click="sorter='company';reverse=!reverse">Company</th>
-                <th class="pointer" ng-click="sorter='opportunityGroup';reverse=!reverse">Opportunity Group</th>
-                <th class="pointer" ng-click="sorter='interest';reverse=!reverse">Interest</th>
-                <th class="pointer" ng-click="sorter='override';reverse=!reverse">Override</th>
-                <th class="pointer" ng-click="sorter='internalNotes';reverse=!reverse">Internal Notes</th>
-                <th class="pointer" ng-click="sorter='processed';reverse=!reverse">Processed</th>
-                <th class="pointer" ng-click="sorter='updatedAt';reverse=!reverse">Last Updated</th>
+                <th class="pointer" ng-click="sorter='candidate';sort(sorter)">Candidate</th>
+                <th class="pointer" ng-click="sorter='candidateGroup';sort(sorter)">Candidate Group</th>
+                <th class="pointer" ng-click="sorter='company';sort(sorter)">Company</th>
+                <th class="pointer" ng-click="sorter='opportunityGroup';sort(sorter)">Opportunity Group</th>
+                <th class="pointer" ng-click="sorter='interest';sort(sorter)">Interest</th>
+                <th class="pointer" ng-click="sorter='override';sort(sorter)">Override</th>
+                <th class="pointer" ng-click="sorter='internalNotes';sort(sorter)">Internal Notes</th>
+                <th class="pointer" ng-click="sorter='processed';sort(sorter)">Processed</th>
+                <th class="pointer" ng-click="sorter='updatedAt';sort(sorter)">Last Updated</th>
             </tr>
-            <tr ng-repeat="entry in entries | filter:customQuery | orderBy:sorter:reverse">
+            <tr ng-repeat="entry in entries track by entry._id">
                 <td>{{entry.candidate}}</td>
                 <td>{{entry.candidateGroup}}</td>
                 <td>{{entry.company}}</td>

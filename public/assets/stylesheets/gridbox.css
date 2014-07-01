@@ -6,7 +6,7 @@
 .gridbox-title {
     padding-top: 5px; padding-bottom: 5px;
     padding-right: 12px;
-    
+
     text-align: right;
     font-weight: 500; font-size: 1.25em;
     text-transform: uppercase;
@@ -17,9 +17,11 @@
 .gridbox-header th {
     padding: 5px 7px 5px 5px;
     border-bottom: 3px solid #F4F4F4;
-    
+
     vertical-align: middle;
     font-size: 1.25em; font-weight: 400;
+
+    background-color: #EDEDED;
 }
 .gridbox-header-sideways {
     -webkit-transform: rotate(270deg);
@@ -36,7 +38,7 @@
 .gridbox-content td {
     padding: 5px;
     border-bottom: 2px solid #F4F4F4;
-    
+
     vertical-align: top;
     font-size: 1.25em; font-weight: 200;
 }
@@ -44,10 +46,43 @@
     padding-left: 10px;
 }
 .gridbox-content:last-child td { border-bottom: 0px; }
-.gridbox-content:hover { 
-    background-color: #F4F4F4; 
+.gridbox-content:hover {
+    background-color: #F4F4F4;
     cursor: pointer;
 }
-.gridbox-highlight-blue {
-    background-color: #c9e3ef;
+.gridbox-highlight-grey {
+    background-color: #D9D9D9;
+}
+.gridbox-highlight-red {
+    background-color: #F0CECE;
+}
+.gridbox-highlight-green {
+    background-color: #96E0AD;
+}
+.gridbox-highlight-4 {
+    background-color: #9CB7E6;
+}
+.gridbox-highlight-3 {
+    background-color: #A6C6E3;
+}
+.gridbox-highlight-2 {
+    background-color: #D5E3F2;
+}
+.gridbox-highlight-1 {
+    /*background-color: #D5E3F2;*/
+}
+.gridbox-highlight-0 {
+    /*background-color: #D5E3F2;*/
+}
+
+.matchTable {
+    font-size: 0.8em;
+    display: block;
+    height: 750px;
+    overflow: scroll;
+}
+
+.fixedColumn {
+    position: absolute;
+    background-color: white;
 }

@@ -77,4 +77,12 @@ app.controller('AdminCandidatesNewCtrl', ['User', '$scope', 'Category', function
     })
   };
 
+  $scope.interceptEnter = function(e){
+    if(e.keyCode === 13){
+      e.preventDefault();
+      $scope.addNewCategory($scope.newCategory);
+    }
+  }
+
+
 }]);
