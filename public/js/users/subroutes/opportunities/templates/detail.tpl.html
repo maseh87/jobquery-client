@@ -23,8 +23,8 @@
                             <div class="float-container-row">
                             <div class="float-top">
                                 <span class="type-header text-left">{{ company.name }}</span><br>
-                                <span class="type-subtitle">{{ company.tagline }}</span><br>
-                                <span class="type-subtitle">{{ company.city }}, {{ company.country }}</span>
+                                <span class="type-subtitle" ng-show="company.tagline">{{ company.tagline }}<br></span>
+                                <span class="type-subtitle">{{ company.city }} {{ company.country }}</span>
                             </div>
                             </div>
                             <div class="float-container-row">
@@ -44,23 +44,18 @@
     </div>
 
     <div class="content-section container-fluid">
-        <div class="formbox-title">Opportunity Information</div>
-        <table class="formbox formbox-basic">
-            <tr>
-                <th>Job Title</th>
-                <td class="type-header">{{ opportunity.jobTitle }}</td>
+        <div class="formbox-title">Job Title: {{ opportunity.jobTitle }}</div>
+        <table class="tablebox tablebox-basic">
+            <tr class="tablebox-content tablebox-nohover">
+                <td style="white-space:pre-wrap;">{{ opportunity.description }}</td>
             </tr>
-            <tr>
-                <th>Links</th>
-                <td>                        
+            <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
+                <td> 
+                    <span>Read more:</span>                       
                     <div ng-repeat="link in opportunity.links">
                         <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                     </div>
                 </td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td style="white-space:pre-wrap;">{{ opportunity.description }}</td>
             </tr>
         </table>
     </div>
