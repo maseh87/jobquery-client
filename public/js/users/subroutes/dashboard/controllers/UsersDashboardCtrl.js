@@ -27,10 +27,14 @@ app.controller('UsersDashboardCtrl',
 
   var animateScroll = function () {
     var delta = window.pageYOffset;
-    var frames = 20;
+    var frames = 30;
     var period = 15;
-    console.log(window.pageYOffset);
-    window.scrollTo(0, 0);
+
+    for (var i = 1; i <= frames; i++) {
+      (function (scrollPos) {
+        setTimeout(function() { window.scrollTo(0, scrollPos); }, period * i);
+      })((frames - i) / frames * delta);
+    }
   };
 
   var getNextOpportunity = function(){
