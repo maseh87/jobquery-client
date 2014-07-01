@@ -171,7 +171,7 @@
                     <th>No</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="tag in types.binary | orderBy: 'tag.position' track by $index">
+                    <tr class="formbox-hoverable" ng-repeat="tag in types.binary | orderBy: 'tag.position' track by $index">
                         <td>{{tag.tag.label}}</td>
                         <td ng-click="tag.value = 'yes'"><input type="radio" id="radioBox" name="{{ category + 'binary' + $index}}" value="yes" ng-model="tag.value"><label></label></td>
                         <td ng-click="tag.value = 'no'"><input type="radio" id="radioBox" name="{{ category + 'binary' + $index}}" value="no" ng-model="tag.value"><label></label></td>
@@ -194,7 +194,7 @@
                     <th>4</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="tag in types.scale | orderBy: 'tag.position' track by $index">
+                    <tr class="formbox-hoverable" ng-repeat="tag in types.scale | orderBy: 'tag.position' track by $index">
                         <td>{{tag.tag.label}}</td>
                         <td ng-click="tag.value = 1"><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="1" ng-model="tag.value"><label></label></td>
                         <td ng-click="tag.value = 2"><input type="radio" id="radioBox" name="{{ category + 'scale' + $index}}" value="2" ng-model="tag.value"><label></label></td>
@@ -207,7 +207,7 @@
 
         <div ng-show="types.hasOwnProperty('text')">
             <table class="formbox formbox-freetext">
-                <tr ng-repeat="tag in types.text | orderBy: 'tag.position' track by $index">
+                <tr class="formbox-hoverable" ng-repeat="tag in types.text | orderBy: 'tag.position' track by $index">
                     <td>{{tag.tag.label}}</td>
                     <td><textarea name="{{ category + 'text' + $index}}" ng-model="tag.value"></textarea></td>
                 </tr>

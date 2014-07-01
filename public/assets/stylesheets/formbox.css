@@ -37,7 +37,7 @@
 .formbox input, .formbox textarea { border: 1px solid #CCCCCC; border-radius: 2px; padding: 3px;}
 .formbox input:focus, .formbox textarea:focus { border: 1px solid #5598c1; outline: none; background-color: #F4F4F4; }
 .formbox tr:last-child td, .formbox tr:last-child th { border-bottom: 0px; }
-.formbox tr:hover { background-color: #F4F4F4;}
+.formbox-hoverable:hover { background-color: #F4F4F4;}
 
 .formbox-basic th { width: 40%; text-align: right;} 
 .formbox-basic td { width: 60%; padding-top: 7px; padding-bottom: 7px; }
