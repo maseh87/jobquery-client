@@ -10,6 +10,28 @@
 
 <form ng-submit="update()">
 <div class="row">
+
+    <div class="content-section container-fluid" ng-if="user">
+        <div class="dashbox-title">Job Search Status</div>
+        <div class="dashbox dashbox-content">
+            <div class="dashbox-icon" ng-click="updateSearchStage('Out')" ng-class="{'dashbox-icon-active':isSearchStage('Out')}">
+                <span class="dashbox-icon-dingbat">⦸</span><br>Opt Out
+            </div>
+            <div class="dashbox-icon" ng-click="updateSearchStage('Early')" ng-class="{'dashbox-icon-active':isSearchStage('Early')}">
+                <span class="dashbox-icon-dingbat">➀</span><br>Early
+            </div>
+            <div class="dashbox-icon" ng-click="updateSearchStage('Mid/Late')" ng-class="{'dashbox-icon-active':isSearchStage('Mid/Late')}">
+                <span class="dashbox-icon-dingbat">➁</span><br>Mid/Late
+            </div>
+            <div class="dashbox-icon" ng-click="updateSearchStage('Closing')" ng-class="{'dashbox-icon-active':isSearchStage('Closing')}">
+                <span class="dashbox-icon-dingbat">➂</span><br>Closing
+            </div>
+            <div class="dashbox-icon" ng-click="updateSearchStage('Accepted')" ng-class="{'dashbox-icon-active':isSearchStage('Accepted')}">
+                <span class="dashbox-icon-dingbat">➃</span><br>Accepted
+            </div>
+        </div>
+    </div>
+
     <div class="content-section container-fluid">
         <div class="formbox-title">Basic Information</div>
         <table class="formbox formbox-basic">
@@ -128,34 +150,6 @@
             </table>
         </div>
     </form>
-
-    <div class="content-section container-fluid" ng-if="user">
-        <div class="dashbox-title">Job Search Status</div>
-        <div class="dashbox dashbox-content">
-            <div class="dashbox-icon" ng-click="updateSearchStage('Out')" ng-class="{'dashbox-icon-active':isSearchStage('Out')}">
-                <span class="dashbox-icon-dingbat">⦸</span><br>Opt Out
-            </div>
-            <div class="dashbox-icon" ng-click="updateSearchStage('Early')" ng-class="{'dashbox-icon-active':isSearchStage('Early')}">
-                <span class="dashbox-icon-dingbat">➀</span><br>Early
-            </div>
-            <div class="dashbox-icon" ng-click="updateSearchStage('Mid/Late')" ng-class="{'dashbox-icon-active':isSearchStage('Mid/Late')}">
-                <span class="dashbox-icon-dingbat">➁</span><br>Mid/Late
-            </div>
-            <div class="dashbox-icon" ng-click="updateSearchStage('Closing')" ng-class="{'dashbox-icon-active':isSearchStage('Closing')}">
-                <span class="dashbox-icon-dingbat">➂</span><br>Closing
-            </div>
-            <div class="dashbox-icon" ng-click="updateSearchStage('Accepted')" ng-class="{'dashbox-icon-active':isSearchStage('Accepted')}">
-                <span class="dashbox-icon-dingbat">➃</span><br>Accepted
-            </div>
-        </div>
-    </div>
-
-    <div class="content-section container-fluid" ng-if="user && isSearchStage('Accepted')">
-        <div class="dashbox-title">Accepted Job Survey</div>
-        <div class="dashbox dashbox-content">
-
-        </div>
-    </div>
 
     <div class="content-section container-fluid" ng-repeat="(category, types) in tags">
         <div class="formbox-title">{{category}}</div>

@@ -1,4 +1,4 @@
-app.controller('AppCtrl', ['$scope', '$location', function ($scope, $location) {
+app.controller('AppCtrl', ['$scope', '$location', 'DialogueService', function ($scope, $location, DialogueService) {
 
 }]);
 
