@@ -1,6 +1,6 @@
 app.controller('AdminMatchesCtrl',
-  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'SERVER_URL',
-  function ($scope, $state, $http, Match, Opportunity, User, SERVER_URL) {
+  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'Scheduler', 'SERVER_URL',
+  function ($scope, $state, $http, Match, Opportunity, User, Scheduler, SERVER_URL) {
 
   Match.getAll().then(function (matchData) {
     User.getAll().then(function (users) {
@@ -89,6 +89,29 @@ app.controller('AdminMatchesCtrl',
     });
   };
 
+  $scope.downloadSchedule = function () {
+    Scheduler.schedule(
+    $scope.rounds,
+    $scope.maxInterviews,
+    $scope.minInteviews,
+    function(output) {
+      $scope.opportunities = output.opportunities;
+      $scope.schedule = output.schedule;
+      $scope.candidates = output.candidates;
+      // console.log(output);
+
+      // reformat opportunities so lookup by id
+      var oppsById = {};
+      $scope.opportunities.forEach(function (opp) {
+        oppsById[opp._id] = opp;
+      });
+      $scope.opportunities = oppsById;
+
+      readyData();
+    });
+
+  };
+
   function download(strData, strFileName, strMimeType) {
     var D = document,
         a = D.createElement("a");
@@ -124,20 +147,108 @@ app.controller('AdminMatchesCtrl',
     return true;
   } /* end download() */
 
+  /* SCHEDULER */
+
+  $scope.slots = [
+    {time: '09:00am'},
+    {time: '09:15am'},
+    {time: '09:30am'},
+    {time: '09:45am'},
+    {time: '10:00am'},
+    {time: '10:15am'},
+    {time: '10:30am'},
+    {time: '10:45am'},
+    {time: '11:00am'},
+    {time: '11:15am'},
+    {time: '11:30am'}
+  ];
+
+  var output;
+  var readyData = function () {
+    output = '';
+
+    // create header row (user names, degrading to emails)
+    var userOrder = []; // array of userIds
+    $scope.candidates.forEach(function (user) {
+      userOrder.push(user._id);
+      var displayName = user.name || user.email;
+      output += ',' + displayName;
+      // console.log(user);
+    });
+    // add break column
+    output += ',' + 'Break' + '\n';
+
+    // iterate through opportunities
+    for (var oppId in $scope.schedule) {
+      var emptySchedule = new Array(userOrder.length + 1); // +1 for break
+      output +=
+        ($scope.opportunities[oppId].jobTitle).replace(/\,/, ' ') + '(' +
+        ($scope.opportunities[oppId].company.name).replace(/\,/, ' ') + ')';
+      for (var i = 0; i < $scope.schedule[oppId].length; i += 1) {
+        var scheduleObj = $scope.schedule[oppId][i];
+        if (scheduleObj === 'BREAK') {
+          // set last column value to this index (i) + 1
+          emptySchedule[emptySchedule.length] = i + 1;
+        } else {
+          var userId = scheduleObj.id;
+          // find where userId is in userOrder array
+          var idx = userOrder.indexOf(userId);
+          // then replace that value in the emptySchedule array with (i) + 1
+          emptySchedule[idx] = i + 1;
+        }
+      }
+      // join emptySchedule array together with commas, plus new line
+      emptySchedule = emptySchedule.join(',') + '\n';
+      // replace 'undefined' with empty strings
+      emptySchedule.replace(/undefined/g, '');
+      output += emptySchedule;
+    }
+    // console.log(output);
+    download(output, 'exported', 'text/csv');
+  };
+
+  $scope.rounds = 11;
+  $scope.maxInterviews = 10;
+  $scope.minInterviews = 6;
+
+
+  // var schedulerOutput = Scheduler.schedule(
+  //   $scope.rounds,
+  //   $scope.maxInterviews,
+  //   $scope.minInteviews,
+  //   function(output) {
+  //     $scope.opportunities = output.opportunities;
+  //     $scope.schedule = output.schedule;
+  //     $scope.candidates = output.candidates;
+  //     // console.log(output);
+
+  //     // reformat opportunities so lookup by id
+  //     var oppsById = {};
+  //     $scope.opportunities.forEach(function (opp) {
+  //       oppsById[opp._id] = opp;
+  //     });
+  //     $scope.opportunities = oppsById;
+
+  //     readyData();
+  // });
+
+  $scope.slots = 6;
+  $scope.slotRowMap = {};
+  $scope.oppColumnMap = {};
+  $scope.userMap = {};
+
+  $scope.schedule = [];
+
+  var init = function () {
+    $scope.slotRowMap = {
+      0: '09:00',
+      1: '09:15',
+      2: '09:30',
+      3: '09:45',
+      4: '10:00',
+      5: '10:15'
+    };
+  };
+  init();
+
 }]);
-
-/*
-
-keyMap is an object of oppIds
-{
-    oppId: colId,
-    oppId: colId,
-}
-
-matrix is an object of objects...
-{
-  // first prepopulate with userIds
-  userId: [ {matchId, userInterest}, {matchId, userInterest} ]
-  userId: [ {matchId, userInterest}, {matchId, userInterest} ]
-}
-*/

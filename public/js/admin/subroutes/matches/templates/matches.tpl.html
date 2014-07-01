@@ -1,19 +1,29 @@
 <div ui-view>
     <div class="content-header">
         <div class="content-header-block text-left">
-            <span class="content-action" ui-sref="admin.matches.schedule">
+<!--             <span class="content-action" ui-sref="admin.matches.schedule">
                 <span class="glyphicon glyphicon-calendar"></span>
                 <span>See Schedule</span>
-            </span>
+            </span> -->
             <span class="content-action" ng-click="downloadData()">
                 <span class="glyphicon glyphicon-download"></span>
-                <span>Download Data</span>
+                <span>Download Matches</span>
             </span>
         </div>
         <div class="content-header-block">
             <div class="content-title">Matches</div>
             <div class="content-tagline">View or edit the match grid</div>
         </div>
+    </div>
+
+    <div>
+        <h4>Schedule Parameters</h4>
+        <form ng-submit="downloadSchedule()">
+            <div><input ng-model="rounds" type="number" min="0" max="15" placeholder="# of Rounds" required></input> # of Rounds</div>
+            <div><input ng-model="maxInterviews" type="number" min="0" max="15" placeholder="Max # of Interviews" required></input> Max # of Interivews</div>
+            <div><input ng-model="minInterviews" type="number" min="0" max="15" placeholder="Min # of Interviews" required></input> Min # of Interviews</div>
+            <input class="content-action" type="submit" value="Download Schedule"></input>
+        </form>
     </div>
 
     <div class="content-section container-fluid">
