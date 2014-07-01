@@ -42,7 +42,7 @@
                 </tr>
                 <tr class="gridbox-header"ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last">
                     <th style="min-width: 200px; max-width: 200px"></th><!-- empty table header-->
-                    <th class="pointer" style="min-width: 100px; max-width: 100px" ng-repeat-start="(key, opportunity) in opportunities">
+                    <th style="min-width: 100px; max-width: 100px" ng-repeat-start="(key, opportunity) in opportunities">
                         {{ opportunity.company.name }}: {{ opportunity.jobTitle }}
                     </th>
                     <th ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last">

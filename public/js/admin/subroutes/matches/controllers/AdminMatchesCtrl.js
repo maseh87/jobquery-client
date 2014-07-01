@@ -124,7 +124,6 @@ app.controller('AdminMatchesCtrl',
     return true;
   } /* end download() */
 
-
 }]);
 
 /*
