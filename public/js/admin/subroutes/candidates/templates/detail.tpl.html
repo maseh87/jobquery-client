@@ -1,5 +1,15 @@
-<h3>Admin.Candidates.Detail Template</h3>
+<div class="content-header">
+    <div class="content-header-block text-left">
+        <!-- buttons -->
+    </span>
+    </div>
+    <div class="content-header-block">
+        <div class="content-title">{{ user.name }}</div>
+        <div class="content-tagline">Edit or View Candidate in Detail</div>
+    </div>
+</div>
 
+<div class="row">
 <form ng-submit="update(user)">
     <table class="table table-striped table-condensed table-hover">
         <thead>
@@ -127,3 +137,4 @@
         <td>{{match.userInterest ? match.userInterest : 'N/A'}}</td>
     </tr>
 </table>
+</div>

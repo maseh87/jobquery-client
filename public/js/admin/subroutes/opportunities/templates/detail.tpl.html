@@ -14,7 +14,7 @@
         <table class="table table-condensed">
         <tr>
             <td>Company:</td>
-            <td>{{ basic.company }}</td>
+            <td><select ng-model="basic.company" ng-disabled="readOnly" ng-options="company._id as company.name for company in companies | orderBy:'name'" required></select></td>
         </tr>
         <tr>
             <td>Title:</td>
@@ -72,7 +72,7 @@
                                 <option value="must" selected>Must Have</option>
                                 <option value="nice">Nice to Have</option>
                             </select>
-                            <select ng-disabled="readOnly" ng-model="tagView.data._id" ng-options="tag._id as tag.name group by tag.category.name for tag in tags | orderBy: 'name'" ng-change="showCorrectValues(tagView, tagView.data._id); updateGuidance(); defaultValues(tagView)"></select>
+                            <select ng-disabled="readOnly" ng-model="tagView.data._id" ng-options="tag._id as tag.name group by tag.category.name for tag in tags | orderBy: 'name'" ng-change="showCorrectValues(tagView, tagView.data._id); updateGuidance()"></select>
                             <select ng-disabled="readOnly" ng-show="tagView.data.type === 'scale'" ng-model="tagView.value" ng-change="updateGuidance()">
                                 <option value="3">3 (Agree)</option>
                                 <option value="4">4 (Agree Strongly)</option>

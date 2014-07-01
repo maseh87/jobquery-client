@@ -1,14 +1,19 @@
 app.controller('AdminOpportunitiesDetailCtrl',
-  ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category', 'generateGlyphs',
-  function ($scope, $stateParams, Opportunity, Match, Tag, Category, generateGlyphs) {
+  ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category', 'Company', 'generateGlyphs',
+  function ($scope, $stateParams, Opportunity, Match, Tag, Category, Company, generateGlyphs) {
 
   $scope.sorter = 'score';
   $scope.reverse = true;
+  var originalCompanyId;
 
-  Match.getUsers($stateParams._id).then(function (data) {
-    $scope.mapToView(data.opportunity, data.matches);
-    $scope.oppData = data.opportunity;
-    $scope.matchData = data.matches;
+  Company.getAll().then(function (companies) {
+    $scope.companies = companies;
+
+    Match.getUsers($stateParams._id).then(function (data) {
+      $scope.mapToView(data.opportunity, data.matches);
+      $scope.oppData = data.opportunity;
+      $scope.matchData = data.matches;
+    });
   });
 
   Tag.getAll().then(function (tags) { $scope.tags = tags; });
@@ -30,7 +35,8 @@ app.controller('AdminOpportunitiesDetailCtrl',
   $scope.mapToView = function (oppData, matchData) {
     $scope.basic._id = oppData._id;
     $scope.basic.description = oppData.description;
-    $scope.basic.company = oppData.company.name;
+    $scope.basic.company = oppData.company._id;
+    originalCompanyId = oppData.company._id;
     $scope.basic.title = oppData.jobTitle;
     $scope.basic.location = oppData.company.city;
     $scope.basic.links = oppData.links;
@@ -144,7 +150,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
     oppData.questions = $scope.guidance.questions;
     oppData.jobTitle = $scope.basic.title;
     oppData.category = $scope.basic.group._id;
-    oppData.company = $scope.basic.company._id;
+    oppData.company = $scope.basic.company;
     oppData.links = $scope.basic.links;
     oppData.notes = $scope.basic.notes ? [ {text: $scope.basic.notes} ] : [];
     oppData.internalNotes = $scope.basic.internal ? [ {text: $scope.basic.internal} ] : [];
@@ -152,9 +158,28 @@ app.controller('AdminOpportunitiesDetailCtrl',
       return {tag: tag.data._id, value: tag.value, importance: tag.importance};
     });
 
+    // update opportunity
     Opportunity.update(oppData).then(function(data){
     });
 
+    // update
+    if (originalCompanyId !== oppData.company) {
+      $scope.companies.forEach(function (company) {
+        // remove opportunity._id from original company
+        if (company._id === originalCompanyId) {
+          var indexToRemove = company.opportunities.indexOf(oppData._id);
+          company.opportunities.splice(indexToRemove, 1);
+          Company.update(company);
+        }
+
+        // add opportunity._id to new company
+        if (company._id === oppData.company) {
+          company.opportunities.push(oppData._id);
+          Company.update(company);
+        }
+      });
+      originalCompanyId = oppData.company;
+    }
     $scope.updateGuidance();
   };
 
@@ -166,30 +191,28 @@ app.controller('AdminOpportunitiesDetailCtrl',
     array.push(field);
   };
 
-  $scope.defaultValues = function (tagView) {
-    if (!tagView.value) {
-      if (tagView.data.type === 'scale') {
-          tagView.value = 4;
-        } else if (tagView.data.type === 'binary') {
-          tagView.value = 'yes';
-        } else {
-          tagView.value = 'text';
-        }
-    }
+  $scope.defaultValues = function (tag) {
+    if (tag.data.type === 'scale') {
+        tag.value = 4;
+      } else if (tag.data.type === 'binary') {
+        tag.value = 'yes';
+      } else {
+        tag.value = 'text';
+      }
   };
 
   $scope.showCorrectValues = function (tag, id) {
     for (var i = 0; i < $scope.tags.length; i += 1) {
       if ($scope.tags[i]._id === id) {
+        var differentType = tag.data.type !== $scope.tags[i].type;
         tag.data.type = $scope.tags[i].type;
-        break; // code below relies on 'i' to lookup $scope.tags properly
+        if (differentType) {
+          $scope.defaultValues(tag);
+        }
+        tag.data.name = $scope.tags[i].name;
+        break;
       }
     }
-    $scope.guidance.tags.forEach(function (tag) {
-      if (tag.data._id === id) {
-        tag.data = $scope.tags[i];
-      }
-    });
   };
 
   $scope.updateGuidance = function () {

@@ -10,10 +10,12 @@
     <form ng-repeat="category in categories" ng-hide="category.active === false">
         <h1>
             <input type="text" ng-model="category.name" ng-readonly="category.readOnly" placeholder="Category Name">
-            <input type="text" ng-model="category.label" ng-readonly="category.readOnly" placeholder="Description">
             <button type="button" ng-click="category.readOnly = false" ng-show="category.readOnly">Edit</button>
             <button type="button" ng-click="category.readOnly = true; saveCategory(category)" ng-show="!category.readOnly">Save</button>
             <button type="button" ng-click="category.readOnly = true; removeCategory(category)" ng-show="!category.readOnly && !category.tags.length">Remove</button>
+            <div>
+                <textarea style="font-size: 0.5em; margin-top: 10px" cols="50" ng-model="category.label" rows="3" ng-readonly="category.readOnly" placeholder="Description"></textarea>
+            </div>
         </h1>
         <table class="table">
             <tr>

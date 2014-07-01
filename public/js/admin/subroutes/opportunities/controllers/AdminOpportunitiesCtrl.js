@@ -1,4 +1,4 @@
-app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'DialogueService', 
+app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'DialogueService',
   function ($scope, Opportunity, Match, DialogueService) {
 
   Match.getAll().then(function (data) {
@@ -40,7 +40,7 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
     });
   };
 
-  $scope.includeAllActive = true;
+  $scope.includeAllActive = false;
   $scope.includeAllPublic = true;
 
   $scope.toggleC = function (attribute) {
