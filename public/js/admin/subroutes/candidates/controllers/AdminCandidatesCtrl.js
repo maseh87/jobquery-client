@@ -12,7 +12,7 @@ app.controller('AdminCandidatesCtrl',
     var results = {};
     for(var key in $scope.allGroups){
       results[key] = $scope.allGroups[key].filter(function(user){
-        if(user.searchStage !== 'Accepted') return true;
+        if(user.searchStage !== 'Accepted' || user.searchStage !== 'Out') return true;
         return false;
       });
     }
