@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="row" ng-show="opportunity && matches.length">
+<div class="row">
     <div class="content-section container-fluid">
         <div ng-show="matches.length > 0" class="formbox-title">{{ matches.length }} opportunities left to fill out</div>
         <div ng-show="matches.length === 0" class="formbox-title">No more opportunities to fill out</div>        
@@ -20,7 +20,7 @@
         </table>
     </div>
 
-    <div class="content-section container-fluid">
+    <div class="content-section container-fluid" ng-show="opportunity && matches.length">
         <div class="formbox-title">
             <table class="formbox-footer-pure">
                 <tr>
@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="content-section container-fluid">
+    <div class="content-section container-fluid" ng-show="opportunity && matches.length">
         <div class="formbox-title">Job Title: {{ opportunity.jobTitle }}</div>
         <table class="tablebox tablebox-basic">
             <tr class="tablebox-content tablebox-nohover">
@@ -70,7 +70,7 @@
         </table>
     </div>
 
-    <div class="content-section container-fluid">
+    <div class="content-section container-fluid" ng-show="opportunity && matches.length">
         <div class="tablebox-title">What the Employer Is Looking For</div>
         <div ng-repeat="tags in processedTags" ng-if="tags">
             <table ng-repeat="(key, tagType) in tags" class="tablebox text-center" ng-show="tagType">
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <div class="content-section container-fluid">
+    <div class="content-section container-fluid" ng-show="opportunity && matches.length">
         <div class="formbox-title">Indicate Interest</div>
         <table class="formbox formbox-basic text-center">
             <tr>
@@ -128,30 +128,3 @@
     </div>
 
 </div><!-- end row -->
-
-
-<!--     <div class="col-md-6">
-        <form ng-submit="submit()">
-            <h2>Interest</h2>
-            <input type="radio" id="radio1" ng-value="1" name="interest" ng-model="match.userInterest" required>
-            <label for="radio1" type="radio" id="radio1">1</label>
-            <input type="radio" id="radio2" ng-value="2" name="interest" ng-model="match.userInterest" required>
-            <label for="radio2" type="radio" id="radio2">2</label>
-            <input type="radio" id="radio3" ng-value="3" name="interest" ng-model="match.userInterest" required>
-            <label for="radio3" type="radio" id="radio3">3</label>
-            <input type="radio" id="radio4" ng-value="4" name="interest" ng-model="match.userInterest" required>
-            <label for="radio4" type="radio" id="radio4">4</label>
-
-            <div ng-show="questions">
-                <h2>Questions</h2>
-                <div ng-repeat="question in questions | filter:{active:true}">
-                    <h3>{{question.question}}</h3>
-                    <input ng-model="answers[question.index].answer" required>
-                </div>
-            </div>
-
-            <input type="submit" value="{{submitText}}" ng-disabled="pendingRequests === 0">
-        </form>
-    </div>
-</div>
- -->
