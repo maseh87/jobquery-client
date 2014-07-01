@@ -1,5 +1,5 @@
-app.controller('ResetCtrl', ['$scope', 'AuthService', '$stateParams',
-function($scope, AuthService, $stateParams) {
+app.controller('ResetCtrl', ['$scope', 'AuthService', '$stateParams', '$state',
+function($scope, AuthService, $stateParams, $state) {
 
   $scope.updatePassword = function (password, passwordConfirmation) {
     if(password === passwordConfirmation){
@@ -9,7 +9,8 @@ function($scope, AuthService, $stateParams) {
         resetHash: $stateParams.resetHash
       }
       AuthService.resetPassword(resetParams).then(function(response){
-        console.log(response);
+        $scope.submitting = false;
+        $scope.success = true;
       });
     }
   }
