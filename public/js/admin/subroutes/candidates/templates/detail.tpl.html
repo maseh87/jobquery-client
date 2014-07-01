@@ -16,7 +16,6 @@
         <table class="tablebox">
             <thead>
                 <tr class="tablebox-header">
-                    <th class="detail"></th>
                     <th class="name" >Name</th>
                     <th class="github" >Github</th>
                     <th class="email" >Email</th>
@@ -25,11 +24,6 @@
                 </tr>
             </thead>
             <tr class="formbox formbox-basic">
-                <td class="readOnly">
-                    <button class="content-button" type="button" ng-init="readOnly = true" ng-model="readOnly" ng-click="readOnly=!readOnly">
-                        ✎ edit
-                    </button>
-                </td>
                 <td class="name" >
                     <input type="text" ng-readonly="readOnly" ng-model="user.name" value="{{user.name}}"/>
                 </td>
@@ -118,7 +112,7 @@
 
     <div class="content-section container-fluid">
         <div class="formbox-footer">
-            <input type="submit" class="content-button" value="Update Candidate Info">
+            <input type="submit" class="content-button" value="{{submitText}}">
         </div>
     </div>
 </form>
