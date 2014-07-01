@@ -40,7 +40,6 @@ app.controller('AdminMatchesCtrl',
   $scope.edit = function(match) {
     // if user leaves blank, clear adminOverride and reverse to userInterest
     if (match.value === undefined) {
-      console.log('undefined!');
       match.adminOverride = 0;
       match.value = match.userInterest;
     } else {
@@ -91,21 +90,21 @@ app.controller('AdminMatchesCtrl',
 
   $scope.downloadSchedule = function () {
     Scheduler.schedule(
-    $scope.rounds,
-    $scope.maxInterviews,
-    $scope.minInteviews,
-    function(output) {
-      $scope.opportunities = output.opportunities;
-      $scope.schedule = output.schedule;
-      $scope.candidates = output.candidates;
-      // console.log(output);
+      $scope.rounds,
+      $scope.maxInterviews,
+      $scope.minInteviews,
+      function(output) {
+        $scope.opportunities = output.opportunities;
+        $scope.schedule = output.schedule;
+        $scope.candidates = output.candidates;
 
-      // reformat opportunities so lookup by id
-      var oppsById = {};
-      $scope.opportunities.forEach(function (opp) {
-        oppsById[opp._id] = opp;
-      });
-      $scope.opportunities = oppsById;
+        // reformat opportunities so lookup by id
+        var oppsById = {};
+        $scope.opportunities.forEach(function (opp) {
+          oppsById[opp._id] = opp;
+        });
+
+        $scope.opportunities = oppsById;
 
       readyData();
     });
@@ -164,6 +163,7 @@ app.controller('AdminMatchesCtrl',
   ];
 
   var output;
+  var intCount = {};
   var readyData = function () {
     output = '';
 
@@ -173,7 +173,6 @@ app.controller('AdminMatchesCtrl',
       userOrder.push(user._id);
       var displayName = user.name || user.email;
       output += ',' + displayName;
-      // console.log(user);
     });
     // add break column
     output += ',' + 'Break' + '\n';
@@ -188,22 +187,20 @@ app.controller('AdminMatchesCtrl',
         var scheduleObj = $scope.schedule[oppId][i];
         if (scheduleObj === 'BREAK') {
           // set last column value to this index (i) + 1
-          emptySchedule[emptySchedule.length] = i + 1;
+          emptySchedule[emptySchedule.length - 1] = i + 1;
         } else {
           var userId = scheduleObj.id;
-          // find where userId is in userOrder array
           var idx = userOrder.indexOf(userId);
           // then replace that value in the emptySchedule array with (i) + 1
           emptySchedule[idx] = i + 1;
         }
       }
       // join emptySchedule array together with commas, plus new line
-      emptySchedule = emptySchedule.join(',') + '\n';
+      emptySchedule = ',' + emptySchedule.join(',') + '\n';
       // replace 'undefined' with empty strings
       emptySchedule.replace(/undefined/g, '');
       output += emptySchedule;
     }
-    // console.log(output);
     download(output, 'exported', 'text/csv');
   };
 
