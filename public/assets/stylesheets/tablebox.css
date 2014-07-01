@@ -36,6 +36,7 @@
     background-color: #F4F4F4; 
     cursor: pointer;
 }
+.tablebox-nohover:hover { background-color: #FEFEFE; cursor: inherit;}
 
 .tablebox-leader { font-size: 1.125em; font-weight: 400; }
 .tablebox-tag { 
@@ -48,6 +49,6 @@
     padding-left: 5px;
     font-size: 2em;
     color: #333333;
-    font-weight: 100;
+    font-weight: 300;
 }
 

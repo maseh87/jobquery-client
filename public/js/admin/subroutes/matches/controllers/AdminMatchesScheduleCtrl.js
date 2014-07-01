@@ -1,4 +1,4 @@
-app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 
+app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler',
   function ($scope, $state, Match, Opportunity, User, Scheduler) {
 
     $scope.slots = [
@@ -15,11 +15,11 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
         {time: '11:30am'}
     ];
 
-    var schedulerOutput = Scheduler.schedule(10, function(output) { 
+    var schedulerOutput = Scheduler.schedule(11, 10, function(output) { 
         $scope.opportunities = output.opportunities;
         $scope.schedule = output.schedule;
         console.log(output);
-    }); 
+    });
     // i herd u like schedules, so i put a schedule in ur schedule so u can schedule while u schedule
 
     // $scope.opportunities = schedulerOutput.opportunities;

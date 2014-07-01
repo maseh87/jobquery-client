@@ -1,7 +1,7 @@
-app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportunity, User, Match, $q) {
+app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opportunity, User, Match, $q) {
   var candidatesMap;
 
-  var retrieveData  = function() {
+  var retrieveData  = function () {
     var data = [];
       data.push(Opportunity.getAll());
       data.push(User.getAll());
@@ -9,7 +9,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
       return $q.all(data);
   };
 
-  var prepareData  = function(opportunities, candidates, matches, numberOfSlots) {
+  var prepareData  = function (opportunities, candidates, matches, numberOfSlots, maxInterviews) {
     var data = {};
     data.constraints = {};
     var opportunitiesMap;
@@ -23,7 +23,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
     candidatesMap = convertToMap(candidates);
 
     data.opportunities = opportunities;
-    data.constraints.maxInterviews = Math.ceil(numberOfSlots * opportunities.length / candidates.length);
+    data.constraints.maxInterviews = maxInterviews;//Math.ceil(numberOfSlots * opportunities.length / candidates.length);
     data.constraints.numberOfCandidates = candidates.length;
     data.slotQueues = slotQueueGeneration(opportunities, candidatesMap, matchesMap, numberOfSlots);
     return data;
@@ -51,8 +51,9 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
 
   var filterIneligibleOpportunities = function (opportunities) {
     opportunities = opportunities.filter(function (opportunity) {
-       if(!opportunity.active) return false;
-       return true;
+      if (!opportunity.active) return false;
+      if (opportunity.category.name === "Not Attending Hiring Day") return false;
+      return true;
     });
     return opportunities;
   };
@@ -67,9 +68,11 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
   };
 
   var slotQueueGeneration = function (opportunities, candidatesMap, matchesMap, numberOfSlots) {
+    var DO_NOT_USE_ADMIN_OVERRIDE = 0;
     var slots = [];
     var candidatesInterestQueue = [];
     var candidateIds = Object.keys(candidatesMap);
+    var interest;
     var interestSort = function (a, b) {
       return a.interest - b.interest;
     };
@@ -79,9 +82,15 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
       for (var y = 0; y < numberOfSlots; y++) {
         // get interest for each oppertunity and candidate intersection
         for (var i = 0; i < candidateIds.length; i++) {
+          // use admin override if it is applied
+          if (matchesMap[candidateIds[i]][opportunities[x]._id].adminOverride > DO_NOT_USE_ADMIN_OVERRIDE) {
+            interest = matchesMap[candidateIds[i]][opportunities[x]._id].adminOverride;
+          } else {
+            interest = matchesMap[candidateIds[i]][opportunities[x]._id].userInterest;
+          }
           candidatesInterestQueue.push({
             id : candidateIds[i],
-            interest : matchesMap[candidateIds[i]][opportunities[x]._id].userInterest
+            interest : interest
           });
         }
         // sort candidate by interest
@@ -100,6 +109,9 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
     for (var i = 0; i < data.slotQueues.length; i++) {
       schedule.push([]);
     }
+
+    schedule = assignBreaks(schedule);
+
     do {
       doPass(schedule, data);
     }
@@ -110,6 +122,22 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
 
     return output;
   };
+
+  var assignBreaks = function (schedule) {
+    var y = 3;
+
+    for (var x = 0; x < schedule.length; x++) {
+      schedule[x][y] = "BREAK";
+      if ( y === 7) {
+        y = 3;
+      } else {
+        y++;
+      }
+    }
+
+    return schedule;
+  };
+
 
   var doPass = function (board, data) {
     var slotAssignedThisPass;
@@ -198,7 +226,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
     for (var y = 0; y < board[0].length; y++) {
       unique = {};
       for (var x = 0; x < board.length; x++) {
-        if (board[x][y] !== undefined) {
+        if (board[x][y] !== undefined && board[x][y] !== "BREAK") {
           unique[board[x][y].id] = unique[board[x][y].id] === undefined ? 0 : unique[board[x][y].id];
           unique[board[x][y].id]++;
           if (unique[board[x][y].id] > 1) {
@@ -216,7 +244,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
     for (var x = 0; x < board.length; x++) {
       unique = {};
       for (var y = 0; y < board[x].length; y++) {
-        if (board[x][y] !== undefined) {
+        if (board[x][y] !== undefined && board[x][y] !== "BREAK") {
           unique[board[x][y].id] = unique[board[x][y].id] === undefined ? 0 : unique[board[x][y].id];
           unique[board[x][y].id]++;
           if (unique[board[x][y].id] > 1) {
@@ -234,7 +262,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
 
     for (var x = 0; x < board.length; x++) {
       for (var y = 0; y < board[x].length; y++) {
-        if (board[x][y] !== undefined) {
+        if (board[x][y] !== undefined && board[x][y] !== "BREAK") {
           board.interviewCount[board[x][y].id] = board.interviewCount[board[x][y].id] === undefined ? 0 : board.interviewCount[board[x][y].id];
           board.interviewCount[board[x][y].id]++;
           if (board.interviewCount[board[x][y].id] > maxInterviews) {
@@ -256,7 +284,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
 
     for (var x = 0; x < board.length; x++) {
       for (var y = 0; y < board[x].length; y++) {
-        if (board[x][y] !== undefined) {
+        if (board[x][y] !== undefined && board[x][y] !== "BREAK") {
           interviewCount[board[x][y].id] = interviewCount[board[x][y].id] === undefined ? 0 : interviewCount[board[x][y].id];
           interviewCount[board[x][y].id]++;
         }
@@ -309,7 +337,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
   };
 
   return {
-    schedule : function(numberOfslots, callback) {
+    schedule : function(numberOfRounds, maxInterviews, callback) {
       var processedInput;
       retrieveData().then(function (data) {
         var OPPORTUNITIES_INDEX  = 0;
@@ -318,7 +346,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function(Opportu
         var assigned;
         var output;
         console.log('Data Retrieved', data);
-        processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfslots);
+        processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfRounds, maxInterviews);
         console.log('Queued', processedInput);
         output = runAssignment(processedInput);
         console.log('Assigned',output);
