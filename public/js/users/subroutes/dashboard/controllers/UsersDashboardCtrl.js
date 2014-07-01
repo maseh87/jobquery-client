@@ -6,10 +6,21 @@ app.controller('UsersDashboardCtrl',
   $scope.submitText = '✔ Submit Preferences';
   $scope.pendingRequests = 0;
 
+  var objectify = function(arrayOfObjects){
+    var object = {};
+
+    arrayOfObjects.forEach(function(item){
+      object[item._id] = item;
+    });
+
+    return object;
+  };
+
   var initialize = function(){
     UsersOpportunity.getAll().then(function(data){
+      var opps = objectify(data.opportunities);
       matches = data.matches.filter(function(match){
-        return match.userInterest === 0;
+        return (match.userInterest === 0) && opps[match.opportunity];
       });
       $scope.matches = matches;
       if(matches.length){
