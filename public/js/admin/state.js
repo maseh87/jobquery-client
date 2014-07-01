@@ -5,12 +5,14 @@ app.config(['$stateProvider', function ($stateProvider) {
     .state('admin', {
       url: '/admin',
       resolve: {
-        redirect: ['$location', 'localStorageService', function ($location, localStorageService) {
+        redirect: ['$location', 'localStorageService', '$state', function ($location, $state, localStorageService) {
           var isAdmin = localStorageService.get('isAdmin');
           if(isAdmin === 'false'){
             $location.path('/login');
           } else {
-            if($location.path() === '/admin') $location.path('/admin/opportunities');
+            if($location.path() === '/admin') {
+              $location.path('/admin/dashboard');
+            }
           }
         }]
       },
