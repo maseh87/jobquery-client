@@ -191,30 +191,28 @@ app.controller('AdminOpportunitiesDetailCtrl',
     array.push(field);
   };
 
-  $scope.defaultValues = function (tagView) {
-    if (!tagView.value) {
-      if (tagView.data.type === 'scale') {
-          tagView.value = 4;
-        } else if (tagView.data.type === 'binary') {
-          tagView.value = 'yes';
-        } else {
-          tagView.value = 'text';
-        }
-    }
+  $scope.defaultValues = function (tag) {
+    if (tag.data.type === 'scale') {
+        tag.value = 4;
+      } else if (tag.data.type === 'binary') {
+        tag.value = 'yes';
+      } else {
+        tag.value = 'text';
+      }
   };
 
   $scope.showCorrectValues = function (tag, id) {
     for (var i = 0; i < $scope.tags.length; i += 1) {
       if ($scope.tags[i]._id === id) {
+        var differentType = tag.data.type !== $scope.tags[i].type;
         tag.data.type = $scope.tags[i].type;
-        break; // code below relies on 'i' to lookup $scope.tags properly
+        if (differentType) {
+          $scope.defaultValues(tag);
+        }
+        tag.data.name = $scope.tags[i].name;
+        break;
       }
     }
-    $scope.guidance.tags.forEach(function (tag) {
-      if (tag.data._id === id) {
-        tag.data = $scope.tags[i];
-      }
-    });
   };
 
   $scope.updateGuidance = function () {
