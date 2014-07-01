@@ -1,4 +1,4 @@
-<div style="position:fixed">
+<div style="position:fixed" class="col-md-2">
     <h4>Candidate Name</h4>
     <input ng-model="candidateNameQuery" ng-change="filterEntries()">
     <h4>Candidate Group</h4>
@@ -33,7 +33,17 @@
         {{currentPage}}/{{totalPages}}
         <button type="button" ng-click="currentPage < totalPages && populateEntries(currentPage + 1)">Higher</button>
         <h4>Process All</h4>
-        <button ng-click="batchProcess()">Process {{filteredEntries.length}} Matches</button>
+        <div ng-show="batchProcessConfirm && !batchProcessSuccess">
+            <p>You're about to process {{filteredEntries.length}} matches. Continue?</p>
+            <button ng-click="batchProcess()">Yes</button>
+            <button ng-click="batchProcessConfirm = false">No</button>
+        </div>
+        <div ng-show="!batchProcessConfirm && !batchProcessSuccess">
+            <button ng-click="batchProcessConfirm = true">Process {{filteredEntries.length}} Matches</button>
+        </div>
+        <div ng-show="batchProcessSuccess">
+            {{filteredEntries.length}} Matches Processed Successfully. Refresh the page to process more entries.
+        </div>
     </div>
 </div>
 
