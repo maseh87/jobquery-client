@@ -7,11 +7,15 @@
             <span>{{category.name}}</span>
             <input type="checkbox" ng-model="category.selected" ng-change="filterEntries()">
         </div>
+        <h4>Opportunity Name</h4>
+        <input ng-model="opportunityNameQuery" ng-change="filterEntries()">
         <h4>Opportunity Group</h4>
         <div ng-repeat="category in opportunityCategories">
             <span>{{category.name}}</span>
             <input type="checkbox" ng-model="category.selected" ng-change="filterEntries()">
         </div>
+        <h4>Company Name</h4>
+        <input ng-model="companyNameQuery" ng-change="filterEntries()">
         <h4>Interest</h4>
         <input ng-model="interestQuery" placeholder="At Least" ng-change="filterEntries()">
         <h4>Override</h4>
@@ -56,6 +60,7 @@
                 <th class="pointer" ng-click="sorter='candidate';sort(sorter)">Candidate</th>
                 <th class="pointer" ng-click="sorter='candidateGroup';sort(sorter)">Candidate Group</th>
                 <th class="pointer" ng-click="sorter='company';sort(sorter)">Company</th>
+                <th class="pointer" ng-click="sorter='opportunity';sort(sorter)">Opportunity</th>
                 <th class="pointer" ng-click="sorter='opportunityGroup';sort(sorter)">Opportunity Group</th>
                 <th class="pointer" ng-click="sorter='interest';sort(sorter)">Interest</th>
                 <th class="pointer" ng-click="sorter='override';sort(sorter)">Override</th>
@@ -67,6 +72,7 @@
                 <td>{{entry.candidate}}</td>
                 <td>{{entry.candidateGroup}}</td>
                 <td>{{entry.company}}</td>
+                <td>{{entry.opportunity}}</td>
                 <td>{{entry.opportunityGroup}}</td>
                 <td>{{entry.interest}}</td>
                 <td ng-click="entry.editingOverride = true">
