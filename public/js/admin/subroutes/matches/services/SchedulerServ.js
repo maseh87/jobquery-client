@@ -24,6 +24,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
 
     data.candidates    = candidates;
     data.opportunities = opportunities;
+    data.constraints.numberOfSlots = numberOfSlots;
     data.constraints.minInterviews = minInterviews;
     data.constraints.maxInterviews = maxInterviews;//Math.ceil(numberOfSlots * opportunities.length / candidates.length);
     data.constraints.numberOfCandidates = candidates.length;
@@ -123,6 +124,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
     }
     while (isSolution(schedule) === false);
 
+    output.constraints   = data.constraints;
     output.schedule      = schedule;
     output.opportunities = data.opportunities;
     output.candidates    = data.candidates;
@@ -335,12 +337,16 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
   };
 
   var processOutput = function (output) {
-    var schedule         = {};
-    var interviewCount = {};
+    var schedule          = {};
+    var interviewCount    = {};
+    var candidateSchedule = {};
+    var candidateBreaks   = {};
+    var x;
+    var y;
 
     // calculate interview count
-    for (var x = 0; x < output.schedule.length; x++) {
-      for (var y = 0; y < output.schedule[x].length; y++) {
+    for (x = 0; x < output.schedule.length; x++) {
+      for (y = 0; y < output.schedule[x].length; y++) {
         if (output.schedule[x][y] !== undefined && output.schedule[x][y] !== "BREAK") {
           interviewCount[output.schedule[x][y].id] = interviewCount[output.schedule[x][y].id] === undefined ? 0 : interviewCount[output.schedule[x][y].id];
           interviewCount[output.schedule[x][y].id]++;
@@ -348,13 +354,43 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
       }
     }
 
+    var populateArray = function () {
+      var array = [];
+      var max = output.constraints.numberOfSlots;
+      while(max--) array.push("BREAK");
+
+      return array;
+    };
+
+
     // transform schedule to key value opp id -> to slot array
-    for (var i = 0; i < output.schedule.length; i++) {
-      schedule[output.opportunities[i]._id] = output.schedule[i];
+    for (x = 0; x < output.schedule.length; x++) {
+      for (y = 0; y < output.schedule[x].length; y++) {
+        if (output.schedule[x][y] !== undefined && output.schedule[x][y] !== "BREAK") {
+          candidateSchedule[output.schedule[x][y].id] = candidateSchedule[output.schedule[x][y].id] === undefined ? populateArray() : candidateSchedule[output.schedule[x][y].id];
+          candidateSchedule[output.schedule[x][y].id][y] = output.schedule[x][y].interest;
+        }
+      }
+    }
+    var fillCandidateBreaks = function (item,index) {
+      if (item === 'BREAK') {
+        candidateBreaks[id] = candidateBreaks[id] === undefined ? "" : candidateBreaks[id];
+        candidateBreaks[id] += (index + 1) + " ";
+      }
+    };
+
+    for (var id in candidateSchedule) {
+      candidateSchedule[id].forEach(fillCandidateBreaks);
     }
 
-    output.interviewCount = interviewCount;
-    output.schedule = schedule;
+    // transform schedule to key value candidate id -> to slot array
+    for (var j = 0; j < output.schedule.length; j++) {
+      schedule[output.opportunities[j]._id] = output.schedule[j];
+    }
+    output.interviewCount    = interviewCount;
+    output.candidateBreaks   = candidateBreaks;
+    output.candidateSchedule = candidateSchedule;
+    output.schedule          = schedule;
 
     return output;
   };
@@ -372,10 +408,8 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
         processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfRounds, maxInterviews, minInterviews);
         console.log('Queued', processedInput);
         output = runAssignment(processedInput);
-        console.log('Assigned',output);
         output = processOutput(output);
-
-
+        console.log('Assigned',output);
 
         callback(output);
       });
