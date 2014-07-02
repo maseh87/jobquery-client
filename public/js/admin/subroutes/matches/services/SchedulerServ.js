@@ -55,6 +55,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
   var filterIneligibleOpportunities = function (opportunities) {
     opportunities = opportunities.filter(function (opportunity) {
       if (!opportunity.active) return false;
+      if (!opportunity.approved) return false;
       if (opportunity.category.name === "Not Attending Hiring Day") return false;
       return true;
     });
