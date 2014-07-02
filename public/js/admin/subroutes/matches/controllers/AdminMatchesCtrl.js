@@ -4,9 +4,40 @@ app.controller('AdminMatchesCtrl',
 
   Match.getAll().then(function (matchData) {
     User.getAll().then(function (users) {
-      $scope.users = users;
-      $scope.matches = matchData.matches;
-      $scope.opportunities = matchData.opportunities;
+
+      // filter out users
+      var filteredUserIds = {};
+      var filteredUsers = users.filter(function (candidate) {
+        if (candidate.isAdmin) return false;
+        if (!candidate.attending) return false;
+        if (!candidate.isRegistered) return false;
+        if ((candidate.searchStage === 'Out') || (candidate.searchStage === 'Accepted')) return false;
+        filteredUserIds[candidate._id] = true;
+        return true;
+      });
+      $scope.users = filteredUsers;
+
+      // filter out opportunities
+      var filteredOppIds = {};
+      var filteredOpps = matchData.opportunities.filter(function (opportunity) {
+        if (!opportunity.active) return false;
+        if (!opportunity.approved) return false;
+        if (opportunity.category.name === "Not Attending Hiring Day") return false;
+        filteredOppIds[opportunity._id] = true;
+        return true;
+      });
+      $scope.opportunities = filteredOpps;
+
+      // filter our matches
+      var filteredMatches = matchData.matches.filter(function (match) {
+        if (filteredUserIds[match.user] && filteredOppIds[match.opportunity]) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      $scope.matches = filteredMatches;
+
 
       var oppColumnMap = {};
       var userMap = {};
@@ -36,6 +67,8 @@ app.controller('AdminMatchesCtrl',
       $scope.userMap = userMap;
     });
   });
+
+
 
   $scope.edit = function(match) {
     // if user leaves blank, clear adminOverride and reverse to userInterest
@@ -188,7 +221,7 @@ app.controller('AdminMatchesCtrl',
     for (var oppId in $scope.schedule) {
       var emptySchedule = new Array(userOrder.length + 1); // +1 for break
       output +=
-        ($scope.opportunities[oppId].jobTitle).replace(/\,/, ' ') + '(' +
+        ($scope.opportunities[oppId].jobTitle).replace(/\,/, ' ') + ' (' +
         ($scope.opportunities[oppId].company.name).replace(/\,/, ' ') + ')';
       for (var i = 0; i < $scope.schedule[oppId].length; i += 1) {
         var scheduleObj = $scope.schedule[oppId][i];
