@@ -97,6 +97,7 @@ app.controller('AdminMatchesCtrl',
         $scope.opportunities = output.opportunities;
         $scope.schedule = output.schedule;
         $scope.candidates = output.candidates;
+        $scope.candidateSchedule = output.candidateSchedule;
 
         // reformat opportunities so lookup by id
         var oppsById = {};
@@ -164,6 +165,12 @@ app.controller('AdminMatchesCtrl',
 
   var output;
   var intCount = {};
+  var config = {};
+  config.rounds = 11;
+  config.maxInterviews = 10;
+  config.minInterviews = 6;
+  $scope.config = config;
+
   var readyData = function () {
     output = '';
 
@@ -201,13 +208,27 @@ app.controller('AdminMatchesCtrl',
       emptySchedule.replace(/undefined/g, '');
       output += emptySchedule;
     }
+
+    // add individual schedules
+    output += '\n\n' + 'Round (numbers indicate interest level for interviews)' + '\n';
+
+    // create arrays for user round data
+    var userSchedules = [];
+    for (var j = 0; j < config.rounds; j += 1) {
+      userSchedules.push([j + 1]); // so rounds start at 1
+    }
+    userOrder.forEach(function (userId) {
+      for (var k = 0; k < config.rounds; k += 1) {
+        userSchedules[k].push($scope.candidateSchedule[userId][k]);
+      }
+    });
+    // add that information to output
+    userSchedules.forEach(function (roundInfo) {
+      output += roundInfo.join(',') + '\n';
+    });
     download(output, 'exported', 'text/csv');
   };
-  var config = {};
-  config.rounds = 11;
-  config.maxInterviews = 10;
-  config.minInterviews = 6;
-  $scope.config = config;
+
 
 
   $scope.slots = 6;
