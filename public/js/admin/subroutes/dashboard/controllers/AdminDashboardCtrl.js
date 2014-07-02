@@ -110,17 +110,17 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     //Filter for candidate name
     if($scope.candidateNameQuery){
       var regex = new RegExp($scope.candidateNameQuery, 'i');
-      if(!entry.candidate.match(regex)) return false;
+      if(!entry.candidate || !entry.candidate.match(regex)) return false;
     }
 
     if($scope.opportunityNameQuery){
       var regex = new RegExp($scope.opportunityNameQuery, 'i');
-      if(!entry.opportunity.match(regex)) return false;
+      if(!entry.opportunity || !entry.opportunity.match(regex)) return false;
     }
 
     if($scope.companyNameQuery){
       var regex = new RegExp($scope.companyNameQuery, 'i');
-      if(!entry.company.match(regex)) return false;
+      if(!entry.company || !entry.company.match(regex)) return false;
     }
 
     //Filter for interest >= input number
