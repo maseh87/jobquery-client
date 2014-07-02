@@ -404,12 +404,9 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
         var MATCHES_INDEX        = 2;
         var assigned;
         var output;
-        // console.log('Data Retrieved', data);
         processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfRounds, maxInterviews, minInterviews);
-        // console.log('Queued', processedInput);
         output = runAssignment(processedInput);
         output = processOutput(output);
-        // console.log('Assigned',output);
 
         callback(output);
       });
