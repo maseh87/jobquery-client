@@ -58,6 +58,7 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
         candidate: users[matchObj.user].name,
         candidateGroup: users[matchObj.user].category ? users[matchObj.user].category.name : null,
         company: opportunities[matchObj.opportunity].company.name,
+        opportunity: opportunities[matchObj.opportunity].jobTitle,
         opportunityGroup: opportunities[matchObj.opportunity].category ? opportunities[matchObj.opportunity].category.name : null,
         interest: matchObj.userInterest,
         override: matchObj.adminOverride,
@@ -109,7 +110,17 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scop
     //Filter for candidate name
     if($scope.candidateNameQuery){
       var regex = new RegExp($scope.candidateNameQuery, 'i');
-      if(!entry.candidate.match(regex)) return false;
+      if(!entry.candidate || !entry.candidate.match(regex)) return false;
+    }
+
+    if($scope.opportunityNameQuery){
+      var regex = new RegExp($scope.opportunityNameQuery, 'i');
+      if(!entry.opportunity || !entry.opportunity.match(regex)) return false;
+    }
+
+    if($scope.companyNameQuery){
+      var regex = new RegExp($scope.companyNameQuery, 'i');
+      if(!entry.company || !entry.company.match(regex)) return false;
     }
 
     //Filter for interest >= input number

@@ -24,7 +24,7 @@
             <tbody>
                 <tr class="tablebox-content" ng-repeat="opportunity in category.opportunities | orderBy:sorter:reverse" ui-sref="users.opportunities.detail({_id: opportunity._id})">
                     <td width="50%">
-                        <div class="tablebox-leader">{{ opportunity.company.name }}</div>
+                        <div class="tablebox-leader"><a ui-sref="users.opportunities.detail({_id: opportunity._id})">{{ opportunity.company.name }}</a></div>
                         <div>{{ opportunity.jobTitle }}</div>
                     </td>
                     <td width="30%" class="tablebox-tag" style="vertical-align: middle">
