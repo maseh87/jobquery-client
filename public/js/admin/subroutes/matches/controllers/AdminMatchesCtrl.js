@@ -90,9 +90,9 @@ app.controller('AdminMatchesCtrl',
 
   $scope.downloadSchedule = function () {
     Scheduler.schedule(
-      $scope.rounds,
-      $scope.maxInterviews,
-      $scope.minInteviews,
+      $scope.config.rounds,
+      $scope.config.maxInterviews,
+      $scope.config.minInterviews,
       function(output) {
         $scope.opportunities = output.opportunities;
         $scope.schedule = output.schedule;
@@ -203,31 +203,12 @@ app.controller('AdminMatchesCtrl',
     }
     download(output, 'exported', 'text/csv');
   };
+  var config = {};
+  config.rounds = 11;
+  config.maxInterviews = 10;
+  config.minInterviews = 6;
+  $scope.config = config;
 
-  $scope.rounds = 11;
-  $scope.maxInterviews = 10;
-  $scope.minInterviews = 6;
-
-
-  // var schedulerOutput = Scheduler.schedule(
-  //   $scope.rounds,
-  //   $scope.maxInterviews,
-  //   $scope.minInteviews,
-  //   function(output) {
-  //     $scope.opportunities = output.opportunities;
-  //     $scope.schedule = output.schedule;
-  //     $scope.candidates = output.candidates;
-  //     // console.log(output);
-
-  //     // reformat opportunities so lookup by id
-  //     var oppsById = {};
-  //     $scope.opportunities.forEach(function (opp) {
-  //       oppsById[opp._id] = opp;
-  //     });
-  //     $scope.opportunities = oppsById;
-
-  //     readyData();
-  // });
 
   $scope.slots = 6;
   $scope.slotRowMap = {};
