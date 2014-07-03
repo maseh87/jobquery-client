@@ -215,11 +215,12 @@ app.controller('AdminMatchesCtrl',
       output += ',' + displayName;
     });
     // add break column
-    output += ',' + 'Break' + '\n';
+    output += ',' + 'Break' + ',' + 'Not Scheduled Due to Constraints' + '\n';
 
     // iterate through opportunities
     for (var oppId in $scope.schedule) {
-      var emptySchedule = new Array(userOrder.length + 1); // +1 for break
+      // +1 for break
+      var emptySchedule = new Array(userOrder.length + 1);
       output +=
         ($scope.opportunities[oppId].jobTitle).replace(/\,/, ' ') + ' (' +
         ($scope.opportunities[oppId].company.name).replace(/\,/, ' ') + ')';
@@ -227,7 +228,10 @@ app.controller('AdminMatchesCtrl',
         var scheduleObj = $scope.schedule[oppId][i];
         if (scheduleObj === 'BREAK') {
           // set last column value to this index (i) + 1
-          emptySchedule[emptySchedule.length - 1] = i + 1;
+          emptySchedule[userOrder.length] = i + 1;
+        } else if (scheduleObj === undefined) {
+          // keep adding undefined's at end as necessary
+          emptySchedule[emptySchedule.length] = i + 1;
         } else {
           var userId = scheduleObj.id;
           var idx = userOrder.indexOf(userId);
