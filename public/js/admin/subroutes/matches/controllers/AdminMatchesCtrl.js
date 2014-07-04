@@ -1,12 +1,43 @@
 app.controller('AdminMatchesCtrl',
-  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'Scheduler', 'SERVER_URL',
-  function ($scope, $state, $http, Match, Opportunity, User, Scheduler, SERVER_URL) {
+  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'Scheduler', 'SERVER_URL', 'DialogueService',
+  function ($scope, $state, $http, Match, Opportunity, User, Scheduler, SERVER_URL, DialogueService) {
 
   Match.getAll().then(function (matchData) {
     User.getAll().then(function (users) {
-      $scope.users = users;
-      $scope.matches = matchData.matches;
-      $scope.opportunities = matchData.opportunities;
+
+      // filter out users
+      var filteredUserIds = {};
+      var filteredUsers = users.filter(function (candidate) {
+        if (candidate.isAdmin) return false;
+        if (!candidate.attending) return false;
+        if (!candidate.isRegistered) return false;
+        if ((candidate.searchStage === 'Out') || (candidate.searchStage === 'Accepted')) return false;
+        filteredUserIds[candidate._id] = true;
+        return true;
+      });
+      $scope.users = filteredUsers;
+
+      // filter out opportunities
+      var filteredOppIds = {};
+      var filteredOpps = matchData.opportunities.filter(function (opportunity) {
+        if (!opportunity.active) return false;
+        if (!opportunity.approved) return false;
+        if (opportunity.category.name === "Not Attending Hiring Day") return false;
+        filteredOppIds[opportunity._id] = true;
+        return true;
+      });
+      $scope.opportunities = filteredOpps;
+
+      // filter our matches
+      var filteredMatches = matchData.matches.filter(function (match) {
+        if (filteredUserIds[match.user] && filteredOppIds[match.opportunity]) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      $scope.matches = filteredMatches;
+
 
       var oppColumnMap = {};
       var userMap = {};
@@ -36,6 +67,8 @@ app.controller('AdminMatchesCtrl',
       $scope.userMap = userMap;
     });
   });
+
+
 
   $scope.edit = function(match) {
     // if user leaves blank, clear adminOverride and reverse to userInterest
@@ -89,11 +122,20 @@ app.controller('AdminMatchesCtrl',
   };
 
   $scope.downloadSchedule = function () {
+    // show dialogue
+    var title = "Schedule Processing in Progress";
+    var message = "The scheduler can take up to 5 minutes to complete. Please wait while the scheduler is at work!"
+
+    DialogueService.setMessage(title, message);
+    DialogueService.show();
+
     Scheduler.schedule(
       $scope.config.rounds,
       $scope.config.maxInterviews,
       $scope.config.minInterviews,
       function(output) {
+        // hide dialogue
+        DialogueService.clearAndHide();
         $scope.opportunities = output.opportunities;
         $scope.schedule = output.schedule;
         $scope.candidates = output.candidates;
@@ -182,19 +224,23 @@ app.controller('AdminMatchesCtrl',
       output += ',' + displayName;
     });
     // add break column
-    output += ',' + 'Break' + '\n';
+    output += ',' + 'Break' + ',' + 'Not Scheduled Due to Constraints' + '\n';
 
     // iterate through opportunities
     for (var oppId in $scope.schedule) {
-      var emptySchedule = new Array(userOrder.length + 1); // +1 for break
+      // +1 for break
+      var emptySchedule = new Array(userOrder.length + 1);
       output +=
-        ($scope.opportunities[oppId].jobTitle).replace(/\,/, ' ') + '(' +
+        ($scope.opportunities[oppId].jobTitle).replace(/\,/, ' ') + ' (' +
         ($scope.opportunities[oppId].company.name).replace(/\,/, ' ') + ')';
       for (var i = 0; i < $scope.schedule[oppId].length; i += 1) {
         var scheduleObj = $scope.schedule[oppId][i];
         if (scheduleObj === 'BREAK') {
           // set last column value to this index (i) + 1
-          emptySchedule[emptySchedule.length - 1] = i + 1;
+          emptySchedule[userOrder.length] = i + 1;
+        } else if (scheduleObj === undefined) {
+          // keep adding undefined's at end as necessary
+          emptySchedule[emptySchedule.length] = i + 1;
         } else {
           var userId = scheduleObj.id;
           var idx = userOrder.indexOf(userId);

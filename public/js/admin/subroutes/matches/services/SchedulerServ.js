@@ -1,5 +1,6 @@
 app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opportunity, User, Match, $q) {
   var candidatesMap;
+  var candidatesTotal;
 
   var retrieveData  = function () {
     var data = [];
@@ -22,6 +23,8 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
     matchesMap    = createMatchesMap(matches);
     candidatesMap = convertToMap(candidates);
 
+    candidatesTotal = candidates.length;
+
     data.candidates    = candidates;
     data.opportunities = opportunities;
     data.constraints.numberOfSlots = numberOfSlots;
@@ -42,6 +45,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
 
     return matchesMap;
   };
+
   var filterIneligibleCandidates = function (candidates) {
     return candidates.filter(function (candidate) {
       if(candidate.isAdmin) return false;
@@ -55,6 +59,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
   var filterIneligibleOpportunities = function (opportunities) {
     opportunities = opportunities.filter(function (opportunity) {
       if (!opportunity.active) return false;
+      if (!opportunity.approved) return false;
       if (opportunity.category.name === "Not Attending Hiring Day") return false;
       return true;
     });
@@ -149,6 +154,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
 
 
   var doPass = function (board, data) {
+    board.passesWithoutChange = board.passesWithoutChange === undefined ? 0 : board.passesWithoutChange;
     var slotAssignedThisPass;
     var changeLastPass = false;
     data.tempQueues = data.tempQueues || [];
@@ -199,6 +205,11 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
       }
     }
     data.changeLastPass = changeLastPass;
+    if (!data.changeLastPass) {
+      board.passesWithoutChange++;
+    } else {
+      board.passesWithoutChange = 0;
+    }
   };
 
   var isSolution = function (board) {
@@ -210,6 +221,10 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
         }
       }
     }
+    if (board.passesWithoutChange > candidatesTotal) {
+      validSolution = true;
+    }
+
     return validSolution;
   };
 
@@ -404,12 +419,9 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
         var MATCHES_INDEX        = 2;
         var assigned;
         var output;
-        // console.log('Data Retrieved', data);
         processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfRounds, maxInterviews, minInterviews);
-        // console.log('Queued', processedInput);
         output = runAssignment(processedInput);
         output = processOutput(output);
-        // console.log('Assigned',output);
 
         callback(output);
       });
