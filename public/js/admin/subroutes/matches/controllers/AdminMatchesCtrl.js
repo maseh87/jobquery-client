@@ -1,5 +1,5 @@
 app.controller('AdminMatchesCtrl',
-  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'Scheduler', 'SERVER_URL', 'DialogueService', 
+  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'Scheduler', 'SERVER_URL', 'DialogueService',
   function ($scope, $state, $http, Match, Opportunity, User, Scheduler, SERVER_URL, DialogueService) {
 
   Match.getAll().then(function (matchData) {
@@ -124,7 +124,7 @@ app.controller('AdminMatchesCtrl',
   $scope.downloadSchedule = function () {
     // show dialogue
     var title = "Schedule Processing in Progress";
-    var message = "The scheduler takes approximately one minute to complete. Please wait while the scheduler is at work!"
+    var message = "The scheduler can take up to 5 minutes to complete. Please wait while the scheduler is at work!"
 
     DialogueService.setMessage(title, message);
     DialogueService.show();
