@@ -91,7 +91,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
         tags: (function () {
           var tagsByKeys = {};
           matchModel.user.tags.forEach(function (tag) {
-            tagsByKeys[tag.tag._id] = tag.value;
+            tagsByKeys[tag.tag._id] = tag.tag.isPublic ? tag.value : tag.privateValue;
           });
           return tagsByKeys;
         })()
