@@ -5,12 +5,14 @@ function (User, $scope, $stateParams, Match, Company, Tag, Category, $q) {
   $scope.submitText = 'Update Candidate Info';
 
   var bindUserCategory = function(user, categories){
-    var categoryId = user.category._id;
-    categories.forEach(function(category){
-      if(category._id === categoryId){
-        user.category = category;
-      }
-    });
+    if(user.category){
+      var categoryId = user.category._id;
+      categories.forEach(function(category){
+        if(category._id === categoryId){
+          user.category = category;
+        }
+      });
+    }
   };
 
   var initialize = function(){
@@ -89,7 +91,7 @@ function (User, $scope, $stateParams, Match, Company, Tag, Category, $q) {
 
     var handleCategory = function(){
       var deferred = $q.defer();
-      if(!user.category._id){
+      if(user.category && !user.category._id){
         Category.create(user.category).then(function(data){
           user.category._id = data._id;
           deferred.resolve();
@@ -102,7 +104,6 @@ function (User, $scope, $stateParams, Match, Company, Tag, Category, $q) {
 
     $scope.submitText = 'Submitting...';
     handleCategory().then(function(){
-      console.log(user);
       return User.update(user);
     }).then(function (updated) {
       $scope.updated = true;
