@@ -19,20 +19,18 @@ app.controller('AdminOpportunitiesNewCtrl',
     }
   };
 
-  User.getAll().then(function (users) {
-    // need populate users with tags info
-    $scope.mapToView(users);
-  });
-
   $scope.readOnly = false;
 
-  Tag.getAll().then(function (tags) {
-    $scope.tags = tags;
-    var tagsById = {};
-    tags.forEach(function (tag) {
-      tagsById[tag._id] = tag;
+  User.getAll().then(function (users) {
+    Tag.getAll().then(function (tags) {
+      $scope.tags = tags;
+      var tagsById = {};
+      tags.forEach(function (tag) {
+        tagsById[tag._id] = tag;
+      });
+      $scope.tagsById = tagsById;
+      $scope.mapToView(users);
     });
-    $scope.tagsById = tagsById;
   });
 
   Category.getAll('Opportunity').then(function (categories) {
