@@ -10,23 +10,28 @@ app.controller('AdminOpportunitiesNewCtrl',
       e.preventDefault();
       $scope.addNewCompany($scope.newCompany);
     }
-  }
+  };
 
   $scope.interceptCategory = function(e){
     if(e.keyCode === 13){
       e.preventDefault();
       $scope.addNewCategory($scope.newCategory);
     }
-  }
-
-  User.getAll().then(function (users) {
-    // need populate users with tags info
-    $scope.mapToView(users);
-  });
+  };
 
   $scope.readOnly = false;
 
-  Tag.getAll().then(function (tags) { $scope.tags = tags; });
+  User.getAll().then(function (users) {
+    Tag.getAll().then(function (tags) {
+      $scope.tags = tags;
+      var tagsById = {};
+      tags.forEach(function (tag) {
+        tagsById[tag._id] = tag;
+      });
+      $scope.tagsById = tagsById;
+      $scope.mapToView(users);
+    });
+  });
 
   Category.getAll('Opportunity').then(function (categories) {
     $scope.categories = categories;
@@ -60,6 +65,7 @@ app.controller('AdminOpportunitiesNewCtrl',
   // declared = user tags
   $scope.mapToView = function(users) {
     $scope.declared = users.map(function (user) {
+
       return {
         _id: user._id,
         name: user.name,
@@ -71,7 +77,9 @@ app.controller('AdminOpportunitiesNewCtrl',
         tags: (function () {
           var tagsByKeys = {};
           user.tags.forEach(function (tag) {
-            tagsByKeys[tag.tag] = tag.value;
+            if($scope.tagsById[tag.tag]){
+              tagsByKeys[tag.tag] = $scope.tagsById[tag.tag].isPublic ? tag.value : tag.privateValue;
+            }
           });
           return tagsByKeys;
         })()

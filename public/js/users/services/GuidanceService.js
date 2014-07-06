@@ -7,7 +7,7 @@ app.factory('GuidanceService', function(){
     tags.forEach(function(tag){
       // populated, so must got down one level for id
       if (tag.tag._id) {
-        tagsObj[tag.tag._id] = tag.value;
+        tagsObj[tag.tag._id] = tag.tag.isPublic ? tag.value : tag.privateValue;
       // not populated, so tag is already the id
       } else {
         tagsObj[tag.tag] = tag.value;
