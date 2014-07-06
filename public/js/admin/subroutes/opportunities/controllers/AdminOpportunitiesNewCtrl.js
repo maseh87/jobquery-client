@@ -65,6 +65,7 @@ app.controller('AdminOpportunitiesNewCtrl',
   // declared = user tags
   $scope.mapToView = function(users) {
     $scope.declared = users.map(function (user) {
+
       return {
         _id: user._id,
         name: user.name,
@@ -76,7 +77,9 @@ app.controller('AdminOpportunitiesNewCtrl',
         tags: (function () {
           var tagsByKeys = {};
           user.tags.forEach(function (tag) {
-            tagsByKeys[tag.tag] = $scope.tagsById[tag.tag].isPublic ? tag.value : tag.privateValue;
+            if($scope.tagsById[tag.tag]){
+              tagsByKeys[tag.tag] = $scope.tagsById[tag.tag].isPublic ? tag.value : tag.privateValue;
+            }
           });
           return tagsByKeys;
         })()
