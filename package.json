@@ -13,8 +13,7 @@
     "gulp-concat": "^2.2.0",
     "gulp-uglify": "^0.3.1",
     "gulp-ignore": "^1.1.0",
-    "gulp-rename": "^1.2.0",
-    "newrelic": "^1.7.4"
+    "gulp-rename": "^1.2.0"
   },
   "devDependencies": {
     "karma": "~0.10",
