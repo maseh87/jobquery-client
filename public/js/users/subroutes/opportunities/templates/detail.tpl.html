@@ -30,7 +30,7 @@
                             <br>
                             <div class="float-container-row">
                             <div class="float-bottom">
-                                <span class="type-normal">{{ company.description }}</span><br>
+                                <span class="type-normal" style="white-space:pre-wrap;">{{ company.description }}</span><br>
                                 <div class="type-linkbox" ng-repeat="link in company.links">
                                     <span ng-show="$first">Learn more:</span><br>
                                     <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
