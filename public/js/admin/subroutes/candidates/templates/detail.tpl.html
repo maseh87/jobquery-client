@@ -57,6 +57,8 @@
                 <select ng-model="addTag" ng-options="tag.name for tag in tags.private | filter:{value: null}"></select>
                 <button class="content-button" type="button" ng-click="addPrivateTag(addTag)">✚ Add Tag</button>
                 </td>
+                <td></td>
+                <td></td>
             </tr>
             <tr class="tablebox-content" ng-repeat="tag in tags.private | filter:filter">
                 <td>{{tag.name}}</td>
