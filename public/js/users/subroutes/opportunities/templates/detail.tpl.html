@@ -16,14 +16,37 @@
             <table class="formbox-footer-pure">
                 <tr>
                     <td width="60%">
-                    <img class="box-image" src="{{ company.media[0].url }}">
+                    <!-- <img class="box-image" src="{{ company.media[0].url }}"> -->
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                      <!-- Indicators -->
+                        <!-- Indicators -->
                         <ol class="carousel-indicators">
                             <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
                             <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
                         </ol>
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                          <div class="item">
+                            <img class="box-image" src="{{ company.media[0].url }}">
+                            <div class="carousel-caption">
+                              <h3>media one</h3>
+                            </div>
+                          </div>
+                          <div class="item active">
+                            <img class="box-image" src="{{ company.media[0].url }}">
+                            <div class="carousel-caption">
+                              <h3>media two</h3>
+                            </div>
+                          </div>
+                          <div class="item">
+                            <img class="box-image" src="{{ company.media[0].url }}">
+                            <div class="carousel-caption">
+                              <h3>media three</h3>
+                            </div>
+                          </div>
+                        </div>
+
+
 
                     </div>
                     </td>
