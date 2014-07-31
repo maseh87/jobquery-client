@@ -23,7 +23,7 @@ app.config(['$stateProvider', function ($stateProvider) {
     })
     .state('admin.opportunities.preview', {
       url: '/preview',
-      templateUrl: '/js/admin/subroutes/opportunities/templates/preview.tpl.html'
-      // controller: 'PreviewOpportunitiesCtrl'
+      templateUrl: '/js/admin/subroutes/opportunities/templates/preview.tpl.html',
+      controller: 'AdminOpportunitiesPreviewCtrl'
     });
 }]);

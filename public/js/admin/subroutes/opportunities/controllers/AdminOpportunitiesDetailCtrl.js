@@ -296,7 +296,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
   };
 
   $scope.preview = function() {
-    console.log($state);
     $state.go('admin.opportunities.preview');
 
   };
