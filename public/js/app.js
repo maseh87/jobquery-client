@@ -1,7 +1,9 @@
 var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule']);
 
 
-app.constant('SERVER_URL', 'http://hrhqjquery.azurewebsites.net');
+// app.constant('SERVER_URL', 'http://hrhqjquery.azurewebsites.net');
+// app.constant('SERVER_URL', 'http://jobquerystagingserver.azurewebsites.net');
+app.constant('SERVER_URL', 'http://localhost:9000');
 
 app.config(['$httpProvider', function($httpProvider) {
   $httpProvider.defaults.useXDomain = true; //Enable cross domain calls
