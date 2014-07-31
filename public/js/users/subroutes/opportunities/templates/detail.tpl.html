@@ -17,6 +17,15 @@
                 <tr>
                     <td width="60%">
                     <img class="box-image" src="{{ company.media[0].url }}">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                      <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                        </ol>
+
+                    </div>
                     </td>
                     <td class="text-left" style="height: 100%">
                         <div class="float-container">
@@ -51,8 +60,8 @@
                 <td style="white-space:pre-wrap;">{{ opportunity.description }}</td>
             </tr>
             <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
-                <td> 
-                    <span>Read more:</span>                       
+                <td>
+                    <span>Read more:</span>
                     <div ng-repeat="link in opportunity.links">
                         <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                     </div>
