@@ -1,10 +1,10 @@
-app.controller('AdminOpportunitiesPreviewCtrl', function($scope, $stateParams, Match) {
+app.controller('AdminOpportunitiesPreviewCtrl', function($scope, $stateParams, Opportunity) {
 
-  Match.getUsers($stateParams._id).then(function (data) {
-    console.log(data.opportunity);
-    var opportunity = data.opportunity;
-    var questions = opportunity.questions;
-    $scope.opportunity = opportunity;
-    $scope.company = opportunity.company;
+  Opportunity.get($stateParams._id).then(function (data) {
+    console.log(data);
+    $scope.opportunity = data;
+    // var questions = opportunity.questions;
+    // $scope.opportunity = opportunity;
+    $scope.company = data.company;
   });
 });
