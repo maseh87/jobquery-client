@@ -295,12 +295,5 @@ app.controller('AdminOpportunitiesDetailCtrl',
     };
   };
 
-  $scope.preview = function() {
-    // $state.go('admin.opportunities.preview');
-    console.log($scope.oppData);
-
-  };
-
-
 }]);
 
