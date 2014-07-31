@@ -2,6 +2,13 @@
     <div class="content-header-block text-left">
         <button class="content-button" ng-click="update(user)">{{ submitText }}</button>
     </div>
+    
+    <!-- This progress bar needs major restyling and is only first draft -->
+    <div class='progress'>
+      <div class='progress-bar' style='width: {{ player.time }}%'>
+      </div>
+    </div>
+    
     <div class="content-header-block">
         <div class="content-title">Candidate Survey</div>
         <div class="content-tagline">View or complete your candidate survey</div>
