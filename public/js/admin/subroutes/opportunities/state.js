@@ -22,7 +22,7 @@ app.config(['$stateProvider', function ($stateProvider) {
       controller: 'AdminOpportunitiesDetailCtrl'
     })
     .state('admin.opportunities.preview', {
-      url: '/preview',
+      url: '/:_id',
       templateUrl: '/js/admin/subroutes/opportunities/templates/preview.tpl.html',
       controller: 'AdminOpportunitiesPreviewCtrl'
     });
