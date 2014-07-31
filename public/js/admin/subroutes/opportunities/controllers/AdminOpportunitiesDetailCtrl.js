@@ -295,5 +295,10 @@ app.controller('AdminOpportunitiesDetailCtrl',
     };
   };
 
+  $scope.preview = function() {
+    console.log('PREVIEW');
+  };
+
+
 }]);
 
