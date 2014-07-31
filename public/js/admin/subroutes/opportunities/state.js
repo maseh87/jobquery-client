@@ -20,5 +20,10 @@ app.config(['$stateProvider', function ($stateProvider) {
       url: '/:_id',
       templateUrl: '/js/admin/subroutes/opportunities/templates/detail.tpl.html',
       controller: 'AdminOpportunitiesDetailCtrl'
+    })
+    .state('admin.opportunities.preview', {
+      url: '/preview',
+      templateUrl: '/js/admin/subroutes/opportunities/templates/preview.tpl.html'
+      // controller: 'PreviewOpportunitiesCtrl'
     });
 }]);

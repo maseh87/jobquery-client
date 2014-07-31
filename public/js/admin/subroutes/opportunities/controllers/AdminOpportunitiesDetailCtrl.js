@@ -1,6 +1,6 @@
 app.controller('AdminOpportunitiesDetailCtrl',
-  ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category', 'Company', 'generateGlyphs',
-  function ($scope, $stateParams, Opportunity, Match, Tag, Category, Company, generateGlyphs) {
+  ['$scope', '$stateParams', '$state','Opportunity', 'Match', 'Tag', 'Category', 'Company', 'generateGlyphs',
+  function ($scope, $stateParams, $state, Opportunity, Match, Tag, Category, Company, generateGlyphs) {
 
   $scope.sorter = 'score';
   $scope.reverse = true;
@@ -296,7 +296,9 @@ app.controller('AdminOpportunitiesDetailCtrl',
   };
 
   $scope.preview = function() {
-    console.log('PREVIEW');
+    console.log($state);
+    $state.go('admin.opportunities.preview');
+
   };
 
 
