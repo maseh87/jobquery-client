@@ -1,5 +1,6 @@
 describe('AdminCandidatesNewCtrl', function(){
-  var SERVER_URL = 'http://jobquery.azurewebsites.net';
+  // var SERVER_URL = 'http://jobquerystagingserver.azurewebsites.net';
+  var SERVER_URL = 'http://localhost:9000';
   var User,
       $rootScope,
       $controller,
