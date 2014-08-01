@@ -15,46 +15,20 @@
         <div class="formbox-title">
             <table class="formbox-footer-pure">
                 <tr>
-                    <td width="60%">
+                    <td width="60%" style="height: 305px">
                     <!-- <img class="box-image" src="{{ company.media[0].url }}"> -->
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
-                        </ol>
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                          <div class="item">
-                            <img class="box-image" src="{{ company.media[0].url }}">
-                            <div class="carousel-caption">
-                              <h3>media one</h3>
-                            </div>
-                          </div>
-                          <div class="item active">
-                            <img class="box-image" src="{{ company.media[0].url }}">
-                            <div class="carousel-caption">
-                              <h3>media two</h3>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="box-image" src="{{ company.media[0].url }}">
-                            <div class="carousel-caption">
-                              <h3>media three</h3>
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                          <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                          <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
-
-                    </div>
+                    <!-- <div ng-controller="CarouselDemoCtrl"> -->
+                     <!-- <div style="height: 305px"> -->
+                        <carousel interval="myInterval">
+                            <slide ng-repeat="slide in slides" active="slide.active">
+                                <img ng-src="{{slide.image}}" style="margin:auto;" class="box-image">
+                                <div class="carousel-caption">
+                                    <h4>{{slide.caption}}</h4>
+                                </div>
+                          </slide>
+                      </carousel>
+                    <!-- </div> -->
+                    <!-- </div> -->
                     </td>
                     <td class="text-left" style="height: 100%">
                         <div class="float-container">
