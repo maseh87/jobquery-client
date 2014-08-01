@@ -4,6 +4,9 @@ app.controller('UsersOpportunitiesDetailCtrl',
 
   $scope.submitText = '✔  Submit Preferences';
   $scope.pendingRequests = 0;
+  $scope.myInterval = 5000;
+  $scope.slides = [];
+
 
   var addIndexAsProperty = function(arrayOfObjects){
     return arrayOfObjects.map(function(item, index){
@@ -57,7 +60,26 @@ app.controller('UsersOpportunitiesDetailCtrl',
     $scope.processedTags = [processedTags.must, processedTags.nice];
     $scope.calculateFit = generateGlyphs.calculateFit;
 
-    $scope.company = data.match.opportunity.company;
+    company = $scope.company = data.match.opportunity.company;
+
+    ////////////////////////////////////////////////
+    //Here is where I started/////////////////////////
+    var index = 0;
+
+    $scope.addSlide = function() {
+
+      $scope.slides.push({
+        image: company.media[index].url
+      });
+      index++;
+
+    };
+    //The reason I use for loop is because of the example
+    for (var x =0; x < $scope.company.media.length; x++) {
+      $scope.addSlide();
+    }
+    //Here is where I stoped/////////////////////
+    /////////////////////////////////////////////
   });
 
   $scope.submit = function() {

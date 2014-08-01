@@ -63,29 +63,29 @@ table {
 .sidebar-active a:hover { color: #c9e3ef; font-weight: 400; }
 
 /* Headings */
-.content-header { 
-    display: table; 
+.content-header {
+    display: table;
     width: 100%; padding-top: 20px; padding-bottom: 12px;
     text-align: right; text-transform: uppercase;
 }
-.content-header-block { 
-    display: table-cell; 
+.content-header-block {
+    display: table-cell;
     width: 50%; vertical-align: bottom;
 }
-.content-title { 
-    font-weight: 300; font-size: 1.75em; 
-    color: #5598c1; 
+.content-title {
+    font-weight: 300; font-size: 1.75em;
+    color: #5598c1;
     margin-bottom: -2px;
 }
-.content-tagline { 
-    font-weight: 300; 
-    font-size: 0.9em; 
+.content-tagline {
+    font-weight: 300;
+    font-size: 0.9em;
     line-height: 1em;
 }
 
 .content-action {
     display: inline-block;
-    padding: 8px; 
+    padding: 8px;
     height: 30px;
 
     background-color: #5598c1;
@@ -104,7 +104,7 @@ table {
 
     border-radius: 1px; border: none; outline: none;
     box-shadow: 1px 1px 1px #E0E0E0;
-    
+
     font-weight: 400; font-size: 0.8em;
     color: #F0F0F0; text-transform: uppercase;
     background-color: #5598c1;
