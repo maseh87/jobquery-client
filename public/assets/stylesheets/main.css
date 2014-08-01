@@ -158,3 +158,6 @@ table {
 .float-container-row { display: table-row; }
 .float-top { display: table-cell; vertical-align: top; }
 .float-bottom { display: table-cell; vertical-align: bottom; }
+
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

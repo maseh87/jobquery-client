@@ -1,5 +1,5 @@
 app.controller('UsersDashboardCtrl',
-  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService', 
+  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService',
   function ($scope, UsersOpportunity, GuidanceService, generateGlyphs, DialogueService) {
 
   var matches;

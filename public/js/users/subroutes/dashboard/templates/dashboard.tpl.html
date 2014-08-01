@@ -12,7 +12,7 @@
 <div class="row">
     <div class="content-section container-fluid">
         <div ng-show="matches.length > 0" class="formbox-title">{{ matches.length }} opportunities left to fill out</div>
-        <div ng-show="matches.length === 0" class="formbox-title">No more opportunities to fill out</div>        
+        <div ng-show="matches.length === 0" class="formbox-title">No more opportunities to fill out</div>
         <table class="tablebox tablebox-basic">
             <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
                 <td>Fill out your preferences for any new or remaining opportunities below!</td>
@@ -60,8 +60,8 @@
                 <td style="white-space:pre-wrap;">{{ opportunity.description }}</td>
             </tr>
             <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
-                <td> 
-                    <span>Read more:</span>                       
+                <td>
+                    <span>Read more:</span>
                     <div ng-repeat="link in opportunity.links">
                         <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                     </div>
@@ -100,7 +100,7 @@
             <tr>
             <td style="horizontal-align: center;">
             <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
-                <span class="dashbox-icon-dingbat">➀</span><br>NONE / IN CONVO
+                <span class="dashbox-icon-dingbat">➀</span><br> NONE / IN CONVO
             </div>
             <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
                 <span class="dashbox-icon-dingbat">➁</span><br> LOW / MID INTEREST
@@ -108,9 +108,12 @@
             <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
                 <span class="dashbox-icon-dingbat">➂</span><br>MID / HIGH INTEREST
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
+            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}" tooltip="YO!">
                 <span class="dashbox-icon-dingbat">➃</span><br>VERY HIGH / CAN'T MISS
             </div>
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left" tooltip="This is a Bootstrap tooltip" tooltip-placement="left">
+                        Tooltip on left
+                </button>
             </td>
             </tr>
         </table>
