@@ -1,5 +1,5 @@
 app.controller('UsersAccountCtrl',
-  ['$scope', '$timeout', 'UsersAccount', 'UserTag', 'DialogueService', 
+  ['$scope', '$timeout', 'UsersAccount', 'UserTag', 'DialogueService',
   function ($scope, $timeout, UsersAccount, UserTag, DialogueService) {
 
   var SURVEY_LINK = 'https://docs.google.com/forms/d/1TgmSj5Wnu9Cbwi4xl42Gp3bEWxCFw4lD-pdNiaYTKOI/viewform';
@@ -31,14 +31,14 @@ app.controller('UsersAccountCtrl',
     });
   });
 
-  $scope.updateSearchStage = function (value) { 
+  $scope.updateSearchStage = function (value) {
     if (value === "Accepted") {
       var title = "Job Stage: Accepted - Survey Link";
       var message = "<div>Congratulations on finding a job! <br> Please take a few minutes and fill out a short survey.<br>Your information will help us improve the job search experience for the next cohort.<br><br><button class='content-button'><a href='" + SURVEY_LINK + "' target='_blank'>✔ Take me to the survey!</a></button></div>";
       DialogueService.setMessage(title, message);
       DialogueService.show();
     }
-    $scope.user.searchStage = value; 
+    $scope.user.searchStage = value;
   };
   $scope.isSearchStage = function (value) { return $scope.user.searchStage === value; };
 
@@ -61,6 +61,7 @@ app.controller('UsersAccountCtrl',
     $scope.pendingRequests++;
     $scope.submitText = 'Saving...';
     UsersAccount.update($scope.user).then(function (response) {
+        console.log("Hereeeeeeeeeeeeeeee")
       $scope.submitText = '✔ Save Successful';
       $scope.pendingRequests--;
       console.log('User account information updated successfully');
