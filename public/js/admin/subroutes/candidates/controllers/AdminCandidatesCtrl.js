@@ -25,6 +25,13 @@ app.controller('AdminCandidatesCtrl',
     $scope.groups = angular.copy($scope.allGroups);
   };
 
+  $scope.toggleCheckbox = function (user, property) {
+    var userToUpdate = {};
+    userToUpdate._id = user._id;
+    userToUpdate[property] = !user[property];
+    User.update(userToUpdate);
+  };
+
   User.getAll().then(function (users) {
     $scope.users = users;
     var userMap = {};
