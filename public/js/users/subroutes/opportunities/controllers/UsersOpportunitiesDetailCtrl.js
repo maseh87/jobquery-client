@@ -64,27 +64,27 @@ app.controller('UsersOpportunitiesDetailCtrl',
 
     ////////////////////////////////////////////////
     //Here is where I started/////////////////////////
-    for (var j = 0; j < company.media.length; j++) {
-      $scope.slides.push({
-        image: company.media[j].url
-      });
-    }
-    console.log(company.media);
-    console.log($scope.slides);
-    // var index = 0;
-
-    // $scope.addSlide = function() {
-
+    // for (var j = 0; j < company.media.length; j++) {
     //   $scope.slides.push({
-    //     image: company.media[index].url
+    //     image: company.media[j].url
     //   });
-    //   index++;
-
-    // };
-    //The reason I use for loop is because of the example
-    // for (var x =0; x < $scope.company.media.length; x++) {
-    //   $scope.addSlide();
     // }
+    // console.log(company.media);
+    // console.log($scope.slides);
+    var index = 0;
+
+    $scope.addSlide = function() {
+
+      $scope.slides.push({
+        image: company.media[index].url
+      });
+      index++;
+
+    };
+    //The reason I use for loop is because of the example
+    for (var x =0; x < $scope.company.media.length; x++) {
+      $scope.addSlide();
+    }
     //Here is where I stoped/////////////////////
     /////////////////////////////////////////////
   });
