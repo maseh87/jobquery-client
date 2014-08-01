@@ -15,8 +15,8 @@
         <div class="formbox-title">
             <table class="formbox-footer-pure">
                 <tr>
-                    <td width="60%">
-                    <img class="box-image" src="{{ company.media[0].url }}">
+                    <td width="60%" style="height: 305px">
+                        <img class="box-image" ng-src="{{ company.media[0].url }}">
                     </td>
                     <td class="text-left" style="height: 100%">
                         <div class="float-container">
@@ -40,6 +40,11 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td width="60%">
+                        <img class="img-thumbnail" ng-src="{{ company.media[1].url }}">
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -51,8 +56,8 @@
                 <td style="white-space:pre-wrap;">{{ opportunity.description }}</td>
             </tr>
             <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
-                <td> 
-                    <span>Read more:</span>                       
+                <td>
+                    <span>Read more:</span>
                     <div ng-repeat="link in opportunity.links">
                         <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                     </div>
