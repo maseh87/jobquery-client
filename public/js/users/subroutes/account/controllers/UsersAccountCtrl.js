@@ -8,6 +8,7 @@ app.controller('UsersAccountCtrl',
   $scope.passwordText = '✎ Change Password';
 
   UsersAccount.get().then(function (user) {
+    //user is the $promise I just returned from UsersAccount.get()
     $scope.user = user;
     $scope.binary = user.tags.filter(function (item) { return item.tag.type === 'binary'; });
     $scope.scale = user.tags.filter(function (item) { return item.tag.type === 'scale'; });
@@ -44,6 +45,7 @@ app.controller('UsersAccountCtrl',
 
 
   $scope.update = function (user) {
+      console.log("what is user in update", user);
     if(user.password) delete user.password;
     if(user.newPassword) delete user.newPassword;
     if(user.newPasswordConfirm) delete user.newPasswordConfirm;

@@ -1,46 +1,35 @@
 <div class="content-header">
     <div class="content-header-block text-left">
-        <!-- buttons -->
     </span>
     </div>
     <div class="content-header-block">
-        <div class="content-title">Main Dashboard</div>
-        <div class="content-tagline">Fill out new opportunities</div>
+        <div class="content-title">{{ opportunity.jobTitle }}</div>
+        <div class="content-tagline">{{ opportunity.company.name }}</div>
     </div>
 </div>
-
+<div ng-show="opportunity">
 <div class="row">
     <div class="content-section container-fluid">
-        <div ng-show="matches.length > 0" class="formbox-title">{{ matches.length }} opportunities left to fill out</div>
-        <div ng-show="matches.length === 0" class="formbox-title">No more opportunities to fill out</div>
-        <table class="tablebox tablebox-basic">
-            <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
-                <td>Fill out your preferences for any new or remaining opportunities below!</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="content-section container-fluid" ng-show="opportunity && matches.length">
         <div class="formbox-title">
             <table class="formbox-footer-pure">
                 <tr>
                     <td width="60%">
-                    <img class="box-image" src="{{ opportunity.company.media[0].url }}">
+                    <img class="box-image" src="{{ company.media[0].url }}">
                     </td>
                     <td class="text-left" style="height: 100%">
                         <div class="float-container">
                             <div class="float-container-row">
                             <div class="float-top">
-                                <span class="type-header text-left">{{ opportunity.company.name }}</span><br>
-                                <span class="type-subtitle" ng-show="opportunity.company.tagline">{{ opportunity.company.tagline }}<br></span>
-                                <span class="type-subtitle">{{ opportunity.company.city }} {{ opportunity.company.country }}</span>
+                                <span class="type-header text-left">{{ company.name }}</span><br>
+                                <span class="type-subtitle" ng-show="company.tagline">{{ company.tagline }}<br></span>
+                                <span class="type-subtitle">{{ company.city }} {{ company.country }}</span>
                             </div>
                             </div>
                             <br>
                             <div class="float-container-row">
                             <div class="float-bottom">
-                                <span class="type-normal">{{ opportunity.company.description }}</span><br>
-                                <div class="type-linkbox" ng-repeat="link in opportunity.company.links">
+                                <span class="type-normal" style="white-space:pre-wrap;">{{ company.description }}</span><br>
+                                <div class="type-linkbox" ng-repeat="link in company.links">
                                     <span ng-show="$first">Learn more:</span><br>
                                     <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                                 </div>
@@ -53,7 +42,7 @@
         </div>
     </div>
 
-    <div class="content-section container-fluid" ng-show="opportunity && matches.length">
+    <div class="content-section container-fluid">
         <div class="formbox-title">Job Title: {{ opportunity.jobTitle }}</div>
         <table class="tablebox tablebox-basic">
             <tr class="tablebox-content tablebox-nohover">
@@ -70,7 +59,7 @@
         </table>
     </div>
 
-    <div class="content-section container-fluid" ng-show="opportunity && matches.length">
+    <div class="content-section container-fluid">
         <div class="tablebox-title">What the Employer Is Looking For</div>
         <div ng-repeat="tags in processedTags" ng-if="tags">
             <table ng-repeat="(key, tagType) in tags" class="tablebox text-center" ng-show="tagType">
@@ -94,22 +83,22 @@
         </div>
     </div>
 
-    <div class="content-section container-fluid" ng-show="opportunity && matches.length">
+    <div class="content-section container-fluid">
         <div class="formbox-title">Indicate Interest</div>
         <table class="formbox formbox-basic text-center">
             <tr>
             <td style="horizontal-align: center;">
-            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}" tooltip="{{ tips[0] }}">
-                <span class="dashbox-icon-dingbat">➀</span><br> NONE / IN CONVO
+            <div class="dashbox-icon" ng-class="{'dashbox-icon-active':hasInterest(1)}">
+                <span class="dashbox-icon-dingbat">➀</span><br>None
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}" tooltip="{{ tips[1] }}">
-                <span class="dashbox-icon-dingbat">➁</span><br> LOW / MID INTEREST
+            <div class="dashbox-icon" ng-class="{'dashbox-icon-active':hasInterest(2)}">
+                <span class="dashbox-icon-dingbat">➁</span><br>Low
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}" tooltip="{{ tips[2] }}">
-                <span class="dashbox-icon-dingbat">➂</span><br>MID / HIGH INTEREST
+            <div class="dashbox-icon" ng-class="{'dashbox-icon-active':hasInterest(3)}">
+                <span class="dashbox-icon-dingbat">➂</span><br>Medium
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}" tooltip="{{ tips[3] }}">
-                <span class="dashbox-icon-dingbat">➃</span><br>VERY HIGH / CAN'T MISS
+            <div class="dashbox-icon" ng-class="{'dashbox-icon-active':hasInterest(4)}">
+                <span class="dashbox-icon-dingbat">➃</span><br>High
             </div>
             </td>
             </tr>
@@ -122,9 +111,12 @@
                 </tr>
             </table>
             <div class="formbox-footer">
-                <input class="content-button" type="submit" value="{{submitText}}" ng-disabled="pendingRequest === 0">
+                <input class="content-button" type="submit" value="Exit Preview" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
             </div>
         </form>
     </div>
 
-</div><!-- end row -->
+</div>
+</div>
+<!-- end ng-show -->
+<!-- end row -->

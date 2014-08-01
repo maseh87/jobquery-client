@@ -1,4 +1,4 @@
-var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule', 'ui.bootstrap']);
+var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule']);
 
 
 // app.constant('SERVER_URL', 'http://hrhqjquery.azurewebsites.net');
