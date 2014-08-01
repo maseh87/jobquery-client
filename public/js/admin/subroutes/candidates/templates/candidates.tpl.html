@@ -56,7 +56,9 @@
             <tbody>
                 <tr ng-repeat="user in group | orderBy:sorter:reverse" class="tablebox-content">
                     <td ui-sref="admin.candidates.detail({_id: user._id})" class="name">{{user.name}}</td>
-                    <td><input type="checkbox" ng-model="user.attending"></td>
+
+                    <td><input type="checkbox" ng-model="user.attending" ng-click="toggleCheckbox(user, 'attending')"></td>
+
                     <td ui-sref="admin.candidates.detail({_id: user._id})" class="interestDeclared">{{user.interestDeclared}}</td>
                     <td ui-sref="admin.candidates.detail({_id: user._id})" class="interestThreeOrGreater">{{user.interestThreeOrGreater}}</td>
                     <td ui-sref="admin.candidates.detail({_id: user._id})" class="github"><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
