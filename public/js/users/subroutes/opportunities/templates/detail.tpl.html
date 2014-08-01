@@ -16,19 +16,7 @@
             <table class="formbox-footer-pure">
                 <tr>
                     <td width="60%" style="height: 305px">
-                    <!-- <img class="box-image" src="{{ company.media[0].url }}"> -->
-                    <!-- <div ng-controller="CarouselDemoCtrl"> -->
-                     <!-- <div style="height: 305px"> -->
-                        <carousel interval="myInterval">
-                            <slide ng-repeat="slide in slides" active="slide.active">
-                                <img ng-src="{{slide.image}}" style="margin:auto;" class="box-image">
-                                <div class="carousel-caption">
-                                    <h4>{{slide.caption}}</h4>
-                                </div>
-                          </slide>
-                      </carousel>
-                    <!-- </div> -->
-                    <!-- </div> -->
+                        <img class="box-image" ng-src="{{ company.media[0].url }}">
                     </td>
                     <td class="text-left" style="height: 100%">
                         <div class="float-container">
@@ -50,6 +38,11 @@
                             </div>
                             </div>
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="60%">
+                        <img class="img-thumbnail" ng-src="{{ company.media[1].url }}">
                     </td>
                 </tr>
             </table>
