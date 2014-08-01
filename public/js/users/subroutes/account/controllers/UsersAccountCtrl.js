@@ -61,7 +61,6 @@ app.controller('UsersAccountCtrl',
     $scope.pendingRequests++;
     $scope.submitText = 'Saving...';
     UsersAccount.update($scope.user).then(function (response) {
-        console.log("Hereeeeeeeeeeeeeeee")
       $scope.submitText = '✔ Save Successful';
       $scope.pendingRequests--;
       console.log('User account information updated successfully');
