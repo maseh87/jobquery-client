@@ -62,7 +62,8 @@ app.controller('UsersOpportunitiesDetailCtrl',
 
     company = $scope.company = data.match.opportunity.company;
 
-    //Here is when I start
+    ////////////////////////////////////////////////
+    //Here is where I started/////////////////////////
     var index = 0;
 
     $scope.addSlide = function() {
@@ -77,6 +78,8 @@ app.controller('UsersOpportunitiesDetailCtrl',
     for (var x =0; x < $scope.company.media.length; x++) {
       $scope.addSlide();
     }
+    //Here is where I stoped/////////////////////
+    /////////////////////////////////////////////
   });
 
   $scope.submit = function() {
