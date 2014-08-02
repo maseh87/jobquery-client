@@ -137,6 +137,16 @@ if [ "$ENV" == "DEV" ]; then
     exitWithMessageOnError "gulp failed"
     cd - > /dev/null
   fi
+elif [ "$ENV" == "STAGING" ]; then
+    echo "STAGING deploy"
+    if [ -e "$DEPLOYMENT_TARGET/gulpfile.js" ]; then
+      cd "$DEPLOYMENT_TARGET"
+      # eval $NPM_CMD install gulp
+      # exitWithMessageOnError "installing gulp failed"
+      ./node_modules/.bin/gulp staging
+      exitWithMessageOnError "gulp failed"
+      cd - > /dev/null
+    fi
 elif [ "$ENV" == "PROD" ]; then
     echo "PROD deploy"
     if [ -e "$DEPLOYMENT_TARGET/gulpfile.js" ]; then
