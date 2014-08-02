@@ -153,12 +153,14 @@ table {
 .company-city {
     color: white;
     text-transform: uppercase;
-    
+
     background-color: #5598c1;
     padding-left: 2px;
 }
 
+.topimg {height: 383px;}
 .box-image { width: 100%; padding-right: 12px;}
+.box-video { width: 100%; padding-right: 12px;}
 .img-small {
     width: 100px;
     padding-right: 10px;
@@ -169,7 +171,7 @@ table {
 }
 .float-container { display: inline-table; min-height: 100%; }
 .float-container-row { display: table-row; }
-.float-top { display: table-cell; vertical-align: top; }
+.float-top { display: table-cell; vertical-align: top;}
 .float-bottom { display: table-cell; vertical-align: bottom; }
 
 
