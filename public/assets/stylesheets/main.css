@@ -171,7 +171,11 @@ table {
 }
 .float-container { display: inline-table; min-height: 100%; }
 .float-container-row { display: table-row; }
+.thumbnail-container-row { display: table-row; }
 .float-top { display: table-cell; vertical-align: top;}
+.float-top img {
+    width: 100% height:auto;
+}
 .float-bottom { display: table-cell; vertical-align: bottom; }
 
 

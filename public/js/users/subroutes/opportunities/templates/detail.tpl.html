@@ -20,15 +20,15 @@
                         <div>
                             <div class="float-container">
                                 <div class="float-container-row">
-                                <div class="float-top topimg">
+                                <div class="float-top">
                                     <img class="box-image" ng-show="defaultImage && !isVideo" ng-src="{{ company.media[0].url }}">
+                                    <img class="box-image" ng-show="!isVideo && !defaultImage" ng-src="{{ mainImageUrl }}">
                                     <iframe  ng-show="isVideo" width="600" height="349" ng-src="{{ trustSrc(mainImageUrl) }}" frameborder="0" allowfullscreen></iframe>
-                                    <img class="box-image" ng-show="!isVideo" ng-src="{{ mainImageUrl }}">
                                 </div>
                                 </div>
-
-                                <div class="float-container-row">
-                                    <div class="float-bottom" style="display: -webkit-inline-box;">
+                                <br>
+                                <div class="thumbnail-container-row">
+                                    <div style="display: -webkit-inline-box;">
                                         <div ng-repeat="slide in slides">
                                             <div ng-if="slide.image">
                                                 <img class="img-small" ng-src="{{ slide.image }}" ng-mouseover="setImage(slide.image)">
@@ -51,9 +51,9 @@
                                 <span class="type-subtitle" ng-show="company.tagline">{{ company.tagline }}</span>
                             </div>
                             </div>
-                            <br>
+
                             <div class="float-container-row">
-                            <div class="float-bottom">
+                            <div class="float-top">
                                 <span class="type-normal" style="white-space:pre-wrap;">{{ company.description }}</span><br>
                                 <div class="type-linkbox" ng-repeat="link in company.links">
                                     <span ng-show="$first">Learn more:</span><br>
