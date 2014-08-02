@@ -1,13 +1,13 @@
 app.controller('UsersAccountCtrl',
-  ['$scope', '$timeout', 'UsersAccount', 'UserTag', 'DialogueService', 
-  function ($scope, $timeout, UsersAccount, UserTag, DialogueService) {
+  ['$scope', '$timeout', '$document', 'UsersAccount', 'UserTag', 'DialogueService', 
+  function ($scope, $timeout, $document, UsersAccount, UserTag, DialogueService) {
 
   var SURVEY_LINK = 'https://docs.google.com/forms/d/1TgmSj5Wnu9Cbwi4xl42Gp3bEWxCFw4lD-pdNiaYTKOI/viewform';
   $scope.pendingRequests = 0;
   $scope.submitText = '✔ Save Your Profile';
   $scope.passwordText = '✎ Change Password';
 
-  $scope.percentageCompleted = UsersAccount.calculatePercentageCompleted();
+  $scope.numberOfInputFields = angular.element(document.querySelectorAll('input')).length;
 
   UsersAccount.get().then(function (user) {
     $scope.user = user;
