@@ -23,7 +23,7 @@
             <tr class="tablebox-header">
                 <th width="20%" class="pointer" ng-click="sorter = 'company'; reverse = !reverse">Company</th>
                 <th width="20%" class="pointer" ng-click="sorter = 'title'; reverse = !reverse">Title</th>
-                <th width="7%" class="pointer" ng-click="sorter = 'title'; reverse = !reverse">Attending</th>
+                <th width="7%" class="pointer" ng-click="sorter = 'attending'; reverse = !reverse">Attending</th>
                 <th width="7%" class="pointer" ng-click="sorter = 'active'; reverse = !reverse">Active?</th>
                 <th width="7%" class="pointer" ng-click="sorter = 'approved'; reverse = !reverse">Public?</th>
                 <th width="8%" class="pointer" ng-click="sorter = 'declared'; reverse = !reverse">Declared</th>
@@ -33,6 +33,10 @@
         </thead>
         <tbody>
             <tr class="tablebox-content" ng-repeat="opportunity in group | filter:excludingMachine('blah') | orderBy:sorter:reverse">
+
+                <!-- <td>{{ groups["Attending Hiring Day"] }}</td> -->
+                <!-- <td>{{ opportunity._id }}</td> -->
+
                 <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.company }}</td>
                 <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.title }}</td>
                 <td><input type="checkbox" ng-model="opportunity.active" ng-click="toggleCheckbox(opportunity, 'active')"></td>

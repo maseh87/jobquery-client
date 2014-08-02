@@ -8,6 +8,7 @@ app
         url: SERVER_URL + '/api/matches',
         params: queryParams
       }).then(function (response) {
+        console.log(response);
         return response.data;
       });
     };
