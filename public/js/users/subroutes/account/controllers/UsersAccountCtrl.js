@@ -7,6 +7,8 @@ app.controller('UsersAccountCtrl',
   $scope.submitText = '✔ Save Your Profile';
   $scope.passwordText = '✎ Change Password';
 
+  $scope.percentageCompleted = UsersAccount.calculatePercentageCompleted();
+
   UsersAccount.get().then(function (user) {
     $scope.user = user;
     $scope.binary = user.tags.filter(function (item) { return item.tag.type === 'binary'; });

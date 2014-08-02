@@ -13,5 +13,13 @@ app.factory('UsersAccount', ['UserAccountResource', function (UserAccountResourc
     return UserAccountResource.update(userData).$promise;
   };
 
+  userMethods.calculatePercentageCompleted = function () {
+    numberOfInputFields = document.getElementsByTagName('input').length;
+    numberOfCompletedInputs = 176;
+    percentageCompleted = Math.round(numberOfCompletedInputs / numberOfInputFields);
+
+    return percentageCompleted.toString() + '%';
+  };
+
   return userMethods;
 }]);
