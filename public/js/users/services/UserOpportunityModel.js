@@ -7,10 +7,7 @@ app.factory('UsersOpportunity', ['$http', 'SERVER_URL', 'UserOpportunityResource
   var userOpportunityMethods = {};
 
   userOpportunityMethods.getAll = function () {
-    return $http.get(SERVER_URL + '/public/opportunities')
-    .then(function(response){
-      return response.data;
-    });
+    return UserOpportunityResource.get().$promise;
   };
 
   userOpportunityMethods.get = function(id){
