@@ -42,12 +42,12 @@ app.controller('AdminMatchesCtrl',
       var oppColumnMap = {};
       var userMap = {};
       var matrix = {};
-
       // generate key map
       $scope.opportunities.forEach(function (opportunity, i) { oppColumnMap[opportunity._id] = i; });
       $scope.users.forEach(function (user, i) {
         if (user.name) {
           userMap[user._id] = user.name;
+          console.log(user);
         } else {
           // default to email if user has not filled in name
           userMap[user._id] = user.email;
@@ -64,6 +64,7 @@ app.controller('AdminMatchesCtrl',
       });
 
       $scope.matrix = matrix;
+      console.log($scope.matrix)
       $scope.userMap = userMap;
     });
   });
@@ -134,6 +135,7 @@ app.controller('AdminMatchesCtrl',
       $scope.config.maxInterviews,
       $scope.config.minInterviews,
       function(output) {
+        console.log(output);
         // hide dialogue
         DialogueService.clearAndHide();
         $scope.opportunities = output.opportunities;
