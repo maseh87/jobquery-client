@@ -54,6 +54,7 @@ gulp.task('html-dev', function () {
 });
 
 
+gulp.task('staging',['concatbower-prod','html-prod']);
 gulp.task('prod',['concatbower-prod','html-prod']);
 gulp.task('dev',['html-dev']);
 
