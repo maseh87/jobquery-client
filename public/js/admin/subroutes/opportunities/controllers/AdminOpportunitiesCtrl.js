@@ -13,8 +13,14 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
   $scope.groups = {};
 
   $scope.mapToView = function (matchData, oppData) {
+
     var allOpportunities = {};
     oppData.forEach(function (oppModel) {
+      
+      var isAttending = function(groupName){
+        return groupName === "Attending Hiring Day";
+      }
+
       var opportunity = {};
       var groupName = oppModel.category.name;
       if (!$scope.groups[groupName]) { $scope.groups[groupName] = []; }
@@ -22,6 +28,7 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
       opportunity._id = oppModel._id;
       opportunity.company = oppModel.company.name;
       opportunity.title = oppModel.jobTitle;
+      opportunity.attending = isAttending(groupName);
       opportunity.active = oppModel.active;
       opportunity.approved = oppModel.approved;
       opportunity.internalNotes =
