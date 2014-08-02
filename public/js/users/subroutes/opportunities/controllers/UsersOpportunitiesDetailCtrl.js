@@ -1,6 +1,6 @@
 app.controller('UsersOpportunitiesDetailCtrl',
-  ['$scope', '$timeout', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
-  function($scope, $timeout, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
+  ['$scope', '$timeout', '$sce', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
+  function($scope, $timeout, $sce, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
   $scope.submitText = '✔  Submit Preferences';
   $scope.pendingRequests = 0;
@@ -14,6 +14,10 @@ app.controller('UsersOpportunitiesDetailCtrl',
       return item;
     });
   };
+
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+};
 
   $scope.updateInterest = function (value) {
     if (!$scope.match) { return undefined; }
@@ -62,31 +66,21 @@ app.controller('UsersOpportunitiesDetailCtrl',
 
     company = $scope.company = data.match.opportunity.company;
 
-    ////////////////////////////////////////////////
-    //Here is where I started/////////////////////////
-    // for (var j = 0; j < company.media.length; j++) {
-    //   $scope.slides.push({
-    //     image: company.media[j].url
-    //   });
-    // }
-    // console.log(company.media);
-    // console.log($scope.slides);
-    var index = 0;
-
-    $scope.addSlide = function() {
+    for (var j = 0; j < company.media.length; j++) {
 
       $scope.slides.push({
-        image: company.media[index].url
+        image: company.media[j].url
       });
-      index++;
-
-    };
-    //The reason I use for loop is because of the example
-    for (var x =0; x < $scope.company.media.length; x++) {
-      $scope.addSlide();
     }
-    //Here is where I stoped/////////////////////
-    /////////////////////////////////////////////
+      if(company.links[1]){
+          var domainURL = company.links[1].url.split("watch?v=")[0];
+          var paramsURL = company.links[1].url.split("watch?v=")[1];
+          $scope.slides.push({
+              video: domainURL + "embed/" + paramsURL,
+              caption: company.links[1].title
+          })
+      }
+
   });
 
   $scope.submit = function() {
