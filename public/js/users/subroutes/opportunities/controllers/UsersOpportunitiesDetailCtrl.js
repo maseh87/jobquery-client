@@ -6,7 +6,8 @@ app.controller('UsersOpportunitiesDetailCtrl',
   $scope.pendingRequests = 0;
   $scope.myInterval = 5000;
   $scope.slides = [];
-
+  $scope.defaultImage = true;
+  $scope.isVideo = false;
 
   var addIndexAsProperty = function(arrayOfObjects){
     return arrayOfObjects.map(function(item, index){
@@ -14,10 +15,10 @@ app.controller('UsersOpportunitiesDetailCtrl',
       return item;
     });
   };
-    
-  // $scope.trustSrc = function(src) {
-  //   return $sce.trustAsResourceUrl(src);
-  // };
+
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+  };
 
   $scope.updateInterest = function (value) {
     if (!$scope.match) { return undefined; }
@@ -71,16 +72,30 @@ app.controller('UsersOpportunitiesDetailCtrl',
         image: company.media[j].url
       });
     }
-    //   if(company.links[1]){
-    //       var domainURL = company.links[1].url.split("watch?v=")[0];
-    //       var paramsURL = company.links[1].url.split("watch?v=")[1];
-    //       $scope.slides.push({
-    //           video: domainURL + "embed/" + paramsURL,
-    //           caption: company.links[1].title
-    //       })
-    //   }
+
+    for (var k = 0; k< company.links.length; k++) {
+        if(company.links[k].title === "Video Product Demo"){
+          var domainURL = company.links[k].url.split("watch?v=")[0];
+          var paramsURL = company.links[k].url.split("watch?v=")[1];
+          $scope.slides.push({
+              video: domainURL + "embed/watch?v=" + paramsURL,
+              caption: company.links[k].title
+          });
+      }
+    }
 
   });
+
+  $scope.setImage = function(imageUrl) {
+       $scope.mainImageUrl = imageUrl;
+       if( imageUrl.match(/www/)) {
+           $scope.isVideo = true;
+       }
+       else{
+          $scope.defaultImage = false;
+          $scope.isVideo = false;
+       }
+  };
 
   $scope.submit = function() {
     $scope.submitText = 'Submitting...';

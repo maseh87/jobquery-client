@@ -16,24 +16,49 @@
             <table class="formbox-footer-pure">
                 <tr>
                     <td width="60%">
-<!--                         <img class="box-image" ng-src="{{ company.media[0].url }}">-->
+<!--                  <img class="box-image" ng-src="{{ company.media[0].url }}">-->
+                        <div>
+                            <div class="float-container">
 
-                      <carousel interval="myInterval" >
-                            <slide ng-repeat="slide in slides" active="slide.active">
-                                <img ng-src="{{slide.image}}" style="margin:auto;">
-                                <div class="carousel-caption">
-                                    <h4>{{slide.caption}}</h4>
+                                <div class="float-container-row">
+                                <div class="float-top">
+                                    <iframe ng-show="isVideo" width="560" height="349" ng-src="{{ trustSrc(mainImageUrl) }}" frameborder="0" allowfullscreen></iframe>
+                                    <img class="box-image" ng-show="!isVideo" ng-src="{{ mainImageUrl }}">
+                                    <img class="box-image" ng-show="defaultImage && !isVideo" ng-src="{{ company.media[0].url }}">
                                 </div>
-<!--                            <div ng-if="slide.video">
-                                    <div class="videoWrapper" style="margin:auto;width:500px;height:300px;" >
-                                        <iframe ng-src="{{trustSrc(slide.video)}}" frameborder="0" allowfullscreen></iframe>
-                                        <div class="carousel-caption">
-                                            <h4>{{slide.caption}}</h4>
-                                        </div>
-                                    </div>
-                              </div> -->
-                          </slide>
-                      </carousel>
+                                </div>
+                            </br>
+                                <div class="float-container-row">
+                                <div class="float-bottom">
+                                    <ul>
+                                    <lo ng-repeat="slide in slides">
+
+                                        <span ng-if="slide.image">
+                                            <img class="img-small" ng-src="{{ slide.image }}" ng-click="setImage(slide.image)">
+                                        </span>
+                                        <span ng-if="slide.video">
+                                            <video class="img-small" ng-src="{{ trustSrc(slide.video) }}" ng-click="setImage(slide.video)">
+                                        </span>
+                                
+                                    </lo>
+                                </ul>
+                                </div>
+                                </div>
+                            </div>
+
+
+                        <!--     <div class="row" height="30%">
+                            <ul class="slides">
+                              <li ng-repeat="slide in slides" class="thumbnail">
+                                <a href="#/slides/{{slide.id}}" class="thumb"><img ng-src="{{slide.image}}"></a>
+
+                                <p>{{slide.caption}}</p>
+                              </li>
+                            </ul>
+                            <img src="{{ company.media[0].url }}" alt="abc" class="img-rounded">
+                        </div>
+                        <div class="row"></div> -->
+                        </div>
                      </td>
                     <td class="text-left" style="height: 100%">
                         <div class="float-container">
