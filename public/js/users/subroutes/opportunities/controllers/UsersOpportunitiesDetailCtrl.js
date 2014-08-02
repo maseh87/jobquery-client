@@ -78,7 +78,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
           var domainURL = company.links[k].url.split("watch?v=")[0];
           var paramsURL = company.links[k].url.split("watch?v=")[1];
           $scope.slides.push({
-              video: domainURL + "embed/watch?v=" + paramsURL,
+               video: domainURL + "embed/watch?v=" + paramsURL,
               caption: company.links[k].title
           });
       }
