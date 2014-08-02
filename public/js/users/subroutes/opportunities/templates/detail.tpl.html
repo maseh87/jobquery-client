@@ -15,26 +15,23 @@
         <div class="formbox-title">
             <table class="formbox-footer-pure">
                 <tr>
-                    <td width="50%">
+                    <td width="60%">
 <!--                         <img class="box-image" ng-src="{{ company.media[0].url }}">-->
 
-                      <carousel interval="myInterval">
-                            <slide ng-repeat="slide in slides" active="slide.active" >
-                                <div ng-if="slide.image">
-                                    <img ng-src="{{slide.image}}" style="margin:auto;width:500px;height:300px;" >
-                                    <div class="carousel-caption">
-                                        <h4>{{slide.caption}}</h4>
+                      <carousel interval="myInterval" >
+                            <slide ng-repeat="slide in slides" active="slide.active">
+                                <img ng-src="{{slide.image}}" style="margin:auto;">
+                                <div class="carousel-caption">
+                                    <h4>{{slide.caption}}</h4>
+                                </div>
+<!--                            <div ng-if="slide.video">
+                                    <div class="videoWrapper" style="margin:auto;width:500px;height:300px;" >
+                                        <iframe ng-src="{{trustSrc(slide.video)}}" frameborder="0" allowfullscreen></iframe>
+                                        <div class="carousel-caption">
+                                            <h4>{{slide.caption}}</h4>
+                                        </div>
                                     </div>
-                               </div>
-                               <div ng-if="slide.video">
-                                   <div class="videoWrapper" style="margin:auto;width:500px;height:300px;" >
-                                       <iframe ng-src="{{trustSrc(slide.video)}}" frameborder="0" allowfullscreen></iframe>
-                                       <div class="carousel-caption">
-                                           <h4>{{slide.caption}}</h4>
-                                       </div>
-
-                                   </div>
-                              </div>
+                              </div> -->
                           </slide>
                       </carousel>
                      </td>
