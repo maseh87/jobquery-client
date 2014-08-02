@@ -19,7 +19,6 @@
 <!--                  <img class="box-image" ng-src="{{ company.media[0].url }}">-->
                         <div>
                             <div class="float-container">
-
                                 <div class="float-container-row">
                                 <div class="float-top">
                                     <iframe ng-show="isVideo" width="560" height="349" ng-src="{{ trustSrc(mainImageUrl) }}" frameborder="0" allowfullscreen></iframe>
@@ -29,35 +28,18 @@
                                 </div>
                             </br>
                                 <div class="float-container-row">
-                                <div class="float-bottom">
-                                    <ul>
-                                    <lo ng-repeat="slide in slides">
-
-                                        <span ng-if="slide.image">
-                                            <img class="img-small" ng-src="{{ slide.image }}" ng-click="setImage(slide.image)">
-                                        </span>
-                                        <span ng-if="slide.video">
-                                            <video class="img-small" ng-src="{{ trustSrc(slide.video) }}" ng-click="setImage(slide.video)">
-                                        </span>
-
-                                    </lo>
-                                </ul>
-                                </div>
+                                    <div class="float-bottom" style="display: -webkit-inline-box;">
+                                        <div ng-repeat="slide in slides">
+                                            <div ng-if="slide.image">
+                                                <img class="img-small" ng-src="{{ slide.image }}" ng-click="setImage(slide.image)">
+                                            </div>
+                                            <div ng-if="slide.video">
+                                                <video class="vid-small" ng-src="{{ trustSrc(slide.video) }}" ng-click="setImage(slide.video)">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-
-                        <!--     <div class="row" height="30%">
-                            <ul class="slides">
-                              <li ng-repeat="slide in slides" class="thumbnail">
-                                <a href="#/slides/{{slide.id}}" class="thumb"><img ng-src="{{slide.image}}"></a>
-
-                                <p>{{slide.caption}}</p>
-                              </li>
-                            </ul>
-                            <img src="{{ company.media[0].url }}" alt="abc" class="img-rounded">
-                        </div>
-                        <div class="row"></div> -->
                         </div>
                      </td>
                     <td class="text-left" style="height: 100%">
