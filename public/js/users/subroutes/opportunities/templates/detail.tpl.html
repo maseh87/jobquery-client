@@ -20,21 +20,21 @@
                         <div>
                             <div class="float-container">
                                 <div class="float-container-row">
-                                <div class="float-top">
-                                    <iframe ng-show="isVideo" width="560" height="349" ng-src="{{ trustSrc(mainImageUrl) }}" frameborder="0" allowfullscreen></iframe>
-                                    <img class="box-image" ng-show="!isVideo" ng-src="{{ mainImageUrl }}">
+                                <div class="float-top topimg">
                                     <img class="box-image" ng-show="defaultImage && !isVideo" ng-src="{{ company.media[0].url }}">
+                                    <iframe  ng-show="isVideo" width="600" height="349" ng-src="{{ trustSrc(mainImageUrl) }}" frameborder="0" allowfullscreen></iframe>
+                                    <img class="box-image" ng-show="!isVideo" ng-src="{{ mainImageUrl }}">
                                 </div>
                                 </div>
-                            </br>
+
                                 <div class="float-container-row">
                                     <div class="float-bottom" style="display: -webkit-inline-box;">
                                         <div ng-repeat="slide in slides">
                                             <div ng-if="slide.image">
-                                                <img class="img-small" ng-src="{{ slide.image }}" ng-click="setImage(slide.image)">
+                                                <img class="img-small" ng-src="{{ slide.image }}" ng-mouseover="setImage(slide.image)">
                                             </div>
                                             <div ng-if="slide.video">
-                                                <video class="vid-small" ng-src="{{ trustSrc(slide.video) }}" ng-click="setImage(slide.video)">
+                                                <video class="vid-small" ng-src="{{ trustSrc(slide.video) }}" ng-mouseover="setImage(slide.video)">
                                             </div>
                                         </div>
                                     </div>
