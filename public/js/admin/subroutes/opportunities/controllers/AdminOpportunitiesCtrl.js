@@ -71,20 +71,33 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
     var opportunityToUpdate = {};
     opportunityToUpdate._id = opp._id;
     opportunityToUpdate[property] = !opp[property];
+    console.dir(opp);
     Opportunity.update(opportunityToUpdate);
   };
 
   $scope.updateAttending = function(opp){
     //toggle opp.category.name
     if(opp.category.name === 'Attending Hiring Day'){
-      console.log('before: ' + opp.category.name);
+      //change which category of the page
       opp.category.name = 'Not Attending Hiring Day'
-      console.log('after: ' + opp.category.name);
+      //update on db
+      console.dir(opp);
+      opportunityToUpdate = {
+        _id: opp._id,
+        category: opp.category
+      };
+      Opportunity.update(opportunityToUpdate);
     }else{
-      console.log('before: ' + opp.category.name);
+      //change which category of the page
       opp.category.name = 'Attending Hiring Day'
-      console.log('after: ' + opp.category.name);
+      //update on db
+      opportunityToUpdate = {
+        _id: opp._id,
+        category: opp.category
+      };
+      Opportunity.update(opportunityToUpdate);
     }
+    // console.dir($scope.groups);
   };  
 
 }]);
