@@ -1,7 +1,7 @@
 var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule', 'ui.bootstrap', 'ui.bootstrap.tpls']);
 
 
-app.constant('SERVER_URL', 'http://jobquerystagingserver.azurewebsites.net');
+app.constant('SERVER_URL', '/* @echo SERVER_URL */');
 
 app.config(['$httpProvider', function($httpProvider) {
   $httpProvider.defaults.useXDomain = true; //Enable cross domain calls

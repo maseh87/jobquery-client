@@ -1,7 +1,7 @@
 var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule']);
 
 
-app.constant('SERVER_URL', 'http://localhost:9000');
+app.constant('SERVER_URL', '/* @echo SERVER_URL */');
 
 app.config(['$httpProvider', function($httpProvider) {
   $httpProvider.defaults.useXDomain = true; //Enable cross domain calls
