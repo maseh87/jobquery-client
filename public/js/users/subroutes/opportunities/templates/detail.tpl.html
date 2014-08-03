@@ -23,8 +23,8 @@
                                 <div class="float-top">
                                     <img class="box-image" ng-show="defaultImage && !isVideo" ng-src="{{ company.media[0].url }}">
                                     <img class="box-image" ng-show="!isVideo && !defaultImage" ng-src="{{ mainImageUrl }}">
-                                    <iframe  ng-show="isVideo" width="600" height="349" ng-src="{{ trustSrc(mainImageUrl) }}" frameborder="0" allowfullscreen></iframe>
-                                </div>
+                                    <embed-video data-ng-href="{{ trustSrc(mainImageUrl) }}" width="600" height="349" ng-show="isVideo" controls=0><a href="{{ trustSrc(mainImageUrl) }}"></a></embed-video>
+                                 </div>
                                 </div>
                                 <br>
                                 <div class="thumbnail-container-row">
