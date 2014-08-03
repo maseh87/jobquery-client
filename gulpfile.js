@@ -18,7 +18,7 @@ gulp.task('config', function () {
           }
         }
     ))
-    .pipe(gulp.dest('public/js/'));
+    .pipe(gulp.dest('public/dist/'));
 });
 
 gulp.task('lint', function () {
