@@ -76,16 +76,13 @@ app.controller('UsersOpportunitiesDetailCtrl',
     }
 
     for (var k = 0; k< company.links.length; k++) {
-        if(company.links[k].title === "Video Product Demo"){
-          var domainURL = company.links[k].url.split("watch?v=")[0];
-          var paramsURL = company.links[k].url.split("watch?v=")[1];
-          $scope.slides.push({
-              video: domainURL + "embed/watch?v=" + paramsURL,
-              caption: company.links[k].title
-          });
+      if(company.links[k].title === "Video Product Demo"){
+        $scope.slides.push({
+          video: company.links[k].url,
+          caption: company.links[k].title
+        });
       }
     }
-
   });
 
   $scope.setImage = function(imageUrl) {
