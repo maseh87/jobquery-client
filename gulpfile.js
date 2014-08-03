@@ -28,7 +28,7 @@ gulp.task('lint', function () {
 });
 
 gulp.task('minify-prod', function () {
-  return gulp.src(['public/js/**/*.js', '!public/js/appdev.js'])
+  return gulp.src(['public/js/**/*.js', 'public/dist/**/*.js', '!public/js/app.js', '!public/js/appdev.js'])
     .pipe(concat('jobquery.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('public/lib/'));
