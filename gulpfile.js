@@ -9,14 +9,14 @@ var gulpIgnore = require('gulp-ignore');
 var processhtml = require('gulp-processhtml');
 var preprocess = require('gulp-preprocess');
 
-gulp.task('config', function () {
-  return gulp.src('public/js/*.js')
+gulp.task('server-config', function () {
+  return gulp.src('public/js/app.js')
     .pipe(preprocess(
-        {
-          context: {
-            SERVER_URL : process.env.SERVER_URL || 'http://localhost:9000'
-          }
+      {
+        context: {
+          SERVER_URL : process.env.SERVER_URL || 'http://hrhqjobquery.azurewebsites.net'
         }
+      }
     ))
     .pipe(gulp.dest('public/dist/'));
 });
@@ -28,7 +28,7 @@ gulp.task('lint', function () {
 });
 
 gulp.task('minify-prod', function () {
-  return gulp.src(['public/js/**/*.js', 'public/dist/app.js', '!public/dist/appdev.js', '!public/js/app.js', '!public/js/appdev.js'])
+  return gulp.src(['public/dist/app.js', 'public/js/**/*.js', '!public/js/appdev.js', '!public/js/app.js'])
     .pipe(concat('jobquery.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('public/lib/'));
@@ -67,8 +67,8 @@ gulp.task('html-dev', function () {
 });
 
 
-gulp.task('staging',['config', 'concatbower-prod','html-prod']);
-gulp.task('prod',['concatbower-prod','html-prod']);
-gulp.task('dev',['config', 'html-dev']);
+gulp.task('dev',['html-dev']);
+gulp.task('staging',['server-config', 'concatbower-prod', 'html-prod']);
+gulp.task('prod',['server-config', 'concatbower-prod', 'html-prod']);
 
-gulp.task('devserve',['config', 'html-dev', 'nodemon', 'lint']);
+gulp.task('devserve',['html-dev', 'nodemon', 'lint']);
