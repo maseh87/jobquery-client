@@ -7,6 +7,19 @@ var rename = require('gulp-rename');
 var nodemon = require('gulp-nodemon');
 var gulpIgnore = require('gulp-ignore');
 var processhtml = require('gulp-processhtml');
+var preprocess = require('gulp-preprocess');
+
+gulp.task('config', function () {
+  return gulp.src('public/js/*.js')
+    .pipe(preprocess(
+        {
+          context: {
+            SERVER_URL : process.env.SERVER_URL || 'http://localhost:9000'
+          }
+        }
+    ))
+    .pipe(gulp.dest('public/js/'));
+});
 
 gulp.task('lint', function () {
   return gulp.src('public/js/**/*.js')
@@ -54,8 +67,8 @@ gulp.task('html-dev', function () {
 });
 
 
-gulp.task('staging',['concatbower-prod','html-prod']);
+gulp.task('staging',['config', 'concatbower-prod','html-prod']);
 gulp.task('prod',['concatbower-prod','html-prod']);
-gulp.task('dev',['html-dev']);
+gulp.task('dev',['config', 'html-dev']);
 
-gulp.task('devserve',['html-dev', 'nodemon', 'lint']);
+gulp.task('devserve',['config', 'html-dev', 'nodemon', 'lint']);
