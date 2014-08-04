@@ -6,6 +6,7 @@ app.controller('UsersDashboardCtrl',
   $scope.submitText = '✔ Submit Preferences';
   $scope.pendingRequests = 0;
 
+
   var objectify = function(arrayOfObjects){
     var object = {};
 
@@ -65,6 +66,11 @@ app.controller('UsersDashboardCtrl',
       var questions = opportunity.questions;
       var user = data.user;
       $scope.user = user;
+      $scope.completedUserTags = user.tags.filter(function(tag){
+        return tag.value !== null;
+      }).length;
+
+      $scope.percentageOfSurveyCompleted = Math.round(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
 
       var numQuestions = questions.length;
       var numAnswers = match.answers.length;
