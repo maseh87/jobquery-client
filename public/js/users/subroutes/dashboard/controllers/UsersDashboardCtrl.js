@@ -2,7 +2,7 @@ app.controller('UsersDashboardCtrl',
   ['$scope', 'UsersOpportunity', 'UserDashboardService', 'GuidanceService', 'generateGlyphs', 'DialogueService',
   function ($scope, UsersOpportunity, UserDashboardService, GuidanceService, generateGlyphs, DialogueService) {
 
-  var matches;
+  var matches, matchesWithInterest;
   $scope.submitText = '✔ Submit Preferences';
   $scope.pendingRequests = 0;
 
@@ -22,7 +22,11 @@ app.controller('UsersDashboardCtrl',
       matches = data.matches.filter(function(match){
         return (match.userInterest === 0) && opps[match.opportunity];
       });
+      matchesWithInterest = data.matches.filter(function(match){
+        return (match.userInterest !== 0) && opps[match.opportunity];
+      });
       $scope.matches = matches;
+      $scope.matchesWithInterest = matchesWithInterest;
       $scope.opps = opps;
       $scope.numberOfOpps = Object.keys(opps).length;
       if(matches.length){
@@ -90,7 +94,9 @@ app.controller('UsersDashboardCtrl',
     if (!$scope.match) { return undefined; }
 
     $scope.match.answers = $scope.match.answers.map(function(answerObj){
-      if(answerObj.answer === '') answerObj.answer = ' ';
+      if(answerObj.answer === ''){
+        answerObj.answer = ' ';
+      }
       return answerObj;
     });
 

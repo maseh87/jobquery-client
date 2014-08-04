@@ -12,7 +12,8 @@
 <div class="row">
     <div class="content-section container-fluid">
         <h3>Welcome {{ user.name }}!</h3>
-        <div class="formbox-title">There are { numberOfOpps } active opportunities on jobQuery - you have declared your interest for [12]. Your profile is [50%] complete and you are indicating your job search status as [early].</div>
+        <h3>!</h3>
+        <div class="formbox-title">There are {{ numberOfOpps }} active opportunities on jobQuery - you have declared your interest for {{ matchesWithInterest.length }}. Your profile is [50%] complete and you are indicating your job search status as [early].</div>
         <div ng-show="matches.length > 0" class="formbox-title">{{ matches.length }} opportunities left to fill out</div>
         <div ng-show="matches.length === 0" class="formbox-title">No more opportunities to fill out</div>
         <table class="tablebox tablebox-basic">
