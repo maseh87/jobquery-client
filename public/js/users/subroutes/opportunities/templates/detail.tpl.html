@@ -15,24 +15,48 @@
         <div class="formbox-title">
             <table class="formbox-footer-pure">
                 <tr>
-                    <td width="60%" style="height: 305px">
-                        <img class="box-image" ng-src="{{ company.media[0].url }}">
-                    </td>
+                    <td width="60%">
+<!--                  <img class="box-image" ng-src="{{ company.media[0].url }}">-->
+                        <div>
+                            <div class="float-container">
+                                <div class="top-container ">
+                                <div class="float-top">
+                                    <img class="box-image" ng-show="defaultImage && !isVideo" ng-src="{{ company.media[0].url }}">
+                                    <img class="box-image" ng-show="!isVideo && !defaultImage" ng-src="{{ mainImageUrl }}">
+                                    <embed-video data-ng-href="{{ trustSrc(mainImageUrl) }}" width="600" height="349" ng-show="isVideo" controls=0><a href="{{ trustSrc(mainImageUrl) }}"></a></embed-video>
+                                 </div>
+                                </div>
+                                <br>
+                                <div class="thumbnail-container-row">
+                                    <div style="display: -webkit-inline-box;">
+                                        <div ng-repeat="slide in slides">
+                                            <div ng-if="slide.image">
+                                                <img class="img-small" ng-src="{{ slide.image }}" ng-mouseover="setImage(slide.image)">
+                                            </div>
+                                            <div ng-if="slide.video">
+                                                <video class="vid-small" ng-src="{{ trustSrc(slide.video) }}" ng-mouseover="setImage(slide.video)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </td>
                     <td class="text-left" style="height: 100%">
                         <div class="float-container">
                             <div class="float-container-row">
                             <div class="float-top">
                                 <span class="type-header text-left">{{ company.name }}</span><br>
                                 <span class="type-subtitle company-city">{{ company.city }} {{ company.country }}</span><br>
-                                <span class="type-subtitle" ng-show="company.tagline">{{ company.tagline }}</span>
+                                <span class="type-subtitle title" ng-show="company.tagline">{{ company.tagline }}</span>
                             </div>
                             </div>
                             <br>
                             <div class="float-container-row">
-                            <div class="float-bottom">
+                            <div class="float-top">
                                 <span class="type-normal" style="white-space:pre-wrap;">{{ company.description }}</span><br>
                                 <div class="type-linkbox" ng-repeat="link in company.links">
-                                    <span ng-show="$first">Learn more:</span><br>
+                                    <span ng-show="$first">Learn more:<br></span>
                                     <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                                 </div>
                             </div>
@@ -40,11 +64,15 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td width="60%">
-                        <img class="img-thumbnail" ng-src="{{ company.media[1].url }}">
-                    </td>
-                </tr>
+<!-- <tr>
+    <td width="60%">
+        <video class="img-thumbnail" ng-src="{{ company.media[1].url }}">
+        <div class="videoWrapper">
+    Copy & Pasted from YouTube
+    <iframe width="560" height="349" src="http://www.youtube.com/embed/n_dZNLr2cME?rel=0&hd=1" frameborder="0" allowfullscreen></iframe>
+</div>
+    </td>
+</tr> -->
             </table>
         </div>
     </div>

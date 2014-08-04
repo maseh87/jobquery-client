@@ -7,6 +7,19 @@ var rename = require('gulp-rename');
 var nodemon = require('gulp-nodemon');
 var gulpIgnore = require('gulp-ignore');
 var processhtml = require('gulp-processhtml');
+var preprocess = require('gulp-preprocess');
+
+gulp.task('server-config', function () {
+  return gulp.src('public/js/app.js')
+    .pipe(preprocess(
+      {
+        context: {
+          SERVER_URL : process.env.SERVER_URL || 'http://hrhqjobquery.azurewebsites.net'
+        }
+      }
+    ))
+    .pipe(gulp.dest('public/dist/'));
+});
 
 gulp.task('lint', function () {
   return gulp.src('public/js/**/*.js')
@@ -14,8 +27,8 @@ gulp.task('lint', function () {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('minify-prod', function () {
-  return gulp.src(['public/js/**/*.js', '!public/js/appdev.js'])
+gulp.task('minify-prod', ['server-config'], function () {
+  return gulp.src(['public/dist/app.js', 'public/js/**/*.js', '!public/js/appdev.js', '!public/js/app.js'])
     .pipe(concat('jobquery.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('public/lib/'));
@@ -32,7 +45,10 @@ gulp.task('concatbower-prod',['minify-prod'], function () {
     'public/bower_components/angular/angular.min.js',
     'public/bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'public/bower_components/angular-resource/angular-resource.min.js',
+    'public/bower_components/angular-bootstrap/ui-bootstrap.min.js',
+    'public/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'public/bower_components/angular-local-storage/angular-local-storage.min.js',
+    'public/bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js',
     'public/lib/jobquery.min.js'],
     {  base: 'public/'  })
       .pipe(concat('jobquery.master.min.js'))
@@ -54,7 +70,8 @@ gulp.task('html-dev', function () {
 });
 
 
-gulp.task('prod',['concatbower-prod','html-prod']);
 gulp.task('dev',['html-dev']);
+gulp.task('staging',['concatbower-prod', 'html-prod']);
+gulp.task('prod',['concatbower-prod', 'html-prod']);
 
 gulp.task('devserve',['html-dev', 'nodemon', 'lint']);
