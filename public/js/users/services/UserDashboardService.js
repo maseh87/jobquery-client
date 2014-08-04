@@ -1,3 +1,3 @@
-app.factory('UserDashboardService', [function(){
-
-}]);
+app.factory('UserDashboardService', function(){
+  return {};
+});
