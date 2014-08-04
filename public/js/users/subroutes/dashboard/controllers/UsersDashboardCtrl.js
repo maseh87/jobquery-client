@@ -23,6 +23,8 @@ app.controller('UsersDashboardCtrl',
         return (match.userInterest === 0) && opps[match.opportunity];
       });
       $scope.matches = matches;
+      $scope.opps = opps;
+      $scope.numberOfOpps = Object.keys(opps).length;
       if(matches.length){
         getNextOpportunity();
       }
@@ -58,6 +60,7 @@ app.controller('UsersDashboardCtrl',
       var opportunity = match.opportunity;
       var questions = opportunity.questions;
       var user = data.user;
+      $scope.user = user;
 
       var numQuestions = questions.length;
       var numAnswers = match.answers.length;
