@@ -67,7 +67,6 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
     var opportunityToUpdate = {};
     opportunityToUpdate._id = opp._id;
     opportunityToUpdate[property] = !opp[property];
-    console.dir(opp);
     Opportunity.update(opportunityToUpdate);
   };
 
@@ -81,17 +80,13 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
       //rather than part of the original 'category' implementation
 
       if(opp.category.name === 'Attending Hiring Day'){
-        var isAttendingDbId = '53ac93d51efb4600001c976c';
-        console.log('opp.category._id: ' + typeof(opp.category._id));
-        console.log('opp.category.name is "Attending Hiring Day"')
-        opp.category.name = 'Not Attending Hiring Day';
-        // opp.category._id = isNotAttendingDbId;
-      }else{
         var isNotAttendingDbId = '53ac93d51efb4600001c976d';
+        opp.category.name = 'Not Attending Hiring Day';
+        opp.category._id = isNotAttendingDbId;
+      }else{
+        var isAttendingDbId = '53ac93d51efb4600001c976c';
         opp.category.name = 'Attending Hiring Day';
-        console.log('opp.category._id: ' + typeof(opp.category._id));
-        console.log('opp.category.name is "Not Attending Hiring Day"')
-        // opp.category._id = isAttendingDbId;
+        opp.category._id = isAttendingDbId;
       }
     };
 
@@ -110,8 +105,6 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
         var opportunityInGroup = currentGroup[i];
         if(opportunityInGroup === opp){
           currentGroup.splice(i, 1);
-          console.log('removed opp from group');
-          console.dir(currentGroup);
           break;
         }
       }
