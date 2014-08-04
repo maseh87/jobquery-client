@@ -26,6 +26,8 @@ app.controller('UsersOpportunitiesCtrl',
   };
 
   UsersOpportunity.getAll().then(function (data) {
+    console.log('not detail');
+    console.dir(data);
     $scope.user = data.user;
 
     var opportunities = data.opportunities;

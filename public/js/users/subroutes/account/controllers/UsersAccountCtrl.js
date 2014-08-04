@@ -1,5 +1,5 @@
 app.controller('UsersAccountCtrl',
-  ['$scope', '$timeout', 'UsersAccount', 'UserTag', 'DialogueService', 
+  ['$scope', '$timeout', 'UsersAccount', 'UserTag', 'DialogueService',
   function ($scope, $timeout, UsersAccount, UserTag, DialogueService) {
 
   var SURVEY_LINK = 'https://docs.google.com/forms/d/1TgmSj5Wnu9Cbwi4xl42Gp3bEWxCFw4lD-pdNiaYTKOI/viewform';
@@ -8,6 +8,7 @@ app.controller('UsersAccountCtrl',
   $scope.passwordText = '✎ Change Password';
 
   UsersAccount.get().then(function (user) {
+    //user is the $promise I just returned from UsersAccount.get()
     $scope.user = user;
     $scope.binary = user.tags.filter(function (item) { return item.tag.type === 'binary'; });
     $scope.scale = user.tags.filter(function (item) { return item.tag.type === 'scale'; });
@@ -31,19 +32,20 @@ app.controller('UsersAccountCtrl',
     });
   });
 
-  $scope.updateSearchStage = function (value) { 
+  $scope.updateSearchStage = function (value) {
     if (value === "Accepted") {
       var title = "Job Stage: Accepted - Survey Link";
       var message = "<div>Congratulations on finding a job! <br> Please take a few minutes and fill out a short survey.<br>Your information will help us improve the job search experience for the next cohort.<br><br><button class='content-button'><a href='" + SURVEY_LINK + "' target='_blank'>✔ Take me to the survey!</a></button></div>";
       DialogueService.setMessage(title, message);
       DialogueService.show();
     }
-    $scope.user.searchStage = value; 
+    $scope.user.searchStage = value;
   };
   $scope.isSearchStage = function (value) { return $scope.user.searchStage === value; };
 
 
   $scope.update = function (user) {
+      console.log("what is user in update", user);
     if(user.password) delete user.password;
     if(user.newPassword) delete user.newPassword;
     if(user.newPasswordConfirm) delete user.newPasswordConfirm;
