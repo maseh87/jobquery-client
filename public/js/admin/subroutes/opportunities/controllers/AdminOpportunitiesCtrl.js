@@ -26,7 +26,6 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
       opportunity.groupName = groupName;
       opportunity.company = oppModel.company.name;
       opportunity.title = oppModel.jobTitle;
-      // opportunity.attending = isAttending(groupName);
       opportunity.attending = groupName === 'Attending Hiring Day' ? true : false;
       opportunity.active = oppModel.active;
       opportunity.approved = oppModel.approved;
@@ -75,12 +74,24 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
   $scope.updateAttendingCategory = function(opp){
 
     var toggleOppCategory = function(opp){
+
+      //these are the unique _id in mongodb for the 'Attending Hiring Day', and
+      //'Not Attending Hiring Day' respectively. These two categories should probably 
+      //be refactored at some point in time to be boolean values on each opportunity 
+      //rather than part of the original 'category' implementation
+
       if(opp.category.name === 'Attending Hiring Day'){
+        var isAttendingDbId = '53ac93d51efb4600001c976c';
+        console.log('opp.category._id: ' + typeof(opp.category._id));
         console.log('opp.category.name is "Attending Hiring Day"')
         opp.category.name = 'Not Attending Hiring Day';
+        // opp.category._id = isNotAttendingDbId;
       }else{
+        var isNotAttendingDbId = '53ac93d51efb4600001c976d';
         opp.category.name = 'Attending Hiring Day';
+        console.log('opp.category._id: ' + typeof(opp.category._id));
         console.log('opp.category.name is "Not Attending Hiring Day"')
+        // opp.category._id = isAttendingDbId;
       }
     };
 

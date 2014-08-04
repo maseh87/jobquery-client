@@ -19,6 +19,9 @@ app.factory('Opportunity', ['OpportunityResource', function(OpportunityResource)
   };
 
   opportunityMethods.update = function (opportunity) {
+    console.log('In OpportunityModel.update');
+    console.dir(opportunity);
+    console.log(opportunity._id);
     return OpportunityResource.update({_id: opportunity._id}, opportunity).$promise;
   };
 
