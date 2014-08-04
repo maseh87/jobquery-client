@@ -46,6 +46,7 @@ gulp.task('concatbower-prod',['minify-prod'], function () {
     'public/bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'public/bower_components/angular-resource/angular-resource.min.js',
     'public/bower_components/angular-local-storage/angular-local-storage.min.js',
+    'public/bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js',
     'public/lib/jobquery.min.js'],
     {  base: 'public/'  })
       .pipe(concat('jobquery.master.min.js'))
