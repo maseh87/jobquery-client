@@ -1,6 +1,6 @@
 app.controller('UsersDashboardCtrl',
-  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService',
-  function ($scope, UsersOpportunity, GuidanceService, generateGlyphs, DialogueService) {
+  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService', 'UserDashboardService',
+  function ($scope, UsersOpportunity, GuidanceService, generateGlyphs, DialogueService, UserDashboardService) {
 
   var matches;
   $scope.submitText = '✔ Submit Preferences';
