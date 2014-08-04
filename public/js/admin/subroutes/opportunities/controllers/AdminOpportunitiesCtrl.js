@@ -17,10 +17,6 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
     var allOpportunities = {};
     oppData.forEach(function (oppModel) {
 
-      var isAttending = function(groupName){
-        return groupName === "Attending Hiring Day";
-      }
-
       var groupName = oppModel.category.name;
       var opportunity = {};
       if (!$scope.groups[groupName]) { $scope.groups[groupName] = []; }
@@ -30,7 +26,8 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
       opportunity.groupName = groupName;
       opportunity.company = oppModel.company.name;
       opportunity.title = oppModel.jobTitle;
-      opportunity.attending = isAttending(groupName);
+      // opportunity.attending = isAttending(groupName);
+      opportunity.attending = groupName === 'Attending Hiring Day' ? true : false;
       opportunity.active = oppModel.active;
       opportunity.approved = oppModel.approved;
       opportunity.internalNotes =
@@ -75,30 +72,54 @@ app.controller('AdminOpportunitiesCtrl', ['$scope', 'Opportunity', 'Match', 'Dia
     Opportunity.update(opportunityToUpdate);
   };
 
-  $scope.updateAttending = function(opp){
-    //toggle opp.category.name
-    if(opp.category.name === 'Attending Hiring Day'){
-      //change which category of the page
-      opp.category.name = 'Not Attending Hiring Day'
-      //update on db
-      console.dir(opp);
-      opportunityToUpdate = {
-        _id: opp._id,
-        category: opp.category
-      };
-      Opportunity.update(opportunityToUpdate);
-    }else{
-      //change which category of the page
-      opp.category.name = 'Attending Hiring Day'
-      //update on db
-      opportunityToUpdate = {
-        _id: opp._id,
-        category: opp.category
-      };
-      Opportunity.update(opportunityToUpdate);
-    }
-    // console.dir($scope.groups);
-  };  
+  $scope.updateAttendingCategory = function(opp){
+
+    var toggleOppCategory = function(opp){
+      if(opp.category.name === 'Attending Hiring Day'){
+        console.log('opp.category.name is "Attending Hiring Day"')
+        opp.category.name = 'Not Attending Hiring Day';
+      }else{
+        opp.category.name = 'Attending Hiring Day';
+        console.log('opp.category.name is "Not Attending Hiring Day"')
+      }
+    };
+
+    var toggleScopeGroupsCategory = function(opp){
+      opp.attending = !opp.attending;
+      if(opp.category.name === 'Attending Hiring Day'){
+        var currentCategory = 'Attending Hiring Day';
+        var newCategory = 'Not Attending Hiring Day';
+      }else{
+        var currentCategory = 'Not Attending Hiring Day';
+        var newCategory = 'Attending Hiring Day';
+      }
+
+      var currentGroup = $scope.groups[currentCategory];
+      for(var i = 0; i < currentGroup.length; i++){
+        var opportunityInGroup = currentGroup[i];
+        if(opportunityInGroup === opp){
+          currentGroup.splice(i, 1);
+          console.log('removed opp from group');
+          console.dir(currentGroup);
+          break;
+        }
+      }
+      $scope.groups[newCategory].push(opp);
+      
+    };
+
+    var toggleOppCategoryInDatabase = function(opp){
+        opportunityToUpdate = {
+          _id: opp._id,
+          category: opp.category
+        };
+        Opportunity.update(opportunityToUpdate);
+    };
+
+    toggleScopeGroupsCategory(opp);
+    toggleOppCategory(opp);
+    toggleOppCategoryInDatabase(opp);
+  };
 
 }]);
 

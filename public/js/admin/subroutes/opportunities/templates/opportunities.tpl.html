@@ -39,7 +39,10 @@
 
                 <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.company }}</td>
                 <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.title }}</td>
-                <td><input type="checkbox" ng-model="opportunity.attending" ng-click="updateAttending(opportunity)"></td>
+
+                <td><input type="checkbox" ng-model="opportunity.attending" ng-click="updateAttendingCategory(opportunity)"></td>
+               <!-- <td><input type="checkbox"></td> -->
+
                 <td><input type="checkbox" ng-model="opportunity.active" ng-click="toggleCheckbox(opportunity, 'active')"></td>
                 <td><input type="checkbox" ng-model="opportunity.approved" ng-click="toggleCheckbox(opportunity, 'approved')"></td>
                 <td ui-sref="admin.opportunities.detail({_id: opportunity._id})">{{ opportunity.declared }}</td>
