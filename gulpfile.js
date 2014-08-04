@@ -27,7 +27,7 @@ gulp.task('lint', function () {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('minify-prod', function () {
+gulp.task('minify-prod', ['server-config'], function () {
   return gulp.src(['public/dist/app.js', 'public/js/**/*.js', '!public/js/appdev.js', '!public/js/app.js'])
     .pipe(concat('jobquery.min.js'))
     .pipe(uglify())
@@ -69,7 +69,7 @@ gulp.task('html-dev', function () {
 
 
 gulp.task('dev',['html-dev']);
-gulp.task('staging',['server-config', 'concatbower-prod', 'html-prod']);
-gulp.task('prod',['server-config', 'concatbower-prod', 'html-prod']);
+gulp.task('staging',['concatbower-prod', 'html-prod']);
+gulp.task('prod',['concatbower-prod', 'html-prod']);
 
 gulp.task('devserve',['html-dev', 'nodemon', 'lint']);
