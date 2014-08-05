@@ -16,10 +16,13 @@
             <h3>Welcome {{ user.name }}!</h3>
             <p>There are <span class="pretty-blue">{{ numberOfOpps }}</span> active opportunities on jobQuery - you have declared your interest for <span class="pretty-blue">{{ matchesWithInterest.length }}</span>. Your profile is <span class="pretty-blue">{{percentageOfSurveyCompleted}}</span> complete and you are indicating your job search status as <span class="pretty-blue">{{ user.searchStage }}</span>.</p>
         </div>
-        <div class="welcome-alerts">
-            <div ng-show="0 === 0" class="welcome-alert">review opportunities</div>
-            <div ng-show="percentageOfSurveyCompleted !== 100%" class="welcome-alert">complete profile</div>
-            <div ng-show="0 === 0" class="welcome-alert">update search status</div>
+            <div class="welcome-alerts">
+                <div ng-show="percentageOfSurveyCompleted === '100%'" class="welcome-notice">profile fully complete</div>
+                <div ng-show="matchesWithInterest.length === numberOfOpps" class="welcome-notice">no new opportunities</div>
+                <div class="welcome-alert">update search status</div>
+                <div ng-show="matchesWithInterest.length < numberOfOpps" class="welcome-alert">review opportunities</div>
+                <div ng-show="percentageOfSurveyCompleted !== '100%'" class="welcome-alert">complete profile</div>
+            </div>
         </div>
     </div>
 

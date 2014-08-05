@@ -1,6 +1,6 @@
 app.controller('AdminOpportunitiesDetailCtrl',
-  ['$scope', '$stateParams', '$state','Opportunity', 'Match', 'Tag', 'Category', 'Company', 'generateGlyphs',
-  function ($scope, $stateParams, $state, Opportunity, Match, Tag, Category, Company, generateGlyphs) {
+  ['$scope', '$stateParams', '$state','Opportunity', 'Match', 'Tag', 'Category', 'Company', 'generateGlyphs', 'User',
+  function ($scope, $stateParams, $state, Opportunity, Match, Tag, Category, Company, generateGlyphs, User) {
 
   $scope.sorter = 'score';
   $scope.reverse = true;
@@ -10,6 +10,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
     $scope.companies = companies;
 
     Match.getUsers($stateParams._id).then(function (data) {
+
       $scope.mapToView(data.opportunity, data.matches);
       $scope.oppData = data.opportunity;
       $scope.matchData = data.matches;
@@ -86,6 +87,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
         answers: matchModel.answers,
         category: matchModel.user.category ? matchModel.user.category.name : 'N/A',
         searchStage: matchModel.user.searchStage,
+        adminOverride: matchModel.adminOverride,
         points: [0, 0], // default: [points, possible points]
         score: 0, // points[0] / points[1]
         tags: (function () {
@@ -98,7 +100,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
       };
     });
     $scope.declared = declared;
-
     $scope.updateGuidance();
   };
 
@@ -181,6 +182,37 @@ app.controller('AdminOpportunitiesDetailCtrl',
       originalCompanyId = oppData.company;
     }
     $scope.updateGuidance();
+  };
+
+  $scope.edit = function (user) {
+    //user.adminOverride = user.value;
+    Match.update(user);
+  };
+
+  $scope.isOverridden = function (user) {
+    // no adminOverride
+    if (user.adminOverride === 0) {
+      if (user.interest === 4) {
+        return 'gridbox-highlight-4';
+      } else if (user.interest === 3) {
+        return 'gridbox-highlight-3';
+      } else if (user.interest === 2) {
+        return 'gridbox-highlight-2';
+      } else if (user.interest === 1) {
+        return 'gridbox-highlight-1';
+      } else if (user.interest === 0) {
+        return 'gridbox-highlight-0';
+      }
+    // with adminOverride
+    } else {
+      if (user.adminOverride > user.interest) {
+        return 'gridbox-highlight-green';
+      } else if (user.adminOverride === user.interest) {
+        return 'gridbox-highlight-grey';
+      } else if (user.adminOverride < user.interest) {
+        return 'gridbox-highlight-red';
+      }
+    }
   };
 
   $scope.removeFrom = function (index, array) {
@@ -296,4 +328,3 @@ app.controller('AdminOpportunitiesDetailCtrl',
   };
 
 }]);
-
