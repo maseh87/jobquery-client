@@ -10,11 +10,17 @@
 </div>
 
 <div class="row">
-    <div class="formbox-title">
+    <div class="dashboard-header">
         <div class="welcome-message">
             <h3>Welcome {{ user.name }}!</h3>
             <p>There are <span class="pretty-blue">{{ numberOfOpps }}</span> active opportunities on jobQuery - you have declared your interest for <span class="pretty-blue">{{ matchesWithInterest.length }}</span>. Your profile is <span class="pretty-blue">{{percentageOfSurveyCompleted}}</span> complete and you are indicating your job search status as <span class="pretty-blue">{{ user.searchStage }}</span>.</p>
         </div>
+        <div class="welcome-alerts">
+            <div class="welcome-alert">review opportunities</div>
+            <div class="welcome-alert">complete profile</div>
+            <div class="welcome-alert">update search status</div>
+        </div>
+        <!-- <div ng-show="completedUserTags < user.tags.length"></div> -->
     </div>
 <!--     <div ng-show="matches.length > 0" class="formbox-title">{{ matches.length }} opportunities left to fill out</div>
     <div ng-show="matches.length === 0" class="formbox-title">No more opportunities to fill out</div> -->
