@@ -132,6 +132,7 @@
                 <th><div class="text-left  pointer" ng-click="sorter = 'searchStage'; reverse = !reverse">Stage <span class="glyphicon glyphicon-sort"></span></div></th>
                 <th><div class="text-center pointer" ng-click="sorter = 'score'; reverse = !reverse">Match <span class="glyphicon glyphicon-sort"></span></div></th>
                 <th><div class="text-center pointer" ng-click="sorter = 'interest'; reverse = !reverse">Interest <span class="glyphicon glyphicon-sort"></span></div></th>
+                <th><div class="text-center pointer"> AdminOverride <span></span></div></th>
                 <th ng-repeat="tag in filteredTags" ng-show="!hideTags"><div class="text-center">{{ tag.data.name }}</div></th>
                 <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"><div class="text-center">{{question.question}}</div></th>
             </thead>
@@ -148,6 +149,7 @@
                     <th></th><!-- Empty table header-->
                     <th></th><!-- Empty table header-->
                     <th></th><!-- Empty table header-->
+                    <th></th><!-- Empty table header-->
                     <th ng-repeat="tag in filteredTags" ng-show="!hideTags">
                         <p class="text-center">{{ filteredStats[tag.data._id].type === 'text' ? '' : filteredStats[tag.data._id].count}}</p>
                     </th>
@@ -160,10 +162,11 @@
                     <td>{{ user.category }}</td>
                     <td>{{ user.searchStage }}</td>
                     <td><div class="text-center">{{ user.points[1] === 0 ? '-' : user.score + '%' }}</div></td>
-                    <!-- <td><div class="text-center">{{ user.interest === 0 ? 'N/A' : user.interest }}</div></td> -->
-                    <td><input class="text-center" placeholder="{{ user.interest === 0 ? 'N/A' : user.interest }}" ng-model="match.value" ng-blur="edit(match)" ng-class="isOverridden(match)" type="number" min="1" max="4" required></input></td>
-                    <input class="text-center" ng-model="match.value" ng-blur="edit(match)" ng-class="isOverridden(match)" type="number" min="1" max="4" required></input>
-
+                    <td><div class="text-center">{{ user.interest === 0 ? 'N/A' : user.interest }}</div></td>
+                    <td style="min-width: 100px; max-width: 100px; font-weight: 600">
+                        <input class="text-center"  placeholder="{{ user.adminOverride }}" ng-model="user.value" ng-blur="edit(user)" type="number" min="1" max="4" required></input>
+                    </td>
+                    
                     <td ng-repeat="tag in filteredTags" ng-show="!hideTags">
                         <p class="text-center"><span class="glyphicon" ng-class="calculateFit(tag.importance, filteredStats[tag.data._id].type, tag.value, user.tags[tag.data._id])[0]" ng-style="{color: calculateFit(tag.importance, filteredStats[tag.data._id].type, tag.value, user.tags[tag.data._id])[1]}"></span></p>
                     </td>
@@ -178,6 +181,7 @@
                     <th><div class="text-left">Stage</div></th>
                     <th><div class="text-center">Match</div></th>
                     <th><div class="text-center">Interest</div></th>
+                    <th><div class="text-center">AdminOverride</div></th>
                     <th ng-repeat="tag in filteredTags" ng-show="!hideTags"><div class="text-center">{{ tag.data.name }}</div></th>
                     <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"><div class="text-center">{{question.question}}</div></th>
                 </tr>

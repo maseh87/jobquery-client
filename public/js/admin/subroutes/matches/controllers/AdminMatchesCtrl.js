@@ -68,8 +68,6 @@ app.controller('AdminMatchesCtrl',
     });
   });
 
-
-
   $scope.edit = function(match) {
     // if user leaves blank, clear adminOverride and reverse to userInterest
     if (match.value === undefined) {
@@ -79,10 +77,8 @@ app.controller('AdminMatchesCtrl',
       // set adminOverride to be the new value
       match.adminOverride = match.value;
     }
-
     // save update to server
     Match.update(match);
-
   };
 
   $scope.isOverridden = function (match) {
