@@ -11,6 +11,14 @@ table {
 .omega { padding-right: 0px; }
 .alpha { padding-left: 0px; }
 
+.welcome-message {
+    width: 47%;
+}
+
+.pretty-blue {
+    color: #5598c1;
+}
+
 .sidebar-container a { color: #F0F0F0; }
 .sidebar-container a:hover { color: #c9e3ef; text-decoration: none; }
 
