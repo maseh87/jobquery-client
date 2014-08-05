@@ -2,6 +2,7 @@ app.controller('AdminCompaniesCtrl', ['$scope', '$controller', 'Company', functi
 
   Company.getAll().then(function (companies) {
     $scope.companies = companies;
+    $scope.sorter = 'name';
   });
 
 }]);
