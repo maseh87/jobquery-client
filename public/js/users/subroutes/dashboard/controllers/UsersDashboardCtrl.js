@@ -70,7 +70,7 @@ app.controller('UsersDashboardCtrl',
         return tag.value !== null;
       }).length;
 
-      $scope.percentageOfSurveyCompleted = Math.round(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
+      $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
 
       var numQuestions = questions.length;
       var numAnswers = match.answers.length;
