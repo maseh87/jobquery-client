@@ -1,15 +1,23 @@
 app.controller('UsersOpportunitiesDetailCtrl',
-  ['$scope', '$timeout', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
-  function($scope, $timeout, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
+  ['$scope', '$timeout', '$sce', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
+  function($scope, $timeout, $sce, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
   $scope.submitText = '✔  Submit Preferences';
   $scope.pendingRequests = 0;
+  $scope.myInterval = 5000;
+  $scope.slides = [];
+  $scope.defaultImage = true;
+  $scope.isVideo = false;
 
   var addIndexAsProperty = function(arrayOfObjects){
     return arrayOfObjects.map(function(item, index){
       item.index = index;
       return item;
     });
+  };
+
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
   };
 
   $scope.updateInterest = function (value) {
@@ -30,6 +38,8 @@ app.controller('UsersOpportunitiesDetailCtrl',
   };
 
   UsersOpportunity.get($stateParams._id).then(function(data){
+    console.log('detail');
+    console.dir(data);
     var match = data.match;
     var opportunity = match.opportunity;
     var questions = opportunity.questions;
@@ -57,8 +67,34 @@ app.controller('UsersOpportunitiesDetailCtrl',
     $scope.processedTags = [processedTags.must, processedTags.nice];
     $scope.calculateFit = generateGlyphs.calculateFit;
 
-    $scope.company = data.match.opportunity.company;
+    company = $scope.company = data.match.opportunity.company;
+
+    for (var j = 0; j < company.media.length; j++) {
+      $scope.slides.push({
+        image: company.media[j].url
+      });
+    }
+
+    for (var k = 0; k< company.links.length; k++) {
+      if(company.links[k].title === "Video Product Demo"){
+        $scope.slides.push({
+          video: company.links[k].url,
+          caption: company.links[k].title
+        });
+      }
+    }
   });
+
+  $scope.setImage = function(imageUrl) {
+       $scope.mainImageUrl = imageUrl;
+       if( imageUrl.match(/www/)) {
+           $scope.isVideo = true;
+       }
+       else{
+          $scope.defaultImage = false;
+          $scope.isVideo = false;
+       }
+  };
 
   $scope.submit = function() {
     $scope.submitText = 'Submitting...';

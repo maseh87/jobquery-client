@@ -1,7 +1,7 @@
 .dashbox {
     background-color: #FEFEFE;
     padding: 5px;
-    
+
     vertical-align: top;
     margin: auto auto;
     font-size: 1em; font-weight: 200;
@@ -25,7 +25,7 @@
     display: inline-block;
 
     margin: 7px;
-    height: 96px; width: 96px;
+    height: 113px; width: 113px;
 
     border: 1px solid #CCCCCC;
     border-radius: 2px;
@@ -39,4 +39,7 @@
 
 .dashbox-icon-dingbat {
     font-size: 48px;
+}
+.tablebox-content td:first-child, .tablebox-header th:first-child {
+    padding-left: 10px;
 }

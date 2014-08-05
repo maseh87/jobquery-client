@@ -10,9 +10,20 @@
 </div>
 
 <div class="row">
+    <!-- dashboard header provides immediate information to the user about what needs more work, and the overall status of their account -->
+    <div class="dashboard-header">
+        <div class="welcome-message">
+            <h3>Welcome {{ user.name }}!</h3>
+            <p>There are <span class="pretty-blue">{{ numberOfOpps }}</span> active opportunities on jobQuery - you have declared your interest for <span class="pretty-blue">{{ matchesWithInterest.length }}</span>. Your profile is <span class="pretty-blue">{{percentageOfSurveyCompleted}}</span> complete and you are indicating your job search status as <span class="pretty-blue">{{ user.searchStage }}</span>.</p>
+        </div>
+        <div class="welcome-alerts">
+            <div ng-show="0 === 0" class="welcome-alert">review opportunities</div>
+            <div ng-show="completedUserTags < user.tags.length" class="welcome-alert">complete profile</div>
+            <div ng-show="0 === 0" class="welcome-alert">update search status</div>
+        </div>
+    </div>
+
     <div class="content-section container-fluid">
-        <div ng-show="matches.length > 0" class="formbox-title">{{ matches.length }} opportunities left to fill out</div>
-        <div ng-show="matches.length === 0" class="formbox-title">No more opportunities to fill out</div>        
         <table class="tablebox tablebox-basic">
             <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
                 <td>Fill out your preferences for any new or remaining opportunities below!</td>
@@ -32,8 +43,8 @@
                             <div class="float-container-row">
                             <div class="float-top">
                                 <span class="type-header text-left">{{ opportunity.company.name }}</span><br>
-                                <span class="type-subtitle" ng-show="opportunity.company.tagline">{{ opportunity.company.tagline }}<br></span>
-                                <span class="type-subtitle">{{ opportunity.company.city }} {{ opportunity.company.country }}</span>
+                                <span class="type-subtitle company-city">{{ opportunity.company.city }} {{ opportunity.company.country }}</span><br>
+                                <span class="type-subtitle" ng-show="opportunity.company.tagline">{{ opportunity.company.tagline }}</span>
                             </div>
                             </div>
                             <br>
@@ -60,8 +71,8 @@
                 <td style="white-space:pre-wrap;">{{ opportunity.description }}</td>
             </tr>
             <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
-                <td> 
-                    <span>Read more:</span>                       
+                <td>
+                    <span>Read more:</span>
                     <div ng-repeat="link in opportunity.links">
                         <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                     </div>
@@ -99,17 +110,17 @@
         <table class="formbox formbox-basic text-center">
             <tr>
             <td style="horizontal-align: center;">
-            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
-                <span class="dashbox-icon-dingbat">➀</span><br>None
+            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}" tooltip="{{ tips[0] }}">
+                <span class="dashbox-icon-dingbat">➀</span><br> NONE / IN CONVO
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
-                <span class="dashbox-icon-dingbat">➁</span><br>Low
+            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}" tooltip="{{ tips[1] }}">
+                <span class="dashbox-icon-dingbat">➁</span><br> LOW / MID INTEREST
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
-                <span class="dashbox-icon-dingbat">➂</span><br>Medium
+            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}" tooltip="{{ tips[2] }}">
+                <span class="dashbox-icon-dingbat">➂</span><br>MID / HIGH INTEREST
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
-                <span class="dashbox-icon-dingbat">➃</span><br>High
+            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}" tooltip="{{ tips[3] }}">
+                <span class="dashbox-icon-dingbat">➃</span><br>VERY HIGH / CAN'T MISS
             </div>
             </td>
             </tr>

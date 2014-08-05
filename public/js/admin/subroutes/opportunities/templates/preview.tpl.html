@@ -1,6 +1,5 @@
 <div class="content-header">
     <div class="content-header-block text-left">
-        <!-- buttons -->
     </span>
     </div>
     <div class="content-header-block">
@@ -8,7 +7,6 @@
         <div class="content-tagline">{{ opportunity.company.name }}</div>
     </div>
 </div>
-
 <div ng-show="opportunity">
 <div class="row">
     <div class="content-section container-fluid">
@@ -16,47 +14,23 @@
             <table class="formbox-footer-pure">
                 <tr>
                     <td width="60%">
-<!--                  <img class="box-image" ng-src="{{ company.media[0].url }}">-->
-                        <div>
-                            <div class="float-container">
-                                <div class="top-container ">
-                                <div class="float-top">
-                                    <img class="box-image" ng-show="defaultImage && !isVideo" ng-src="{{ company.media[0].url }}">
-                                    <img class="box-image" ng-show="!isVideo && !defaultImage" ng-src="{{ mainImageUrl }}">
-                                    <embed-video data-ng-href="{{ trustSrc(mainImageUrl) }}" width="600" height="349" ng-show="isVideo" controls=0><a href="{{ trustSrc(mainImageUrl) }}"></a></embed-video>
-                                 </div>
-                                </div>
-                                <br>
-                                <div class="thumbnail-container-row">
-                                    <div style="display: -webkit-inline-box;">
-                                        <div ng-repeat="slide in slides">
-                                            <div ng-if="slide.image">
-                                                <img class="img-small" ng-src="{{ slide.image }}" ng-mouseover="setImage(slide.image)">
-                                            </div>
-                                            <div ng-if="slide.video">
-                                                <video class="vid-small" ng-src="{{ trustSrc(slide.video) }}" ng-mouseover="setImage(slide.video)">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                     </td>
+                    <img class="box-image" src="{{ company.media[0].url }}">
+                    </td>
                     <td class="text-left" style="height: 100%">
                         <div class="float-container">
                             <div class="float-container-row">
                             <div class="float-top">
                                 <span class="type-header text-left">{{ company.name }}</span><br>
-                                <span class="type-subtitle company-city">{{ company.city }} {{ company.country }}</span><br>
-                                <span class="type-subtitle title" ng-show="company.tagline">{{ company.tagline }}</span>
+                                <span class="type-subtitle" ng-show="company.tagline">{{ company.tagline }}<br></span>
+                                <span class="type-subtitle">{{ company.city }} {{ company.country }}</span>
                             </div>
                             </div>
                             <br>
                             <div class="float-container-row">
-                            <div class="float-top">
+                            <div class="float-bottom">
                                 <span class="type-normal" style="white-space:pre-wrap;">{{ company.description }}</span><br>
                                 <div class="type-linkbox" ng-repeat="link in company.links">
-                                    <span ng-show="$first">Learn more:<br></span>
+                                    <span ng-show="$first">Learn more:</span><br>
                                     <span><a ng-href="{{link.url}}">{{link.url}}</a></span>
                                 </div>
                             </div>
@@ -64,15 +38,6 @@
                         </div>
                     </td>
                 </tr>
-<!-- <tr>
-    <td width="60%">
-        <video class="img-thumbnail" ng-src="{{ company.media[1].url }}">
-        <div class="videoWrapper">
-    Copy & Pasted from YouTube
-    <iframe width="560" height="349" src="http://www.youtube.com/embed/n_dZNLr2cME?rel=0&hd=1" frameborder="0" allowfullscreen></iframe>
-</div>
-    </td>
-</tr> -->
             </table>
         </div>
     </div>
@@ -123,16 +88,16 @@
         <table class="formbox formbox-basic text-center">
             <tr>
             <td style="horizontal-align: center;">
-            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
+            <div class="dashbox-icon" ng-class="{'dashbox-icon-active':hasInterest(1)}">
                 <span class="dashbox-icon-dingbat">➀</span><br>None
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
+            <div class="dashbox-icon" ng-class="{'dashbox-icon-active':hasInterest(2)}">
                 <span class="dashbox-icon-dingbat">➁</span><br>Low
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
+            <div class="dashbox-icon" ng-class="{'dashbox-icon-active':hasInterest(3)}">
                 <span class="dashbox-icon-dingbat">➂</span><br>Medium
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
+            <div class="dashbox-icon" ng-class="{'dashbox-icon-active':hasInterest(4)}">
                 <span class="dashbox-icon-dingbat">➃</span><br>High
             </div>
             </td>
@@ -146,10 +111,12 @@
                 </tr>
             </table>
             <div class="formbox-footer">
-                <input class="content-button" type="submit" value="{{submitText}}" ng-disabled="pendingRequest === 0">
+                <input class="content-button" type="submit" value="Exit Preview" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
             </div>
         </form>
     </div>
 
-</div><!-- end row -->
-</div><!-- end ng-show -->
+</div>
+</div>
+<!-- end ng-show -->
+<!-- end row -->
