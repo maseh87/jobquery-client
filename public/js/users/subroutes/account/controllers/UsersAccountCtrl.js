@@ -14,7 +14,8 @@ app.controller('UsersAccountCtrl',
     $scope.completedUserTags = user.tags.filter(function(tag){
       return tag.value !== null;
     }).length;
-    $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
+    // $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
+    $scope.percentageOfSurveyCompleted = '95%';
     $scope.binary = user.tags.filter(function (item) { return item.tag.type === 'binary'; });
     $scope.scale = user.tags.filter(function (item) { return item.tag.type === 'scale'; });
     $scope.text = user.tags.filter(function (item) { return item.tag.type === 'text'; });
