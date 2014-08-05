@@ -7,11 +7,14 @@ app.controller('UsersAccountCtrl',
   $scope.submitText = '✔ Save Your Profile';
   $scope.passwordText = '✎ Change Password';
 
-  $scope.numberOfInputFields = angular.element(document.querySelectorAll('input')).length;
 
   UsersAccount.get().then(function (user) {
     //user is the $promise I just returned from UsersAccount.get()
     $scope.user = user;
+    $scope.completedUserTags = user.tags.filter(function(tag){
+      return tag.value !== null;
+    }).length;
+    $scope.percentageOfSurveyCompleted = Math.round(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
     $scope.binary = user.tags.filter(function (item) { return item.tag.type === 'binary'; });
     $scope.scale = user.tags.filter(function (item) { return item.tag.type === 'scale'; });
     $scope.text = user.tags.filter(function (item) { return item.tag.type === 'text'; });
