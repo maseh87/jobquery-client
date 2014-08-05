@@ -296,4 +296,3 @@ app.controller('AdminOpportunitiesDetailCtrl',
   };
 
 }]);
-
