@@ -3,6 +3,7 @@ app.controller('UsersAccountCtrl',
   function ($scope, $timeout, UsersAccount, UserTag, DialogueService) {
 
   var SURVEY_LINK = 'https://docs.google.com/forms/d/1TgmSj5Wnu9Cbwi4xl42Gp3bEWxCFw4lD-pdNiaYTKOI/viewform';
+
   $scope.pendingRequests = 0;
   $scope.submitText = '✔ Save Your Profile';
   $scope.passwordText = '✎ Change Password';
@@ -14,8 +15,7 @@ app.controller('UsersAccountCtrl',
     $scope.completedUserTags = user.tags.filter(function(tag){
       return tag.value !== null;
     }).length;
-    // $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
-    $scope.percentageOfSurveyCompleted = '95%';
+    $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
     $scope.binary = user.tags.filter(function (item) { return item.tag.type === 'binary'; });
     $scope.scale = user.tags.filter(function (item) { return item.tag.type === 'scale'; });
     $scope.text = user.tags.filter(function (item) { return item.tag.type === 'text'; });
@@ -51,10 +51,17 @@ app.controller('UsersAccountCtrl',
 
 
   $scope.update = function (user) {
-      console.log("what is user in update", user);
     if(user.password) delete user.password;
     if(user.newPassword) delete user.newPassword;
     if(user.newPasswordConfirm) delete user.newPasswordConfirm;
+
+    // update status bar
+    $scope.completedUserTags = user.tags.filter(function(tag){
+      return tag.value !== null;
+    }).length;
+    $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
+    console.log('completedUserTags: ' + $scope.completedUserTags);
+
     // re-compile tags
     var compiledTags = [];
     for (var key in $scope.tags) {
@@ -65,6 +72,7 @@ app.controller('UsersAccountCtrl',
       }
     }
     $scope.user.tags = compiledTags;
+    
     // send for update
     $scope.pendingRequests++;
     $scope.submitText = 'Saving...';
