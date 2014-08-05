@@ -87,7 +87,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
         answers: matchModel.answers,
         category: matchModel.user.category ? matchModel.user.category.name : 'N/A',
         searchStage: matchModel.user.searchStage,
-        adminOverride: matchModel.adminOverride, 
+        adminOverride: matchModel.adminOverride,
         points: [0, 0], // default: [points, possible points]
         score: 0, // points[0] / points[1]
         tags: (function () {
@@ -185,8 +185,34 @@ app.controller('AdminOpportunitiesDetailCtrl',
   };
 
   $scope.edit = function (user) {
-    user.adminOverride = user.value;
+    //user.adminOverride = user.value;
     Match.update(user);
+  };
+
+  $scope.isOverridden = function (user) {
+    // no adminOverride
+    if (user.adminOverride === 0) {
+      if (user.interest === 4) {
+        return 'gridbox-highlight-4';
+      } else if (user.interest === 3) {
+        return 'gridbox-highlight-3';
+      } else if (user.interest === 2) {
+        return 'gridbox-highlight-2';
+      } else if (user.interest === 1) {
+        return 'gridbox-highlight-1';
+      } else if (user.interest === 0) {
+        return 'gridbox-highlight-0';
+      }
+    // with adminOverride
+    } else {
+      if (user.adminOverride > user.interest) {
+        return 'gridbox-highlight-green';
+      } else if (user.adminOverride === user.interest) {
+        return 'gridbox-highlight-grey';
+      } else if (user.adminOverride < user.interest) {
+        return 'gridbox-highlight-red';
+      }
+    }
   };
 
   $scope.removeFrom = function (index, array) {
