@@ -24,7 +24,7 @@ table {
     height: 100%;
     width: 40%;
     padding: 10px;
-    margin-left: 20px;
+    margin-left: 10px;
     /*margin: 20px;*/
 
     float: left;
@@ -38,10 +38,9 @@ table {
     float: left;
 
     height: 100%;
-    width: 55%;
+    width: 58%;
     padding-top: 4%;
     padding-left: 10%;
-    padding-right: 2%;
 }
 
 .welcome-alert {
