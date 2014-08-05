@@ -15,7 +15,7 @@
         <table class="table table-condensed">
         <tr>
             <td>Company:</td>
-            <td><select ng-model="basic.company" ng-disabled="readOnly" ng-options="company._id as company.name for company in companies | orderBy:'name'" ></select></td>
+            <td><select ng-model="basic.company" ng-disabled="readOnly" ng-options="company._id as company.name for company in companies | orderBy:'name'" required></select></td>
         </tr>
         <tr>
             <td>Title:</td>
@@ -157,7 +157,7 @@
                     <td><div class="text-center">{{ user.points[1] === 0 ? '-' : user.score + '%' }}</div></td>
                     <td><div class="text-center">{{ user.interest === 0 ? 'N/A' : user.interest }}</div></td>
                     <td class="text-center" style="min-width: 100px; max-width: 100px; font-weight: 600">
-                        <input class="text-center"  placeholder="{{ user.adminOverride }}" ng-model="user.adminOverride" ng-blur="edit(user)" ng-class="isOverridden(user)" type="number" min="1" max="4" required></input>
+                        <input class="text-center"  placeholder="{{ user.adminOverride }}" ng-model="user.adminOverride" ng-blur="edit(user)" ng-class="isOverridden(user)" type="number" min="1" max="4"></input>
                     </td>
 
                     <td ng-repeat="tag in filteredTags" ng-show="!hideTags">
