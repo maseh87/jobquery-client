@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<form ng-submit="update()">
+<form name="survey" ng-submit="update()">
 <div class="row">
 
     <div class="content-section container-fluid" ng-if="user">
@@ -41,11 +41,11 @@
             </tr>
             <tr>
                 <th>Email</th>
-                <td><input type="text" size="40" ng-model="user.email" required></td>
+                <td><input type="text" size="40" type="email" ng-model="user.email" required></td>
             </tr>
             <tr>
                 <th>Github</th>
-                <td><input type="text" size="40" ng-model="user.github"></td>
+                <td><input type="text" size="40" type="url" ng-model="user.github" required></td>
             </tr>
             <tr>
                 <th>LinkedIn</th>
