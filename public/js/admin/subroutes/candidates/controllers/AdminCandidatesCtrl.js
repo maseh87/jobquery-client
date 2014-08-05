@@ -5,11 +5,12 @@ app.controller('AdminCandidatesCtrl',
   $scope.query = '';
   $scope.config = {};
   $scope.config.exclude = true;
+  $scope.sorter = 'name';
 
   $scope.toggleAccepted = function(exclude){
     exclude ? $scope.excludeAccepted() : $scope.includeAccepted();
   };
-  
+
   $scope.excludeAccepted = function () {
     var results = {};
     for(var key in $scope.allGroups){
@@ -119,7 +120,7 @@ app.controller('AdminCandidatesCtrl',
     return true;
   } /* end download() */
 
-  
+
 
 
 }]);
