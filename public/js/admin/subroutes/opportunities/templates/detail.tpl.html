@@ -127,11 +127,11 @@
             <thead>
                 <th></th><!-- Empty table header-->
                 <th><div class="text-left pointer" ng-click="sorter = 'name'; reverse = !reverse">Name <span class="glyphicon glyphicon-sort"></span></div></th>
-                <th><div class="text-left  pointer" ng-click="sorter = 'email'; reverse = !reverse">E-mail <span class="glyphicon glyphicon-sort"></span></div></th>
                 <th><div class="text-left  pointer" ng-click="sorter = 'category'; reverse = !reverse">Group <span class="glyphicon glyphicon-sort"></span></div></th>
                 <th><div class="text-left  pointer" ng-click="sorter = 'searchStage'; reverse = !reverse">Stage <span class="glyphicon glyphicon-sort"></span></div></th>
                 <th><div class="text-center pointer" ng-click="sorter = 'score'; reverse = !reverse">Match <span class="glyphicon glyphicon-sort"></span></div></th>
                 <th><div class="text-center pointer" ng-click="sorter = 'interest'; reverse = !reverse">Interest <span class="glyphicon glyphicon-sort"></span></div></th>
+                <th><div class="text-center pointer"> Admin Override <span></span></div></th>
                 <th ng-repeat="tag in filteredTags" ng-show="!hideTags"><div class="text-center">{{ tag.data.name }}</div></th>
                 <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"><div class="text-center">{{question.question}}</div></th>
             </thead>
@@ -139,11 +139,7 @@
                 <tr>
                     <th></th><!-- Empty table header-->
                     <th></th><!-- Empty table header-->
-                    <th>
-                        <div class="text-left"># Meeting or Exceeding</div>
-                        <p class="text-left">({{interestResponses}} Responses |
-                        {{interestThreeOrAbove}} Interested)</p>
-                    </th>
+                    <th></th><!-- Empty table header-->
                     <th></th><!-- Empty table header-->
                     <th></th><!-- Empty table header-->
                     <th></th><!-- Empty table header-->
@@ -156,11 +152,14 @@
                 <tr ng-repeat-start="user in declared | filter:ExcludeAccepted() | orderBy:sorter:reverse">
                     <td><a ui-sref="admin.candidates.detail({_id: user._id})">Detail</a></td>
                     <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
                     <td>{{ user.category }}</td>
                     <td>{{ user.searchStage }}</td>
                     <td><div class="text-center">{{ user.points[1] === 0 ? '-' : user.score + '%' }}</div></td>
                     <td><div class="text-center">{{ user.interest === 0 ? 'N/A' : user.interest }}</div></td>
+                    <td class="text-center" style="min-width: 100px; max-width: 100px; font-weight: 600">
+                        <input class="text-center"  placeholder="{{ user.adminOverride }}" ng-model="user.adminOverride" ng-blur="edit(user)" ng-class="isOverridden(user)" type="number" min="1" max="4" required></input>
+                    </td>
+
                     <td ng-repeat="tag in filteredTags" ng-show="!hideTags">
                         <p class="text-center"><span class="glyphicon" ng-class="calculateFit(tag.importance, filteredStats[tag.data._id].type, tag.value, user.tags[tag.data._id])[0]" ng-style="{color: calculateFit(tag.importance, filteredStats[tag.data._id].type, tag.value, user.tags[tag.data._id])[1]}"></span></p>
                     </td>
@@ -170,11 +169,11 @@
                 <tr ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last">
                     <th></th><!-- Empty table header-->
                     <th><div class="text-left">Name</div></th>
-                    <th><div class="text-left">E-mail</div></th>
                     <th><div class="text-left">Group</div></th>
                     <th><div class="text-left">Stage</div></th>
                     <th><div class="text-center">Match</div></th>
                     <th><div class="text-center">Interest</div></th>
+                    <th><div class="text-center">Admin Override</div></th>
                     <th ng-repeat="tag in filteredTags" ng-show="!hideTags"><div class="text-center">{{ tag.data.name }}</div></th>
                     <th ng-repeat="question in guidance.questions" ng-show="!hideQuestions"><div class="text-center">{{question.question}}</div></th>
                 </tr>
