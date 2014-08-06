@@ -35,6 +35,7 @@ app.controller('AdminCandidatesCtrl',
 
   User.getAll().then(function (users) {
     $scope.users = users;
+    console.dir(users);
     var userMap = {};
     var groups = {};
     // split users into groups<key,user>
