@@ -69,7 +69,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
 
     for (var j = 0; j < company.media.length; j++) {
       //if media is video, save it as video
-      if ( company.media[j].url.match(/www/)){
+      if ( company.media[j].url.match(/youtube/)){
         $scope.slides.push({
           video: company.media[j].url,
           caption: company.media[j].caption
@@ -86,7 +86,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
 
   $scope.setImage = function(imageUrl) {
     $scope.mainImageUrl = imageUrl;
-    if( imageUrl.match(/www/)) {
+    if( imageUrl.match(/youtube/)) {
       $scope.isVideo = true;
     }
     else{
