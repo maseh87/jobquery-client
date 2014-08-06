@@ -45,12 +45,13 @@
             <thead>
                 <tr class="tablebox-header">
                     <th width="12%" class="pointer" ng-click="sorter='name'; reverse=!reverse">Name</th>
-                    <th width="9%" class="pointer" ng-click="sorter='attending'; reverse=!reverse">Attending</th>
-                    <th width="9%" class="pointer" ng-click="sorter='interestDeclared'; reverse=!reverse">Interest Declared</th>
-                    <th width="9%" class="pointer" ng-click="sorter='interestThreeOrGreater'; reverse=!reverse">Interest > 3 Count</th>
+                    <th width="7%" class="pointer" ng-click="sorter='attending'; reverse=!reverse">Attending</th>
+                    <th width="7%" class="pointer" ng-click="sorter='interestDeclared'; reverse=!reverse">Interest Declared</th>
+                    <th width="7%" class="pointer" ng-click="sorter='interestThreeOrGreater'; reverse=!reverse">Interest > 3 Count</th>
                     <th width="15%" class="pointer" ng-click="sorter='github'; reverse=!reverse">Github</th>
                     <th width="20%" class="pointer" ng-click="sorter='email'; reverse=!reverse">Email</th>
                     <th width="14%" class="pointer" ng-click="sorter='city'; reverse=!reverse">Location</th>
+                    <th width="7%" class="pointer" ng-click="sorter='profilePercentage'; reverse=!reverse">Survey Completed</th>
                     <th width="12%" class="pointer" ng-click="sorter='searchStage'; reverse=!reverse">Job Search Stage</th>
                 </tr>
             </thead>
@@ -65,6 +66,8 @@
                     <td ui-sref="admin.candidates.detail({_id: user._id})" class="github"><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
                     <td ui-sref="admin.candidates.detail({_id: user._id})" class="email"><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
                     <td ui-sref="admin.candidates.detail({_id: user._id})" class="location">{{user.city}}</td>
+                    <!-- profilePercentage is an added feature and some users may not have this field populated in the datebase, thus the need for a fallback message -->
+                    <td ui-sref="admin.candidates.detail({_id: user._id})" class="profilePercentage">{{user.surveyPercent || noPercentMessage}}</td>
                     <td ui-sref="admin.candidates.detail({_id: user._id})" class="stage">{{user.searchStage === 'Out' ? 'Opted Out' : user.searchStage}}</td>
                 </tr>
             </tbody>
