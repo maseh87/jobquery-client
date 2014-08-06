@@ -1,5 +1,5 @@
-<h1>Companies</h1>
-    
+<!-- <h1>Companies</h1>
+
 <p>All Companies</p>
 <table class="table table-striped table-condensed table-hover">
     <thead>
@@ -21,3 +21,44 @@
         <td class="description" >{{company.description}}</td>
     </tr>
 </table>
+ -->
+<!--  <div class="content-header">
+    <div class="content-header-block text-left">
+        <span class="content-action" ui-sref="admin.companies.new">
+            <span class="glyphicon glyphicon-plus"></span>
+            <span>Create New Company</span>
+        </span>
+    </div> -->
+
+    <div class="content-header-block">
+        <div class="content-title">Companies</div>
+        <div class="content-tagline">View, create, or edit companies</div>
+    </div>
+</div>
+
+<div class="content-section container-fluid">
+    <div class="row">
+        <div class="tablebox-title">All Companies</div>
+        <table class="tablebox">
+            <thead>
+                <tr class="tablebox-header">
+                    <th class="pointer" ng-click="sorter='name'; reverse=!reverse">Name</th>
+                    <th class="pointer">URL</th>
+                    <th class="pointer" ng-click="sorter='opportunities.length'; reverse=!reverse"># Opportunities</th>
+                    <th class="pointer" ng-click="sorter='city'; reverse=!reverse">City</th>
+                    <th class="pointer" ng-click="sorter='tagline'; reverse=!reverse">Tagline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tablebox-content" ng-repeat="company in companies | orderBy:sorter:reverse" ui-sref="users.companies.detail({_id: company._id})">
+                    <td class="name">{{company.name}}</td>
+                    <td class="url"><a ng-href="{{company.links[0].url}}" target="_blank">
+                        {{company.links[0].title}}</a></td>
+                    <td class="opportunities">{{company.opportunities.length}}</td>
+                    <td class="location">{{company.city}}</td>
+                    <td class="tagline">{{company.tagline}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
