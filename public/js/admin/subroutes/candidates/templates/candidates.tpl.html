@@ -1,23 +1,24 @@
 <div ui-view>
+    <div class="content-section">
+        <span>Exclude Accepted/Opt-Out Candidates</span>
+        <input type="checkbox" ng-init="config.exclude = true" ng-model="config.exclude" ng-click="config.exclude = !config.exclude; toggleAccepted(config.exclude)" />
+    </div>
     <div class="content-header">
         <div class="content-header-block text-left">
             <span class="content-action" ui-sref="admin.candidates.new">
                 <span class="glyphicon glyphicon-plus"></span>
                 <span>Invite Candidates</span>
             </span>
-            <span class="content-action" ng-click="downloadData()">
+            <span class="content-action" ng-click="downloadData(config.exclude)">
                 <span class="glyphicon glyphicon-download"></span>
                 <span>Download Data</span>
             </span>
-        </span>
         </div>
         <div class="content-header-block">
             <div class="content-title">Candidates</div>
             <div class="content-tagline">View, invite, or edit candidates</div>
         </div>
     </div>
-    <span>Exclude Accepted/Opt-Out Candidates</span>
-    <input type="checkbox" ng-init="config.exclude = true" ng-model="config.exclude" ng-click="config.exclude = !config.exclude; toggleAccepted(config.exclude)">
 
 <!--     <div class="content-section container-fluid">
         <div class="formbox-title">Filter Candidates</div>
