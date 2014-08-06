@@ -1,6 +1,6 @@
 app.controller('UsersOpportunitiesDetailCtrl',
-  ['$scope', '$timeout', '$sce', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
-  function($scope, $timeout, $sce, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
+  ['$scope', '$timeout', '$sce', '$location','UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
+  function($scope, $timeout, $sce, $location, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
   $scope.submitText = '✔  Submit Preferences';
   $scope.pendingRequests = 0;
@@ -60,7 +60,10 @@ app.controller('UsersOpportunitiesDetailCtrl',
     $scope.questions = addIndexAsProperty(questions);
     $scope.opportunity = opportunity;
     var guidanceResult = GuidanceService.processTags(opportunity, user);
+    console.log("what is guidanceResult *********************", guidanceResult)
+
     var processedTags = guidanceResult[0];
+    console.log("what is processedTags *********************", processedTags)
     $scope.score = guidanceResult[1];
     $scope.processedTags = [processedTags.must, processedTags.nice];
     $scope.calculateFit = generateGlyphs.calculateFit;
@@ -113,4 +116,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
     });
   };
 
+  $scope.go = function(path) {
+    $location.path(path);
+  };
 }]);
