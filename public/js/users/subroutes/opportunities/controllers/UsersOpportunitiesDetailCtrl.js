@@ -38,8 +38,6 @@ app.controller('UsersOpportunitiesDetailCtrl',
   };
 
   UsersOpportunity.get($stateParams._id).then(function(data){
-    console.log('detail');
-    console.dir(data);
     var match = data.match;
     var opportunity = match.opportunity;
     var questions = opportunity.questions;
