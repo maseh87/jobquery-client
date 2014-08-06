@@ -60,7 +60,7 @@ app.controller('UsersAccountCtrl',
       return tag.value !== null;
     }).length;
     $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
-    console.log('completedUserTags: ' + $scope.completedUserTags);
+    $scope.user.surveyPercent = $scope.percentageOfSurveyCompleted;
 
     // re-compile tags
     var compiledTags = [];
@@ -79,7 +79,6 @@ app.controller('UsersAccountCtrl',
     UsersAccount.update($scope.user).then(function (response) {
       $scope.submitText = '✔ Save Successful';
       $scope.pendingRequests--;
-      console.log('User account information updated successfully');
       $timeout(function () {
         $scope.submitText = '✔ Save Your Profile';
       }, 2000);
