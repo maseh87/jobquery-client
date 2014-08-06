@@ -15,7 +15,6 @@ app.factory('UsersOpportunity', ['$http', 'SERVER_URL', 'UserOpportunityResource
   };
 
   userOpportunityMethods.update = function (match) {
-    console.log("what is match want tp be update user opp method", match);
     return UserOpportunityResource.update({_id: match._id}, match).$promise;
   };
 

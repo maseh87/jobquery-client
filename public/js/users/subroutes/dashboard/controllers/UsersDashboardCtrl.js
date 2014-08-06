@@ -21,7 +21,6 @@ app.controller('UsersDashboardCtrl',
 
   var initialize = function(){
     UsersOpportunity.getAll().then(function(data){
-      console.log("what si data", data)
       var opps = objectify(data.opportunities);
       matches = data.matches.filter(function(match){
         return (match.userInterest === 0) && opps[match.opportunity];
@@ -155,14 +154,13 @@ app.controller('UsersDashboardCtrl',
 
     UsersOpportunity.update($scope.match).then(function(){
       $scope.submitText = 'Fetching Next';
-      console.log("I am in submit usersopportunity", $scope.matches.splice(0,1));
       $scope.matches.splice(0, 1);
 
       //delete medias from last opportunity
       while ($scope.slides.length) {
         $scope.slides.shift();
       }
-      
+
       if($scope.matches.length > 0){
         getNextOpportunity();
       }
