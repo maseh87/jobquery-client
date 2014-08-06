@@ -16,19 +16,14 @@
             <h3>Welcome {{ user.name }}!</h3>
             <p>There are <span class="pretty-blue">{{ numberOfOpps }}</span> active opportunities on jobQuery - you have declared your interest for <span class="pretty-blue">{{ matchesWithInterest.length }}</span>. Your profile is <span class="pretty-blue">{{percentageOfSurveyCompleted}}</span> complete and you are indicating your job search status as <span class="pretty-blue">{{ user.searchStage }}</span>.</p>
         </div>
-        <div class="welcome-alerts">
-            <div ng-show="0 === 0" class="welcome-alert">review opportunities</div>
-            <div ng-show="completedUserTags < user.tags.length" class="welcome-alert">complete profile</div>
-            <div ng-show="0 === 0" class="welcome-alert">update search status</div>
+            <div class="welcome-alerts">
+                <div ui-sref="users.account" ng-show="percentageOfSurveyCompleted === '100%'" class="welcome-notice">profile fully complete</div>
+                <div ui-sref="users.opportunities.all" ng-show="matchesWithInterest.length === numberOfOpps" class="welcome-notice">no new opportunities</div>
+                <div ui-sref="users.account" class="welcome-alert">update search status</div>
+                <div ui-sref="users.opportunities.all" ng-show="matchesWithInterest.length < numberOfOpps" class="welcome-alert">review opportunities</div>
+                <div ui-sref="users.account" ng-show="percentageOfSurveyCompleted !== '100%'" class="welcome-alert">complete profile</div>
+            </div>
         </div>
-    </div>
-
-    <div class="content-section container-fluid">
-        <table class="tablebox tablebox-basic">
-            <tr class="tablebox-content tablebox-nohover" ng-if="opportunity.links[0]">
-                <td>Fill out your preferences for any new or remaining opportunities below!</td>
-            </tr>
-        </table>
     </div>
 
     <div class="content-section container-fluid" ng-show="opportunity && matches.length">
@@ -36,8 +31,33 @@
             <table class="formbox-footer-pure">
                 <tr>
                     <td width="60%">
-                    <img class="box-image" src="{{ opportunity.company.media[0].url }}">
-                    </td>
+<!--                     <img class="box-image" src="{{ opportunity.company.media[0].url }}">
+ -->
+                   <div>
+                       <div class="float-container">
+                           <div class="top-container ">
+                           <div class="float-top">
+                               <img class="box-image" ng-show="defaultImage && !isVideo" ng-src="{{ opportunity.company.media[0].url }}">
+                               <img class="box-image" ng-show="!isVideo && !defaultImage" ng-src="{{ mainImageUrl }}">
+                               <embed-video data-ng-href="{{ trustSrc(mainImageUrl) }}" width="600" height="349" ng-show="isVideo" controls=0><a href="{{ trustSrc(mainImageUrl) }}"></a></embed-video>
+                            </div>
+                           </div>
+                           <br>
+                           <div class="thumbnail-container-row">
+                               <div style="display: -webkit-inline-box;">
+                                   <div ng-repeat="slide in slides">
+                                       <div ng-if="slide.image">
+                                           <img class="img-small" ng-src="{{ slide.image }}" ng-mouseover="setImage(slide.image)">
+                                       </div>
+                                       <div ng-if="slide.video">
+                                           <video class="vid-small" ng-src="{{ trustSrc(slide.video) }}" ng-mouseover="setImage(slide.video)">
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   </td>
                     <td class="text-left" style="height: 100%">
                         <div class="float-container">
                             <div class="float-container-row">

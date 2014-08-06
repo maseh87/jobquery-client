@@ -1,11 +1,13 @@
 app.controller('UsersDashboardCtrl',
-  ['$scope', 'UsersOpportunity', 'UserDashboardService', 'GuidanceService', 'generateGlyphs', 'DialogueService',
-  function ($scope, UsersOpportunity, UserDashboardService, GuidanceService, generateGlyphs, DialogueService) {
+  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService', '$sce',
+  function ($scope, UsersOpportunity, GuidanceService, generateGlyphs, DialogueService, $sce) {
 
   var matches, matchesWithInterest;
   $scope.submitText = '✔ Submit Preferences';
   $scope.pendingRequests = 0;
-
+  $scope.slides = [];
+  $scope.defaultImage = true;
+  $scope.isVideo = false;
 
   var objectify = function(arrayOfObjects){
     var object = {};
@@ -70,7 +72,8 @@ app.controller('UsersDashboardCtrl',
         return tag.value !== null;
       }).length;
 
-      $scope.percentageOfSurveyCompleted = Math.round(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
+      // $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
+      $scope.percentageOfSurveyCompleted = '16%';
 
       var numQuestions = questions.length;
       var numAnswers = match.answers.length;
@@ -92,9 +95,39 @@ app.controller('UsersDashboardCtrl',
       $scope.score = guidanceResult[1];
       $scope.processedTags = [processedTags.must, processedTags.nice];
       $scope.calculateFit = generateGlyphs.calculateFit;
+
+      for (var j = 0; j < opportunity.company.media.length; j++) {
+        //if media is video, save it as video
+        if ( opportunity.company.media[j].url.match(/www/)){
+          $scope.slides.push({
+            video: opportunity.company.media[j].url,
+            caption: opportunity.company.media[j].caption
+          });
+        } else {
+          $scope.slides.push({
+            image: opportunity.company.media[j].url,
+            caption: opportunity.company.media[j].caption
+          });
+        }
+      }
     });
   };
 
+
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+  };
+
+  $scope.setImage = function(imageUrl) {
+    $scope.mainImageUrl = imageUrl;
+    if( imageUrl.match(/www/)) {
+      $scope.isVideo = true;
+    }
+    else{
+      $scope.defaultImage = false;
+      $scope.isVideo = false;
+    }
+  };
 
   $scope.updateInterest = function (value) {
     if (!$scope.match) { return undefined; }
