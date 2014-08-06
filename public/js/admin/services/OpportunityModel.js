@@ -6,7 +6,6 @@ app.factory('Opportunity', ['OpportunityResource', function(OpportunityResource)
   var opportunityMethods = {};
 
   opportunityMethods.getAll = function () {
-      console.log("&&&&&&&&&&What is adminOpperResource", OpportunityResource.query());
     return OpportunityResource.query().$promise;
   };
 
