@@ -6,7 +6,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
   $scope.pendingRequests = 0;
   $scope.myInterval = 5000;
   $scope.slides = [];
-  $scope.defaultImage = true;
+  $scope.default = true;
   $scope.isVideo = false;
 
   var addIndexAsProperty = function(arrayOfObjects){
@@ -90,7 +90,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
       $scope.isVideo = true;
     }
     else{
-      $scope.defaultImage = false;
+      $scope.default = false;
       $scope.isVideo = false;
     }
   };

@@ -9,7 +9,6 @@ app.controller('UsersDashboardCtrl',
   $scope.default = true;
   $scope.isVideo = false;
 
-  //$scope.defaultImage = "http://thesimplephysicist.com/wp-content/uploads/2014/05/default-avatar.jpg";
   var objectify = function(arrayOfObjects){
     var object = {};
 
@@ -100,10 +99,10 @@ app.controller('UsersDashboardCtrl',
       if(opportunity.company.media.length === 0) {
         $scope.defaultImage = "http://thesimplephysicist.com/wp-content/uploads/2014/05/default-avatar.jpg";
       }
-      //$scope.defaultImage = opportunity.company.media[0].url || "http://thesimplephysicist.com/wp-content/uploads/2014/05/default-avatar.jpg";
 
       for (var j = 0; j < opportunity.company.media.length; j++) {
         $scope.defaultImage = opportunity.company.media[0].url;
+        //check if the midea is video or image, if it match youtube, it is video
         if ( opportunity.company.media[j].url.match(/youtube/)){
           $scope.slides.push({
             video: opportunity.company.media[j].url,
@@ -116,8 +115,6 @@ app.controller('UsersDashboardCtrl',
           });
         }
       }
-      console.log("slides after getNext?", $scope.slides);
-
     });
   };
 

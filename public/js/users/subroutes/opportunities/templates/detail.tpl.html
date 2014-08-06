@@ -20,8 +20,8 @@
                             <div class="float-container">
                                 <div class="top-container ">
                                 <div class="float-top">
-                                    <img class="box-image" ng-show="defaultImage && !isVideo" ng-src="{{ company.media[0].url }}">
-                                    <img class="box-image" ng-show="!isVideo && !defaultImage" ng-src="{{ mainImageUrl }}">
+                                    <img class="box-image" ng-show="default && !isVideo" ng-src="{{ company.media[0].url }}">
+                                    <img class="box-image" ng-show="!isVideo && !default" ng-src="{{ mainImageUrl }}">
                                     <embed-video data-ng-href="{{ trustSrc(mainImageUrl) }}" width="600" height="349" ng-show="isVideo" controls=0><a href="{{ trustSrc(mainImageUrl) }}"></a></embed-video>
                                  </div>
                                 </div>
