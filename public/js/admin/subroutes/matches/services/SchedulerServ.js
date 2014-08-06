@@ -422,7 +422,6 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
         processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfRounds, maxInterviews, minInterviews);
         output = runAssignment(processedInput);
         output = processOutput(output);
-
         callback(output);
       });
     }
