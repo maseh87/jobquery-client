@@ -6,6 +6,8 @@ app.controller('UsersDashboardCtrl',
   $scope.submitText = '✔ Submit Preferences';
   $scope.pendingRequests = 0;
   $scope.slides = [];
+  $scope.defaultImage = true;
+  $scope.isVideo = false;
 
   var objectify = function(arrayOfObjects){
     var object = {};
