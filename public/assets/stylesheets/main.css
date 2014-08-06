@@ -13,9 +13,10 @@ table {
 
 .dashboard-header {
     font-weight: 500;
+    /*border: 1px solid yellow;*/
     /*background-color: #E4E4E4;*/
     width: 100%;
-    height: 170px;
+    height: 135px;
 }
 
 .welcome-message {
@@ -23,7 +24,9 @@ table {
     position: relative;
     height: 100%;
     width: 40%;
-    padding: 10px;
+    /*padding-top: 10px;*/
+    padding-right: 10px;
+    padding-left: 10px;
     margin-left: 22px;
     /*margin: 20px;*/
 
@@ -31,46 +34,51 @@ table {
 }
 
 .welcome-alerts {
+    /*border: 1px solid green;*/
     position: relative;
     text-transform: uppercase;
-    /*border: 1px solid green;*/
 
     float: left;
 
     height: 100%;
     width: 55.8%;
-    padding-top: 4%;
+    padding-top: 2%;
+    padding-bottom: 1%;
     padding-left: 10%;
 }
 
 .welcome-alert {
-    position: relative;
     /*border: 1px solid black;*/
+    position: relative;
     color: white;
     text-transform: uppercase;
     background-color: #5598c1;
 
     float: right;
 
-    height: 70%;
+    height: 100%;
     width: 30%;
     margin-left: 15px;
-    padding: 20px 20px;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
 }
 
 .welcome-notice {
-    position: relative;
     /*border: 1px solid black;*/
+    position: relative;
     color: white;
     text-transform: uppercase;
     background-color: #6c6c6c;
 
     float: right;
 
-    height: 70%;
+    height: 100%;
     width: 30%;
     margin-left: 15px;
-    padding: 20px 20px;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
 }
 
 .pretty-blue {
@@ -224,7 +232,7 @@ table {
     padding-left: 2px;
 }
 .title { font-weight: bold; }
-.box-image { width: 100%; height: 363px !important; padding-right: 12px; }
+.box-image { height: 363px !important; padding-right: 12px; }
 .box-video { width: 100%; padding-right: 12px; }
 .img-small { width: 100px; padding-right: 10px; }
 .vid-small { width: 100px; padding-right: 10px; }

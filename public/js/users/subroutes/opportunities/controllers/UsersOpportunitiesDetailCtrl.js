@@ -38,8 +38,6 @@ app.controller('UsersOpportunitiesDetailCtrl',
   };
 
   UsersOpportunity.get($stateParams._id).then(function(data){
-    console.log('detail');
-    console.dir(data);
     var match = data.match;
     var opportunity = match.opportunity;
     var questions = opportunity.questions;
@@ -70,30 +68,31 @@ app.controller('UsersOpportunitiesDetailCtrl',
     company = $scope.company = data.match.opportunity.company;
 
     for (var j = 0; j < company.media.length; j++) {
-      $scope.slides.push({
-        image: company.media[j].url
-      });
-    }
-
-    for (var k = 0; k< company.links.length; k++) {
-      if(company.links[k].title === "Video Product Demo"){
+      //if media is video, save it as video
+      if ( company.media[j].url.match(/www/)){
         $scope.slides.push({
-          video: company.links[k].url,
-          caption: company.links[k].title
+          video: company.media[j].url,
+          caption: company.media[j].caption
+        });
+      } else {
+        $scope.slides.push({
+          image: company.media[j].url,
+          caption: company.media[j].caption
         });
       }
     }
+
   });
 
   $scope.setImage = function(imageUrl) {
-       $scope.mainImageUrl = imageUrl;
-       if( imageUrl.match(/www/)) {
-           $scope.isVideo = true;
-       }
-       else{
-          $scope.defaultImage = false;
-          $scope.isVideo = false;
-       }
+    $scope.mainImageUrl = imageUrl;
+    if( imageUrl.match(/www/)) {
+      $scope.isVideo = true;
+    }
+    else{
+      $scope.defaultImage = false;
+      $scope.isVideo = false;
+    }
   };
 
   $scope.submit = function() {
