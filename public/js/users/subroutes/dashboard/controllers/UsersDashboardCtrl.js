@@ -21,6 +21,7 @@ app.controller('UsersDashboardCtrl',
 
   var initialize = function(){
     UsersOpportunity.getAll().then(function(data){
+      console.log("what si data", data)
       var opps = objectify(data.opportunities);
       matches = data.matches.filter(function(match){
         return (match.userInterest === 0) && opps[match.opportunity];
@@ -120,7 +121,7 @@ app.controller('UsersDashboardCtrl',
 
   $scope.setImage = function(imageUrl) {
     $scope.mainImageUrl = imageUrl;
-    if( imageUrl.match(/www/)) {
+    if(imageUrl.match(/www/)) {
       $scope.isVideo = true;
     }
     else{
@@ -154,12 +155,20 @@ app.controller('UsersDashboardCtrl',
 
     UsersOpportunity.update($scope.match).then(function(){
       $scope.submitText = 'Fetching Next';
+      console.log("I am in submit usersopportunity", $scope.matches.splice(0,1));
       $scope.matches.splice(0, 1);
+
+      //delete medias from last opportunity
+      while ($scope.slides.length) {
+        $scope.slides.shift();
+      }
+      
       if($scope.matches.length > 0){
         getNextOpportunity();
       }
     });
   };
+
   $scope.tips = ['You have zero interest in this opportunity or already have a conversation in progress. We will actively avoid introducing you.',
     'You\'re not that interested right now but you\'d be open to conversation, especially if they\'re interested in you.',
     'Your interest is piqued and you\'d like to learn more. This opportunity could be pretty high on your list.',
