@@ -105,9 +105,6 @@
                             <span ng-if="tag.userValue !== null" class="glyphicon" ng-class="calculateFit(tag.importance, key, tag.value, tag.userValue)[0]" ng-style="{color: calculateFit(tag.importance, key, tag.value, tag.userValue)[1]}"></span>
                             <span ng-if="tag.userValue === null" ng-style="{color: '#942631'}" ng-click="go('/users/account')">Missing data – update profile</span>
                         </td>
-
-                        <!-- <td width="30%"><input type="text" size="20" class="ng-pristine ng-invalid ng-invalid-required"> </td> -->
-
                   </tr>
                 </tbody>
             </table>

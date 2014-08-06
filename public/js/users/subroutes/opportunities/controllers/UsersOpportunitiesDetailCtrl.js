@@ -60,10 +60,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
     $scope.questions = addIndexAsProperty(questions);
     $scope.opportunity = opportunity;
     var guidanceResult = GuidanceService.processTags(opportunity, user);
-    console.log("what is guidanceResult *********************", guidanceResult)
-
     var processedTags = guidanceResult[0];
-    console.log("what is processedTags *********************", processedTags)
     $scope.score = guidanceResult[1];
     $scope.processedTags = [processedTags.must, processedTags.nice];
     $scope.calculateFit = generateGlyphs.calculateFit;
