@@ -6,6 +6,7 @@ app.controller('AdminCandidatesCtrl',
   $scope.config = {};
   $scope.config.exclude = true;
   $scope.sorter = 'name';
+  $scope.noPercentMessage = 'n/a'
 
   $scope.toggleAccepted = function(exclude){
     exclude ? $scope.excludeAccepted() : $scope.includeAccepted();
@@ -75,8 +76,8 @@ app.controller('AdminCandidatesCtrl',
 
   });
 
-  $scope.downloadData = function () {
-    $http.get(SERVER_URL + '/api/users/download')
+  $scope.downloadData = function (excludeAccepted) {
+    $http.get(SERVER_URL + '/api/users/download?excludeAccepted=' + excludeAccepted)
     .success(function () {
       if (arguments[1] === 200) {
         $scope.dataToDownload = arguments[0];
