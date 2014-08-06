@@ -6,6 +6,7 @@ app.controller('AdminCandidatesCtrl',
   $scope.config = {};
   $scope.config.exclude = true;
   $scope.sorter = 'name';
+  $scope.noPercentMessage = 'n/a'
 
   $scope.toggleAccepted = function(exclude){
     exclude ? $scope.excludeAccepted() : $scope.includeAccepted();
@@ -35,7 +36,6 @@ app.controller('AdminCandidatesCtrl',
 
   User.getAll().then(function (users) {
     $scope.users = users;
-    console.dir(users);
     var userMap = {};
     var groups = {};
     // split users into groups<key,user>
