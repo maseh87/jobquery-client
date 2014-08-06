@@ -6,7 +6,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
   $scope.pendingRequests = 0;
   $scope.myInterval = 5000;
   $scope.slides = [];
-  $scope.defaultImage = true;
+  $scope.default = true;
   $scope.isVideo = false;
 
   var addIndexAsProperty = function(arrayOfObjects){
@@ -69,7 +69,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
 
     for (var j = 0; j < company.media.length; j++) {
       //if media is video, save it as video
-      if ( company.media[j].url.match(/www/)){
+      if ( company.media[j].url.match(/youtube/)){
         $scope.slides.push({
           video: company.media[j].url,
           caption: company.media[j].caption
@@ -86,11 +86,11 @@ app.controller('UsersOpportunitiesDetailCtrl',
 
   $scope.setImage = function(imageUrl) {
     $scope.mainImageUrl = imageUrl;
-    if( imageUrl.match(/www/)) {
+    if( imageUrl.match(/youtube/)) {
       $scope.isVideo = true;
     }
     else{
-      $scope.defaultImage = false;
+      $scope.default = false;
       $scope.isVideo = false;
     }
   };
@@ -112,5 +112,9 @@ app.controller('UsersOpportunitiesDetailCtrl',
       }, 3000);
     });
   };
-
+  $scope.tips = ['You have zero interest in this opportunity or already have a conversation in progress. We will actively avoid introducing you.',
+    'You\'re not that interested right now but you\'d be open to conversation, especially if they\'re interested in you.',
+    'Your interest is piqued and you\'d like to learn more. This opportunity could be pretty high on your list.',
+    'You are very interested in this opportunity and it stands among the top of your list. You have to meet this team!'
+  ];
 }]);
