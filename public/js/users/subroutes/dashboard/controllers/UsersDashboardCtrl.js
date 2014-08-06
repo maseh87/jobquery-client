@@ -6,9 +6,10 @@ app.controller('UsersDashboardCtrl',
   $scope.submitText = '✔ Submit Preferences';
   $scope.pendingRequests = 0;
   $scope.slides = [];
-  $scope.defaultImage = true;
+  $scope.default = true;
   $scope.isVideo = false;
 
+  //$scope.defaultImage = "http://thesimplephysicist.com/wp-content/uploads/2014/05/default-avatar.jpg";
   var objectify = function(arrayOfObjects){
     var object = {};
 
@@ -96,9 +97,14 @@ app.controller('UsersDashboardCtrl',
       $scope.processedTags = [processedTags.must, processedTags.nice];
       $scope.calculateFit = generateGlyphs.calculateFit;
 
+      if(opportunity.company.media.length === 0) {
+        $scope.defaultImage = "http://thesimplephysicist.com/wp-content/uploads/2014/05/default-avatar.jpg";
+      }
+      //$scope.defaultImage = opportunity.company.media[0].url || "http://thesimplephysicist.com/wp-content/uploads/2014/05/default-avatar.jpg";
+
       for (var j = 0; j < opportunity.company.media.length; j++) {
-        //if media is video, save it as video
-        if ( opportunity.company.media[j].url.match(/www/)){
+        $scope.defaultImage = opportunity.company.media[0].url;
+        if ( opportunity.company.media[j].url.match(/youtube/)){
           $scope.slides.push({
             video: opportunity.company.media[j].url,
             caption: opportunity.company.media[j].caption
@@ -110,6 +116,8 @@ app.controller('UsersDashboardCtrl',
           });
         }
       }
+      console.log("slides after getNext?", $scope.slides);
+
     });
   };
 
@@ -120,11 +128,11 @@ app.controller('UsersDashboardCtrl',
 
   $scope.setImage = function(imageUrl) {
     $scope.mainImageUrl = imageUrl;
-    if(imageUrl.match(/www/)) {
+    if(imageUrl.match(/youtube/)) {
       $scope.isVideo = true;
     }
     else{
-      $scope.defaultImage = false;
+      $scope.default = false;
       $scope.isVideo = false;
     }
   };
@@ -151,11 +159,12 @@ app.controller('UsersDashboardCtrl',
   $scope.submit = function(){
     $scope.submitText = 'Submitting...';
     $scope.pendingRequests++;
+    $scope.default = true;
+    $scope.isVideo = false;
 
     UsersOpportunity.update($scope.match).then(function(){
       $scope.submitText = 'Fetching Next';
       $scope.matches.splice(0, 1);
-
       //delete medias from last opportunity
       while ($scope.slides.length) {
         $scope.slides.shift();
