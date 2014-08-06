@@ -120,7 +120,7 @@ app.controller('UsersDashboardCtrl',
 
   $scope.setImage = function(imageUrl) {
     $scope.mainImageUrl = imageUrl;
-    if( imageUrl.match(/www/)) {
+    if(imageUrl.match(/www/)) {
       $scope.isVideo = true;
     }
     else{
@@ -155,11 +155,18 @@ app.controller('UsersDashboardCtrl',
     UsersOpportunity.update($scope.match).then(function(){
       $scope.submitText = 'Fetching Next';
       $scope.matches.splice(0, 1);
+
+      //delete medias from last opportunity
+      while ($scope.slides.length) {
+        $scope.slides.shift();
+      }
+
       if($scope.matches.length > 0){
         getNextOpportunity();
       }
     });
   };
+
   $scope.tips = ['You have zero interest in this opportunity or already have a conversation in progress. We will actively avoid introducing you.',
     'You\'re not that interested right now but you\'d be open to conversation, especially if they\'re interested in you.',
     'Your interest is piqued and you\'d like to learn more. This opportunity could be pretty high on your list.',
