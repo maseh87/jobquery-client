@@ -1,18 +1,18 @@
 <div class="content-header-block">
   <div class="content-title">Current Partner Companies</div>
 </div><br>
-<accordion close-others="true">
+<accordion close-others="oneAtATime">
   <accordion-group ng-repeat="company in companies">
     <accordion-heading>
       <div>{{ company.name }}</div><br>
       <div><small>{{ company.tagline }}</small></div><br>
       <small ng-if="location($index)"><span class="sidebar-glyphicon glyphicon glyphicon-globe"></span> {{ company.city }}</small>
     </accordion-heading>
+
     <!-- Drop down with company details -->
     <div class="companyInfo">
       <div>{{ company.description }}</div>
     </div>
-    <!-- <button ng-click="getInfo()">Company Info</button> -->
   </accordion-group>
 </accordion>
 </div>

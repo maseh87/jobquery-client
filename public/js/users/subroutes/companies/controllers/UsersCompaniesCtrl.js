@@ -20,4 +20,9 @@ app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersO
       return false;
     }
   };
+  $scope.status = {
+    isFirstOpen: true,
+    isFirstDisabled: false
+  };
+  $scope.oneAtATime = false;
 }]);
