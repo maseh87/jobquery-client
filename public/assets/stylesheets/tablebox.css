@@ -6,7 +6,7 @@
 .tablebox-title {
     padding-top: 5px; padding-bottom: 5px;
     padding-left: 12px;
-    
+
     text-align: left;
     font-weight: 500; font-size: 1em;
     text-transform: uppercase;
@@ -17,14 +17,14 @@
 .tablebox-header th {
     padding: 5px 7px 5px 5px;
     border-bottom: 3px solid #F4F4F4;
-    
+
     vertical-align: middle;
     font-size: 1em; font-weight: 400;
 }
 .tablebox-content td {
     padding: 5px;
     border-bottom: 2px solid #F4F4F4;
-    
+
     vertical-align: top;
     font-size: 1em; font-weight: 200;
 }
@@ -32,16 +32,16 @@
     padding-left: 10px;
 }
 .tablebox-content:last-child td { border-bottom: 0px; }
-.tablebox-content:hover { 
-    background-color: #F4F4F4; 
+.tablebox-content:hover {
+    background-color: #F4F4F4;
     cursor: pointer;
 }
 .tablebox-nohover:hover { background-color: #FEFEFE; cursor: inherit;}
 
 .tablebox-leader { font-size: 1.125em; font-weight: 400; }
-.tablebox-tag { 
-    text-align: left; font-weight: 300; 
-    font-size: 1.25em; 
+.tablebox-tag {
+    text-align: left; font-weight: 300;
+    font-size: 1.25em;
     padding-right: 12px;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .tablebox a{
-    color: #606060;
+    /*color: #606060;*/
     text-decoration: none;
 }
 
