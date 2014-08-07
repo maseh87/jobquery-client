@@ -1,6 +1,6 @@
 app.controller('UsersDashboardCtrl',
-  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService', '$sce',
-  function ($scope, UsersOpportunity, GuidanceService, generateGlyphs, DialogueService, $sce) {
+  ['$scope', '$location', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService', '$sce',
+  function ($scope, $location, UsersOpportunity, GuidanceService, generateGlyphs, DialogueService, $sce) {
 
   var matches, matchesWithInterest;
   $scope.submitText = '✔ Submit Preferences';
@@ -72,8 +72,7 @@ app.controller('UsersDashboardCtrl',
         return tag.value !== null;
       }).length;
 
-      // $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
-      $scope.percentageOfSurveyCompleted = '16%';
+      $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
 
       var numQuestions = questions.length;
       var numAnswers = match.answers.length;
@@ -171,6 +170,10 @@ app.controller('UsersDashboardCtrl',
         getNextOpportunity();
       }
     });
+  };
+
+  $scope.go = function(path) {
+    $location.path(path);
   };
 
   $scope.tips = ['You have zero interest in this opportunity or already have a conversation in progress. We will actively avoid introducing you.',

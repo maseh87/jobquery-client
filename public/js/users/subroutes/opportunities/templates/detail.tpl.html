@@ -116,17 +116,17 @@
         <table class="formbox formbox-basic text-center">
             <tr>
             <td style="horizontal-align: center;">
-            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}">
-                <span class="dashbox-icon-dingbat">➀</span><br>None
+            <div class="dashbox-icon" ng-click="updateInterest(1)" ng-class="{'dashbox-icon-active':hasInterest(1)}" tooltip="{{ tips[0] }}">
+                <span class="dashbox-icon-dingbat">➀</span><br>NONE / IN CONVO
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}">
-                <span class="dashbox-icon-dingbat">➁</span><br>Low
+            <div class="dashbox-icon" ng-click="updateInterest(2)" ng-class="{'dashbox-icon-active':hasInterest(2)}" tooltip="{{ tips[1] }}">
+                <span class="dashbox-icon-dingbat">➁</span><br>LOW / MID INTEREST
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}">
-                <span class="dashbox-icon-dingbat">➂</span><br>Medium
+            <div class="dashbox-icon" ng-click="updateInterest(3)" ng-class="{'dashbox-icon-active':hasInterest(3)}" tooltip="{{ tips[2] }}">
+                <span class="dashbox-icon-dingbat">➂</span><br>MID / HIGH INTEREST
             </div>
-            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}">
-                <span class="dashbox-icon-dingbat">➃</span><br>High
+            <div class="dashbox-icon" ng-click="updateInterest(4)" ng-class="{'dashbox-icon-active':hasInterest(4)}" tooltip="{{ tips[3] }}">
+                <span class="dashbox-icon-dingbat">➃</span><br>VERY HIGH / CAN'T MISS
             </div>
             </td>
             </tr>
