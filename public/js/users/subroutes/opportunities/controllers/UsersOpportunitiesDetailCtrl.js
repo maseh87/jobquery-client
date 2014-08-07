@@ -1,6 +1,6 @@
 app.controller('UsersOpportunitiesDetailCtrl',
-  ['$scope', '$timeout', '$sce', '$state','UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
-  function($scope, $timeout, $sce, $state, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
+  ['$scope', '$timeout', '$sce', 'UsersOpportunity', '$stateParams', 'GuidanceService', 'generateGlyphs',
+  function($scope, $timeout, $sce, UsersOpportunity, $stateParams, GuidanceService, generateGlyphs) {
 
   $scope.submitText = '✔  Submit Preferences';
   $scope.pendingRequests = 0;
@@ -111,10 +111,6 @@ app.controller('UsersOpportunitiesDetailCtrl',
         $scope.submitText = '✔  Submit Preferences';
       }, 3000);
     });
-  };
-
-  $scope.goToProfile = function() {
-    $state.go('users.account');
   };
 
   $scope.tips = ['You have zero interest in this opportunity or already have a conversation in progress. We will actively avoid introducing you.',
