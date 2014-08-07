@@ -1,13 +1,18 @@
-
-
 <div class="content-header-block">
   <div class="content-title">Current Partner Companies</div>
-</div>
+</div><br>
 
-
+<div class="row">
 <accordion close-others="true">
   <accordion-group ng-repeat="company in companies">
-    <accordion-heading>{{ company.name }}</accordion-heading>
-      <span class="badge">10</span>
+    <accordion-heading>
+        {{ company.name }}
+        <div><small>{{ company.tagline }}</small></div><br>
+          <small>
+            <a ui-sref="users.opportunities.all"><span class="badge">{{ num($index) }}</span> {{ opp }}</a>
+            <span class="sidebar-glyphicon glyphicon glyphicon-globe"></span> {{ company.city }}
+          </small>
+    </accordion-heading>
   </accordion-group>
 </accordion>
+</div>
