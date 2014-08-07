@@ -34,9 +34,22 @@
   <div class="content-title">Companies</div>
   <div class="content-tagline">View, create, or edit companies</div>
 </div>
+
+
+<accordion close-others="true">
+  <accordion-group heading="{{ company.name }}" ng-repeat="company in companies">
+
+  </accordion-group>
+</accordion>
+
+
+
+
+
+
 <!-- </div> -->
 
-<div class="content-section container-fluid">
+<!-- <div class="content-section container-fluid">
   <div class="row">
     <div class="tablebox-title">All Companies</div>
     <table class="tablebox">
@@ -61,3 +74,4 @@
     </table>
   </div>
 </div>
+ -->
