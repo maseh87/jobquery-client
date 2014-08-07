@@ -19,14 +19,14 @@
         {{ company.name }}
         <div><small>{{ company.tagline }}</small></div><br>
           <small>
-            <a ui-sref="users.opportunities.all"><span class="badge">{{ num($index) }}</span> {{ opp }}</a>
+            <span class="badge">{{ num($index) }}</span> {{ opp }}
             <span class="sidebar-glyphicon glyphicon glyphicon-globe"></span> {{ company.city }}
           </small>
     </accordion-heading>
-    Company Information
+    Current Opportunities
     <ul class="list-group">
       <li class="list-group-item" ng-repeat="job in company.opportunities">
-        {{ job.jobTitle }}
+        {{ job.jobTitle }} <a ui-sref="users.opportunities.detail({_id: job._id})"><small>See Details</small></a>
       </li>
     </ul>
     <!-- <button ng-click="getInfo()">Company Info</button> -->
