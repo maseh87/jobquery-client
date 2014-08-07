@@ -1,7 +1,7 @@
 <div class="content-header-block">
   <div class="content-title">Current Partner Companies</div>
 </div><br>
-  <div class="btn-group" dropdown is-open="status.isopen">
+  <!-- <div class="btn-group" dropdown is-open="status.isopen">
       <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
         Filter By Job Opportunity <span class="caret"></span>
       </button>
@@ -11,7 +11,10 @@
         <li><a>Full Stack</a></li>
       </ul>
     </div>
-<div><br>
+<div><br> -->
+<div>
+  <input class="input" placeholder="Search">
+</div><br>
 <accordion close-others="true">
   <accordion-group ng-repeat="company in companies">
     <accordion-heading>
@@ -23,10 +26,17 @@
             <span class="sidebar-glyphicon glyphicon glyphicon-globe"></span> {{ company.city }}
           </small>
     </accordion-heading>
-    Current Opportunities
+    <div class="companyInfo">
+    <img ng-src="assets/images/mavenlink.jpg">
+    </div>
+    {{ company.description }}
+    <div class="text-info oppInfo">
+      Current Opportunities
+    </div><br>
     <ul class="list-group">
       <li class="list-group-item" ng-repeat="job in company.opportunities">
-        {{ job.jobTitle }} <a ui-sref="users.opportunities.detail({_id: job._id})"><small>See Details</small></a>
+        {{ job.jobTitle }} <br>
+        <a ui-sref="users.opportunities.detail({_id: job._id})"><small>See Details</small></a>
       </li>
     </ul>
     <!-- <button ng-click="getInfo()">Company Info</button> -->
