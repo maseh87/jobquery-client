@@ -1,11 +1,21 @@
 <div class="content-header-block">
   <div class="content-title">Current Partner Companies</div>
 </div><br>
-
-<div class="row">
+  <div class="btn-group" dropdown is-open="status.isopen">
+      <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
+        Filter By Job Opportunity <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a>Front End</a></li>
+        <li><a>Back End</a></li>
+        <li><a>Full Stack</a></li>
+      </ul>
+    </div>
+<div><br>
 <accordion close-others="true">
   <accordion-group ng-repeat="company in companies">
     <accordion-heading>
+      <!-- <img src="assets/images/mavenlink.jpg" class="img-rounded"> -->
         {{ company.name }}
         <div><small>{{ company.tagline }}</small></div><br>
           <small>
@@ -13,6 +23,13 @@
             <span class="sidebar-glyphicon glyphicon glyphicon-globe"></span> {{ company.city }}
           </small>
     </accordion-heading>
+    Company Information
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="job in company.opportunities">
+        {{ job.jobTitle }}
+      </li>
+    </ul>
+    <!-- <button ng-click="getInfo()">Company Info</button> -->
   </accordion-group>
 </accordion>
 </div>

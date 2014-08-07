@@ -1,4 +1,4 @@
-app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', function ($scope, UsersCompany) {
+app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersOpportunity', function ($scope, UsersCompany, $http, UsersOpportunity) {
   $scope.opp = "Opportunities";
   UsersCompany.getAll().then(function (companies) {
     $scope.companies = companies;
@@ -13,5 +13,9 @@ app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', function ($scope
       return $scope.companies[index].opportunities.length;
     }
   };
+  UsersOpportunity.getAll().then(function(results) {
+    // console.log(results);
+  });
+
 
 }]);
