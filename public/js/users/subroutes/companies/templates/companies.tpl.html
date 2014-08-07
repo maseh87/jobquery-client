@@ -1,46 +1,17 @@
 <div class="content-header-block">
   <div class="content-title">Current Partner Companies</div>
 </div><br>
-  <!-- <div class="btn-group" dropdown is-open="status.isopen">
-      <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
-        Filter By Job Opportunity <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li><a>Front End</a></li>
-        <li><a>Back End</a></li>
-        <li><a>Full Stack</a></li>
-      </ul>
-    </div>
-<div><br> -->
-<div>
-  <input class="input" placeholder="Search">
-</div><br>
 <accordion close-others="true">
   <accordion-group ng-repeat="company in companies">
     <accordion-heading>
-      <!-- <img src="assets/images/mavenlink.jpg" class="img-rounded"> -->
-        {{ company.name }}
-        <div><small>{{ company.tagline }}</small></div><br>
-          <small>
-            <span class="badge">{{ num($index) }}</span> {{ opp }}
-            <span class="sidebar-glyphicon glyphicon glyphicon-globe"></span> {{ company.city }}
-          </small>
+      <div>{{ company.name }}</div><br>
+      <div><small>{{ company.tagline }}</small></div><br>
+      <small ng-if="location($index)"><span class="sidebar-glyphicon glyphicon glyphicon-globe"></span> {{ company.city }}</small>
     </accordion-heading>
     <!-- Drop down with company details -->
     <div class="companyInfo">
-      <a ng-href="{{ company.links[0].url }}"><img ng-src="assets/images/mavenlink.jpg"></a>
       <div>{{ company.description }}</div>
     </div>
-    <!-- Opportunity List -->
-    <div class="text-info oppInfo">
-      Current Opportunities
-    </div><br>
-    <ul class="list-group">
-      <li class="list-group-item" ng-repeat="job in company.opportunities">
-        {{ job.jobTitle }} <br>
-        <a ui-sref="users.opportunities.detail({_id: job._id})"><small>See Details</small></a>
-      </li>
-    </ul>
     <!-- <button ng-click="getInfo()">Company Info</button> -->
   </accordion-group>
 </accordion>

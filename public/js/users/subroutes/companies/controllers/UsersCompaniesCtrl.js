@@ -13,9 +13,11 @@ app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersO
       return $scope.companies[index].opportunities.length;
     }
   };
-  UsersOpportunity.getAll().then(function(results) {
-    // console.log(results);
-  });
-
-
+  $scope.location = function(index) {
+    if($scope.companies[index].city.length) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 }]);
