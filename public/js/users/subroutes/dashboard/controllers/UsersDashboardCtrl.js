@@ -1,6 +1,6 @@
 app.controller('UsersDashboardCtrl',
-  ['$scope', '$location', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService', '$sce',
-  function ($scope, $location, UsersOpportunity, GuidanceService, generateGlyphs, DialogueService, $sce) {
+  ['$scope', '$state', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService', '$sce',
+  function ($scope, $state, UsersOpportunity, GuidanceService, generateGlyphs, DialogueService, $sce) {
 
   var matches, matchesWithInterest;
   $scope.submitText = '✔ Submit Preferences';
@@ -172,9 +172,10 @@ app.controller('UsersDashboardCtrl',
     });
   };
 
-  $scope.go = function(path) {
-    $location.path(path);
+  $scope.goToProfile = function() {
+    $state.go('users.account');
   };
+
 
   $scope.tips = ['You have zero interest in this opportunity or already have a conversation in progress. We will actively avoid introducing you.',
     'You\'re not that interested right now but you\'d be open to conversation, especially if they\'re interested in you.',

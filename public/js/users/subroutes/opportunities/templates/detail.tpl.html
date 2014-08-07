@@ -103,7 +103,7 @@
                         <td width="25%">{{tag.value}}</td>
                         <td width="30%" ng-if="tag.type !== 'text'">
                             <span ng-if="tag.userValue !== null" class="glyphicon" ng-class="calculateFit(tag.importance, key, tag.value, tag.userValue)[0]" ng-style="{color: calculateFit(tag.importance, key, tag.value, tag.userValue)[1]}"></span>
-                            <span ng-if="tag.userValue === null" ng-style="{color: '#942631'}" ng-click="go('/users/account')">Missing data – update profile</span>
+                            <span ng-if="tag.userValue === null" ng-style="{color: '#942631'}" ng-click="goToProfile()">Missing data – update profile</span>
                         </td>
                   </tr>
                 </tbody>
