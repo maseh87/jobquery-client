@@ -17,11 +17,11 @@
             <p>There are <span class="pretty-blue">{{ numberOfOpps }}</span> active opportunities on jobQuery - you have declared your interest for <span class="pretty-blue">{{ matchesWithInterest.length }}</span>. Your profile is <span class="pretty-blue">{{percentageOfSurveyCompleted}}</span> complete and you are indicating your job search status as <span class="pretty-blue">{{ user.searchStage }}</span>.</p>
         </div>
             <div class="welcome-alerts">
-                <div ui-sref="users.account" ng-show="percentageOfSurveyCompleted === '100%'" class="welcome-notice">profile fully complete</div>
-                <div ui-sref="users.opportunities.all" ng-show="matchesWithInterest.length === numberOfOpps" class="welcome-notice">no new opportunities</div>
-                <div ui-sref="users.account" class="welcome-alert">update search status</div>
-                <div ui-sref="users.opportunities.all" ng-show="matchesWithInterest.length < numberOfOpps" class="welcome-alert">review opportunities</div>
-                <div ui-sref="users.account" ng-show="percentageOfSurveyCompleted !== '100%'" class="welcome-alert">complete profile</div>
+                <div ui-sref="users.account" ng-show="percentageOfSurveyCompleted === '100%'" class="welcome-notice pointer">profile fully complete</div>
+                <div ui-sref="users.opportunities.all" ng-show="matchesWithInterest.length === numberOfOpps" class="welcome-notice pointer">no new opportunities</div>
+                <div ui-sref="users.account" class="welcome-alert pointer">update search status</div>
+                <div ui-sref="users.opportunities.all" ng-show="matchesWithInterest.length < numberOfOpps" class="welcome-alert pointer">review opportunities</div>
+                <div ui-sref="users.account" ng-show="percentageOfSurveyCompleted !== '100%'" class="welcome-alert pointer">complete profile</div>
             </div>
         </div>
     </div>
@@ -116,7 +116,10 @@
                         <td width="20%">{{tag.name}}</td>
                         <td width="25%">{{tag.userValue}}</td>
                         <td width="25%">{{tag.value}}</td>
-                        <td width="30%"><span class="glyphicon" ng-class="calculateFit(tag.importance, key, tag.value, tag.userValue)[0]" ng-if="tag.type !== 'text'" ng-style="{color: calculateFit(tag.importance, key, tag.value, tag.userValue)[1]}"></span></td>
+                        <td width="30%" ng-if="tag.type !== 'text'">
+                            <span ng-if="tag.userValue !== null" class="glyphicon" ng-class="calculateFit(tag.importance, key, tag.value, tag.userValue)[0]" ng-style="{color: calculateFit(tag.importance, key, tag.value, tag.userValue)[1]}"></span>
+                            <span ng-if="tag.userValue === null"><a ui-sref="users.account" ng-style="{color: '#942631'}">Missing data – update profile</a></span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
