@@ -26,10 +26,11 @@
             <span class="sidebar-glyphicon glyphicon glyphicon-globe"></span> {{ company.city }}
           </small>
     </accordion-heading>
+    <!-- Drop down with company details -->
     <div class="companyInfo">
-    <img ng-src="assets/images/mavenlink.jpg">
+      <a ng-href="{{ company.links[0].url }}"><img ng-src="assets/images/mavenlink.jpg"></a>
+      <div>{{ company.description }}</div>
     </div>
-    {{ company.description }}
     <div class="text-info oppInfo">
       Current Opportunities
     </div><br>
