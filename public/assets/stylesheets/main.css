@@ -245,3 +245,11 @@ table {
 .float-bottom { display: table-cell; vertical-align: bottom; }
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.panel-default>.panel-heading {
+color: #333;
+background-color: white;
+border-color: #ddd;
+}
+
+
