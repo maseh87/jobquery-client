@@ -17,14 +17,16 @@
     "gulp-uglify": "^0.3.1"
   },
   "devDependencies": {
-    "http-server": "^0.6.1"
+    "http-server": "^0.6.1",
+    "karma": "^0.12.21",
+    "karma-unicorn-reporter": "^0.1.4"
   },
   "scripts": {
-    // "test": "karma start test/karma.conf.js",
-    // "test-single-run": "karma start test/karma.conf.js  --single-run",
+    "test": "karma start test/karma.conf.js",
+    "test-single-run": "karma start test/karma.conf.js  --single-run",
     "update-webdriver": "webdriver-manager update",
     "server": "node server.js",
-    // "ee": "protractor test/protractor-conf.js"
+    "ee": "protractor test/protractor-conf.js"
   },
   "repository": {
     "type": "git",
