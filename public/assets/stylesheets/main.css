@@ -95,6 +95,7 @@ table {
     height: 100%;
 }
 .sidebar-container {
+
     position: fixed;
     left: 0px; width: 180px;
     padding-right: 12px;
@@ -259,6 +260,7 @@ table {
     margin-bottom: -2px;
 }
 .contentsStyle {
+  font-family: 'Roboto', sans-serif;
   line-height: 20%;
   margin-top: 2px;
   margin-bottom: -3px;
@@ -278,14 +280,11 @@ table {
   margin-top: -4px;
   margin-bottom: -15px;
 }
-.panel-heading {
-  background-color: red;
-}
 small {
   margin-left: -8px;
 
-/* float to right
-float: right;
-margin-top: -20px;
-} */
+  /* float to right
+  float: right;
+  margin-top: -20px;
+  } */
 }
