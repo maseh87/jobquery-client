@@ -1,6 +1,10 @@
 app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersOpportunity', function ($scope, UsersCompany, $http, UsersOpportunity) {
   $scope.opp = "Opportunities";
   $scope.alphabetical = "name";
+  $scope.hoverColorStyle = {
+    'color': '#428bca',
+  };
+
   UsersCompany.getAll().then(function (companies) {
     $scope.companies = companies;
     console.log($scope.companies);
