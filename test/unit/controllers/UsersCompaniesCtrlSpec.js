@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Unit: UsersDashboardCtrl', function() {
+describe('Unit: UsersCompaniesCtrl', function() {
   // Load the module with MainController
   beforeEach(module('jobQuery'));
 
@@ -11,14 +11,14 @@ describe('Unit: UsersDashboardCtrl', function() {
     // Create a new scope that's a child of the $rootScope
     scope = $rootScope.$new();
     // Create the controller
-    ctrl = $controller('UsersDashboardCtrl', {
+    ctrl = $controller('UsersCompaniesCtrl', {
       $scope: scope
     });
   }));
 
   it('should do something', function(){
       expect(true).toEqual(true);
-      expect(scope.what).toEqual('what');
+      expect(scope.opp).toEqual('Opportunities');
   });
 
 });
