@@ -1,5 +1,10 @@
 app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersOpportunity', function ($scope, UsersCompany, $http, UsersOpportunity) {
   $scope.opp = "Opportunities";
+  $scope.alphabetical = "name";
+  $scope.hoverColorStyle = {
+    'color': '#428bca',
+  };
+
   UsersCompany.getAll().then(function (companies) {
     $scope.companies = companies;
     console.log($scope.companies);
@@ -14,11 +19,13 @@ app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersO
     }
   };
   $scope.location = function(index) {
-    if($scope.companies[index].city.length) {
-      return true;
-    } else {
-      return false;
-    }
+      if($scope.companies[index].city) {
+        console.log($scope.companies[index])
+        return true;
+      } else {
+      //  console.log($scope.companies[index])
+        return false;
+      }
   };
   $scope.status = {
     isFirstOpen: true,
