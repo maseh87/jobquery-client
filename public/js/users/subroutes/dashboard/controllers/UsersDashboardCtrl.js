@@ -8,6 +8,7 @@ app.controller('UsersDashboardCtrl',
   $scope.slides = [];
   $scope.default = true;
   $scope.isVideo = false;
+  var x = 'x';
 
   var objectify = function(arrayOfObjects){
     var object = {};
