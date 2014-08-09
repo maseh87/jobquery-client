@@ -1,0 +1,1505 @@
+
+> jobquery-client@0.0.0 test /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client
+> karma start test/karma.conf.js
+
+[32mINFO [karma]: [39mKarma v0.10.10 server started at http://localhost:9876/
+[32mINFO [launcher]: [39mStarting browser Chrome
+[32mINFO [Chrome 36.0.1985 (Mac OS X 10.9.4)]: [39mConnected on socket SA1X2xxz4B4sQyC2zSGd
+[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminSidebarCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminSidebarCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminSidebarCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/AdminSidebarCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/AdminSidebarCtrlSpec.js:17:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 1 of 90[31m (1 FAILED)[39m (0 secs / 0.054 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminAccountCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminAccountCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminAccountCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/account/AdminAccountCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/account/AdminAccountCtrlSpec.js:17:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 2 of 90[31m (2 FAILED)[39m (0 secs / 0.063 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesCtrl should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:18:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:14:14)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:1:1
+	Expected 'undefined' to be 'object'.
+	Error: Expected 'undefined' to be 'object'.
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:36:31)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected GET http://localhost:9000/api/users
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.flush (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1438:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:37:18)
+	Error: Unsatisfied requests: GET http://localhost:9000/api/users, GET http://localhost:9000/api/matches
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1472:13)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 3 of 90[31m (3 FAILED)[39m (0 secs / 0.082 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesCtrl User.get and Match.get functions should be invoked FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:18:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected GET http://localhost:9000/api/users
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.flush (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1438:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:43:18)
+	Error: Unsatisfied requests: GET http://localhost:9000/api/users, GET http://localhost:9000/api/matches
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1472:13)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 4 of 90[31m (4 FAILED)[39m (0 secs / 0.092 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesCtrl User.get and Match.get functions should be invoked FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:18:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected GET http://localhost:9000/api/users
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.flush (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1438:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:56:18)
+	Error: Unsatisfied requests: GET http://localhost:9000/api/users, GET http://localhost:9000/api/matches
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1472:13)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 5 of 90[31m (5 FAILED)[39m (0 secs / 0.102 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesDetailCtrl should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:18:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:12:14)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:1:1
+	Expected 'undefined' to be 'object'.
+	Error: Expected 'undefined' to be 'object'.
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:39:31)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected GET http://localhost:9000/api/users/1
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.flush (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1438:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:40:18)
+	Error: Unsatisfied requests: GET http://localhost:9000/api/users/1
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1472:13)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:33:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 6 of 90[31m (6 FAILED)[39m (0 secs / 0.11 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesDetailCtrl User.get function should be invoked FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:18:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:45:19)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected GET http://localhost:9000/api/users/1
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:33:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 7 of 90[31m (7 FAILED)[39m (0 secs / 0.118 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesDetailCtrl create function should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:18:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:51:19)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected GET http://localhost:9000/api/users/1
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:33:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 8 of 90[31m (8 FAILED)[39m (0 secs / 0.124 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesDetailCtrl invoking update function with user should send put request FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:18:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:58:5)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected GET http://localhost:9000/api/users/1
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:33:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 9 of 90[31m (9 FAILED)[39m (0 secs / 0.137 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesDetailCtrl invoking update function with user should set saved to true FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:18:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:65:5)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected GET http://localhost:9000/api/users/1
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:33:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 10 of 90[31m (10 FAILED)[39m (0 secs / 0.143 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesDetailCtrl invoking update function with user and a error occurs should set save error to true FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:18:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:73:5)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected GET http://localhost:9000/api/users/1
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesDetailCtrlSpec.js:33:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 11 of 90[31m (11 FAILED)[39m (0 secs / 0.149 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:11:14)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:1:1
+	Expected 'undefined' to be 'object'.
+	Error: Expected 'undefined' to be 'object'.
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:34:31)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 12 of 90[31m (12 FAILED)[39m (0 secs / 0.154 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl sendEmails should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:38:19)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 13 of 90[31m (13 FAILED)[39m (0 secs / 0.163 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl emailCSVPattern should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:42:19)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 14 of 90[31m (14 FAILED)[39m (0 secs / 0.169 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl sendEmails should make no post request when undefined passed in FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:46:5)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 15 of 90[31m (15 FAILED)[39m (0 secs / 0.174 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl sendEmails should make one post request when one email address passed in FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:52:5)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected POST http://localhost:9000/api/invite
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 16 of 90[31m (16 FAILED)[39m (0 secs / 0.181 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl sendEmails should make one post request when two email address passed in FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:59:5)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	Expected POST http://localhost:9000/api/invite
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 17 of 90[31m (17 FAILED)[39m (0 secs / 0.189 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl sendEmails should reset $scope.emails to empty string FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:64:5)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 18 of 90[31m (18 FAILED)[39m (0 secs / 0.193 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl invoking emailCSVPattern should return a object FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:74:19)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 19 of 90[31m (19 FAILED)[39m (0 secs / 0.197 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl invoking emailCSVPattern should return a object with a test function attribute FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:78:19)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 20 of 90[31m (20 FAILED)[39m (0 secs / 0.202 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl invoking emailCSVPattern test function with empty string should return false FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:82:12)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 21 of 90[31m (21 FAILED)[39m (0 secs / 0.207 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl invoking emailCSVPattern test function with undefined should return false FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:86:12)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 22 of 90[31m (22 FAILED)[39m (0 secs / 0.212 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl invoking emailCSVPattern test function with valid email should return true FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:90:12)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 23 of 90[31m (23 FAILED)[39m (0 secs / 0.218 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl invoking emailCSVPattern test function with invalid email should return false FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:94:12)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 24 of 90[31m (24 FAILED)[39m (0 secs / 0.223 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl invoking emailCSVPattern test function with valid emails should return true FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:98:12)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 25 of 90[31m (25 FAILED)[39m (0 secs / 0.228 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCandidatesNewCtrl invoking emailCSVPattern test function with invalid emails should return false FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:16:30)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	ReferenceError: $scope is not defined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:102:12)
+	Error: Unexpected request: GET /js/core/templates/login.tpl.html
+	No more request expected
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.verifyNoOutstandingExpectation (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1470:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/candidates/AdminCandidatesNewCtrlSpec.js:29:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 26 of 90[31m (26 FAILED)[39m (0 secs / 0.233 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCompaniesCtrl should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesCtrlSpec.js:9:29)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesCtrlSpec.js:5:14)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesCtrlSpec.js:1:1
+	Error: [ng:areq] Argument 'AdminAccountCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminAccountCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/account/AdminAccountCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesCtrlSpec.js:21:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 27 of 90[31m (27 FAILED)[39m (0 secs / 0.248 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCompaniesDetailCtrl should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesCtrlSpec.js:35:29)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesCtrlSpec.js:31:14)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesCtrlSpec.js:27:1
+	Error: [ng:areq] Argument 'AdminAccountCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminAccountCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/account/AdminAccountCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesCtrlSpec.js:47:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 28 of 90[31m (28 FAILED)[39m (0 secs / 0.254 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCompaniesDetailCtrl should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesDetailSpec.js:12:29)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesDetailSpec.js:8:14)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesDetailSpec.js:1:1
+	Error: [ng:areq] Argument 'AdminAccountCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminAccountCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/account/AdminAccountCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesDetailSpec.js:26:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 29 of 90[31m (29 FAILED)[39m (0 secs / 0.259 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCompaniesDetailCtrl should be able to make PUT requests FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesDetailSpec.js:12:29)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesDetailSpec.js:31:17)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 30 of 90[31m (30 FAILED)[39m (0 secs / 0.264 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCompaniesDetailCtrl should be able to add and remove media links FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesDetailSpec.js:12:29)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesDetailSpec.js:41:17)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 31 of 90[31m (31 FAILED)[39m (0 secs / 0.27 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCompaniesDetailCtrl should be able to add and remove regular links FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesDetailSpec.js:12:29)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesDetailSpec.js:54:17)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 32 of 90[31m (32 FAILED)[39m (0 secs / 0.276 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCompaniesNewCtrl should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesNewCtrlSpec.js:12:29)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesNewCtrlSpec.js:8:14)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesNewCtrlSpec.js:1:1
+	Error: [ng:areq] Argument 'AdminAccountCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminAccountCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/account/AdminAccountCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesNewCtrlSpec.js:29:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 33 of 90[31m (33 FAILED)[39m (0 secs / 0.283 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCompaniesNewCtrl should be able to make POST requests FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesNewCtrlSpec.js:12:29)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: [ng:areq] Argument 'AdminAccountCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminAccountCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/account/AdminAccountCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesNewCtrlSpec.js:34:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 34 of 90[31m (34 FAILED)[39m (0 secs / 0.291 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCompaniesNewCtrl should be able to add and remove media links FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesNewCtrlSpec.js:12:29)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: [ng:areq] Argument 'AdminAccountCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminAccountCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/account/AdminAccountCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesNewCtrlSpec.js:41:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 35 of 90[31m (35 FAILED)[39m (0 secs / 0.298 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminCompaniesNewCtrl should be able to add and remove regular links FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesNewCtrlSpec.js:12:29)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: [ng:areq] Argument 'AdminAccountCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminAccountCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/account/AdminAccountCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/companies/AdminCompaniesNewCtrlSpec.js:51:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 36 of 90[31m (36 FAILED)[39m (0 secs / 0.304 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminDashboardCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminDashboardCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminDashboardCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/dashboard/AdminDashboardCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/dashboard/AdminDashboardCtrlSpec.js:17:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 37 of 90[31m (37 FAILED)[39m (0 secs / 0.318 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminMatchesCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminMatchesCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminMatchesCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/matches/AdminMatchesCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/matches/AdminMatchesCtrlSpec.js:17:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 38 of 90[31m (38 FAILED)[39m (0 secs / 0.324 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminMessagesCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminMessagesCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminMessagesCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/messages/AdminMessagesCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/messages/AdminMessagesCtrlSpec.js:17:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 39 of 90[31m (39 FAILED)[39m (0 secs / 0.33 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminMessagesDetailCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminMessagesDetailCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminMessagesDetailCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/messages/AdminMessagesCtrlSpec.js:33:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/messages/AdminMessagesCtrlSpec.js:39:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 40 of 90[31m (40 FAILED)[39m (0 secs / 0.338 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminMessagesNewCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminMessagesNewCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminMessagesNewCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/messages/AdminMessagesCtrlSpec.js:55:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/messages/AdminMessagesCtrlSpec.js:61:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 41 of 90[31m (41 FAILED)[39m (0 secs / 0.343 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminOpportunitiesCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminOpportunitiesCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminOpportunitiesCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/opportunities/AdminOpportunitiesCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/opportunities/AdminOpportunitiesCtrlSpec.js:17:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 42 of 90[31m (42 FAILED)[39m (0 secs / 0.351 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminOpportunitiesDetailCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminOpportunitiesDetailCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminOpportunitiesDetailCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/opportunities/AdminOpportunitiesCtrlSpec.js:33:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/opportunities/AdminOpportunitiesCtrlSpec.js:39:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 43 of 90[31m (43 FAILED)[39m (0 secs / 0.359 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminOpportunitiesNewCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminOpportunitiesNewCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminOpportunitiesNewCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/opportunities/AdminOpportunitiesCtrlSpec.js:55:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/opportunities/AdminOpportunitiesCtrlSpec.js:61:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 44 of 90[31m (44 FAILED)[39m (0 secs / 0.367 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminSchedulingCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminSchedulingCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminSchedulingCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/scheduling/AdminSchedulingCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/scheduling/AdminSchedulingCtrlSpec.js:17:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 45 of 90[31m (45 FAILED)[39m (0 secs / 0.376 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminTagsCtrl should exist FAILED[39m
+	Error: [ng:areq] Argument 'AdminTagsCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminTagsCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:16:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:22:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 46 of 90[31m (46 FAILED)[39m (0 secs / 0.394 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminTagsCtrl should make a GET request for all tags FAILED[39m
+	Error: [ng:areq] Argument 'AdminTagsCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminTagsCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:16:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:28:5)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 47 of 90[31m (47 FAILED)[39m (0 secs / 0.421 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminTagsCtrl should add an empty tag when you click add new FAILED[39m
+	Error: [ng:areq] Argument 'AdminTagsCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminTagsCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:16:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:34:5)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 48 of 90[31m (48 FAILED)[39m (0 secs / 0.436 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminTagsCtrl should handle removing tags which are only on the client side FAILED[39m
+	Error: [ng:areq] Argument 'AdminTagsCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminTagsCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:16:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:42:5)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 49 of 90[31m (49 FAILED)[39m (0 secs / 0.446 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminTagsCtrl should send a POST request when saving a tag without an _id FAILED[39m
+	Error: [ng:areq] Argument 'AdminTagsCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminTagsCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:16:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:52:5)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 50 of 90[31m (50 FAILED)[39m (0 secs / 0.455 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AdminTagsCtrl should send a PUT request when saving a tag with an _id FAILED[39m
+	Error: [ng:areq] Argument 'AdminTagsCtrl' is not a function, got undefined
+	http://errors.angularjs.org/1.2.21/ng/areq?p0=AdminTagsCtrl&p1=not%20a%20function%2C%20got%20undefined
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at assertArg (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1500:11)
+	    at assertArgFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:1510:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7241:9
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:16:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/admin/subroutes/tags/AdminTagsCtrlSpec.js:62:5)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 51 of 90[31m (51 FAILED)[39m (0 secs / 0.465 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) AppCtrl should exist FAILED[39m
+	TypeError: Cannot read property 'addEventListener' of null
+	    at Object.$get (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/js/core/services/DialogueService.js:4:12)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3782:37
+	    at getService (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3931:13)
+	    at Object.instantiate (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3951:23)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7244:28
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/AppCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/AppCtrlSpec.js:17:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 52 of 90[31m (52 FAILED)[39m (0 secs / 0.481 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest AuthHttpInterceptor should have test-token set on the authorization header FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:12:24)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:11:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:6:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:1:1
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:18:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 53 of 90[31m (53 FAILED)[39m (0 secs / 0.499 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest AuthHttpInterceptor should not have authorization header set FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:12:24)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:28:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 54 of 90[31m (54 FAILED)[39m (0 secs / 0.513 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest User should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:44:24)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:42:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:39:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:1:1
+	Expected undefined to be defined.
+	Error: Expected undefined to be defined.
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:50:20)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 55 of 90[31m (55 FAILED)[39m (0 secs / 0.528 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest User should make GET requests for all users FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:44:24)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:54:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 56 of 90[31m (56 FAILED)[39m (0 secs / 0.543 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest User should make a POST request to add a new user FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:44:24)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectPOST' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:63:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 57 of 90[31m (57 FAILED)[39m (0 secs / 0.559 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest User should make a GET request to fetch one user by _id FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:44:24)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:71:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 58 of 90[31m (58 FAILED)[39m (0 secs / 0.571 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest User should make a PUT request to update a single user by _id FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:44:24)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:80:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 59 of 90[31m (59 FAILED)[39m (0 secs / 0.58 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest User should make a POST request when inviting  FAILED[39m
+	Error: [$injector:unpr] Unknown provider: UserProvider <- User
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=UserProvider%20%3C-%20User
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:44:24)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectPOST' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:95:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 60 of 90[31m (60 FAILED)[39m (0 secs / 0.591 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Message should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: MessageProvider <- Message
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=MessageProvider%20%3C-%20Message
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:106:27)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:105:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:102:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:1:1
+	Expected undefined to be defined.
+	Error: Expected undefined to be defined.
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:111:23)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 61 of 90[31m (61 FAILED)[39m (0 secs / 0.601 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Message should make GET requests for all messages FAILED[39m
+	Error: [$injector:unpr] Unknown provider: MessageProvider <- Message
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=MessageProvider%20%3C-%20Message
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:106:27)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:115:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 62 of 90[31m (62 FAILED)[39m (0 secs / 0.61 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Message should make POST requests to add new messages FAILED[39m
+	Error: [$injector:unpr] Unknown provider: MessageProvider <- Message
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=MessageProvider%20%3C-%20Message
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:106:27)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: undefined is not a function
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:123:21)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 63 of 90[31m (63 FAILED)[39m (0 secs / 0.619 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Message should make GET requests for a single message FAILED[39m
+	Error: [$injector:unpr] Unknown provider: MessageProvider <- Message
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=MessageProvider%20%3C-%20Message
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:106:27)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:133:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 64 of 90[31m (64 FAILED)[39m (0 secs / 0.627 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Tag should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: TagProvider <- Tag
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=TagProvider%20%3C-%20Tag
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:145:23)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:144:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:141:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:1:1
+	Expected undefined to be defined.
+	Error: Expected undefined to be defined.
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:150:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 65 of 90[31m (65 FAILED)[39m (0 secs / 0.638 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Tag should make GET requests for all tags FAILED[39m
+	Error: [$injector:unpr] Unknown provider: TagProvider <- Tag
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=TagProvider%20%3C-%20Tag
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:145:23)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:154:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 66 of 90[31m (66 FAILED)[39m (0 secs / 0.646 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Tag should make a POST request to add a new tag FAILED[39m
+	Error: [$injector:unpr] Unknown provider: TagProvider <- Tag
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=TagProvider%20%3C-%20Tag
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:145:23)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectPOST' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:163:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 67 of 90[31m (67 FAILED)[39m (0 secs / 0.683 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Tag should make a GET request to fetch one tag by _id FAILED[39m
+	Error: [$injector:unpr] Unknown provider: TagProvider <- Tag
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=TagProvider%20%3C-%20Tag
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:145:23)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:171:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 68 of 90[31m (68 FAILED)[39m (0 secs / 0.689 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Tag should make a PUT request to update a single tag by _id FAILED[39m
+	Error: [$injector:unpr] Unknown provider: TagProvider <- Tag
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=TagProvider%20%3C-%20Tag
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:145:23)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:180:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 69 of 90[31m (69 FAILED)[39m (0 secs / 0.694 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Company should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:200:27)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:199:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:196:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:1:1
+	Expected undefined to be defined.
+	Error: Expected undefined to be defined.
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:205:23)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 70 of 90[31m (70 FAILED)[39m (0 secs / 0.7 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Company should make GET requests for all companies FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:200:27)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:209:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 71 of 90[31m (71 FAILED)[39m (0 secs / 0.704 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Company should make a POST request to add a new company FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:200:27)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectPOST' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:218:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 72 of 90[31m (72 FAILED)[39m (0 secs / 0.709 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Company should make a GET request to fetch one company by _id FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:200:27)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:226:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 73 of 90[31m (73 FAILED)[39m (0 secs / 0.713 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Company should make a PUT request to update a single company by _id FAILED[39m
+	Error: [$injector:unpr] Unknown provider: CompanyProvider <- Company
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=CompanyProvider%20%3C-%20Company
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:200:27)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:235:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 74 of 90[31m (74 FAILED)[39m (0 secs / 0.719 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Opportunity should exist FAILED[39m
+	Error: [$injector:unpr] Unknown provider: OpportunityProvider <- Opportunity
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=OpportunityProvider%20%3C-%20Opportunity
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:255:31)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	Error: Declaration Location
+	    at window.inject.angular.mock.inject (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2142:25)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:254:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:251:3)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:1:1
+	Expected undefined to be defined.
+	Error: Expected undefined to be defined.
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:260:27)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 75 of 90[31m (75 FAILED)[39m (0 secs / 0.724 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Opportunity should make GET requests for all opportunities FAILED[39m
+	Error: [$injector:unpr] Unknown provider: OpportunityProvider <- Opportunity
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=OpportunityProvider%20%3C-%20Opportunity
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:255:31)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:264:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 76 of 90[31m (76 FAILED)[39m (0 secs / 0.729 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Opportunity should make a POST request to add a new opportunity FAILED[39m
+	Error: [$injector:unpr] Unknown provider: OpportunityProvider <- Opportunity
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=OpportunityProvider%20%3C-%20Opportunity
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:255:31)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectPOST' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:273:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 77 of 90[31m (77 FAILED)[39m (0 secs / 0.734 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Opportunity should make a GET request to fetch one opportunity by _id FAILED[39m
+	Error: [$injector:unpr] Unknown provider: OpportunityProvider <- Opportunity
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=OpportunityProvider%20%3C-%20Opportunity
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:255:31)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:281:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 78 of 90[31m (78 FAILED)[39m (0 secs / 0.742 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) Rest Opportunity should make a PUT request to update a single opportunity by _id FAILED[39m
+	Error: [$injector:unpr] Unknown provider: OpportunityProvider <- Opportunity
+	http://errors.angularjs.org/1.2.21/$injector/unpr?p0=OpportunityProvider%20%3C-%20Opportunity
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:78:12
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3776:19
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3781:45
+	    at Object.getService [as get] (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:255:31)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at workFn (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:2157:20)
+	TypeError: Cannot read property 'expectGET' of undefined
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/core/RestSpec.js:290:19)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 79 of 90[31m (79 FAILED)[39m (0 secs / 0.747 secs)
+[1A[2KChrome 36.0.1985 (Mac OS X 10.9.4): Executed 80 of 90[31m (79 FAILED)[39m (0 secs / 0.753 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) UsersSidebarCtrl should exist FAILED[39m
+	TypeError: Cannot read property 'classList' of null
+	    at new <anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/js/users/controllers/UsersSidebarCtrl.js:18:68)
+	    at invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at Object.instantiate (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3951:23)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7244:28
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/user/UsersSidebarCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/user/UsersSidebarCtrlSpec.js:17:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 81 of 90[31m (80 FAILED)[39m (0 secs / 0.757 secs)
+[1A[2KLOG: [36m'In UserAccountResource factory', 'http://localhost:9000'[39m
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 81 of 90[31m (80 FAILED)[39m (0 secs / 0.757 secs)
+[1A[2KLOG: [36m'In UserAccount factory'[39m
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 81 of 90[31m (80 FAILED)[39m (0 secs / 0.757 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) UsersAccountCtrl should exist FAILED[39m
+	TypeError: Cannot read property 'addEventListener' of null
+	    at Object.$get (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/js/core/services/DialogueService.js:4:12)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3782:37
+	    at getService (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3931:13)
+	    at Object.instantiate (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3951:23)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7244:28
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/user/account/UsersAccountCtrlSpec.js:17:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/user/account/UsersAccountCtrlSpec.js:23:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 82 of 90[31m (81 FAILED)[39m (0 secs / 0.764 secs)
+[1A[2KChrome 36.0.1985 (Mac OS X 10.9.4): Executed 83 of 90[31m (81 FAILED)[39m (0 secs / 0.77 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) UsersCompaniesCtrl should make a GET request for all companies FAILED[39m
+	Error: Unexpected request: GET http://localhost:9000/public/companies
+	Expected GET http://localhost:9000/api/public/companies
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.flush (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1438:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/user/companies/UsersCompaniesCtrlSpec.js:32:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 84 of 90[31m (82 FAILED)[39m (0 secs / 0.775 secs)
+[1A[2KChrome 36.0.1985 (Mac OS X 10.9.4): Executed 85 of 90[31m (82 FAILED)[39m (0 secs / 0.782 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) UsersCompaniesDetailCtrl should make a GET request for a single company FAILED[39m
+	Error: Unexpected request: GET http://localhost:9000/public/companies
+	Expected GET http://localhost:9000/api/public/companies/1
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.flush (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1438:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/user/companies/UsersCompaniesDetailCtrlSpec.js:32:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 86 of 90[31m (83 FAILED)[39m (0 secs / 0.787 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) UsersDashboardCtrl should exist FAILED[39m
+	TypeError: Cannot read property 'addEventListener' of null
+	    at Object.$get (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/js/core/services/DialogueService.js:4:12)
+	    at Object.invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3940:17)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3782:37
+	    at getService (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3904:39)
+	    at invoke (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3931:13)
+	    at Object.instantiate (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:3951:23)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:7244:28
+	    at createController (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/user/dashboard/UsersDashboardCtrlSpec.js:11:14)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/user/dashboard/UsersDashboardCtrlSpec.js:17:22)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 87 of 90[31m (84 FAILED)[39m (0 secs / 0.793 secs)
+[1A[2KChrome 36.0.1985 (Mac OS X 10.9.4): Executed 88 of 90[31m (84 FAILED)[39m (0 secs / 0.8 secs)
+[1A[2K[31mChrome 36.0.1985 (Mac OS X 10.9.4) UsersOpportunitiesCtrl should make a GET request for all opportunities FAILED[39m
+	Error: Unexpected request: GET http://localhost:9000/public/opportunities
+	Expected GET http://localhost:9000/api/public/opportunities
+	    at $httpBackend (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1178:9)
+	    at sendReq (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8315:9)
+	    at $http.serverRequest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:8049:16)
+	    at wrappedCallback (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11520:81)
+	    at /Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:11606:26
+	    at Scope.$eval (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12632:28)
+	    at Scope.$digest (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular/angular.js:12444:31)
+	    at Function.$httpBackend.flush (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/public/bower_components/angular-mocks/angular-mocks.js:1438:16)
+	    at null.<anonymous> (/Users/jDub/Documents/cp/hackReactor/projects/jobQuery/jobquery-client/test/unit/user/opportunities/UsersOpportunitiesCtrlSpec.js:32:18)
+Chrome 36.0.1985 (Mac OS X 10.9.4): Executed 89 of 90[31m (85 FAILED)[39m (0 secs / 0.807 secs)
+[1A[2KChrome 36.0.1985 (Mac OS X 10.9.4): Executed 90 of 90[31m (85 FAILED)[39m (0 secs / 0.813 secs)
+[1A[2KChrome 36.0.1985 (Mac OS X 10.9.4): Executed 90 of 90[31m (85 FAILED)[39m (1.182 secs / 0.813 secs)
