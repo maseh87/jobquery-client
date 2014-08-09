@@ -11,6 +11,7 @@
     "angular-local-storage": "~0.0.5",
     "jquery": "~2.1.1",
     "angular-bootstrap": "~0.11.0",
-    "ng-videosharing-embed": "~0.2.1"
+    "ng-videosharing-embed": "~0.2.1",
+    "lodash": "~2.4.1"
   }
 }

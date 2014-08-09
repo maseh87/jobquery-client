@@ -94,7 +94,8 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
     init();
 
     $scope.downloadSchedule = function () {
-      download(output, 'exported', 'text/csv');
+      // download(output, 'exported', 'text/csv');
+
     };
 
   function download(strData, strFileName, strMimeType) {

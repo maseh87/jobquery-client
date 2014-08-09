@@ -424,6 +424,13 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
         output = processOutput(output);
         callback(output);
       });
+    },
+    getData: function () {
+      var data = [];
+      data.push(Opportunity.getAll());
+      data.push(User.getAll());
+      data.push(Match.getAll());
+      return $q.all(data);
     }
   };
 }]);
