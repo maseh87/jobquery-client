@@ -19,13 +19,11 @@ app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersO
     }
   };
   $scope.location = function(index) {
-    if(!$scope.companies[index]) {
       if($scope.companies[index].city.length) {
         return true;
       } else {
         return false;
       }
-    }
   };
   $scope.status = {
     isFirstOpen: true,
