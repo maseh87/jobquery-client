@@ -1,19 +1,31 @@
-<div class="content-header-block">
-  <div class="content-title">Current Partner Companies</div>
-</div><br>
-<accordion close-others="oneAtATime">
-  <accordion-group ng-repeat="company in companies">
-    <accordion-heading>
-      <div>{{ company.name }}</div><br>
-      <div><small>{{ company.tagline }}</small></div><br>
-      <small ng-if="location($index)"><span class="sidebar-glyphicon glyphicon glyphicon-globe"></span> {{ company.city }}</small>
-    </accordion-heading>
+<div ui-view>
+  <div class="content-header">
+      <div class="content-header-block text-left">
+          <!-- buttons -->
+      </span>
+      </div>
+      <div class="content-header-block">
+          <div class="content-title">ACTIVE PARTNERS</div>
+          <div class="content-tagline">Browse companies in our network</div>
+      </div>
+  </div>
 
-    <!-- Drop down with company details -->
-    <div class="companyInfo">
-      <div>{{ company.description }}</div>
-    </div>
-    <a href="{{ company.links[0].url }}">{{ company.media[0].url }}</a>
-  </accordion-group>
-</accordion>
+  <accordion close-others="oneAtATime" >
+    <accordion-group  ng-repeat="company in companies | orderBy:alphabetical" >
+      <accordion-heading class="contentsStyle" >
+        <div ng-style="hoverColorStyle" class="contentsStyle" ng-mouseover="hoverColorStyle={color:'#2a6496'}" ng-mouseleave="hoverColorStyle={color:'#428bca'}">{{ company.name }}</div><br>
+        <div class="contentsStyle smallStyle">{{ company.tagline }}</div><br>
+        <small ng-if="location($index)"><span class="sidebar-glyphicon glyphicon glyphicon-globe"></span> {{ company.city }}</small>
+      </accordion-heading>
+
+      <!-- Drop down with company details -->
+      <div class="companyInfo" >
+        <div>{{ company.description }}</div>
+      </div>
+      <a href="{{ company.links[0].url }}">{{ company.media[0].url }}</a>
+    </accordion-group>
+  </accordion>
+
+
+
 </div>
