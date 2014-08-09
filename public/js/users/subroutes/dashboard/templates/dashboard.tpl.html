@@ -14,13 +14,13 @@
     <div class="dashboard-header">
         <div class="welcome-message">
             <h3>Welcome {{ user.name }}!</h3>
-            <p>There are <span class="pretty-blue">{{ numberOfOpps }}</span> active opportunities on jobQuery - you have declared your interest for <span class="pretty-blue">{{ matchesWithInterest.length }}</span>. Your profile is <span class="pretty-blue">{{percentageOfSurveyCompleted}}</span> complete and you are indicating your job search status as <span class="pretty-blue">{{ user.searchStage }}</span>.</p>
+            <p>There are <span class="pretty-blue">{{ numberOfOpps }}</span> active opportunities on jobQuery - you have declared your interest for <span class="pretty-blue">{{ matchesWithInterestLength }}</span>. Your profile is <span class="pretty-blue">{{percentageOfSurveyCompleted}}</span> complete and you are indicating your job search status as <span class="pretty-blue">{{ user.searchStage }}</span>.</p>
         </div>
             <div class="welcome-alerts">
                 <div ui-sref="users.account" ng-show="percentageOfSurveyCompleted === '100%'" class="welcome-notice pointer">profile fully complete</div>
-                <div ui-sref="users.opportunities.all" ng-show="matchesWithInterest.length === numberOfOpps" class="welcome-notice pointer">no new opportunities</div>
+                <div ui-sref="users.opportunities.all" ng-show="matchesWithInterestLength === numberOfOpps" class="welcome-notice pointer">no new opportunities</div>
                 <div ui-sref="users.account" class="welcome-alert pointer">update search status</div>
-                <div ui-sref="users.opportunities.all" ng-show="matchesWithInterest.length < numberOfOpps" class="welcome-alert pointer">review opportunities</div>
+                <div ui-sref="users.opportunities.all" ng-show="matchesWithInterestLength < numberOfOpps" class="welcome-alert pointer">review opportunities</div>
                 <div ui-sref="users.account" ng-show="percentageOfSurveyCompleted !== '100%'" class="welcome-alert pointer">complete profile</div>
             </div>
         </div>

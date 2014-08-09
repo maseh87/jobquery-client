@@ -29,7 +29,7 @@ app.controller('UsersDashboardCtrl',
         return (match.userInterest !== 0) && opps[match.opportunity];
       });
       $scope.matches = matches;
-      $scope.matchesWithInterest = matchesWithInterest;
+      $scope.matchesWithInterestLength = matchesWithInterest.length;
       $scope.opps = opps;
       $scope.numberOfOpps = Object.keys(opps).length;
       if(matches.length){
@@ -145,6 +145,7 @@ app.controller('UsersDashboardCtrl',
 
     $scope.match.userInterest = value;
     UsersOpportunity.update($scope.match).then(function () { });
+
   };
 
   $scope.hasInterest = function (value) {
@@ -170,6 +171,7 @@ app.controller('UsersDashboardCtrl',
         getNextOpportunity();
       }
     });
+    initialize();
   };
 
   $scope.tips = ['You have zero interest in this opportunity or already have a conversation in progress. We will actively avoid introducing you.',
