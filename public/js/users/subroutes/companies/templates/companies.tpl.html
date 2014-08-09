@@ -2,7 +2,7 @@
   <div class="content-title">Current Partner Companies</div>
 </div><br>
 <accordion close-others="oneAtATime">
-  <accordion-group ng-repeat="company in companies">
+  <accordion-group ng-repeat="company in companies | orderBy:alphabetical">
     <accordion-heading>
       <div>{{ company.name }}</div><br>
       <div><small>{{ company.tagline }}</small></div><br>

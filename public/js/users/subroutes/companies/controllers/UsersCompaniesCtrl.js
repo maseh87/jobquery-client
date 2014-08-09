@@ -1,5 +1,6 @@
 app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersOpportunity', function ($scope, UsersCompany, $http, UsersOpportunity) {
   $scope.opp = "Opportunities";
+  $scope.alphabetical = "name";
   UsersCompany.getAll().then(function (companies) {
     $scope.companies = companies;
     console.log($scope.companies);
@@ -14,10 +15,12 @@ app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersO
     }
   };
   $scope.location = function(index) {
-    if($scope.companies[index].city.length) {
-      return true;
-    } else {
-      return false;
+    if(!$scope.companies[index]) {
+      if($scope.companies[index].city.length) {
+        return true;
+      } else {
+        return false;
+      }
     }
   };
   $scope.status = {
