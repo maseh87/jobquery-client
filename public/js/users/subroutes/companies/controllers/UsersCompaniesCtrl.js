@@ -19,9 +19,11 @@ app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersO
     }
   };
   $scope.location = function(index) {
-      if($scope.companies[index].city.length) {
+      if($scope.companies[index].city) {
+        console.log($scope.companies[index])
         return true;
       } else {
+      //  console.log($scope.companies[index])
         return false;
       }
   };
