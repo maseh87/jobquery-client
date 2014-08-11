@@ -67,9 +67,7 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
       $scope.opportunities = output.opportunities;
       $scope.schedule = output.schedule;
       $scope.candidates = output.candidates;
-      console.log("$scope.candidates", $scope.candidates);
-      console.log("$scope.schedule", $scope.schedule);
-
+      
       for (var can = 0; can < $scope.candidates.length; can++) {
         $scope.userMap[$scope.candidates[can]._id] = $scope.candidates[can].name || $scope.candidates[can].email;
       }
