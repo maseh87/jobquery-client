@@ -1,5 +1,7 @@
 app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler',
   function ($scope, $state, Match, Opportunity, User, Scheduler) {
+    $scope.oneRoundNumForCandidate;
+    $scope.allRoundNumForCandidate = {};
 
     $scope.slots = [
         {time: 'Round 1'},
@@ -54,22 +56,23 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
         emptySchedule = emptySchedule.join(',') + '\n';
         // replace 'undefined' with empty strings
         emptySchedule.replace(/undefined/g, '');
+
+        $scope.oneRoundNumForCandidate = emptySchedule.split(",");
+        $scope.allRoundNumForCandidate[oppId] = $scope.oneRoundNumForCandidate;
         output += emptySchedule;
       }
-      console.log(output);
     };
 
     var schedulerOutput = Scheduler.schedule(11, 10, 6, function(output) {
       $scope.opportunities = output.opportunities;
       $scope.schedule = output.schedule;
       $scope.candidates = output.candidates;
-
+      
       for (var can = 0; can < $scope.candidates.length; can++) {
-        $scope.userMap[$scope.candidates[can]._id] = $scope.candidates[can].name;
+        $scope.userMap[$scope.candidates[can]._id] = $scope.candidates[can].name || $scope.candidates[can].email;
       }
       // reformat opportunities so lookup by id
       var oppsById = {};
-      console.log(output);
       $scope.opportunities.forEach(function (opp) {
         oppsById[opp._id] = opp;
       });
