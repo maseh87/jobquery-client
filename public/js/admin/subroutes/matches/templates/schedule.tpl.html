@@ -33,7 +33,7 @@
                 <th ui-sref="admin.opportunities.detail({_id: oppId})">{{ opportunities[oppId].company.name }}</th>
                 <td ng-repeat="candidate in opportunity track by $index" >
                     <span>{{ userMap[candidate.id] }}</span><br>
-                    Interest Rate: {{ candidate.interest }}
+                    {{ candidate.interest }}
                 </td>
             </tr>
         </tbody>
