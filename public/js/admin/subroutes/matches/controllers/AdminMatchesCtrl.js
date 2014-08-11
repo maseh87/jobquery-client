@@ -47,7 +47,7 @@ app.controller('AdminMatchesCtrl',
       $scope.users.forEach(function (user, i) {
         if (user.name) {
           userMap[user._id] = user.name;
-          console.log(user);
+          // console.log(user);
         } else {
           // default to email if user has not filled in name
           userMap[user._id] = user.email;
@@ -64,7 +64,7 @@ app.controller('AdminMatchesCtrl',
       });
 
       $scope.matrix = matrix;
-      console.log($scope.matrix)
+      // console.log($scope.matrix)
       $scope.userMap = userMap;
     });
   });
@@ -131,7 +131,6 @@ app.controller('AdminMatchesCtrl',
       $scope.config.maxInterviews,
       $scope.config.minInterviews,
       function(output) {
-        console.log(output);
         // hide dialogue
         DialogueService.clearAndHide();
         $scope.opportunities = output.opportunities;
@@ -243,7 +242,7 @@ app.controller('AdminMatchesCtrl',
           var userId = scheduleObj.id;
           var idx = userOrder.indexOf(userId);
           // then replace that value in the emptySchedule array with (i) + 1
-          emptySchedule[idx] = i + 1;
+          emptySchedule[idx] = "R" + (i + 1);
         }
       }
       // join emptySchedule array together with commas, plus new line
