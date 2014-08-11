@@ -74,6 +74,7 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
         oppsById[opp._id] = opp;
       });
       $scope.opportunities = oppsById;
+      console.log($scope.opportunities)
       readyData();
     });
 
