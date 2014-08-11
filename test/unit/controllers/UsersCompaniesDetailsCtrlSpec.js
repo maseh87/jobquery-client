@@ -16,9 +16,8 @@ describe('Unit: UsersCompaniesDetailCtrl', function() {
     });
   }));
 
-  it('should do something', function(){
-      expect(true).toEqual(true);
-      expect(scope.what).toEqual('what');
+  it('should have a scope', function(){
+    expect(scope).toBeDefined();
   });
 
 });
