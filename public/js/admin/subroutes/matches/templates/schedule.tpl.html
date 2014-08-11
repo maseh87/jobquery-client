@@ -32,7 +32,7 @@
             <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
                 <th ui-sref="admin.opportunities.detail({_id: oppId})">{{ opportunities[oppId].company.name }}</th>
                 <td ng-repeat="candidate in opportunity track by $index" >
-                    <span>{{ userMap[candidate.id] }}</span><br>
+                    <span style="font-weight: 200;font-size:14px;">{{ userMap[candidate.id] }}</span><br>
                     {{ candidate.interest }}
                 </td>
             </tr>
