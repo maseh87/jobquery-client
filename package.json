@@ -17,9 +17,10 @@
     "gulp-uglify": "^0.3.1"
   },
   "devDependencies": {
-    "karma": "~0.10",
-    "protractor": "~0.20.1",
-    "http-server": "^0.6.1"
+    "http-server": "^0.6.1",
+    "karma": "^0.12.21",
+    "karma-jasmine": "^0.1.5",
+    "karma-unicorn-reporter": "^0.1.4"
   },
   "scripts": {
     "test": "karma start test/karma.conf.js",

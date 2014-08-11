@@ -95,6 +95,7 @@ table {
     height: 100%;
 }
 .sidebar-container {
+
     position: fixed;
     left: 0px; width: 180px;
     padding-right: 12px;
@@ -248,10 +249,42 @@ table {
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+.panel-default {
+  border: none;
+
+}
 .panel-default>.panel-heading {
-color: #333;
-background-color: white;
-border-color: #ddd;
+    color: #333;
+    background-color: #FEFEFE;
+    border-radius: 0;
+    margin-bottom: -2px;
+}
+.contentsStyle {
+  font-family: 'Roboto', sans-serif;
+  line-height: 20%;
+  margin-top: 2px;
+  margin-bottom: -3px;
+
 }
 
+.accordion-toggle:hover {
+  text-decoration: none;
+}
+.smallStyle {
+  font-family: "Roboto", sans-serif;
+  color: #606060;
+  vertical-align: top;
+  font-size: 0.9em;
+  font-weight: 200;
+  line-height: 1.42857143;
+  margin-top: -4px;
+  margin-bottom: -15px;
+}
+small {
+  margin-left: -8px;
 
+  /* float to right
+  float: right;
+  margin-top: -20px;
+  } */
+}

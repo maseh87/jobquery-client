@@ -64,7 +64,6 @@ app.controller('AdminMatchesCtrl',
       });
 
       $scope.matrix = matrix;
-      // console.log($scope.matrix)
       $scope.userMap = userMap;
     });
   });
@@ -110,14 +109,14 @@ app.controller('AdminMatchesCtrl',
 
   $scope.downloadData = function () {
     $http.get(SERVER_URL + '/api/matches/download')
-    .success(function () {
+    .success(function (results) {
+      console.log(results);
       if (arguments[1] === 200) {
         $scope.dataToDownload = arguments[0];
         download(arguments[0], 'exported', 'text/csv');
       }
     });
   };
-
   $scope.downloadSchedule = function () {
     // show dialogue
     var title = "Schedule Processing in Progress";
@@ -148,7 +147,10 @@ app.controller('AdminMatchesCtrl',
 
       readyData();
     });
-
+//also for testing
+    // Scheduler.getData().then(function(results) {
+    //     console.log(results);
+    //   });
   };
 
   function download(strData, strFileName, strMimeType) {
