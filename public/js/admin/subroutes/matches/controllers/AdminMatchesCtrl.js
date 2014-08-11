@@ -245,6 +245,17 @@ app.controller('AdminMatchesCtrl',
           emptySchedule[idx] = "R" + (i + 1);
         }
       }
+      for (var j=0; j < userOrder.length; j++) {
+        var uid = userOrder[j];
+        if (!emptySchedule[j]) {
+          for (var k=0; k < $scope.matrix[uid].length; k++) {
+            var matrixMap = $scope.matrix[uid][k];
+            if (matrixMap.user === uid && matrixMap.opportunity === oppId) {
+              emptySchedule[j] = $scope.matrix[uid][k].value;
+            }
+          }
+        }
+      }
       // join emptySchedule array together with commas, plus new line
       emptySchedule = ',' + emptySchedule.join(',') + '\n';
       // replace 'undefined' with empty strings
