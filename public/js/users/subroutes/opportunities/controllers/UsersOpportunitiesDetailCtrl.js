@@ -71,7 +71,7 @@ app.controller('UsersOpportunitiesDetailCtrl',
       $scope.defaultImage = "http://thesimplephysicist.com/wp-content/uploads/2014/05/default-avatar.jpg";
     }
 
-    for (var j = 0; j < company.media.length; j++) { 
+    for (var j = 0; j < company.media.length; j++) {
       //if media is video, save it as video
       $scope.defaultImage = company.media[0].url;
       if ( company.media[j].url.match(/youtube/)){

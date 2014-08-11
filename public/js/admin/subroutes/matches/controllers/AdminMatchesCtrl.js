@@ -47,7 +47,7 @@ app.controller('AdminMatchesCtrl',
       $scope.users.forEach(function (user, i) {
         if (user.name) {
           userMap[user._id] = user.name;
-          console.log(user);
+          // console.log(user);
         } else {
           // default to email if user has not filled in name
           userMap[user._id] = user.email;
@@ -64,7 +64,6 @@ app.controller('AdminMatchesCtrl',
       });
 
       $scope.matrix = matrix;
-      console.log($scope.matrix)
       $scope.userMap = userMap;
     });
   });
@@ -110,14 +109,14 @@ app.controller('AdminMatchesCtrl',
 
   $scope.downloadData = function () {
     $http.get(SERVER_URL + '/api/matches/download')
-    .success(function () {
+    .success(function (results) {
+      console.log(results);
       if (arguments[1] === 200) {
         $scope.dataToDownload = arguments[0];
         download(arguments[0], 'exported', 'text/csv');
       }
     });
   };
-
   $scope.downloadSchedule = function () {
     // show dialogue
     var title = "Schedule Processing in Progress";
@@ -131,7 +130,6 @@ app.controller('AdminMatchesCtrl',
       $scope.config.maxInterviews,
       $scope.config.minInterviews,
       function(output) {
-        console.log(output);
         // hide dialogue
         DialogueService.clearAndHide();
         $scope.opportunities = output.opportunities;
@@ -149,7 +147,10 @@ app.controller('AdminMatchesCtrl',
 
       readyData();
     });
-
+//also for testing
+    // Scheduler.getData().then(function(results) {
+    //     console.log(results);
+    //   });
   };
 
   function download(strData, strFileName, strMimeType) {
@@ -243,7 +244,18 @@ app.controller('AdminMatchesCtrl',
           var userId = scheduleObj.id;
           var idx = userOrder.indexOf(userId);
           // then replace that value in the emptySchedule array with (i) + 1
-          emptySchedule[idx] = i + 1;
+          emptySchedule[idx] = "R" + (i + 1);
+        }
+      }
+      for (var j=0; j < userOrder.length; j++) {
+        var uid = userOrder[j];
+        if (!emptySchedule[j]) {
+          for (var k=0; k < $scope.matrix[uid].length; k++) {
+            var matrixMap = $scope.matrix[uid][k];
+            if (matrixMap.user === uid && matrixMap.opportunity === oppId) {
+              emptySchedule[j] = $scope.matrix[uid][k].value;
+            }
+          }
         }
       }
       // join emptySchedule array together with commas, plus new line
