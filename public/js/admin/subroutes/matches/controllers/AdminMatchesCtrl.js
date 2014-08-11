@@ -64,7 +64,7 @@ app.controller('AdminMatchesCtrl',
       });
 
       $scope.matrix = matrix;
-      // console.log($scope.matrix)
+      console.log(userMap);
       $scope.userMap = userMap;
     });
   });
@@ -110,48 +110,50 @@ app.controller('AdminMatchesCtrl',
 
   $scope.downloadData = function () {
     $http.get(SERVER_URL + '/api/matches/download')
-    .success(function () {
+    .success(function (results) {
+      console.log(results);
       if (arguments[1] === 200) {
         $scope.dataToDownload = arguments[0];
         download(arguments[0], 'exported', 'text/csv');
       }
     });
   };
-
+//mason did this for testing
   $scope.downloadSchedule = function () {
     // show dialogue
-    // var title = "Schedule Processing in Progress";
-    // var message = "The scheduler can take up to 5 minutes to complete. Please wait while the scheduler is at work!"
+    var title = "Schedule Processing in Progress";
+    var message = "The scheduler can take up to 5 minutes to complete. Please wait while the scheduler is at work!"
 
-    // DialogueService.setMessage(title, message);
-    // DialogueService.show();
+    DialogueService.setMessage(title, message);
+    DialogueService.show();
 
-    // Scheduler.schedule(
-    //   $scope.config.rounds,
-    //   $scope.config.maxInterviews,
-    //   $scope.config.minInterviews,
-    //   function(output) {
-    //     // console.log(output);
-    //     // hide dialogue
-    //     DialogueService.clearAndHide();
-    //     $scope.opportunities = output.opportunities;
-    //     $scope.schedule = output.schedule;
-    //     $scope.candidates = output.candidates;
-    //     $scope.candidateSchedule = output.candidateSchedule;
+    Scheduler.schedule(
+      $scope.config.rounds,
+      $scope.config.maxInterviews,
+      $scope.config.minInterviews,
+      function(output) {
+        // console.log(output);
+        // hide dialogue
+        DialogueService.clearAndHide();
+        $scope.opportunities = output.opportunities;
+        $scope.schedule = output.schedule;
+        $scope.candidates = output.candidates;
+        $scope.candidateSchedule = output.candidateSchedule;
 
-    //     // reformat opportunities so lookup by id
-    //     var oppsById = {};
-    //     $scope.opportunities.forEach(function (opp) {
-    //       oppsById[opp._id] = opp;
-    //     });
+        // reformat opportunities so lookup by id
+        var oppsById = {};
+        $scope.opportunities.forEach(function (opp) {
+          oppsById[opp._id] = opp;
+        });
 
-    //     $scope.opportunities = oppsById;
+        $scope.opportunities = oppsById;
 
-    //   readyData();
-    // });
-    Scheduler.getData().then(function(results) {
-        console.log(results);
-      });
+      readyData();
+    });
+//also for testing
+    // Scheduler.getData().then(function(results) {
+    //     console.log(results);
+    //   });
   };
 
   function download(strData, strFileName, strMimeType) {

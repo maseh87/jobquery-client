@@ -31,8 +31,8 @@
         <tbody>
             <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
                 <th ui-sref="admin.opportunities.detail({_id: oppId})">{{ opportunities[oppId].company.name }}</th>
-                <td ng-repeat="opportunity in slot track by $index" ng-class="isOverridden(match)">
-                    <span ng-repeat="candidate in opportunity track by $index">{{ userMap[candidate] }}</span><br>
+                <td ng-repeat="candidate in opportunity track by $index" >
+                    <span>{{ userMap[candidate.id] }}</span><br>
                 </td>
             </tr>
         </tbody>

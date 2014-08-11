@@ -425,6 +425,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
         callback(output);
       });
     },
+    //mason put this here for testing
     getData: function () {
       var data = [];
       data.push(Opportunity.getAll());
