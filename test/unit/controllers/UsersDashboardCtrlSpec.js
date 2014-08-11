@@ -69,6 +69,6 @@ describe('Unit: UsersDashboardCtrl', function() {
       expect(scope.submit).toBeDefined();
       expect(typeof scope.submit).toBe('function');
     });
-  })
+  });
 
 });
