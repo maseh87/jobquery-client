@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Unit: UsersCompaniesCtrl', function() {
+describe('Unit: UsersCompaniesCtrl', function(){
   // Load the module with MainController
   beforeEach(module('jobQuery'));
 
@@ -16,9 +16,26 @@ describe('Unit: UsersCompaniesCtrl', function() {
     });
   }));
 
-  it('should do something', function(){
-      expect(true).toEqual(true);
+  describe('$scope.opp', function(){
+    it('should have scope.opp that equals "Opportunities"', function(){
+      expect(scope.opp).toBeDefined();
       expect(scope.opp).toEqual('Opportunities');
+    });
   });
+
+  describe('$scope.num', function(){
+    it('should have a scope.num function', function(){
+      expect(scope.num).toBeDefined();
+      expect(typeof scope.num).toEqual('function');
+    });
+  });
+
+  describe('$scope.location', function(){
+    it('should have a scope.location function', function(){
+      expect(scope.location).toBeDefined();
+      expect(typeof scope.location).toEqual('function');
+    });
+  });
+
 
 });
