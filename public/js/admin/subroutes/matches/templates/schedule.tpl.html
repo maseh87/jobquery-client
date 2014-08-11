@@ -15,32 +15,32 @@
         </div>
     </div>
 
-    <div class="content-section container-fluid">
-        <div class="row">
-        <div class="gridbox-title">Scheduling Grid</div>
-        <div class="content-scrollable">
-        <table class="gridbox">
-        <thead>
-            <tr class="gridbox-header">
-                <th></th><!-- empty table header-->
-                <th ng-repeat="slot in slots">
-                    {{ slot.time }}
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
-                <th ui-sref="admin.opportunities.detail({_id: oppId})">{{ opportunities[oppId].company.name }}</th>
-                <td ng-repeat="candidate in opportunity track by $index" >
-                    <span>{{ userMap[candidate.id] }}</span><br>
-                    {{ candidate.interest }}
-                </td>
-            </tr>
-        </tbody>
-        </table>
-        </div>
-        </div>
+<!--     <div class="content-section container-fluid">
+    <div class="row">
+    <div class="gridbox-title">Scheduling Grid</div>
+    <div class="content-scrollable">
+    <table class="gridbox">
+    <thead>
+        <tr class="gridbox-header">
+            <th></th>empty table header
+            <th ng-repeat="slot in slots">
+                {{ slot.time }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
+            <th ui-sref="admin.opportunities.detail({_id: oppId})">{{ opportunities[oppId].company.name }}</th>
+            <td ng-repeat="candidate in opportunity track by \$index" >
+                <span>{{ userMap[candidate.id] }}</span><br>
+                {{ candidate.interest }}
+            </td>
+        </tr>
+    </tbody>
+    </table>
     </div>
+    </div>
+</div> -->
 
     <div class="content-section container-fluid">
       <div class="row">
@@ -50,8 +50,8 @@
       <thead>
           <tr class="gridbox-header">
               <th></th><!-- empty table header-->
-              <th ng-repeat="slot in slots">
-                  {{ slot.time }}
+              <th ng-repeat="(user, userName) in userMap">
+                  <span style="font-size: 14px">{{ userName }}</span>
               </th>
           </tr>
       </thead>
@@ -59,7 +59,6 @@
           <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
               <th ui-sref="admin.opportunities.detail({_id: oppId})">{{ opportunities[oppId].company.name }}</th>
               <td ng-repeat="candidate in opportunity track by $index" >
-                  <span>{{ userMap[candidate.id] }}</span><br>
                   {{ candidate.interest }}
               </td>
           </tr>
