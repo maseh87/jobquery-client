@@ -65,11 +65,10 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
       $scope.candidates = output.candidates;
 
       for (var can = 0; can < $scope.candidates.length; can++) {
-        $scope.userMap[$scope.candidates[can]._id] = $scope.candidates[can].name;
+        $scope.userMap[$scope.candidates[can]._id] = $scope.candidates[can].name || $scope.candidates[can].email;
       }
       // reformat opportunities so lookup by id
       var oppsById = {};
-      console.log(output);
       $scope.opportunities.forEach(function (opp) {
         oppsById[opp._id] = opp;
       });
