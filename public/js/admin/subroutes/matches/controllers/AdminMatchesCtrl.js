@@ -64,7 +64,6 @@ app.controller('AdminMatchesCtrl',
       });
 
       $scope.matrix = matrix;
-      console.log(userMap);
       $scope.userMap = userMap;
     });
   });
@@ -118,7 +117,6 @@ app.controller('AdminMatchesCtrl',
       }
     });
   };
-//mason did this for testing
   $scope.downloadSchedule = function () {
     // show dialogue
     var title = "Schedule Processing in Progress";
@@ -132,7 +130,6 @@ app.controller('AdminMatchesCtrl',
       $scope.config.maxInterviews,
       $scope.config.minInterviews,
       function(output) {
-        // console.log(output);
         // hide dialogue
         DialogueService.clearAndHide();
         $scope.opportunities = output.opportunities;
@@ -247,7 +244,18 @@ app.controller('AdminMatchesCtrl',
           var userId = scheduleObj.id;
           var idx = userOrder.indexOf(userId);
           // then replace that value in the emptySchedule array with (i) + 1
-          emptySchedule[idx] = i + 1;
+          emptySchedule[idx] = "R" + (i + 1);
+        }
+      }
+      for (var j=0; j < userOrder.length; j++) {
+        var uid = userOrder[j];
+        if (!emptySchedule[j]) {
+          for (var k=0; k < $scope.matrix[uid].length; k++) {
+            var matrixMap = $scope.matrix[uid][k];
+            if (matrixMap.user === uid && matrixMap.opportunity === oppId) {
+              emptySchedule[j] = $scope.matrix[uid][k].value;
+            }
+          }
         }
       }
       // join emptySchedule array together with commas, plus new line
