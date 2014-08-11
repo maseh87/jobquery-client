@@ -19,6 +19,7 @@
   "devDependencies": {
     "http-server": "^0.6.1",
     "karma": "^0.12.21",
+    "karma-jasmine": "^0.1.5",
     "karma-unicorn-reporter": "^0.1.4"
   },
   "scripts": {
