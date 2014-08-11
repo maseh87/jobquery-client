@@ -2,22 +2,23 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
   function ($scope, $state, Match, Opportunity, User, Scheduler) {
 
     $scope.slots = [
-        {time: '09:00am'},
-        {time: '09:15am'},
-        {time: '09:30am'},
-        {time: '09:45am'},
-        {time: '10:00am'},
-        {time: '10:15am'},
-        {time: '10:30am'},
-        {time: '10:45am'},
-        {time: '11:00am'},
-        {time: '11:15am'},
-        {time: '11:30am'}
+        {time: 'Round 1'},
+        {time: 'Round 2'},
+        {time: 'Round 3'},
+        {time: 'Round 4'},
+        {time: 'Round 5'},
+        {time: 'Round 6'},
+        {time: 'Round 7'},
+        {time: 'Round 8'},
+        {time: 'Round 9'},
+        {time: 'Round 10'},
+        {time: 'Round 11'}
     ];
 
     var output;
     var readyData = function () {
       output = '';
+
 
       // create header row (user names, degrading to emails)
       var userOrder = []; // array of userIds
@@ -25,7 +26,6 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
         userOrder.push(user._id);
         var displayName = user.name || user.email;
         output += ',' + displayName;
-        // console.log(user);
       });
       // add break column
       output += ',' + 'Break' + '\n';
@@ -42,6 +42,7 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
             // set last column value to this index (i) + 1
             emptySchedule[emptySchedule.length] = i + 1;
           } else {
+            // console.log(scheduleObj);
             var userId = scheduleObj.id;
             // find where userId is in userOrder array
             var idx = userOrder.indexOf(userId);
@@ -55,26 +56,28 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
         emptySchedule.replace(/undefined/g, '');
         output += emptySchedule;
       }
-      // console.log(output);
+      console.log(output);
     };
 
     var schedulerOutput = Scheduler.schedule(11, 10, 6, function(output) {
       $scope.opportunities = output.opportunities;
       $scope.schedule = output.schedule;
       $scope.candidates = output.candidates;
-      // console.log(output);
 
+      for (var can = 0; can < $scope.candidates.length; can++) {
+        $scope.userMap[$scope.candidates[can]._id] = $scope.candidates[can].name;
+      }
       // reformat opportunities so lookup by id
       var oppsById = {};
+      console.log(output);
       $scope.opportunities.forEach(function (opp) {
         oppsById[opp._id] = opp;
       });
       $scope.opportunities = oppsById;
-
       readyData();
     });
 
-    $scope.slots = 6;
+    // $scope.slots = 6;
     $scope.slotRowMap = {};
     $scope.oppColumnMap = {};
     $scope.userMap = {};
@@ -95,6 +98,7 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
 
     $scope.downloadSchedule = function () {
       download(output, 'exported', 'text/csv');
+
     };
 
   function download(strData, strFileName, strMimeType) {

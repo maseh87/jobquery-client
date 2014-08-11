@@ -47,7 +47,7 @@ app.controller('AdminMatchesCtrl',
       $scope.users.forEach(function (user, i) {
         if (user.name) {
           userMap[user._id] = user.name;
-          console.log(user);
+          // console.log(user);
         } else {
           // default to email if user has not filled in name
           userMap[user._id] = user.email;
@@ -64,7 +64,7 @@ app.controller('AdminMatchesCtrl',
       });
 
       $scope.matrix = matrix;
-      console.log($scope.matrix)
+      console.log(userMap);
       $scope.userMap = userMap;
     });
   });
@@ -110,14 +110,15 @@ app.controller('AdminMatchesCtrl',
 
   $scope.downloadData = function () {
     $http.get(SERVER_URL + '/api/matches/download')
-    .success(function () {
+    .success(function (results) {
+      console.log(results);
       if (arguments[1] === 200) {
         $scope.dataToDownload = arguments[0];
         download(arguments[0], 'exported', 'text/csv');
       }
     });
   };
-
+//mason did this for testing
   $scope.downloadSchedule = function () {
     // show dialogue
     var title = "Schedule Processing in Progress";
@@ -131,7 +132,7 @@ app.controller('AdminMatchesCtrl',
       $scope.config.maxInterviews,
       $scope.config.minInterviews,
       function(output) {
-        console.log(output);
+        // console.log(output);
         // hide dialogue
         DialogueService.clearAndHide();
         $scope.opportunities = output.opportunities;
@@ -149,7 +150,10 @@ app.controller('AdminMatchesCtrl',
 
       readyData();
     });
-
+//also for testing
+    // Scheduler.getData().then(function(results) {
+    //     console.log(results);
+    //   });
   };
 
   function download(strData, strFileName, strMimeType) {
