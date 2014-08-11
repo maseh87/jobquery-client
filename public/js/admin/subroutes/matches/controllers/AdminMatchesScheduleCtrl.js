@@ -18,7 +18,7 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
     var output;
     var readyData = function () {
       output = '';
-      console.log($scope.schedule);
+
 
       // create header row (user names, degrading to emails)
       var userOrder = []; // array of userIds
@@ -69,11 +69,11 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
       }
       // reformat opportunities so lookup by id
       var oppsById = {};
+      console.log(output);
       $scope.opportunities.forEach(function (opp) {
         oppsById[opp._id] = opp;
       });
       $scope.opportunities = oppsById;
-
       readyData();
     });
 
