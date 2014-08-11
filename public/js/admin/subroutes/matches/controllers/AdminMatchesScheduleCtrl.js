@@ -1,6 +1,11 @@
 app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler',
   function ($scope, $state, Match, Opportunity, User, Scheduler) {
-
+    var interests = {
+      four: 8,
+      three: 5
+    };
+    $scope.candidateTooltip = "<div>" + interests.four + " 4's Requested</div><div>" + interests.three + " 4's Scheduled</div>";
+    $scope.opportunityTooltip = "<div>" + interests.four + " 4's Scheduled</div><div>3's Scheduled</div>";
     $scope.slots = [
         {time: 'Round 1'},
         {time: 'Round 2'},
