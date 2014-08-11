@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Unit: UsersDashboardCtrl', function() {
+describe('Unit: UsersOpportunitiesDetailCtrl', function() {
   // Load the module with MainController
   beforeEach(module('jobQuery'));
 
-  var ctrl, scope;
+  var ctrl, scope, sce;
   // inject the $controller and $rootScope services
   // in the beforeEach block
-  beforeEach(inject(function($controller, $rootScope) {
+  beforeEach(inject(function($controller, $rootScope, $sce) {
     // Create a new scope that's a child of the $rootScope
     scope = $rootScope.$new();
     // Create the controller
-    ctrl = $controller('UsersDashboardCtrl', {
+    ctrl = $controller('UsersOpportunitiesDetailCtrl', {
       $scope: scope
     });
   }));
@@ -24,6 +24,10 @@ describe('Unit: UsersDashboardCtrl', function() {
 
     it('should have a pendingRequests property', function(){
       expect(scope.pendingRequests).toBeDefined();
+    });
+
+    it('should have a myInterval property', function(){
+      expect(scope.myInterval).toBeDefined();
     });
 
     it('should have a slides property', function(){
@@ -43,16 +47,11 @@ describe('Unit: UsersDashboardCtrl', function() {
     });
   });
 
-  describe('$scope methods', function(){
+  describe('scope methods', function(){
 
     it('should have a trustSrc method', function(){
       expect(scope.trustSrc).toBeDefined();
       expect(typeof scope.trustSrc).toBe('function');
-    });
-
-    it('should have a setImage method', function(){
-      expect(scope.setImage).toBeDefined();
-      expect(typeof scope.setImage).toBe('function');
     });
 
     it('should have a updateInterest method', function(){
@@ -63,6 +62,11 @@ describe('Unit: UsersDashboardCtrl', function() {
     it('should have a hasInterest method', function(){
       expect(scope.hasInterest).toBeDefined();
       expect(typeof scope.hasInterest).toBe('function');
+    });
+
+    it('should have a setImage method', function(){
+      expect(scope.setImage).toBeDefined();
+      expect(typeof scope.setImage).toBe('function');
     });
 
     it('should have a submit method', function(){
