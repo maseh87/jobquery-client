@@ -27,20 +27,6 @@ module.exports = function(config) {
         'public/bower_components/angular-mocks/angular-mocks.js',
         'public/bower_components/angular-local-storage/angular-local-storage.js',
         'public/js/app.js',
-        // 'public/js/admin/**/*.js',
-        // 'public/js/core/**/*.js',
-        // 'public/js/users/**/*.js',
-
-        // 'public/mocks/companies.js',
-        // 'public/mocks/userCompanies.js',
-        // 'public/mocks/opportunities.js',
-        // 'public/mocks/userOpportunities.js',
-        // 'public/mocks/messages.js',
-        // 'public/mocks/tags.js',
-        // 'public/mocks/users.js',
-        // 'public/mocks/userAccount.js',
-        // 'public/mocks/match.js',
-        // 'public/mocks/crosslink.js',
 
         // Top Level
         'public/js/core/state.js',

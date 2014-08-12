@@ -17,7 +17,7 @@ describe('Unit: AdminMatchesCtrl', function(){
   }));
 
   // describe('$scope properties', function(){
-  //   it('should have a candidateCategoryQuery property', function(){
+  //   it('should have a slots property', function(){
   //     expect(scope.slots).toBeDefined();
   //   });
   // });
