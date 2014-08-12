@@ -19,8 +19,40 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
 
     var output;
     var readyData = function () {
+      // output = '';
+      //
+      //
+      // // create header row (user names, degrading to emails)
+      // var userOrder = []; // array of userIds
+      // $scope.candidates.forEach(function (user) {
+      //   userOrder.push(user._id);
+      //   var displayName = user.name || user.email;
+      //   output += ',' + displayName;
+      // });
+      // // add break column
+      // output += ',' + 'Break' + '\n';
+      //
+      // // iterate through opportunities
+      // for (var oppId in $scope.schedule) {
+      //   var emptySchedule = new Array(userOrder.length + 1); // +1 for break
+      //   output +=
+      //     ($scope.opportunities[oppId].jobTitle).replace(/,/, ' ') + '(' +
+      //     ($scope.opportunities[oppId].company.name).replace(/,/, ' ') + ')';
+      //   for (var i = 0; i < $scope.schedule[oppId].length; i += 1) {
+      //     var scheduleObj = $scope.schedule[oppId][i];
+      //     if (scheduleObj === 'BREAK') {
+      //       // set last column value to this index (i) + 1
+      //       emptySchedule[emptySchedule.length] = i + 1;
+      //     } else {
+      //       // console.log(scheduleObj);
+      //       var userId = scheduleObj.id;
+      //       // find where userId is in userOrder array
+      //       var idx = userOrder.indexOf(userId);
+      //       // then replace that value in the emptySchedule array with (i) + 1
+      //       emptySchedule[idx] = i + 1;
+      //     }
+      //   }
       output = '';
-
 
       // create header row (user names, degrading to emails)
       var userOrder = []; // array of userIds
@@ -30,35 +62,39 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
         output += ',' + displayName;
       });
       // add break column
-      output += ',' + 'Break' + '\n';
+      output += ',' + 'Break' + ',' + 'Not Scheduled Due to Constraints' + '\n';
 
       // iterate through opportunities
       for (var oppId in $scope.schedule) {
-        var emptySchedule = new Array(userOrder.length + 1); // +1 for break
+        // +1 for break
+        var emptySchedule = new Array(userOrder.length + 1);
         output +=
-          ($scope.opportunities[oppId].jobTitle).replace(/,/, ' ') + '(' +
-          ($scope.opportunities[oppId].company.name).replace(/,/, ' ') + ')';
+          ($scope.opportunities[oppId].jobTitle).replace(/\,/, ' ') + ' (' +
+          ($scope.opportunities[oppId].company.name).replace(/\,/, ' ') + ')';
         for (var i = 0; i < $scope.schedule[oppId].length; i += 1) {
           var scheduleObj = $scope.schedule[oppId][i];
           if (scheduleObj === 'BREAK') {
             // set last column value to this index (i) + 1
+            emptySchedule[userOrder.length] = i + 1;
+          } else if (scheduleObj === undefined) {
+            // keep adding undefined's at end as necessary
             emptySchedule[emptySchedule.length] = i + 1;
           } else {
-            // console.log(scheduleObj);
             var userId = scheduleObj.id;
-            // find where userId is in userOrder array
             var idx = userOrder.indexOf(userId);
             // then replace that value in the emptySchedule array with (i) + 1
-            emptySchedule[idx] = i + 1;
+            emptySchedule[idx] = "R" + (i + 1);
           }
         }
+
         // join emptySchedule array together with commas, plus new line
         emptySchedule = emptySchedule.join(',') + '\n';
         // replace 'undefined' with empty strings
         emptySchedule.replace(/undefined/g, '');
 
-        $scope.oneRoundNumForCandidate = emptySchedule.split(",");
+        var oneRoundNumForCandidate = $scope.oneRoundNumForCandidate = emptySchedule.split(",");
         $scope.allRoundNumForCandidate[oppId] = $scope.oneRoundNumForCandidate;
+        //console.log($scope.allRoundNumForCandidate)
         output += emptySchedule;
       }
     };
@@ -66,8 +102,9 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
     var schedulerOutput = Scheduler.schedule(11, 10, 6, function(output) {
       $scope.opportunities = output.opportunities;
       $scope.schedule = output.schedule;
+      console.log("&&&&&&&&&&&&&&", $scope.schedule)
       $scope.candidates = output.candidates;
-      
+
       for (var can = 0; can < $scope.candidates.length; can++) {
         $scope.userMap[$scope.candidates[can]._id] = $scope.candidates[can].name || $scope.candidates[can].email;
       }

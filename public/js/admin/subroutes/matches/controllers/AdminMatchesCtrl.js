@@ -250,10 +250,12 @@ app.controller('AdminMatchesCtrl',
       for (var j=0; j < userOrder.length; j++) {
         var uid = userOrder[j];
         if (!emptySchedule[j]) {
+          //console.log("what is matrix", $scope.matrix[uid])
           for (var k=0; k < $scope.matrix[uid].length; k++) {
             var matrixMap = $scope.matrix[uid][k];
             if (matrixMap.user === uid && matrixMap.opportunity === oppId) {
               emptySchedule[j] = $scope.matrix[uid][k].value;
+              console.log("Do I need it", emptySchedule[j])
             }
           }
         }
