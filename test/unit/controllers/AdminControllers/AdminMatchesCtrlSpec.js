@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Unit: AdminCompaniesDetailCtrl', function(){
+describe('Unit: AdminMatchesCtrl', function(){
   // Load the module with MainController
   beforeEach(module('jobQuery'));
 
@@ -11,14 +11,14 @@ describe('Unit: AdminCompaniesDetailCtrl', function(){
     // Create a new scope that's a child of the $rootScope
     scope = $rootScope.$new();
     // Create the controller
-    ctrl = $controller('AdminCompaniesDetailCtrl', {
+    ctrl = $controller('AdminMatchesCtrl', {
       $scope: scope
     });
   }));
 
   // describe('$scope properties', function(){
-  //   it('should have a readOnly property', function(){
-  //     expect(scope.readOnly).toBeDefined();
+  //   it('should have a candidateCategoryQuery property', function(){
+  //     expect(scope.slots).toBeDefined();
   //   });
   // });
 

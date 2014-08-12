@@ -25,7 +25,9 @@ module.exports = function(config) {
         'public/bower_components/angular-mocks/angular-mocks.js',
         'public/bower_components/angular-local-storage/angular-local-storage.js',
         'public/js/app.js',
-        'public/js/**/*.js',
+        'public/js/admin/**/*.js',
+        'public/js/core/**/*.js',
+        'public/js/users/**/*.js',
         'test/unit/**/*.js'
     ],
 
