@@ -24,8 +24,13 @@ module.exports = function(config) {
         'public/bower_components/angular-animate/angular-animate.js',
         'public/bower_components/angular-mocks/angular-mocks.js',
         'public/bower_components/angular-local-storage/angular-local-storage.js',
+        //IMPORTANT!!! do not glob all the js files together. If you do they will 
+        //be alphabetized, and all the admin files will load before app.js, causing 
+        //you many problems
         'public/js/app.js',
-        'public/js/**/*.js',
+        'public/js/admin/**/*.js',
+        'public/js/core/**/*.js',
+        'public/js/users/**/*.js',
         'test/unit/**/*.js'
     ],
 
