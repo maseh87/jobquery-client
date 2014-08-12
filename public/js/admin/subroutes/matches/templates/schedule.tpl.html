@@ -17,9 +17,9 @@
 
     <div class="content-section container-fluid">
         <div class="row">
-        <div class="gridbox-title">Displayed by Round</div>
-        <div class="content-scrollable">
-        <table class="gridbox">
+        <div class="gridbox-title">Scheduling Grid</div>
+        <div class="content-scrollable ">
+        <table class="gridbox table table-striped">
         <thead>
             <tr class="gridbox-header">
                 <th></th><!-- empty table header -->
@@ -47,7 +47,7 @@
     <div class="content-section container-fluid">
         <div class="row">
         <div class="gridbox-title">Scheduling Grid</div>
-        <div class="content-scrollable">
+        <div class="content-scrollable table-responsive">
         <table class="gridbox">
         <thead>
             <tr class="gridbox-header">
@@ -59,8 +59,8 @@
         </thead>
         <tbody>
             <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
-                <th ui-sref="admin.opportunities.detail({_id: oppId})">{{ opportunities[oppId].company.name }}</th>
-                <td ng-repeat="str in allRoundNumForCandidate[oppId] track by $index">{{ str }}<td>
+                <th>{{ opportunities[oppId].company.name }}</th>
+                <td ng-repeat="round in allRoundNumForCandidate[oppId] track by $index">{{ round }}<td>
             </tr>
         </tbody>
         </table>
