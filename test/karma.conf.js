@@ -15,6 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+        //IMPORTANT!!! do not glob all the js files together. If you do they will 
+        //be auto alphabetized, not in the order you want, and you will feel much pain
         'public/bower_components/angular/angular.js',
         'public/bower_components/angular-ui-router/release/angular-ui-router.js',
         'public/bower_components/angular-resource/angular-resource.js',
@@ -24,14 +26,149 @@ module.exports = function(config) {
         'public/bower_components/angular-animate/angular-animate.js',
         'public/bower_components/angular-mocks/angular-mocks.js',
         'public/bower_components/angular-local-storage/angular-local-storage.js',
-        //IMPORTANT!!! do not glob all the js files together. If you do they will 
-        //be alphabetized, and all the admin files will load before app.js, causing 
-        //you many problems
         'public/js/app.js',
-        'public/js/admin/**/*.js',
-        'public/js/core/**/*.js',
-        'public/js/users/**/*.js',
+        // 'public/js/admin/**/*.js',
+        // 'public/js/core/**/*.js',
+        // 'public/js/users/**/*.js',
+
+        // 'public/mocks/companies.js',
+        // 'public/mocks/userCompanies.js',
+        // 'public/mocks/opportunities.js',
+        // 'public/mocks/userOpportunities.js',
+        // 'public/mocks/messages.js',
+        // 'public/mocks/tags.js',
+        // 'public/mocks/users.js',
+        // 'public/mocks/userAccount.js',
+        // 'public/mocks/match.js',
+        // 'public/mocks/crosslink.js',
+
+        // Top Level
+        'public/js/core/state.js',
+        'public/js/core/controllers/AppCtrl.js',
+        'public/js/core/controllers/LoginCtrl.js',
+        'public/js/core/controllers/ResetCtrl.js',
+        'public/js/core/controllers/SendCtrl.js',
+
+        'public/js/core/services/AuthService.js',
+        'public/js/core/services/DialogueService.js',
+        'public/js/core/services/generateGlyphs.js',
+
+        // Models
+        'public/js/core/services/AuthInterceptor.js',
+
+        // Admin Models
+        'public/js/admin/services/CompanyModel.js',
+        'public/js/admin/services/CategoryModel.js',
+        'public/js/admin/services/UserModel.js',
+        'public/js/admin/services/TagModel.js',
+        'public/js/admin/services/OpportunityModel.js',
+        'public/js/admin/services/MessageModel.js',
+        'public/js/admin/services/MatchModel.js',
+
+        // User Models
+        'public/js/users/services/UserCompanyModel.js',
+        'public/js/users/services/UserOpportunityModel.js',
+        'public/js/users/services/UserAccountModel.js',
+        'public/js/users/services/UserTagModel.js',
+
+        // users
+        'public/js/users/state.js',
+        'public/js/users/controllers/UsersCtrl.js',
+        'public/js/users/controllers/UsersSidebarCtrl.js',
+
+        'public/js/users/services/GuidanceService.js',
+
+        // users.dashboard
+        'public/js/users/subroutes/dashboard/state.js',
+        'public/js/users/subroutes/dashboard/controllers/UsersDashboardCtrl.js',
+
+        // users.account
+        'public/js/users/subroutes/account/state.js',
+        'public/js/users/subroutes/account/controllers/UsersAccountCtrl.js',
+
+        // users.companies
+        'public/js/users/subroutes/companies/state.js',
+        'public/js/users/subroutes/companies/controllers/UsersCompaniesCtrl.js',
+
+        // users.companies.detail
+        'public/js/users/subroutes/companies/controllers/UsersCompaniesDetailCtrl.js',
+
+        // users.opportunities
+        'public/js/users/subroutes/opportunities/state.js',
+        'public/js/users/subroutes/opportunities/controllers/UsersOpportunitiesCtrl.js',
+
+        // users.opportunities.detail
+        'public/js/users/subroutes/opportunities/controllers/UsersOpportunitiesDetailCtrl.js',
+
+        // admin
+        'public/js/admin/state.js',
+        'public/js/admin/controllers/AdminCtrl.js',
+        'public/js/admin/controllers/AdminSidebarCtrl.js',
+
+        // admin.dashboard
+        'public/js/admin/subroutes/dashboard/state.js',
+        'public/js/admin/subroutes/dashboard/controllers/AdminDashboardCtrl.js',
+
+        // admin.account
+        'public/js/admin/subroutes/account/state.js',
+        'public/js/admin/subroutes/account/controllers/AdminAccountCtrl.js',
+
+        // admin.candidates
+        'public/js/admin/subroutes/candidates/state.js',
+        'public/js/admin/subroutes/candidates/controllers/AdminCandidatesCtrl.js',
+
+        // admin.candidates.detail
+        'public/js/admin/subroutes/candidates/controllers/AdminCandidatesDetailCtrl.js',
+
+        // admin.candidates.new
+        'public/js/admin/subroutes/candidates/controllers/AdminCandidatesNewCtrl.js',
+
+        // admin.companies
+        'public/js/admin/subroutes/companies/state.js',
+        'public/js/admin/subroutes/companies/controllers/AdminCompaniesCtrl.js',
+
+        // admin.companies.detail
+        'public/js/admin/subroutes/companies/controllers/AdminCompaniesDetailCtrl.js',
+
+        // admin.companies.new
+        'public/js/admin/subroutes/companies/controllers/AdminCompaniesNewCtrl.js',
+
+        // admin.matches
+        'public/js/admin/subroutes/matches/state.js',
+        'public/js/admin/subroutes/matches/controllers/AdminMatchesCtrl.js',
+        'public/js/admin/subroutes/matches/controllers/AdminMatchesScheduleCtrl.js',
+        'public/js/admin/subroutes/matches/services/SchedulerServ.js',
+
+        // admin.messages
+        'public/js/admin/subroutes/messages/state.js',
+        'public/js/admin/subroutes/messages/controllers/AdminMessagesCtrl.js',
+
+        // admin.messages.detail
+        'public/js/admin/subroutes/messages/controllers/AdminMessagesDetailCtrl.js',
+
+        // admin.messages.new
+        'public/js/admin/subroutes/messages/controllers/AdminMessagesNewCtrl.js',
+
+        // admin.opportunities
+        'public/js/admin/subroutes/opportunities/state.js',
+        'public/js/admin/subroutes/opportunities/controllers/AdminOpportunitiesCtrl.js',
+        'public/js/admin/subroutes/opportunities/controllers/AdminOpportunitiesPreviewCtrl.js',
+
+        // admin.opportunities.detail
+        'public/js/admin/subroutes/opportunities/controllers/AdminOpportunitiesDetailCtrl.js',
+
+        // admin.opportunities.new
+        'public/js/admin/subroutes/opportunities/controllers/AdminOpportunitiesNewCtrl.js',
+
+        // admin.scheduling
+        'public/js/admin/subroutes/scheduling/state.js',
+        'public/js/admin/subroutes/scheduling/controllers/AdminSchedulingCtrl.js',
+
+        // admin.tags
+        'public/js/admin/subroutes/tags/state.js',
+        'public/js/admin/subroutes/tags/controllers/AdminTagsCtrl.js',
         'test/unit/**/*.js'
+
     ],
 
 
