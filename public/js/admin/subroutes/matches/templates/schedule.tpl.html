@@ -58,7 +58,7 @@
         <tbody>
             <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
                 <th>{{ opportunities[oppId].company.name }}</th>
-                <td ng-repeat="round in allRoundNumForCandidate[oppId] track by $index">{{ round }}{{$index}}<td>
+                <td ng-repeat="round in allRoundNumForCandidate[oppId] track by $index">{{ round }}<td>
             </tr>
         </tbody>
         </table>
