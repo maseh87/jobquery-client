@@ -11,6 +11,10 @@
     "jquery": "~2.1.1",
     "angular-bootstrap": "~0.11.0",
     "ng-videosharing-embed": "~0.2.1",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "smart-table": "~0.1.5"
+  },
+  "resolutions": {
+    "angular": "1.2.21"
   }
 }
