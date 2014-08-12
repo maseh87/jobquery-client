@@ -426,12 +426,12 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
       });
     },
     //mason put this here for testing
-    getData: function () {
-      var data = [];
-      data.push(Opportunity.getAll());
-      data.push(User.getAll());
-      data.push(Match.getAll());
-      return $q.all(data);
-    }
+    // getData: function () {
+    //   var data = [];
+    //   data.push(Opportunity.getAll());
+    //   data.push(User.getAll());
+    //   data.push(Match.getAll());
+    //   return $q.all(data);
+    // }
   };
 }]);

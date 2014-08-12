@@ -32,12 +32,10 @@
             <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
                 <th ng-model="opportunityTooltip"><span tooltip-placement="right" tooltip-html-unsafe="{{opportunityTooltip}}">{{ opportunities[oppId].company.name }}: {{ opportunities[oppId].jobTitle }}</span></th>
                 <td ng-repeat="candidate in opportunity track by $index" >
-                    <span tooltip-placement="right" tooltip-html-unsafe="{{candidateTooltip}}">{{ userMap[candidate.id] }}</span><br>
+                    <span style="font-weight: 200;font-size:14px;" tooltip-placement="right" tooltip-html-unsafe="{{candidateTooltip}}">{{ userMap[candidate.id] }}</span><br>
                     <div class="item">
                         {{ candidate.interest }}
                     </div>
-                    <span style="font-weight: 200;font-size:14px;">{{ userMap[candidate.id] }}</span><br>
-                    {{ candidate.interest }}
                 </td>
             </tr>
         </tbody>
