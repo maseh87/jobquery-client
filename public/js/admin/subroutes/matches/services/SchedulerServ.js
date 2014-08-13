@@ -2,8 +2,8 @@ app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q',
 
   var users = FilterService.users;
   var opportunities = FilterService.opportunities;
-  console.log('users ', users);
-  console.log('opps ', opportunities);
+  // console.log('users ', users);
+  // console.log('opps ', opportunities);
 
 
 
