@@ -1,3 +1,5 @@
+<!-- <div class="gridStyle" ng-grid="gridOptions"></div> -->
+<!-- <div>{{ mySelections[0] }}</div>
     <div class="content-header">
         <div class="content-header-block text-left">
             <span class="content-action" ui-sref="admin.matches.all">
@@ -22,7 +24,7 @@
         <table class="gridbox table table-striped">
         <thead>
             <tr class="gridbox-header">
-                <th></th><!-- empty table header -->
+                <th></th>
                 <th ng-repeat="slot in slots">
                     {{ slot.time }}
                 </th>
@@ -30,10 +32,12 @@
         </thead>
         <tbody>
             <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
-                <th>{{ opportunities[oppId].company.name }}</th>
+                <th ng-model="opportunityTooltip"><span tooltip-placement="right" tooltip-html-unsafe="{{opportunityTooltip}}">{{ opportunities[oppId].company.name }}: {{ opportunities[oppId].jobTitle }}</span></th>
                 <td ng-repeat="candidate in opportunity track by $index" >
-                    <span style="font-weight: 200;font-size:14px;">{{ userMap[candidate.id] }}</span><br>
-                    {{ candidate.interest }}
+                    <span style="font-weight: 200;font-size:14px;" tooltip-placement="right" tooltip-html-unsafe="{{candidateTooltip}}">{{ userMap[candidate.id] }}</span><br>
+                    <div class="item">
+                        {{ candidate.interest }}
+                    </div>
                 </td>
             </tr>
         </tbody>
@@ -49,7 +53,7 @@
         <table class="gridbox">
         <thead>
             <tr class="gridbox-header">
-                <th></th><!-- empty table header-->
+                <th></th>
                 <th ng-repeat="(user, userName) in userMap">
                     <span style="font-size: 14px">{{ userName }}</span>
                 </th>
@@ -65,3 +69,4 @@
         </div>
         </div>
     </div>
+ -->
