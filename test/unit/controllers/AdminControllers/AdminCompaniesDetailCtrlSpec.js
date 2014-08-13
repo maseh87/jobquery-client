@@ -16,10 +16,44 @@ describe('Unit: AdminCompaniesDetailCtrl', function(){
     });
   }));
 
-  // describe('$scope properties', function(){
-  //   it('should have a readOnly property', function(){
-  //     expect(scope.readOnly).toBeDefined();
-  //   });
-  // });
+  describe('$scope properties', function(){
+    it('should have a readOnly property', function(){
+      expect(scope.readOnly).toBeDefined();
+    });
+  });
+
+  describe('$scope methods', function(){
+
+    it('should have a toggleEdit method', function(){
+      expect(scope.toggleEdit).toBeDefined();
+      expect(typeof scope.toggleEdit).toBe('function');
+    });
+
+    it('should have a update method', function(){
+      expect(scope.update).toBeDefined();
+      expect(typeof scope.update).toBe('function');
+    });
+
+    it('should have a addMedia method', function(){
+      expect(scope.addMedia).toBeDefined();
+      expect(typeof scope.addMedia).toBe('function');
+    });
+
+    it('should have a removeMedia method', function(){
+      expect(scope.removeMedia).toBeDefined();
+      expect(typeof scope.removeMedia).toBe('function');
+    });
+
+    it('should have a addLink method', function(){
+      expect(scope.addLink).toBeDefined();
+      expect(typeof scope.addLink).toBe('function');
+    });
+
+    it('should have a removeLink method', function(){
+      expect(scope.removeLink).toBeDefined();
+      expect(typeof scope.removeLink).toBe('function');
+    });
+
+  });
 
 });
