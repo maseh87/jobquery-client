@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        //IMPORTANT!!! do not glob all the js files together. If you do they will 
+        //IMPORTANT!!! do not glob all the js files together. If you do they will
         //be auto alphabetized, not in the order you want, and you will feel much pain
         'public/bower_components/angular/angular.js',
         'public/bower_components/angular-ui-router/release/angular-ui-router.js',
@@ -24,23 +24,12 @@ module.exports = function(config) {
         'public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js',
         'public/bower_components/angular-animate/angular-animate.js',
-        'public/bower_components/angular-mocks/angular-mocks.js',
         'public/bower_components/angular-local-storage/angular-local-storage.js',
+        "public/bower_components/lodash/dist/lodash.min.js",
+        "public/bower_components/jquery/dist/jquery.min.js",
+        'public/bower_components/ng-grid/build/ng-grid.js',
+        'public/bower_components/angular-mocks/angular-mocks.js',
         'public/js/app.js',
-        // 'public/js/admin/**/*.js',
-        // 'public/js/core/**/*.js',
-        // 'public/js/users/**/*.js',
-
-        // 'public/mocks/companies.js',
-        // 'public/mocks/userCompanies.js',
-        // 'public/mocks/opportunities.js',
-        // 'public/mocks/userOpportunities.js',
-        // 'public/mocks/messages.js',
-        // 'public/mocks/tags.js',
-        // 'public/mocks/users.js',
-        // 'public/mocks/userAccount.js',
-        // 'public/mocks/match.js',
-        // 'public/mocks/crosslink.js',
 
         // Top Level
         'public/js/core/state.js',
@@ -180,13 +169,16 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        'public/js/**/*.js': 'coverage'
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'unicorn'],
+    reporters: ['progress', 'unicorn', 'coverage'],
+
+
 
 
     // web server port
