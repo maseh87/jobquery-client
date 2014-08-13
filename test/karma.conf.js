@@ -169,6 +169,16 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        'public/js/core/state.js': 'coverage',
+        'public/js/core/controllers/AppCtrl.js': 'coverage',
+        'public/js/core/controllers/LoginCtrl.js': 'coverage',
+        'public/js/core/controllers/ResetCtrl.js': 'coverage',
+        'public/js/core/controllers/SendCtrl.js': 'coverage',
+
+        'public/js/core/services/AuthService.js': 'coverage',
+        'public/js/core/services/DialogueService.js': 'coverage',
+        'public/js/core/services/generateGlyphs.js': 'coverage'
+
     },
 
 
@@ -176,6 +186,8 @@ module.exports = function(config) {
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['progress', 'unicorn'],
+
+
 
 
     // web server port
