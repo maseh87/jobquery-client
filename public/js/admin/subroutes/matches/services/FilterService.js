@@ -36,11 +36,20 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             return false;
           }
         });
+        //for each match in matchesArray
         _.forEach(matchesArray, function(match) {
+          //if there is no interest property on opportunity object
           if(!opportunities[match.opportunity].interest) {
+            //make one
             opportunities[match.opportunity].interest = {};
           }
-          opportunities[match.opportunity].interest[match.user] = match.userInterest;
+
+          if(!opportunities[match.opportunity].interest[match.userInterest]) {
+            opportunities[match.opportunity].interest[match.userInterest] = {};
+          }
+
+          opportunities[match.opportunity].interest[match.userInterest][match.user] = match.userInterest;
+
           if(!userObj[match.user][match.userInterest]) {
             userObj[match.user][match.userInterest] = [1, 0];
           } else {
