@@ -38,23 +38,29 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         });
         //for each match in matchesArray
         _.forEach(matchesArray, function(match) {
+          var userRequestedNum;
           //if there is no interest property on opportunity object
-          if(!opportunities[match.opportunity].interest) {
+          var opp = opportunities[match.opportunity];
+          if(!opp.interest) {
             //make one
-            opportunities[match.opportunity].interest = {};
+            opp.interest = {};
           }
-
-          if(!opportunities[match.opportunity].interest[match.userInterest]) {
-            opportunities[match.opportunity].interest[match.userInterest] = {};
-          }
-
-          opportunities[match.opportunity].interest[match.userInterest][match.user] = match.userInterest;
-
+          //make a tuple with the [user Requested, user Scheduled]
           if(!userObj[match.user][match.userInterest]) {
             userObj[match.user][match.userInterest] = [1, 0];
           } else {
             userObj[match.user][match.userInterest][0] += 1;
           }
+          userRequestedNum = userObj[match.user][match.userInterest][0];
+
+          if(!opp.interest[match.userInterest]) {
+            opp.interest[match.userInterest] = {};
+          }
+          //make an object sorted by user request number
+          if(!opp.interest[match.userInterest][userRequestedNum]) {
+            opp.interest[match.userInterest][userRequestedNum] = [];
+          }
+          opp.interest[match.userInterest][userRequestedNum].push(match.user);
         });
       });
     });
