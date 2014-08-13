@@ -1,19 +1,30 @@
 app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'FilterService', 'DialogueService',
   function ($scope, $state, Match, Opportunity, User, Scheduler, FilterService, DialogueService) {
-   $scope.mySelections = [];
-   $scope.myData = [
-                     {Opportunity: "Beats", 'scirxckso': 'R1', schedule: 4},
-                     {Opportunity: "Sales Force", scheduleDetail: 'R2', schedule: "R6"},
-                     {Opportunity: "Auto Desk", scheduleDetail: 'R3', schedule: 'R2'},
-                     {Opportunity: "Google", scheduleDetail: 'R5', schedule: 'R1'}
-                    ];
-    $scope.gridOptions = {
-        data: 'myData',
-        showGroupPanel: true,
-        selectedItems: $scope.mySelections,
-        multiSelect: false,
-        columnDefs: [{field:'eidkaeldkeOppId', displayName:'Opportunity'}, {field:'sleidkakcUserId', displayName:'Elcin'}]
-    };
+   // $scope.mySelections = [];
+   // $scope.myData = [
+   //                   // {1: 'Beats', 10: 'R1', 11: '4', 12: 'R2'},
+   //                   // {2: 'AutoDesk', 11: '3', 10: 'R2', 12: 'R1'}
+   //                   {name: 'Mason', age: 27},
+   //                   {name: 'Xianhui', age: 10},
+   //                  ];
+   //  $scope.gridOptions = {
+   //      data: 'myData'
+   //      // showGroupPanel: true,
+   //      // selectedItems: $scope.mySelections,
+   //      // multiSelect: false,
+   //      // columnDefs: [
+   //      //   {field: 1, displayName:'Opportunity'},
+   //      //   {field: 10, displayName: 'Mason'},
+   //      //   {field: 11, displayName: 'Xianhui'},
+   //      //   {field: 12, displayName: 'James'}
+   //      // ]
+   //  };
+    $scope.myData = [{name: "Moroni", age: 50},
+                     {name: "Tiancum", age: 43},
+                     {name: "Jacob", age: 27},
+                     {name: "Nephi", age: 29},
+                     {name: "Enos", age: 34}];
+    $scope.gridOptions = { data: 'myData' };
 console.log(FilterService.users, " users");
 console.log(FilterService.opportunities, ' opportunities');
 
