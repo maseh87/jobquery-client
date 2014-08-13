@@ -4,7 +4,7 @@
                 <span class="glyphicon glyphicon-th"></span>
                 <span>See Matches</span>
             </span>
-            <span class="content-action" ng-click="downloadData()">
+            <span class="content-action" ng-click="downloadSchedule()">
                 <span class="glyphicon glyphicon-download"></span>
                 <span>Download Schedule</span>
             </span>
@@ -18,11 +18,11 @@
     <div class="content-section container-fluid">
         <div class="row">
         <div class="gridbox-title">Scheduling Grid</div>
-        <div class="content-scrollable">
-        <table class="gridbox">
+        <div class="content-scrollable ">
+        <table class="gridbox table table-striped">
         <thead>
             <tr class="gridbox-header">
-                <th></th><!-- empty table header-->
+                <th></th><!-- empty table header -->
                 <th ng-repeat="slot in slots">
                     {{ slot.time }}
                 </th>
@@ -32,7 +32,7 @@
             <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
                 <th ui-sref="admin.opportunities.detail({_id: oppId})">{{ opportunities[oppId].company.name }}: {{ opportunities[oppId].jobTitle }}</th>
                 <td ng-repeat="candidate in opportunity track by $index" >
-                    <span>{{ userMap[candidate.id] }}</span><br>
+                    <span style="font-weight: 200;font-size:14px;">{{ userMap[candidate.id] }}</span><br>
                     {{ candidate.interest }}
                 </td>
             </tr>
@@ -42,28 +42,26 @@
         </div>
     </div>
 
-    <!-- <div class="content-section container-fluid">
+    <div class="content-section container-fluid">
         <div class="row">
         <div class="gridbox-title">Scheduling Grid</div>
-        <div class="content-scrollable">
+        <div class="content-scrollable table-responsive">
         <table class="gridbox">
         <thead>
             <tr class="gridbox-header">
-                <th></th>
-                <th ng-repeat="opportunity in opportunities track by opportunity._id" ui-sref="admin.opportunities.detail({_id: opportunity._id})">
-                    {{ opportunity.company.name }}: {{ opportunity.jobTitle }}
+                <th></th><!-- empty table header-->
+                <th ng-repeat="(user, userName) in userMap">
+                    <span style="font-size: 14px">{{ userName }}</span>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr class="gridbox-content" ng-repeat="slot in schedule">
-                <th ui-sref="admin.candidates.detail({_id: userId})">{{ userMap[userId] }}</th>
-                <td ng-repeat="opportunity in slot track by $index" ng-class="isOverridden(match)">
-                    <span ng-repeat="candidate in opportunity track by $index">{{ userMap[candidate] }}</span><br>
-                </td>
+            <tr class="gridbox-content" ng-repeat="(oppId, opportunity) in schedule">
+                <th>{{ opportunities[oppId].company.name }}</th>
+                <td ng-repeat="round in allRoundNumForCandidate[oppId] track by $index">{{ round }}<td>
             </tr>
         </tbody>
         </table>
         </div>
         </div>
-    </div> -->
+    </div>
