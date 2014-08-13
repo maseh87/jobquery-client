@@ -16,10 +16,10 @@ describe('Unit: AdminMatchesScheduleCtrl', function(){
     });
   }));
 
-  describe('$scope properties', function(){
-    it('should have a candidateCategoryQuery property', function(){
-      expect(scope.slots).toBeDefined();
-    });
-  });
+  // describe('$scope properties', function(){
+  //   it('should have a candidateCategoryQuery property', function(){
+  //     expect(scope.slots).toBeDefined();
+  //   });
+  // });
 
 });
