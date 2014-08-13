@@ -410,6 +410,36 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
     return output;
   };
 
+  var grid = [];
+  function populateGrid(numberOfRounds, maxInterviews, minInterviews, callback) {
+      var processedInput;
+      retrieveData().then(function (data) {
+        var OPPORTUNITIES_INDEX  = 0;
+        var CANDIDATES_INDEX     = 1;
+        var MATCHES_INDEX        = 2;
+        var assigned;
+        var output;
+        processedInput = prepareData(data[OPPORTUNITIES_INDEX], data[CANDIDATES_INDEX], data[MATCHES_INDEX], numberOfRounds, maxInterviews, minInterviews);
+        output = runAssignment(processedInput);
+        output = processOutput(output);
+        callback(output);
+      });
+  }
+  populateGrid(11, 10, 6, function(output) {
+    // console.log(output);
+    for (var i = 0; i < output.opportunities.length; i++) {
+      // console.log(output.opportunities[i]);
+      grid.push(
+      {
+        opportunity: output.opportunities[i].jobTitle,
+
+      }
+      );
+    }
+  });
+
+
+
   return {
     schedule : function(numberOfRounds, maxInterviews, minInterviews, callback) {
       var processedInput;
@@ -425,6 +455,7 @@ app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opport
         callback(output);
       });
     },
+    grid: grid
     //mason put this here for testing
     // getData: function () {
     //   var data = [];
