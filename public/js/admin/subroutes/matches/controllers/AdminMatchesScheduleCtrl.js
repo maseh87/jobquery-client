@@ -1,5 +1,5 @@
-app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'Scheduler','SERVER_URL', 'DialogueService',
-  function ($scope, $state, $http, Match, Opportunity, User, Scheduler, SERVER_URL, DialogueService) {
+app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'FilterService', 'DialogueService',
+  function ($scope, $state, Match, Opportunity, User, Scheduler, FilterService, DialogueService) {
    $scope.mySelections = [];
    $scope.myData = [
                      {Opportunity: "Beats", 'scirxckso': 'R1', schedule: 4},
@@ -14,24 +14,6 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', '$http', 'Match'
         multiSelect: false,
         columnDefs: [{field:'eidkaeldkeOppId', displayName:'Opportunity'}, {field:'sleidkakcUserId', displayName:'Elcin'}]
     };
-    $scope.newGrid = function() {
-      // console.log(Scheduler);
-    };
-    $scope.oneRoundNumForCandidate;
-    $scope.allRoundNumForCandidate = {};
-    $scope.slots = [
-        {time: 'Round 1'},
-        {time: 'Round 2'},
-        {time: 'Round 3'},
-        {time: 'Round 4'},
-        {time: 'Round 5'},
-        {time: 'Round 6'},
-        {time: 'Round 7'},
-        {time: 'Round 8'},
-        {time: 'Round 9'},
-        {time: 'Round 10'},
-        {time: 'Round 11'}
-    ];
 
 //     Match.getAll().then(function (matchData) {
 //       var usersTest = {};
@@ -221,57 +203,57 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', '$http', 'Match'
 
 //     $scope.schedule = [];
 
-var userObj = {};
-    var matches = {};
-    var opportunities = {};
+// var userObj = {};
+//     var matches = {};
+//     var opportunities = {};
 
-    //Grab Users and filter accordingly
-    User.getAll().then(function(users) {
-      var filteredUsers = users.filter(function (candidate) {
-        if (candidate.isAdmin) return false;
-        if (!candidate.attending) return false;
-        if (!candidate.isRegistered) return false;
-        if ((candidate.searchStage === 'Out') || (candidate.searchStage === 'Accepted')) return false;
-        return true;
-      });
-      _.forEach(filteredUsers, function(user) {
-        userObj[user._id] = user;
-      });
-      Match.getAll().then(function(matchData) {
-        var filteredOpps = matchData.opportunities.filter(function (opportunity) {
-          if (!opportunity.active) return false;
-          if (!opportunity.approved) return false;
-          if (opportunity.category.name === "Not Attending Hiring Day") return false;
-          return true;
-        });
-        _.forEach(filteredOpps, function(opportunity) {
-          opportunities[opportunity._id] = opportunity;
-        });
-        //filter matches based on if user and opportunity is attending hiring day
-        var matchesArray = matchData.matches.filter(function (match) {
-          if (userObj[match.user] && opportunities[match.opportunity]) {
-          // console.log(match)
-            return true;
-          } else {
-            return false;
-          }
-        });
-        _.forEach(matchesArray, function(match) {
-          if(!opportunities[match.opportunity].interest) {
-            opportunities[match.opportunity].interest = {};
-          }
-          opportunities[match.opportunity].interest[match.user] = match.userInterest;
-          if(!userObj[match.user][match.userInterest]) {
-            userObj[match.user][match.userInterest] = [1, 0];
-          } else {
-            userObj[match.user][match.userInterest][0] += 1;
-          }
-        });
-        console.log(userObj, ' users');
-        console.log(matches, ' matches');
-        console.log(opportunities, ' opps');
-      });
-    });
+//     //Grab Users and filter accordingly
+//     User.getAll().then(function(users) {
+//       var filteredUsers = users.filter(function (candidate) {
+//         if (candidate.isAdmin) return false;
+//         if (!candidate.attending) return false;
+//         if (!candidate.isRegistered) return false;
+//         if ((candidate.searchStage === 'Out') || (candidate.searchStage === 'Accepted')) return false;
+//         return true;
+//       });
+//       _.forEach(filteredUsers, function(user) {
+//         userObj[user._id] = user;
+//       });
+//       Match.getAll().then(function(matchData) {
+//         var filteredOpps = matchData.opportunities.filter(function (opportunity) {
+//           if (!opportunity.active) return false;
+//           if (!opportunity.approved) return false;
+//           if (opportunity.category.name === "Not Attending Hiring Day") return false;
+//           return true;
+//         });
+//         _.forEach(filteredOpps, function(opportunity) {
+//           opportunities[opportunity._id] = opportunity;
+//         });
+//         //filter matches based on if user and opportunity is attending hiring day
+//         var matchesArray = matchData.matches.filter(function (match) {
+//           if (userObj[match.user] && opportunities[match.opportunity]) {
+//           // console.log(match)
+//             return true;
+//           } else {
+//             return false;
+//           }
+//         });
+//         _.forEach(matchesArray, function(match) {
+//           if(!opportunities[match.opportunity].interest) {
+//             opportunities[match.opportunity].interest = {};
+//           }
+//           opportunities[match.opportunity].interest[match.user] = match.userInterest;
+//           if(!userObj[match.user][match.userInterest]) {
+//             userObj[match.user][match.userInterest] = [1, 0];
+//           } else {
+//             userObj[match.user][match.userInterest][0] += 1;
+//           }
+//         });
+//         console.log(userObj, ' users');
+//         console.log(matches, ' matches');
+//         console.log(opportunities, ' opps');
+//       });
+//     });
     //Grab all Matches and filter opportunities and save in opportunities variable
 
 
