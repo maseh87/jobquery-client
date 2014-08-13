@@ -147,10 +147,6 @@ app.controller('AdminMatchesCtrl',
 
       readyData();
     });
-//also for testing
-    // Scheduler.getData().then(function(results) {
-    //     console.log(results);
-    //   });
   };
 
   function download(strData, strFileName, strMimeType) {
@@ -250,6 +246,7 @@ app.controller('AdminMatchesCtrl',
       for (var j=0; j < userOrder.length; j++) {
         var uid = userOrder[j];
         if (!emptySchedule[j]) {
+          //console.log("what is matrix", $scope.matrix[uid])
           for (var k=0; k < $scope.matrix[uid].length; k++) {
             var matrixMap = $scope.matrix[uid][k];
             if (matrixMap.user === uid && matrixMap.opportunity === oppId) {
@@ -284,7 +281,6 @@ app.controller('AdminMatchesCtrl',
     });
     download(output, 'exported', 'text/csv');
   };
-
 
 
   $scope.slots = 6;
