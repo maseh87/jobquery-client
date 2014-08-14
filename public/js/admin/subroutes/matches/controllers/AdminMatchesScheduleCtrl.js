@@ -19,6 +19,7 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
    //      //   {field: 12, displayName: 'James'}
    //      // ]
    //  };
+   Scheduler.opportunitySchedule();
     $scope.myData = [{name: "Moroni", age: 50},
                      {name: "Tiancum", age: 43},
                      {name: "Jacob", age: 27},
@@ -27,6 +28,7 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
     $scope.gridOptions = { data: 'myData' };
 console.log(FilterService.users, " users");
 console.log(FilterService.opportunities, ' opportunities');
+console.log(Scheduler.interests, ' schedule');
 
 
 //         var schedulerOutput = Scheduler.schedule(11, 10, 6, function(output) {
