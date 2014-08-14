@@ -20,12 +20,14 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
    //      // ]
    //  };
    Scheduler.opportunitySchedule();
-    $scope.myData = [{name: "Moroni", age: 50},
-                     {name: "Tiancum", age: 43},
-                     {name: "Jacob", age: 27},
-                     {name: "Nephi", age: 29},
-                     {name: "Enos", age: 34}];
-    $scope.gridOptions = { data: 'myData' };
+    $scope.myData = [
+      {'opportunity': 'Beats', '53b2263228e24b5c0e92b431': "R1", '53b2263428e24b5c0e92b487': "R2", '53b2265228e24b5c0e92bb95': "R3"},
+      {'opportunity': 'AutoDesk', '53b2263228e24b5c0e92b431': "4", '53b2263428e24b5c0e92b487': "R7", '53b2265228e24b5c0e92bb95': "R2"}
+    ];
+    $scope.gridOptions = {
+      data: 'myData',
+      columnDefs: FilterService.columnData
+     };
 console.log(FilterService.users, " users");
 console.log(FilterService.opportunities, ' opportunities');
 console.log(FilterService.columnData, ' columnData');

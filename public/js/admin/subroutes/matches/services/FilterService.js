@@ -4,7 +4,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var userObj = {};
     var matches = {};
     var opportunities = {};
-    var columnData = [];
+    var columnData = [{field: 'opportunity', displayName: 'Opportunity'}];
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
       var filteredUsers = users.filter(function (candidate) {
@@ -31,6 +31,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         });
         _.forEach(filteredOpps, function(opportunity) {
           opportunities[opportunity._id] = opportunity;
+          // columnData.unshift({field: opportunity._id, displayName: "Opportunity"});
         });
         //filter matches based on if user and opportunity is attending hiring day
         var matchesArray = matchData.matches.filter(function (match) {
