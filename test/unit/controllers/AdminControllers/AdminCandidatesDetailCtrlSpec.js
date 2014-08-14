@@ -18,24 +18,49 @@ describe('Unit: AdminCandidatesDetailCtrl', function(){
 
   describe('$scope methods', function(){
 
-    it('should have a update method', function(){
-      expect(scope.update).toBeDefined();
+    describe('$scope.update', function(){
+
+      it('should have an update method', function(){
+        expect(scope.update).toBeDefined();
+        expect(typeof scope.update).toBe('function');
+      });
+    
     });
 
-    it('should have a filter method', function(){
-      expect(scope.filter).toBeDefined();
+    describe('$scope.filter', function(){
+
+      it('should have a filter method', function(){
+        expect(scope.filter).toBeDefined();
+        expect(typeof scope.filter).toBe('function');
+      });
+
     });
 
-    it('should have a addPrivateTag method', function(){
-      expect(scope.addPrivateTag).toBeDefined();
+    describe('$scope.addPrivateTag', function(){
+
+      it('should have an addPrivateTag method', function(){
+        expect(scope.addPrivateTag).toBeDefined();
+        expect(typeof scope.addPrivateTag).toBe('function');
+      });
+
     });
 
-    it('should have a removePrivateTag method', function(){
-      expect(scope.removePrivateTag).toBeDefined();
+    describe('$scope.removePrivateTag', function(){
+
+      it('should have a removePrivateTag method', function(){
+        expect(scope.removePrivateTag).toBeDefined();
+        expect(typeof scope.removePrivateTag).toBe('function');
+      });
+
     });
 
-    it('should have a addNewCategory method', function(){
-      expect(scope.addNewCategory).toBeDefined();
+    describe('$scope.addNewCategory', function(){
+
+      it('should have a addNewCategory method', function(){
+        expect(scope.addNewCategory).toBeDefined();
+        expect(typeof scope.addNewCategory).toBe('function');
+      });
+
     });
 
   });

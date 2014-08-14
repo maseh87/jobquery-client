@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
         //IMPORTANT!!! do not glob all the js files together. If you do they will
         //be auto alphabetized, not in the order you want, and you will feel much pain
+        "public/bower_components/jquery/dist/jquery.min.js",
         'public/bower_components/angular/angular.js',
         'public/bower_components/angular-ui-router/release/angular-ui-router.js',
         'public/bower_components/angular-resource/angular-resource.js',
@@ -26,7 +27,6 @@ module.exports = function(config) {
         'public/bower_components/angular-animate/angular-animate.js',
         'public/bower_components/angular-local-storage/angular-local-storage.js',
         "public/bower_components/lodash/dist/lodash.min.js",
-        "public/bower_components/jquery/dist/jquery.min.js",
         'public/bower_components/ng-grid/build/ng-grid.js',
         'public/bower_components/angular-mocks/angular-mocks.js',
         'public/js/app.js',
@@ -127,6 +127,7 @@ module.exports = function(config) {
         'public/js/admin/subroutes/matches/controllers/AdminMatchesCtrl.js',
         'public/js/admin/subroutes/matches/controllers/AdminMatchesScheduleCtrl.js',
         'public/js/admin/subroutes/matches/services/SchedulerServ.js',
+        'public/js/admin/subroutes/matches/services/FilterService.js',
 
         // admin.messages
         'public/js/admin/subroutes/messages/state.js',
