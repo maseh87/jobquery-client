@@ -4,7 +4,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var userObj = {};
     var matches = {};
     var opportunities = {};
-
+    var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
       var filteredUsers = users.filter(function (candidate) {
@@ -15,7 +15,13 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         return true;
       });
       _.forEach(filteredUsers, function(user) {
+        var columnDef = {field: '', displayName: ''};
+        //console.log(user, ' filteredUser');
         userObj[user._id] = user;
+        columnDef.field = user._id;
+        columnDef.displayName = user.name;
+        columnDef.width = '10%';
+        columnData.push(columnDef);
       });
       Match.getAll().then(function(matchData) {
         var filteredOpps = matchData.opportunities.filter(function (opportunity) {
@@ -26,6 +32,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         });
         _.forEach(filteredOpps, function(opportunity) {
           opportunities[opportunity._id] = opportunity;
+          // columnData.unshift({field: opportunity._id, displayName: "Opportunity"});
         });
         //filter matches based on if user and opportunity is attending hiring day
         var matchesArray = matchData.matches.filter(function (match) {
@@ -36,31 +43,40 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             return false;
           }
         });
+        //for each match in matchesArray
         _.forEach(matchesArray, function(match) {
-          if(!opportunities[match.opportunity].interest) {
-            opportunities[match.opportunity].interest = {};
+          var userRequestedNum;
+          //if there is no interest property on opportunity object
+          var opp = opportunities[match.opportunity];
+          if(!opp.interest) {
+            //make one
+            opp.interest = {};
           }
-          opportunities[match.opportunity].interest[match.user] = match.userInterest;
+          //make a tuple with the [user Requested, user Scheduled]
           if(!userObj[match.user][match.userInterest]) {
             userObj[match.user][match.userInterest] = [1, 0];
           } else {
             userObj[match.user][match.userInterest][0] += 1;
           }
+          userRequestedNum = userObj[match.user][match.userInterest][0];
+
+          if(!opp.interest[match.userInterest]) {
+            opp.interest[match.userInterest] = {};
+          }
+          //make an object sorted by user request number
+          if(!opp.interest[match.userInterest][userRequestedNum]) {
+            opp.interest[match.userInterest][userRequestedNum] = [];
+          }
+          opp.interest[match.userInterest][userRequestedNum].push(match.user);
         });
       });
     });
 
     return {
       users: userObj,
-      opportunities: opportunities
+      opportunities: opportunities,
+      columnData: columnData
     };
 
 
 }]);
-
-
-
-
-
-
-
