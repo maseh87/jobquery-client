@@ -42,7 +42,19 @@ app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q',
       }
     });
     result[oppId] = opportunityRounds;
+    populateSchedule(opportunityRounds, oppId);
     return result;
+  };
+
+
+  //this function will populate the rows for the schedule spreadsheet
+  var populateSchedule = function(opportunityRounds, opportunityId) {
+    var result = {'opportunity': opportunities[opportunityId].company.name};
+    _.forEach(opportunityRounds, function(userId, index) {
+      var round = 'R' + (index + 1);
+      result[userId] = round;
+    });
+    scheduleData.push(result);
   };
 
 
@@ -52,7 +64,8 @@ app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q',
     return {
       userSchedule: userSchedule,
       opportunitySchedule: opportunitySchedule,
-      interests: opportunitySortedInterests
+      interests: opportunitySortedInterests,
+      scheduleData: scheduleData
     };
   // var candidatesMap;
   // var candidatesTotal;

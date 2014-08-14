@@ -20,17 +20,17 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
    //      // ]
    //  };
    Scheduler.opportunitySchedule();
-    $scope.myData = [
-      {'opportunity': 'Beats', '53b2263228e24b5c0e92b431': "R1", '53b2263428e24b5c0e92b487': "R2", '53b2265228e24b5c0e92bb95': "R3"},
-      {'opportunity': 'AutoDesk', '53b2263228e24b5c0e92b431': "4", '53b2263428e24b5c0e92b487': "R7", '53b2265228e24b5c0e92bb95': "R2"}
-    ];
+    $scope.myData = Scheduler.scheduleData;
     $scope.gridOptions = {
       data: 'myData',
-      columnDefs: FilterService.columnData
+      columnDefs: FilterService.columnData,
+      showGroupPanel: true,
+      enablePinning: true
      };
 console.log(FilterService.users, " users");
 console.log(FilterService.opportunities, ' opportunities');
 console.log(FilterService.columnData, ' columnData');
+console.log(Scheduler.scheduleData, ' scheduleData');
 // console.log(Scheduler.interests, ' schedule');
 // console.log(Scheduler.userSchedule, ' userSchedule');
 
