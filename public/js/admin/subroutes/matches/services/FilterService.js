@@ -16,7 +16,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
       });
       _.forEach(filteredUsers, function(user) {
         var columnDef = {field: '', displayName: ''};
-        console.log(user, ' filteredUser');
+        //console.log(user, ' filteredUser');
         userObj[user._id] = user;
         columnDef.field = user._id;
         columnDef.displayName = user.name;
@@ -80,10 +80,3 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
 
 }]);
-
-
-
-
-
-
-

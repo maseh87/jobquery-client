@@ -2,16 +2,19 @@ app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q',
 
   var users = FilterService.users;
   var opportunities = FilterService.opportunities;
+
   //each opportunities sorted schedule
   var opportunitySortedInterests = [];
   var userSchedule = {};
   //array to populate the grid for the schedule view
   var scheduleData = [];
 
+  //make each opp schedule for 4s
   var opportunitySchedule = function() {
     _.forEach(opportunities, function(opportunity, oppId) {
       var arr = [];
       var scheduleObj = concatArrays(opportunity.interest[4], oppId);
+      console.log("################scheduleObj", scheduleObj);
       opportunitySortedInterests.push(scheduleObj);
     });
     console.log(userSchedule, ' userSchedule');
