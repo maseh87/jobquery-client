@@ -28,8 +28,9 @@ app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opport
     $scope.gridOptions = { data: 'myData' };
 console.log(FilterService.users, " users");
 console.log(FilterService.opportunities, ' opportunities');
-console.log(Scheduler.interests, ' schedule');
-console.log(Scheduler.userSchedule, ' userSchedule');
+console.log(FilterService.columnData, ' columnData');
+// console.log(Scheduler.interests, ' schedule');
+// console.log(Scheduler.userSchedule, ' userSchedule');
 
 
 //         var schedulerOutput = Scheduler.schedule(11, 10, 6, function(output) {

@@ -4,7 +4,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var userObj = {};
     var matches = {};
     var opportunities = {};
-
+    var columnData = [];
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
       var filteredUsers = users.filter(function (candidate) {
@@ -15,7 +15,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         return true;
       });
       _.forEach(filteredUsers, function(user) {
+        var columnDef = {field: '', displayName: ''};
+        console.log(user, ' filteredUser');
         userObj[user._id] = user;
+        columnDef.field = user._id;
+        columnDef.displayName = user.name;
+        columnData.push(columnDef);
       });
       Match.getAll().then(function(matchData) {
         var filteredOpps = matchData.opportunities.filter(function (opportunity) {
@@ -67,7 +72,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
     return {
       users: userObj,
-      opportunities: opportunities
+      opportunities: opportunities,
+      columnData: columnData
     };
 
 
