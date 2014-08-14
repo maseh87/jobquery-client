@@ -4,25 +4,30 @@ app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q',
   var opportunities = FilterService.opportunities;
   // console.log('users ', users);
   // console.log('opps ', opportunities);
-  var opportunitySortedInterests = {};
+  var opportunitySortedInterests = [];
 
   var opportunitySchedule = function() {
     var count = 4;
     _.forEach(opportunities, function(opportunity, key) {
-      var scheduleArray = concatArrays(opportunity.interest[4]);
+      var arr = [];
+      var scheduleObj = concatArrays(opportunity.interest[4], key);
       // scheduleArray.push(concatArrays(opportunity.interest[3]));
       // scheduleArray.push(concatArrays(opportunity.interest[2]));
-      opportunitySortedInterests[key] = scheduleArray;
+      opportunitySortedInterests.push(scheduleObj);
+
     });
     return opportunitySortedInterests;
   };
 
-    var concatArrays = function(obj) {
-      var schedule = [];
+    var concatArrays = function(obj, key) {
+        var result = {};
+        var schedule = [];
       _.forEach(obj, function(opportunity, key) {
         schedule.push(opportunity);
       });
-      return schedule.join(',');
+      var oppSched = _.flatten(schedule).join(',');
+      result[key] = oppSched;
+      return result;
     };
 
     return {
