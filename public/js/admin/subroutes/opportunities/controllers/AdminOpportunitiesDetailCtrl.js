@@ -83,6 +83,10 @@ app.controller('AdminOpportunitiesDetailCtrl',
         _id: matchModel.user._id,
         name: matchModel.user.name,
         email: matchModel.user.email,
+        star: matchModel.star,
+        upVote: matchModel.upVote,
+        downVote: matchModel.downVote,
+        noGo: matchModel.noGo,
         interest: matchModel.userInterest,
         answers: matchModel.answers,
         category: matchModel.user.category ? matchModel.user.category.name : 'N/A',
@@ -333,11 +337,9 @@ app.controller('AdminOpportunitiesDetailCtrl',
 
   //Toggle or highlight glyphicon when click only on the current ng-repeat index
   $scope.adjustGlyphHighlighting = function(glyphName, index, user) {
-    if (!$scope.highlightedGlyph[index] || $scope.highlightedGlyph[index] !== glyphName){
-      $scope.highlightedGlyph[index] = glyphName;
+    if (!user[glyphName]){
       toggleOnDbGlyph(user, glyphName);
     }else{
-      delete $scope.highlightedGlyph[index];
       toggleOffDbGlyph(user, glyphName);
     }
   };
@@ -365,8 +367,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
 
   var toggleOffDbGlyph = function(user, glyph){
     user[glyph] = false;
-    console.dir(user);
-    $scope.edit(user);
   };
 
 
