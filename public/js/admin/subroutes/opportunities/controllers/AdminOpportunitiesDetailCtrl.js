@@ -329,4 +329,15 @@ app.controller('AdminOpportunitiesDetailCtrl',
     };
   };
 
+  $scope.highlightedGlyph = {};
+
+  //Toggle or highlight glyphicon when click only on the current ng-repeat index
+  $scope.adjustGlyphHighlighting = function(glyphName, index) {
+    if (!$scope.highlightedGlyph[index] || $scope.highlightedGlyph[index] !== glyphName){
+      $scope.highlightedGlyph[index] = glyphName;
+    }else{
+      delete $scope.highlightedGlyph[index];
+    }
+  };
+
 }]);

@@ -162,7 +162,12 @@
                     </td>
 
                     <td class="text-center" style="min-width: 100px; max-width: 100px; font-weight: 600">
-                      <p class="text-center"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-thumbs-up"></span><span class="glyphicon glyphicon-thumbs-down"></span><span class="glyphicon glyphicon-remove"></span></p>
+                      <p class="text-center"  >
+                        <span ng-class="{'starStyle' : highlightedGlyph[$index] === 'star'} " class="glyphicon glyphicon-star" ng-click=" adjustGlyphHighlighting('star', $index)"></span>
+                        <span ng-class="{'upVoteStyle' : highlightedGlyph[$index] === 'upVote'} "class="glyphicon glyphicon-thumbs-up" ng-click=" adjustGlyphHighlighting('upVote', $index)"></span>
+                        <span ng-class="{'downVoteStyle' : highlightedGlyph[$index] === 'downVote'} "class="glyphicon glyphicon-thumbs-down" ng-click=" adjustGlyphHighlighting('downVote', $index)"></span>
+                        <span ng-class="{'noGoStyle' : highlightedGlyph[$index] === 'noGo'} " class="glyphicon glyphicon-remove" ng-click=" adjustGlyphHighlighting('noGo', $index)"></span>
+                      </p>
                     </td>
 
                     <td ng-repeat="tag in filteredTags" ng-show="!hideTags">

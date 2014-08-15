@@ -294,6 +294,25 @@ small {
     /*width: 400px;*/
     height: 1000px
 }
+.glyphicon {
+  font-size: 1.2em;
+}
+
 .cellWidth {
     width: 40px;
+}
+.starStyle {
+  color: yellow;
+}
+
+.upVoteStyle {
+  color: rgb(142, 190, 97);
+}
+
+.downVoteStyle {
+  color: orange;
+}
+
+.noGoStyle {
+  color: rgb(191, 86, 89);
 }
