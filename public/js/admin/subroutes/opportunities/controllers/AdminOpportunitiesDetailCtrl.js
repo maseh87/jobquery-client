@@ -103,6 +103,8 @@ app.controller('AdminOpportunitiesDetailCtrl',
     $scope.updateGuidance();
   };
 
+
+
   $scope.save = function () {
     // remove any empty tags and duplicate tags (preference for higher order)
     var existingTags = {};
@@ -192,7 +194,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
   $scope.isOverridden = function (user) {
     // no adminOverride
     if (user.adminOverride === 0) {
-      if (user.interest === 4) {
+      if (user.interest ===4) {
         return 'gridbox-highlight-4';
       } else if (user.interest === 3) {
         return 'gridbox-highlight-3';
