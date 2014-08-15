@@ -22,6 +22,10 @@ describe('Unit: AdminOpportunitiesDetailCtrl', function(){
       expect(scope.sorter).toBeDefined();
     });
 
+    it('should have a highlightedGlyph property', function(){
+      expect(scope.highlightedGlyph).toBeDefined();
+    });
+
     it('should have a reverse property', function(){
       expect(scope.reverse).toBeDefined();
     });
@@ -108,6 +112,10 @@ describe('Unit: AdminOpportunitiesDetailCtrl', function(){
       expect(typeof scope.ExcludeAccepted).toBe('function');
     });
 
+    it('should have a adjustGlyphHighlighting method', function(){
+      expect(scope.adjustGlyphHighlighting).toBeDefined();
+      expect(typeof scope.adjustGlyphHighlighting).toBe('function');
+    });
   });
 
 });
