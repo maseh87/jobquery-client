@@ -158,15 +158,15 @@
                     <td><div class="text-center">{{ user.points[1] === 0 ? '-' : user.score + '%' }}</div></td>
                     <td><div class="text-center">{{ user.interest === 0 ? 'N/A' : user.interest }}</div></td>
                     <td class="text-center" style="min-width: 100px; max-width: 100px; font-weight: 600">
-                        <input class="text-center"  placeholder="{{ user.adminOverride}} " ng-model="user.adminOverride" ng-blur="edit(user)" ng-class="isOverridden(user)" type="number" min="1" max="4" tooltip="TOOLTIP!" tooltip-placement="right" tooltip-trigger="focus"></input>
+                        <input class="text-center"  placeholder="{{ user.adminOverride}} " ng-model="user.adminOverride" ng-click="edit(user)" ng-class="isOverridden(user)" type="number" min="1" max="4" tooltip="TOOLTIP!" tooltip-placement="right" tooltip-trigger="focus"></input>
                     </td>
 
                     <td class="text-center" style="min-width: 100px; max-width: 100px; font-weight: 600">
                       <p class="text-center"  >
-                        <span ng-class="{'starStyle' : highlightedGlyph[$index] === 'star'} " class="glyphicon glyphicon-star" ng-click=" adjustGlyphHighlighting('star', $index)"></span>
-                        <span ng-class="{'upVoteStyle' : highlightedGlyph[$index] === 'upVote'} "class="glyphicon glyphicon-thumbs-up" ng-click=" adjustGlyphHighlighting('upVote', $index)"></span>
-                        <span ng-class="{'downVoteStyle' : highlightedGlyph[$index] === 'downVote'} "class="glyphicon glyphicon-thumbs-down" ng-click=" adjustGlyphHighlighting('downVote', $index)"></span>
-                        <span ng-class="{'noGoStyle' : highlightedGlyph[$index] === 'noGo'} " class="glyphicon glyphicon-remove" ng-click=" adjustGlyphHighlighting('noGo', $index)"></span>
+                        <span ng-class="{'starStyle' : user.star === true} " class="glyphicon glyphicon-star" ng-click="adjustGlyphHighlighting('star', $index, user)"></span>
+                        <span ng-class="{'upVoteStyle' : user.upVote === true} "class="glyphicon glyphicon-thumbs-up" ng-click=" adjustGlyphHighlighting('upVote', $index, user)"></span>
+                        <span ng-class="{'downVoteStyle' : user.downVote === true} "class="glyphicon glyphicon-thumbs-down" ng-click=" adjustGlyphHighlighting('downVote', $index, user)"></span>
+                        <span ng-class="{'noGoStyle' : user.noGo === true} " class="glyphicon glyphicon-remove" ng-click=" adjustGlyphHighlighting('noGo', $index, user)"></span>
                       </p>
                     </td>
 
