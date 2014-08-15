@@ -2,12 +2,74 @@ app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q',
 
   var users = FilterService.users;
   var opportunities = FilterService.opportunities;
-  // console.log('users ', users);
-  // console.log('opps ', opportunities);
+
+  //each opportunities sorted schedule
+  var opportunitySortedInterests = [];
+  var userSchedule = {};
+  //array to populate the grid for the schedule view
+  var scheduleData = [];
+
+  //make each opp schedule for 4s
+  var opportunitySchedule = function() {
+    _.forEach(opportunities, function(opportunity, oppId) {
+      var arr = [];
+      var scheduleObj = concatArrays(opportunity.interest[4], oppId);
+      console.log("################scheduleObj", scheduleObj);
+      opportunitySortedInterests.push(scheduleObj);
+    });
+    console.log(userSchedule, ' userSchedule');
+    return opportunitySortedInterests;
+  };
 
 
 
 
+  //function to concate arrays for opportunity shedule
+  var concatArrays = function(obj, oppId) {
+      var round = 0;
+      var result = {};
+      var opportunityRounds = [];
+
+    _.forEach(obj, function(userIdArray, requestedNumber) {
+      // schedule.push(userIdArray);
+      for(var i = 0; i < userIdArray.length; i++) {
+        var userId = userIdArray[i];
+        if(round < 10) {
+          opportunityRounds.push(userId);
+          if(!userSchedule[userId]) {
+            userSchedule[userId] = [];
+          }
+          userSchedule[userId][round] = oppId;
+          round++;
+        }
+      }
+    });
+    result[oppId] = opportunityRounds;
+    populateSchedule(opportunityRounds, oppId);
+    return result;
+  };
+
+
+  //this function will populate the rows for the schedule spreadsheet
+  var populateSchedule = function(opportunityRounds, opportunityId) {
+    var result = {'opportunity': opportunities[opportunityId].company.name};
+    _.forEach(opportunityRounds, function(userId, index) {
+      var round = 'R' + (index + 1);
+      result[userId] = round;
+    });
+    scheduleData.push(result);
+  };
+
+
+
+
+
+    return {
+      userSchedule: userSchedule,
+      opportunitySchedule: opportunitySchedule,
+      interests: opportunitySortedInterests,
+      scheduleData: scheduleData
+    };
   // var candidatesMap;
   // var candidatesTotal;
 
