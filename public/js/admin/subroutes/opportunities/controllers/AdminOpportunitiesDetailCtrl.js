@@ -337,12 +337,9 @@ app.controller('AdminOpportunitiesDetailCtrl',
 
   //Toggle or highlight glyphicon when click only on the current ng-repeat index
   $scope.adjustGlyphHighlighting = function(glyphName, index, user) {
-    // if (!$scope.highlightedGlyph[index] || $scope.highlightedGlyph[index] !== glyphName){
     if (!user[glyphName]){
-      // $scope.highlightedGlyph[index] = glyphName;
       toggleOnDbGlyph(user, glyphName);
     }else{
-      // delete $scope.highlightedGlyph[index];
       toggleOffDbGlyph(user, glyphName);
     }
   };
@@ -370,8 +367,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
 
   var toggleOffDbGlyph = function(user, glyph){
     user[glyph] = false;
-    console.dir(user);
-    $scope.edit(user);
   };
 
 
