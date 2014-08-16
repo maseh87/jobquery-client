@@ -47,8 +47,25 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         _.forEach(matchesArray, function(match) {
           //console.log("match", match);
 
-          var caculateLevel = function(match) {
-            var finalInterest;
+          /*
+           Before we run the schedule, we have to calculate the number that represents
+           the precise user interest. This number comes as a result of the userInterest (1 throuh 4),
+           the possible presence of an adminOverride of the userInterest, and also, the presence of any of 
+           the four 'Scheduling Preferences' (star, upVote, downVote, noGo). All the possible combinations 
+           of these factors results in one of 14 possible values. Therefore, we take all these values into 
+           account, and calculate a number between 1 and 14 to represent the 'calculatedUserInterestLevel'.
+
+           Here are the ideas behind the calculation.
+           1) If admin has supplied an adminOverride number, this number overwrites the userInterest.
+           2) If the interest has a 'star' the value is automatically the highest value (14).
+           3) If the interest has a 'noGo', the value is automatically the lowest value (1).
+           4) Otherwise we take the userInterest, or adminOverride value [ see 1) ], multiply it by 3
+              and then add 1 to it if there is an 'upVote' or subtract 1 if there is a downVote.
+
+           These steps provide all possible combinations between 1 and 14.
+          */
+          var caculateUserInterestLevel = function(match) {
+            var calculatedUserInterest;
             var userInterest = match.userInterest;
             var adminOverride = match.adminOverride;
             var star = match.star;
@@ -57,38 +74,38 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             var downVote = match.downVote;
 
             if( adminOverride === 0) {
-              finalInterest = userInterest * 3;
+              calculatedUserInterest = userInterest * 3;
               if (noGo) {
-                finalInterest = 0;
+                calculatedUserInterest = 0;
               }else if(star){
-                finalInterest = 14;
+                calculatedUserInterest = 14;
               }else if(upVote){
-                finalInterest += 1;
+                calculatedUserInterest += 1;
               }else if(downVote){
-                finalInterest -= 1;
+                calculatedUserInterest -= 1;
               }
             } else {
-              finalInterest = adminOverride * 3;
+              calculatedUserInterest = adminOverride * 3;
               if (noGo) {
-                finalInterest = 0;
+                calculatedUserInterest = 0;
                 return;
               }else if(star){
-                finalInterest = 14;
+                calculatedUserInterest = 14;
                 return;
               }else if(upVote){
-                finalInterest += 1;
+                calculatedUserInterest += 1;
               }else if(downVote){
-                finalInterest -= 1;
+                calculatedUserInterest -= 1;
               }
             }
-            if (match.adminOverride !== 0 || finalInterest%3 !== 0 || finalInterest===14){
+            if (match.adminOverride !== 0 || calculatedUserInterest%3 !== 0 || calculatedUserInterest===14){
 
-            console.log("if if if finalInterest", finalInterest, match)
+            console.log("if if if calculatedUserInterest", calculatedUserInterest, match)
             }
-            return finalInterest;
+            return calculatedUserInterest;
           };
 
-          var caculatedLevel = caculateLevel(match);
+          var caculatedLevel = caculateUserInterestLevel(match);
 
           var userRequestedNum;
           //if there is no interest property on opportunity object
