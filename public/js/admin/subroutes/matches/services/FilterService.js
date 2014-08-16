@@ -81,10 +81,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                 finalInterest -= 1;
               }
             }
-            if (match.adminOverride !== 0 || finalInterest%3 !== 0 || finalInterest===14){
-
-            console.log("if if if finalInterest", finalInterest, match)
-            }
             return finalInterest;
           };
 
