@@ -100,14 +100,13 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
             if (match.adminOverride !== 0 || calculatedUserInterest%3 !== 0 || calculatedUserInterest===14){
 
-            console.log("if if if calculatedUserInterest", calculatedUserInterest, match)
             }
             return calculatedUserInterest;
           };
 
           var caculatedLevel = caculateUserInterestLevel(match);
 
-          var userRequestedNum;
+          var numberOfUserInterestsAtThisLevel;
           //if there is no interest property on opportunity object
           var opp = opportunities[match.opportunity];
           if(!opp.interest) {
@@ -123,16 +122,16 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
             userObj[match.user][caculatedLevel][0] += 1;
           }
-          userRequestedNum = userObj[match.user][caculatedLevel][0];
+          numberOfUserInterestsAtThisLevel = userObj[match.user][caculatedLevel][0];
 
           if(!opp.interest[caculatedLevel]) {
             opp.interest[caculatedLevel] = {};
           }
           //make an object sorted by user request number
-          if(!opp.interest[caculatedLevel][userRequestedNum]) {
-            opp.interest[caculatedLevel][userRequestedNum] = [];
+          if(!opp.interest[caculatedLevel][numberOfUserInterestsAtThisLevel]) {
+            opp.interest[caculatedLevel][numberOfUserInterestsAtThisLevel] = [];
           }
-          opp.interest[caculatedLevel][userRequestedNum].push(match.user);
+          opp.interest[caculatedLevel][numberOfUserInterestsAtThisLevel].push(match.user);
         });
       });
     });
