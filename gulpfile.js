@@ -14,7 +14,7 @@ gulp.task('server-config', function () {
     .pipe(preprocess(
       {
         context: {
-          SERVER_URL : process.env.SERVER_URL || 'http://hrhqjobquery.azurewebsites.net'
+          SERVER_URL : process.env.SERVER_URL || 'http://localhost:9000'
         }
       }
     ))
