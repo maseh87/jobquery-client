@@ -45,6 +45,51 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         });
         //for each match in matchesArray
         _.forEach(matchesArray, function(match) {
+          //console.log("match", match);
+
+          var caculateLevel = function(match) {
+            var finalInterest;
+            var userInterest = match.userInterest;
+            var adminOverride = match.adminOverride;
+            var star = match.star;
+            var noGo = match.noGo;
+            var upVote = match.upVote;
+            var downVote = match.downVote;
+
+            if( adminOverride === 0) {
+              finalInterest = userInterest * 3;
+              if (noGo) {
+                finalInterest = 0;
+              }else if(star){
+                finalInterest = 14;
+              }else if(upVote){
+                finalInterest += 1;
+              }else if(downVote){
+                finalInterest -= 1;
+              }
+            } else {
+              finalInterest = adminOverride * 3;
+              if (noGo) {
+                finalInterest = 0;
+                return;
+              }else if(star){
+                finalInterest = 14;
+                return;
+              }else if(upVote){
+                finalInterest += 1;
+              }else if(downVote){
+                finalInterest -= 1;
+              }
+            }
+            if (match.adminOverride !== 0 || finalInterest%3 !== 0 || finalInterest===14){
+
+            console.log("if if if finalInterest", finalInterest, match)
+            }
+            return finalInterest;
+          };
+
+          var caculatedLevel = caculateLevel(match);
+
           var userRequestedNum;
           //if there is no interest property on opportunity object
           var opp = opportunities[match.opportunity];
@@ -53,21 +98,24 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             opp.interest = {};
           }
           //make a tuple with the [user Requested, user Scheduled]
-          if(!userObj[match.user][match.userInterest]) {
-            userObj[match.user][match.userInterest] = [1, 0];
+          if(!userObj[match.user][caculatedLevel]) {
+            userObj[match.user][caculatedLevel] = [1, 0];
           } else {
-            userObj[match.user][match.userInterest][0] += 1;
-          }
-          userRequestedNum = userObj[match.user][match.userInterest][0];
 
-          if(!opp.interest[match.userInterest]) {
-            opp.interest[match.userInterest] = {};
+            //here is where we need to exchange userInterest to new number
+
+            userObj[match.user][caculatedLevel][0] += 1;
+          }
+          userRequestedNum = userObj[match.user][caculatedLevel][0];
+
+          if(!opp.interest[caculatedLevel]) {
+            opp.interest[caculatedLevel] = {};
           }
           //make an object sorted by user request number
-          if(!opp.interest[match.userInterest][userRequestedNum]) {
-            opp.interest[match.userInterest][userRequestedNum] = [];
+          if(!opp.interest[caculatedLevel][userRequestedNum]) {
+            opp.interest[caculatedLevel][userRequestedNum] = [];
           }
-          opp.interest[match.userInterest][userRequestedNum].push(match.user);
+          opp.interest[caculatedLevel][userRequestedNum].push(match.user);
         });
       });
     });
