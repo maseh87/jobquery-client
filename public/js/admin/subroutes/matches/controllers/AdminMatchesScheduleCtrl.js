@@ -1,34 +1,22 @@
-app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'DialogueService',
-  function ($scope, $state, Match, Opportunity, User, Scheduler, DialogueService) {
-                    // // app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'FilterService', 'DialogueService',
-                    // //   function ($scope, $state, Match, Opportunity, User, Scheduler, FilterService, DialogueService) {
+// app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'DialogueService',
+//   function ($scope, $state, Match, Opportunity, User, Scheduler, DialogueService) {
+                    app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'FilterService', 'DialogueService',
+                      function ($scope, $state, Match, Opportunity, User, Scheduler, FilterService, DialogueService) {
                     //    // $scope.mySelections = [];
-                    //    // $scope.myData = [
-                    //    //                   // {1: 'Beats', 10: 'R1', 11: '4', 12: 'R2'},
-                    //    //                   // {2: 'AutoDesk', 11: '3', 10: 'R2', 12: 'R1'}
-                    //    //                   {name: 'Mason', age: 27},
-                    //    //                   {name: 'Xianhui', age: 10},
-                    //    //                  ];
-                    //    //  $scope.gridOptions = {
-                    //    //      data: 'myData'
-                    //    //      // showGroupPanel: true,
-                    //    //      // selectedItems: $scope.mySelections,
-                    //    //      // multiSelect: false,
-                    //    //      // columnDefs: [
-                    //    //      //   {field: 1, displayName:'Opportunity'},
-                    //    //      //   {field: 10, displayName: 'Mason'},
-                    //    //      //   {field: 11, displayName: 'Xianhui'},
-                    //    //      //   {field: 12, displayName: 'James'}
-                    //    //      // ]
-                    //    //  };
-                    //    Scheduler.opportunitySchedule();
-                    //     $scope.myData = Scheduler.scheduleData;
-                    //     $scope.gridOptions = {
-                    //       data: 'myData',
-                    //       columnDefs: FilterService.columnData,
-                    //       showGroupPanel: true,
-                    //       enablePinning: true
-                    //      };
+                        // $scope.grid = {
+                        //     data: $scope.myData,
+                        //     columnDefs: [
+                        //       {field: 'name', displayName:'Name'},
+                        //       {field: 'age', displayName: 'Age'}
+                        //     ]
+                        // };
+                       Scheduler.opportunitySchedule();
+                        $scope.myData = Scheduler.scheduleData;
+
+                        $scope.grid = {
+                          data: $scope.myData,
+                          columnDefs: FilterService.columnData
+                         };
                     // console.log(FilterService.users, " users");
                     // console.log(FilterService.opportunities, ' opportunities');
                     // console.log(FilterService.columnData, ' columnData');
