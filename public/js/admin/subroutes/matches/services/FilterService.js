@@ -4,9 +4,18 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var userObj = {};
     var matches = {};
     var opportunities = {};
+    var usersForSchedule = {};
     var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
+      var makeUsersForScheduleObject = function(user){
+
+        usersForSchedule[user._id] = {};
+        usersForSchedule[user._id]['rounds'] = {};
+        usersForSchedule[user._id]['numberOfRounds'] = 0
+
+      };
+
       var filteredUsers = users.filter(function (candidate) {
         if (candidate.isAdmin) return false;
         if (!candidate.attending) return false;
@@ -15,6 +24,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         return true;
       });
       _.forEach(filteredUsers, function(user) {
+        makeUsersForScheduleObject(user);
+
+
         var columnDef = {field: '', displayName: ''};
         //console.log(user, ' filteredUser');
         userObj[user._id] = user;
@@ -137,9 +149,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           makePreMatchObject(match, calculatedLevel);
         });
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
-        console.dir(matchesSortedByInterest);
       });
     });
+  console.dir(usersForSchedule);
 
     return {
       // users: users,
