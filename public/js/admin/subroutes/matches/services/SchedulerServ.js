@@ -1,8 +1,8 @@
 //app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opportunity, User, Match, $q) {
 app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q', function (Opportunity, FilterService, User, Match, $q) {
 
-var users = FilterService.users;
-var opportunities = FilterService.opportunities;
+var matchesSortedByInterest = FilterService.matchesSortedByInterest;
+var usersForSchedule = FilterService.usersForSchedule;
 
 //each opportunities sorted schedule
 var opportunityAppointment = [];
@@ -34,40 +34,40 @@ var makeScheduleData = function(users, oppertunities) {
 
 
 //function to concate arrays for opportunity shedule
-var concatArrays = function(obj, oppId) {
-    var round = 0;
-    var result = {};
-    var opportunityRounds = [];
-
-  _.forEach(obj, function(userIdArray, requestedNumber) {
-    // schedule.push(userIdArray);
-    for(var i = 0; i < userIdArray.length; i++) {
-      var userId = userIdArray[i];
-      if(round < 10) {
-        opportunityRounds.push(userId);
-        if(!userSchedule[userId]) {
-          userSchedule[userId] = [];
-        }
-          userSchedule[userId][round] = oppId;
-        round++;
-      }
-    }
-  });
-  result[oppId] = opportunityRounds;
-  populateSchedule(opportunityRounds, oppId);
-  return result;
-};
+// var concatArrays = function(obj, oppId) {
+//     var round = 0;
+//     var result = {};
+//     var opportunityRounds = [];
+//
+//   _.forEach(obj, function(userIdArray, requestedNumber) {
+//     // schedule.push(userIdArray);
+//     for(var i = 0; i < userIdArray.length; i++) {
+//       var userId = userIdArray[i];
+//       if(round < 10) {
+//         opportunityRounds.push(userId);
+//         if(!userSchedule[userId]) {
+//           userSchedule[userId] = [];
+//         }
+//           userSchedule[userId][round] = oppId;
+//         round++;
+//       }
+//     }
+//   });
+//   result[oppId] = opportunityRounds;
+//   populateSchedule(opportunityRounds, oppId);
+//   return result;
+// };
 
 
 //this function will populate the rows for the schedule spreadsheet
-var populateSchedule = function(opportunityRounds, opportunityId) {
-  var result = {'opportunity': opportunities[opportunityId].company.name};
-  _.forEach(opportunityRounds, function(userId, index) {
-    var round = 'R' + (index + 1);
-    result[userId] = round;
-  });
-  scheduleData.push(result);
-};
+// var populateSchedule = function(opportunityRounds, opportunityId) {
+//   var result = {'opportunity': opportunities[opportunityId].company.name};
+//   _.forEach(opportunityRounds, function(userId, index) {
+//     var round = 'R' + (index + 1);
+//     result[userId] = round;
+//   });
+//   scheduleData.push(result);
+// };
 
 
 
