@@ -115,15 +115,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             opp.interest = {};
           }
           //make a tuple with the [user Requested, user Scheduled]
-          if(!userObj[match.user][caculatedLevel]) {
-            userObj[match.user][caculatedLevel] = [1, 0];
-          } else {
-
-            //here is where we need to exchange userInterest to new number
-
-            userObj[match.user][caculatedLevel][0] += 1;
-          }
-          numberOfUserInterestsAtThisLevel = userObj[match.user][caculatedLevel][0];
+          // if(!userObj[match.user][caculatedLevel]) {
+          //   userObj[match.user][caculatedLevel] = [1, 0];
+          // } else {
+          //   userObj[match.user][caculatedLevel][0] += 1;
+          // }
+          // numberOfUserInterestsAtThisLevel = userObj[match.user][caculatedLevel][0];
 
           if(!opp.interest[caculatedLevel]) {
             opp.interest[caculatedLevel] = {};
@@ -133,13 +130,22 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             opp.interest[caculatedLevel][numberOfUserInterestsAtThisLevel] = [];
           }
           opp.interest[caculatedLevel][numberOfUserInterestsAtThisLevel].push(match.user);
+
+
+          //Adding another property named scheduleRounds for looking up which rounds are avaiable before scheduling rounds
+          userObj.scheduleRounds = {};
+
+
         });
+console.log("userObj", userObj);
+console.log("opportunities", opportunities);
       });
     });
 
     return {
       users: userObj,
       opportunities: opportunities,
+      matchesByInterest: matchesByInterest,
       columnData: columnData
     };
 

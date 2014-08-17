@@ -5,21 +5,29 @@ var users = FilterService.users;
 var opportunities = FilterService.opportunities;
 
 //each opportunities sorted schedule
-var opportunitySortedInterests = [];
+var opportunityAppointment = [];
 var userSchedule = {};
 //array to populate the grid for the schedule view
 var scheduleData = [];
 
 //make each opp schedule for 4s
-var opportunitySchedule = function() {
-  _.forEach(opportunities, function(opportunity, oppId) {
-    var arr = [];
-    var scheduleObj = concatArrays(opportunity.interest[4], oppId);
-    console.log("################scheduleObj", scheduleObj);
-    opportunitySortedInterests.push(scheduleObj);
-  });
-  console.log(userSchedule, ' userSchedule');
-  return opportunitySortedInterests;
+var makeScheduleData = function(users, oppertunities) {
+  var createScheduleMatrix = function(oppertunities) {
+    var scheduleMatrix = {};
+    _.forEach(opportunities, function(opportunity, oppId) {
+      var roundsForThisOpportunity = new Array(11);
+      scheduleMatrix[oppId] = roundsForThisOpportunity;
+      // var arr = [];
+      // var scheduleObj = concatArrays(opportunity.interest[4], oppId);
+      // console.log("################scheduleObj", scheduleObj);
+      //
+      // opportunityAppointment.push(scheduleObj);
+    });
+
+    return scheduleMatrix;
+  };
+    console.log(userSchedule, ' userSchedule');
+  return opportunityAppointment;
 };
 
 
@@ -40,7 +48,7 @@ var concatArrays = function(obj, oppId) {
         if(!userSchedule[userId]) {
           userSchedule[userId] = [];
         }
-        userSchedule[userId][round] = oppId;
+          userSchedule[userId][round] = oppId;
         round++;
       }
     }
@@ -67,8 +75,8 @@ var populateSchedule = function(opportunityRounds, opportunityId) {
 
   return {
     userSchedule: userSchedule,
-    opportunitySchedule: opportunitySchedule,
-    interests: opportunitySortedInterests,
+    opportunitySchedule: makeScheduleData,
+    interests: opportunityAppointment,
     scheduleData: scheduleData
   };
   // var candidatesMap;
