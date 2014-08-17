@@ -2,14 +2,6 @@
 //   function ($scope, $state, Match, Opportunity, User, Scheduler, DialogueService) {
                     app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'FilterService', 'DialogueService',
                       function ($scope, $state, Match, Opportunity, User, Scheduler, FilterService, DialogueService) {
-                    //    // $scope.mySelections = [];
-                        // $scope.grid = {
-                        //     data: $scope.myData,
-                        //     columnDefs: [
-                        //       {field: 'name', displayName:'Name'},
-                        //       {field: 'age', displayName: 'Age'}
-                        //     ]
-                        // };
                        Scheduler.opportunitySchedule();
                         $scope.myData = Scheduler.scheduleData;
 
