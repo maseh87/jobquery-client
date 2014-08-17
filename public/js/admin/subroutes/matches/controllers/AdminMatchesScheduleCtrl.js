@@ -7,7 +7,9 @@
 
                         $scope.grid = {
                           data: $scope.myData,
-                          columnDefs: FilterService.columnData
+                          columnDefs: FilterService.columnData,
+                          horizontalScroll: true,
+                          pageSize: '100'
                          };
                     // console.log(FilterService.users, " users");
                     // console.log(FilterService.opportunities, ' opportunities');
