@@ -44,9 +44,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
         });
         //for each match in matchesArray
-        _.forEach(matchesArray, function(match) {
-          //console.log("match", match);
-
           /*
            Before we run the schedule, we have to calculate the number that represents
            the precise user interest. This number comes as a result of the userInterest (1 throuh 4),
@@ -64,82 +61,73 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
            These steps provide all possible combinations between 1 and 14.
           */
-          var caculateUserInterestLevel = function(match) {
-            var calculatedUserInterest;
-            var userInterest = match.userInterest;
-            var adminOverride = match.adminOverride;
-            var star = match.star;
-            var noGo = match.noGo;
-            var upVote = match.upVote;
-            var downVote = match.downVote;
+        var caculateUserInterestLevel = function(match) {
+          var calculatedUserInterest;
+          var userInterest = match.userInterest;
+          var adminOverride = match.adminOverride;
+          var star = match.star;
+          var noGo = match.noGo;
+          var upVote = match.upVote;
+          var downVote = match.downVote;
 
-            if( adminOverride === 0) {
-              calculatedUserInterest = userInterest * 3;
-              if (noGo) {
-                calculatedUserInterest = 0;
-              }else if(star){
-                calculatedUserInterest = 14;
-              }else if(upVote){
-                calculatedUserInterest += 1;
-              }else if(downVote){
-                calculatedUserInterest -= 1;
-              }
-            } else {
-              calculatedUserInterest = adminOverride * 3;
-              if (noGo) {
-                calculatedUserInterest = 0;
-                return;
-              }else if(star){
-                calculatedUserInterest = 14;
-                return;
-              }else if(upVote){
-                calculatedUserInterest += 1;
-              }else if(downVote){
-                calculatedUserInterest -= 1;
-              }
+          if( adminOverride === 0) {
+            calculatedUserInterest = userInterest * 3;
+            if (noGo) {
+              calculatedUserInterest = 0;
+            }else if(star){
+              calculatedUserInterest = 14;
+            }else if(upVote){
+              calculatedUserInterest += 1;
+            }else if(downVote){
+              calculatedUserInterest -= 1;
             }
-            if (match.adminOverride !== 0 || calculatedUserInterest%3 !== 0 || calculatedUserInterest===14){
-
-            }
-            return calculatedUserInterest;
-          };
-
-          var caculatedLevel = caculateUserInterestLevel(match);
-
-          var numberOfUserInterestsAtThisLevel;
-          //if there is no interest property on opportunity object
-          var opp = opportunities[match.opportunity];
-          if(!opp.interest) {
-            //make one
-            opp.interest = {};
-          }
-          //make a tuple with the [user Requested, user Scheduled]
-          if(!userObj[match.user][caculatedLevel]) {
-            userObj[match.user][caculatedLevel] = [1, 0];
           } else {
-
-            //here is where we need to exchange userInterest to new number
-
-            userObj[match.user][caculatedLevel][0] += 1;
+            calculatedUserInterest = adminOverride * 3;
+            if (noGo) {
+              calculatedUserInterest = 0;
+              return;
+            }else if(star){
+              calculatedUserInterest = 14;
+              return;
+            }else if(upVote){
+              calculatedUserInterest += 1;
+            }else if(downVote){
+              calculatedUserInterest -= 1;
+            }
           }
-          numberOfUserInterestsAtThisLevel = userObj[match.user][caculatedLevel][0];
+          if (match.adminOverride !== 0 || calculatedUserInterest%3 !== 0 || calculatedUserInterest===14){
 
-          if(!opp.interest[caculatedLevel]) {
-            opp.interest[caculatedLevel] = {};
           }
-          //make an object sorted by user request number
-          if(!opp.interest[caculatedLevel][numberOfUserInterestsAtThisLevel]) {
-            opp.interest[caculatedLevel][numberOfUserInterestsAtThisLevel] = [];
-          }
-          opp.interest[caculatedLevel][numberOfUserInterestsAtThisLevel].push(match.user);
+          return calculatedUserInterest;
+        };
+
+        var sortMatchesByInterest = function(match){
+          matchesSortedByInterest[caculatedLevel] = matchesSortedByInterest[caculatedLevel] || [];
+          matchesSortedByInterest[caculatedLevel].push(match);
+        };
+
+        var matchesSortedByInterest = {};
+        var preMatch = {};
+
+        _.forEach(matchesArray, function(match) {
+          // debugger;
+          var caculatedLevel = caculateUserInterestLevel(match);
+          // console.log('match', match);
+          var user = match.user;
+          preMatch[caculatedLevel] = preMatch[caculatedLevel] || {};
+          preMatch[caculatedLevel][user] = preMatch[caculatedLevel][user] || [];
+          preMatch[caculatedLevel][user].push(match.opportunity);
+          // console.dir('preMatch', preMatch);
         });
+        console.dir(preMatch);
       });
     });
 
     return {
-      users: userObj,
-      opportunities: opportunities,
-      columnData: columnData
+      // users: users,
+      // matchesSortedByInterest: matchesSortedByInterest,
+      // columnData: columnData,
+      // opportunities: opportunities
     };
 
 
