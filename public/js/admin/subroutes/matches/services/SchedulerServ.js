@@ -3,33 +3,31 @@ app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q',
 
 var matchesSortedByInterest = FilterService.matchesSortedByInterest;
 var usersForSchedule = FilterService.usersForSchedule;
+var opportunities = FilterService.opportunities;
+    //console.dir(opportunities);
 
-//each opportunities sorted schedule
 var opportunityAppointment = [];
 var userSchedule = {};
-//array to populate the grid for the schedule view
 var scheduleData = [];
 
+var createScheduleMatrix = function(opportunities) {
+  var scheduleMatrix = {};
+  _.forEach(opportunities, function(opportunity, oppId) {
+    var roundsForThisOpportunity = new Array(11);
+    scheduleMatrix[oppId] = roundsForThisOpportunity;
+  });
+  console.dir(scheduleMatrix);
+  return scheduleMatrix;
+};
 //make each opp schedule for 4s
-var makeScheduleData = function(users, oppertunities) {
-  var createScheduleMatrix = function(oppertunities) {
-    var scheduleMatrix = {};
-    _.forEach(opportunities, function(opportunity, oppId) {
-      var roundsForThisOpportunity = new Array(11);
-      scheduleMatrix[oppId] = roundsForThisOpportunity;
-      // var arr = [];
-      // var scheduleObj = concatArrays(opportunity.interest[4], oppId);
-      // console.log("################scheduleObj", scheduleObj);
-      //
-      // opportunityAppointment.push(scheduleObj);
-    });
+var makeScheduleData = function(usersForSchedule, opportunities, matchesSortedByInterest) {
 
-    return scheduleMatrix;
-  };
-    console.log(userSchedule, ' userSchedule');
+  createScheduleMatrix(opportunities);
+    //console.dir(userSchedule, ' userSchedule');
   return opportunityAppointment;
 };
 
+makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
 
 

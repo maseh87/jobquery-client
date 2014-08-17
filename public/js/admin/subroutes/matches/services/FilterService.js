@@ -3,7 +3,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
     var preMatch = {};
     var matchesSortedByInterest;
-    var userObj = {}; 
+    var userObj = {};
     var matches = {};
     var opportunities = {};
     var usersForSchedule = {};
@@ -152,13 +152,13 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
       });
     });
-  console.dir(usersForSchedule);
-
+  //console.dir(usersForSchedule);
+  //console.dir(opportunities);
     return {
       usersForSchedule: usersForSchedule,
-      matchesSortedByInterest: matchesSortedByInterest
+      matchesSortedByInterest: matchesSortedByInterest,
       // columnData: columnData,
-      // opportunities: opportunities
+      opportunities: opportunities
     };
 
 

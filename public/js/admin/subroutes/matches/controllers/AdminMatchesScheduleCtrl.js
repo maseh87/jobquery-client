@@ -29,10 +29,10 @@
             showGroupPanel: true,
             enablePinning: true
            };
-      console.log(FilterService.users, " users");
-      console.log(FilterService.opportunities, ' opportunities');
-      console.log(FilterService.columnData, ' columnData');
-      console.log(Scheduler.scheduleData, ' scheduleData');
+      // console.log(FilterService.users, " users");
+      // console.log(FilterService.opportunities, ' opportunities');
+      // console.log(FilterService.columnData, ' columnData');
+      // console.log(Scheduler.scheduleData, ' scheduleData');
       // console.log(Scheduler.interests, ' schedule');
       // console.log(Scheduler.userSchedule, ' userSchedule');
 
