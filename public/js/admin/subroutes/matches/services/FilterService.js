@@ -59,9 +59,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           /*
            Before we run the schedule, we have to calculate the number that represents
            the precise user interest. This number comes as a result of the userInterest (1 throuh 4),
-           the possible presence of an adminOverride of the userInterest, and also, the presence of any of 
-           the four 'Scheduling Preferences' (star, upVote, downVote, noGo). All the possible combinations 
-           of these factors results in one of 14 possible values. Therefore, we take all these values into 
+           the possible presence of an adminOverride of the userInterest, and also, the presence of any of
+           the four 'Scheduling Preferences' (star, upVote, downVote, noGo). All the possible combinations
+           of these factors results in one of 14 possible values. Therefore, we take all these values into
            account, and calculate a number between 1 and 14 to represent the 'calculatedUserInterestLevel'.
 
            Here are the ideas behind the calculation.
