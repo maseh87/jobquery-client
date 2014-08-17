@@ -102,24 +102,42 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         };
 
         var sortMatchesByInterest = function(match){
-          matchesSortedByInterest[caculatedLevel] = matchesSortedByInterest[caculatedLevel] || [];
-          matchesSortedByInterest[caculatedLevel].push(match);
+          matchesSortedByInterest[calculatedLevel] = matchesSortedByInterest[calculatedLevel] || [];
+          matchesSortedByInterest[calculatedLevel].push(match);
         };
 
-        var matchesSortedByInterest = {};
+        var makePreMatchObject = function(match, calculatedLevel){
+          var user = match.user;
+
+          preMatch[calculatedLevel] = preMatch[calculatedLevel] || {};
+          preMatch[calculatedLevel][user] = preMatch[calculatedLevel][user] || [];
+
+          preMatch[calculatedLevel][user].push(match.opportunity);
+        }
+
+        var makeMatchesSortedByInterest = function(preMatch){
+          for(var key in preMatch){
+            var interestValue = preMatch[key];
+            for(var k in interestValue){
+              var opportunitiesId = interestValue[k];
+              var newKey = opportunitiesId.length;
+              interestValue[newKey] = interestValue[newKey] || {};
+              interestValue[newKey][k] = interestValue[newKey][k] || [];
+              interestValue[newKey][k].push(opportunitiesId);
+              delete interestValue[k];
+            }
+            return preMatch;
+          }
+        }
+
         var preMatch = {};
 
         _.forEach(matchesArray, function(match) {
-          // debugger;
-          var caculatedLevel = caculateUserInterestLevel(match);
-          // console.log('match', match);
-          var user = match.user;
-          preMatch[caculatedLevel] = preMatch[caculatedLevel] || {};
-          preMatch[caculatedLevel][user] = preMatch[caculatedLevel][user] || [];
-          preMatch[caculatedLevel][user].push(match.opportunity);
-          // console.dir('preMatch', preMatch);
+          var calculatedLevel = caculateUserInterestLevel(match);
+          makePreMatchObject(match, calculatedLevel);
         });
-        console.dir(preMatch);
+        matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
+        console.dir(matchesSortedByInterest);
       });
     });
 
