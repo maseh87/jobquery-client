@@ -3,13 +3,13 @@ app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q',
 
 var matchesSortedByInterest = FilterService.matchesSortedByInterest;
 var usersForSchedule = FilterService.usersForSchedule;
-var opportunities = FilterService.opportunities;
 
 var opportunityAppointment = [];
 var userSchedule = {};
 var scheduleData = [];
+var oppToSchedule;
 
-var createScheduleMatrix = function(opportunities) {
+var createScheduleMatrix = function() {
   var opportunities = FilterService.opportunities;
   var scheduleMatrix = {};
   var indexNumber = 0;
@@ -26,7 +26,7 @@ var createScheduleMatrix = function(opportunities) {
   return scheduleMatrix;
 };
 
-var scheduleMatrix = createScheduleMatrix(opportunities);
+var scheduleMatrix = createScheduleMatrix();
 //makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
 //////scheduleAllMatches()/////////////////
@@ -46,13 +46,13 @@ var scheduleAllMatches =function() {
             //if # for this user equals numberOfRoundsScheduledTicker
             if(usersForSchedule[userId].numberOfRounds === numberOfRoundsScheduledTicker) {
               //pop oppId and schedule it(schedule it is a helper function)
-              var oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
+              oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
               //scheduleSingleOpp(oppToSchedule, userId);
               console.log("Calling scheduleSingleOpp()");
             }
           }else{
             //pop oppId and schedule it(schedule it is a helper function)
-            var oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
+            oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
             //scheduleSingleOpp(oppToSchedule, userId);
             console.log("Calling scheduleSingleOpp()");
           }
@@ -71,7 +71,7 @@ var scheduleAllMatches =function() {
       numberOfRoundsScheduledTicker++;
       //if the matchesForThisInterestLevel has no properties, delete it
       if( Object.keys(matchesForThisInterestLevel).length === 0 ) {
-        delete matchesForThisInterestLevel;
+        delete matchesSortedByInterest[interestLevel];
       }
     }
   }
@@ -173,7 +173,7 @@ var scheduleAllMatches =function() {
 
   return {
     userSchedule: userSchedule,
-    opportunitySchedule: makeScheduleData,
+  //  opportunitySchedule: makeScheduleData,
     //interests: opportunityAppointment,
     scheduleData: scheduleData
   };

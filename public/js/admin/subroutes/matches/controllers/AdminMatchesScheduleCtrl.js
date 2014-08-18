@@ -21,7 +21,7 @@
          //      //   {field: 12, displayName: 'James'}
          //      // ]
          //  };
-         Scheduler.opportunitySchedule();
+         //Scheduler.opportunitySchedule();
 
           $scope.myData = Scheduler.scheduleData;
           $scope.gridOptions = {
