@@ -17,7 +17,7 @@ var createScheduleMatrix = function(opportunities) {
   });
   return scheduleMatrix;
 };
-//make each opp schedule for 4s
+
 var makeScheduleData = function(usersForSchedule, opportunities, matchesSortedByInterest) {
   var opportunityAppointment;
   var scheduleMatrix = createScheduleMatrix(opportunities);
@@ -25,7 +25,29 @@ var makeScheduleData = function(usersForSchedule, opportunities, matchesSortedBy
   return opportunityAppointment;
 };
 
-makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
+
+//for everything interestLevel
+
+  //while matchesSortedByInterest at this interestLevel has keys
+
+    //for each interestLevel starting at the lowest
+      //for each userId
+        //if interestLevel is less than 11
+          //if # for this user equals numberOfRoundsScheduledTicker
+            //pop oppId and schedule it(schedule it is a helper function)
+        //else
+          //pop oppId and schedule it(schedule it is a helper function)
+
+        //check if userId's value is empty
+          //delete userId
+
+      //if the interestLevel has no properties, delete it
+
+
+
+
+
+// makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
 
 
