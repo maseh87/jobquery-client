@@ -20,6 +20,7 @@ module.exports = function(config) {
         "public/bower_components/jquery/dist/jquery.min.js",
         'public/bower_components/angular/angular.js',
         'public/bower_components/angular-ui-router/release/angular-ui-router.js',
+        'public/bower_components/react/react.js',
         'public/bower_components/angular-resource/angular-resource.js',
         'public/bower_components/angular-bootstrap/ui-bootstrap.js',
         'public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
@@ -29,6 +30,7 @@ module.exports = function(config) {
         "public/bower_components/lodash/dist/lodash.min.js",
         'public/bower_components/ng-grid/build/ng-grid.js',
         'public/bower_components/angular-mocks/angular-mocks.js',
+        'public/bower_components/ngReactGrid/build/js/ngReactGrid.js',
         'public/js/app.js',
 
         // Top Level
