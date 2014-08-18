@@ -11,9 +11,14 @@ var scheduleData = [];
 var createScheduleMatrix = function(opportunities) {
   var opportunities = FilterService.opportunities;
   var scheduleMatrix = {};
+  var indexNumber = 0;
+  var breakRounds = [4,5,6,7,8];
   _.forEach(opportunities, function(opportunity, oppId) {
     var roundsForThisOpportunity = new Array(11);
+    var breakRound = breakRounds[indexNumber % 5];
+    roundsForThisOpportunity[breakRound] = 'BREAK';
     scheduleMatrix[oppId] = roundsForThisOpportunity;
+    indexNumber++;
   });
   return scheduleMatrix;
 };
@@ -47,7 +52,7 @@ var makeScheduleData = function(usersForSchedule, opportunities, matchesSortedBy
 
 
 
-// makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
+makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
 
 
