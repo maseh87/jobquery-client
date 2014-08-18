@@ -49,7 +49,10 @@ gulp.task('concatbower-prod',['minify-prod'], function () {
     'public/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'public/bower_components/angular-local-storage/angular-local-storage.min.js',
     'public/bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js',
-    'public/lib/jobquery.min.js'],
+    "public/bower_components/lodash/dist/lodash.min.js",
+    'public/bower_components/react/react.js',
+    'public/bower_components/ngReactGrid/build/js/ngReactGrid.js',
+    'public/lib/jobquery.min.js',],
     {  base: 'public/'  })
       .pipe(concat('jobquery.master.min.js'))
       .pipe(gulp.dest('public/lib/'));
