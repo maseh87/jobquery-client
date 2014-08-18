@@ -13,7 +13,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
       var makeUsersForScheduleObject = function(user){
 
         usersForSchedule[user._id] = {};
-        usersForSchedule[user._id].rounds = {};
+        usersForSchedule[user._id].scheduleForThisUser = {};
         usersForSchedule[user._id].numberOfRounds = 0;
 
       };

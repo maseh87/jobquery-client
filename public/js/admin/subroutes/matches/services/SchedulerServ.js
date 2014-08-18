@@ -23,9 +23,10 @@ var createScheduleMatrix = function(opportunities) {
   return scheduleMatrix;
 };
 
+var scheduleMatrix = createScheduleMatrix(opportunities);
+
 var makeScheduleData = function(usersForSchedule, opportunities, matchesSortedByInterest) {
   var opportunityAppointment;
-  var scheduleMatrix = createScheduleMatrix(opportunities);
   console.dir(scheduleMatrix);
   return opportunityAppointment;
 };
@@ -49,7 +50,33 @@ var makeScheduleData = function(usersForSchedule, opportunities, matchesSortedBy
       //if the interestLevel has no properties, delete it
 
 
+/////scheduler function//////
+// inputs oppId, userId
 
+//userForSchedule = usersForSchedule[userId];
+//oppSchedule = scheduleMatrix[oppId];
+
+//var wasScheduled = false;
+//for each timeSlot in oppSchdedule
+
+  //if it is empty && !userForSchedule[scheduleForThisUser][timeSlot]
+    //oppSchedule[timeSlot] = userId;
+    //userForSchedule[scheduleForThisUser][timeSlot] = oppId;
+    //wasScheduled = true;
+    //userForSchedule[numberOfRounds]++;
+    //break (from for loop)
+//if !wasScheduled   
+  //for each timeSlot in oppSchedule
+    //if wasScheduled
+      //break
+
+    //if timeSlot is undefined
+      //var emptySpace = oppSchedule[timeSlot]
+      //for each tiemSlot
+        //if timeSlot is not undefined
+          //wasScheduled = try to switch()
+          //if wasScheduled
+            //break
 
 
 makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
