@@ -4,7 +4,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var userObj = {};
     var matches = {};
     var opportunities = {};
-    var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '100px', sort: false}];
+    var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
       var filteredUsers = users.filter(function (candidate) {
@@ -20,8 +20,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         userObj[user._id] = user;
         columnDef.field = user._id;
         columnDef.displayName = user.name;
-        columnDef.width = '100px';
-        columnDef.horizontalScroll = true;
+        columnDef.width = '10%';
         columnData.push(columnDef);
       });
       Match.getAll().then(function(matchData) {

@@ -1,16 +1,16 @@
-// app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'DialogueService',
-//   function ($scope, $state, Match, Opportunity, User, Scheduler, DialogueService) {
-                    app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'FilterService', 'DialogueService',
-                      function ($scope, $state, Match, Opportunity, User, Scheduler, FilterService, DialogueService) {
-                       Scheduler.opportunitySchedule();
-                        $scope.myData = Scheduler.scheduleData;
+app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'DialogueService',
+  function ($scope, $state, Match, Opportunity, User, Scheduler, DialogueService) {
+                    // app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'FilterService', 'DialogueService',
+                    //   function ($scope, $state, Match, Opportunity, User, Scheduler, FilterService, DialogueService) {
+                    //    Scheduler.opportunitySchedule();
+                    //     $scope.myData = Scheduler.scheduleData;
 
-                        $scope.grid = {
-                          data: $scope.myData,
-                          columnDefs: FilterService.columnData,
-                          horizontalScroll: true,
-                          pageSize: '100'
-                         };
+                    //     $scope.grid = {
+                    //       data: $scope.myData,
+                    //       columnDefs: FilterService.columnData,
+                    //       horizontalScroll: true,
+                    //       pageSize: '100'
+                    //      };
                     // console.log(FilterService.users, " users");
                     // console.log(FilterService.opportunities, ' opportunities');
                     // console.log(FilterService.columnData, ' columnData');

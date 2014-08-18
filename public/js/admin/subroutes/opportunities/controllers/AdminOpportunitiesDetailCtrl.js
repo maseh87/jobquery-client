@@ -1,11 +1,15 @@
 app.controller('AdminOpportunitiesDetailCtrl',
   ['$scope', '$stateParams', '$state','Opportunity', 'Match', 'Tag', 'Category', 'Company', 'generateGlyphs', 'User',
   function ($scope, $stateParams, $state, Opportunity, Match, Tag, Category, Company, generateGlyphs, User) {
-
   $scope.sorter = 'score';
   $scope.reverse = true;
   var originalCompanyId;
+  $scope.oppData = {};
 
+  $scope.seePreview = function() {
+    $state.go("admin.opportunities.preview", {_id: $scope.oppData._id});
+  };
+// ui-sref="admin.opportunities.preview({_id: oppData._id})"
   Company.getAll().then(function (companies) {
     $scope.companies = companies;
 
