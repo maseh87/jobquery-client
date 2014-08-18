@@ -22,6 +22,7 @@
          //      // ]
          //  };
          Scheduler.opportunitySchedule();
+
           $scope.myData = Scheduler.scheduleData;
           $scope.gridOptions = {
             data: 'myData',

@@ -3,27 +3,25 @@ app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q',
 
 var matchesSortedByInterest = FilterService.matchesSortedByInterest;
 var usersForSchedule = FilterService.usersForSchedule;
-var opportunities = FilterService.opportunities;
-    //console.dir(opportunities);
 
 var opportunityAppointment = [];
 var userSchedule = {};
 var scheduleData = [];
 
 var createScheduleMatrix = function(opportunities) {
+  var opportunities = FilterService.opportunities;
   var scheduleMatrix = {};
   _.forEach(opportunities, function(opportunity, oppId) {
     var roundsForThisOpportunity = new Array(11);
     scheduleMatrix[oppId] = roundsForThisOpportunity;
   });
-  console.dir(scheduleMatrix);
   return scheduleMatrix;
 };
 //make each opp schedule for 4s
 var makeScheduleData = function(usersForSchedule, opportunities, matchesSortedByInterest) {
-
-  createScheduleMatrix(opportunities);
-    //console.dir(userSchedule, ' userSchedule');
+  var opportunityAppointment;
+  var scheduleMatrix = createScheduleMatrix(opportunities);
+  console.dir(scheduleMatrix);
   return opportunityAppointment;
 };
 
@@ -69,12 +67,10 @@ makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
 
 
-
-
   return {
     userSchedule: userSchedule,
     opportunitySchedule: makeScheduleData,
-    interests: opportunityAppointment,
+    //interests: opportunityAppointment,
     scheduleData: scheduleData
   };
   // var candidatesMap;
