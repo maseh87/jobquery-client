@@ -130,11 +130,14 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           for(var key in preMatch){
             var interestValue = preMatch[key];
             for(var k in interestValue){
-              var opportunitiesId = interestValue[k];
-              var newKey = opportunitiesId.length;
+              var opportunitiesIds = interestValue[k];
+              var newKey = opportunitiesIds.length;
               interestValue[newKey] = interestValue[newKey] || {};
               interestValue[newKey][k] = interestValue[newKey][k] || [];
-              interestValue[newKey][k].push(opportunitiesId);
+              // interestValue[newKey][k].push(opportunitiesId);
+              for(var i = 0; i< opportunitiesIds.length; i++){
+                interestValue[newKey][k].push(opportunitiesIds[i]);
+              }
               delete interestValue[k];
             }
           }
