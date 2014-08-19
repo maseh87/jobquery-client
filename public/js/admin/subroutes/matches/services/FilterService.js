@@ -172,53 +172,54 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         };
 
         var scheduleMatrix = createScheduleMatrix();
-
+        console.log(scheduleMatrix)
         //makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
         /////switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)////
-        var switchSlots = function(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule) {
-
-          //if userForSchedule.scheduleForThisUser[possibleSwitchIndex]
-          if(userForSchedule.scheduleForThisUser[possibleSwitchIndex] !== undefined){
-            //return false
-            return false;
-          }
-
-          //var possibleUserToSwitchWith = oppSchdedule[possibleSwitchIndex]
-          var possibleUserToSwitchWith = oppSchdedule[possibleSwitchIndex];
-          //var isBreak = possibleUserToSwitchWith === 'BREAK'
-          var isBreak = (possibleUserToSwitchWith === 'BREAK');
-          //if !isBreak && usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[emptySpaceIndex] !== undefined
-          if (!isBreak && usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[emptySpaceIndex] !== undefined){
-            //return false
-            return false;
-          }
-
-          //oppSchedule[emptySpaceIndex] = possibleUserToSwitchWith(FINISHED ONE SWITCH)
-          oppSchedule[emptySpaceIndex] = possibleUserToSwitchWith;
-          //if !isBreak
-          if(!isBreak){
-            //usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser.emptySpaceIndex = oppId;
-            usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[emptySpaceIndex] = oppId;
-            //delete usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser.possibleSwitchIndex;
-            delete usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[possibleSwitchIndex];
-            /////// return true;
-          }
-          //oppSchedule[possibleSwitchIndex] = userId
-          oppSchedule[possibleSwitchIndex] = userId;
-          //userForSchedule.scheduleForThisUser[possibleSwitchIndex] = oppId;
-          userForSchedule.scheduleForThisUser[possibleSwitchIndex] = oppId;
-          //userForSchedule.numberOfRounds++;
-          userForSchedule.numberOfRounds++;
-          //return true
-          return true;
-        };
 
 
         /////scheduleSingleOpp function//////
         var scheduleSingleOpp = function(oppId, userId) {
+          var switchSlots = function(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule) {
+
+            //if userForSchedule.scheduleForThisUser[possibleSwitchIndex]
+            if(userForSchedule.scheduleForThisUser[possibleSwitchIndex] !== undefined){
+              //return false
+              return false;
+            }
+
+            //var possibleUserToSwitchWith = oppSchdedule[possibleSwitchIndex]
+
+            var possibleUserToSwitchWith = oppSchedule[possibleSwitchIndex];
+            //var isBreak = possibleUserToSwitchWith === 'BREAK'
+            var isBreak = (possibleUserToSwitchWith === 'BREAK');
+            //if !isBreak && usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[emptySpaceIndex] !== undefined
+            if (!isBreak && usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[emptySpaceIndex] !== undefined){
+              //return false
+              return false;
+            }
+
+            //oppSchedule[emptySpaceIndex] = possibleUserToSwitchWith(FINISHED ONE SWITCH)
+            oppSchedule[emptySpaceIndex] = possibleUserToSwitchWith;
+            //if !isBreak
+            if(!isBreak){
+              //usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser.emptySpaceIndex = oppId;
+              usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[emptySpaceIndex] = oppId;
+              //delete usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser.possibleSwitchIndex;
+              delete usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[possibleSwitchIndex];
+              /////// return true;
+            }
+            //oppSchedule[possibleSwitchIndex] = userId
+            oppSchedule[possibleSwitchIndex] = userId;
+            //userForSchedule.scheduleForThisUser[possibleSwitchIndex] = oppId;
+            userForSchedule.scheduleForThisUser[possibleSwitchIndex] = oppId;
+            //userForSchedule.numberOfRounds++;
+            userForSchedule.numberOfRounds++;
+            //return true
+            return true;
+          };
+
           //userForSchedule = usersForSchedule[userId];
-          debugger;
           var userForSchedule = usersForSchedule[userId];
           //oppSchedule = scheduleMatrix[oppId];
           var oppSchedule = scheduleMatrix[oppId];
@@ -263,6 +264,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                   if(timeSlot3 !== undefined)
                     //var possibleSwitchIndex = k
                     var possibleSwitchIndex = k;
+
                     //wasScheduled = switch(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)
                     wasScheduled = switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule);
                     //if wasScheduled
@@ -284,7 +286,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             var numberOfRoundsScheduledTicker = 0;
             //while matchesSortedByInterest at this interestLevel has keys
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
-            while ( matchesForThisInterestLevel ) {
+            while ( matchesForThisInterestLevel !== undefined && Object.keys(matchesForThisInterestLevel).length !== 0 ) {
               //for each interestLevel starting at the lowest
               for(var numberOfRequests in matchesForThisInterestLevel){
                 //for each userId
