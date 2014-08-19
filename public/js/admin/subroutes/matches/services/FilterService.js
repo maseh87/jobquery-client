@@ -130,17 +130,15 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           for(var key in preMatch){
             var interestValue = preMatch[key];
             for(var k in interestValue){
-              var opportunitiesIds = interestValue[k];
-              var newKey = opportunitiesIds.length;
+              var opportunitiesId = interestValue[k];
+              var newKey = opportunitiesId.length;
               interestValue[newKey] = interestValue[newKey] || {};
               interestValue[newKey][k] = interestValue[newKey][k] || [];
-              for(var i = 0; i < opportunitiesIds.length; i++){
-                interestValue[newKey][k].push(opportunitiesIds[i]);
-              }
+              interestValue[newKey][k].push(opportunitiesId);
               delete interestValue[k];
             }
           }
-          return preMatch;
+        return preMatch;
         };
 
 
@@ -149,7 +147,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           makePreMatchObject(match, calculatedLevel);
         });
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
-
+        // debugger;
+        //console.log(matchesSortedByInterest)
         var opportunityAppointment = [];
         var userSchedule = {};
         var scheduleData = [];
@@ -173,6 +172,107 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         //makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
+        /////switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)////
+        var switchSlots = function(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule) {
+
+          //if userForSchedule.scheduleForThisUser[possibleSwitchIndex]
+          if(userForSchedule.scheduleForThisUser[possibleSwitchIndex] !== undefined){
+            //return false
+            return false;
+          }
+
+          //var possibleUserToSwitchWith = oppSchdedule[possibleSwitchIndex]
+          var possibleUserToSwitchWith = oppSchdedule[possibleSwitchIndex];
+          //var isBreak = possibleUserToSwitchWith === 'BREAK'
+          var isBreak = (possibleUserToSwitchWith === 'BREAK');
+          //if !isBreak && usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[emptySpaceIndex] !== undefined
+          if (!isBreak && usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[emptySpaceIndex] !== undefined){
+            //return false
+            return false;
+          }
+
+          //oppSchedule[emptySpaceIndex] = possibleUserToSwitchWith(FINISHED ONE SWITCH)
+          oppSchedule[emptySpaceIndex] = possibleUserToSwitchWith;
+          //if !isBreak
+          if(!isBreak){
+            //usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser.emptySpaceIndex = oppId;
+            usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[emptySpaceIndex] = oppId;
+            //delete usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser.possibleSwitchIndex;
+            delete usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser[possibleSwitchIndex];
+            /////// return true;
+          }
+          //oppSchedule[possibleSwitchIndex] = userId
+          oppSchedule[possibleSwitchIndex] = userId;
+          //userForSchedule.scheduleForThisUser[possibleSwitchIndex] = oppId;
+          userForSchedule.scheduleForThisUser[possibleSwitchIndex] = oppId;
+          //userForSchedule.numberOfRounds++;
+          userForSchedule.numberOfRounds++;
+          //return true
+          return true;
+        };
+
+
+        /////scheduleSingleOpp function//////
+        var scheduleSingleOpp = function(oppId, userId) {
+          //userForSchedule = usersForSchedule[userId];
+          var userForSchedule = usersForSchedule[userId];
+          //oppSchedule = scheduleMatrix[oppId];
+          var oppSchedule = scheduleMatrix[oppId];
+          //var wasScheduled = false;
+          var wasScheduled = false;
+          //for each timeSlot in oppSchdedule
+          for(var i = 0; i < oppSchedule.length; i++){
+            var timeSlot = oppSchedule[i];
+
+            //if timeSlot is empty && !userForSchedule[scheduleForThisUser][i]
+            if(timeSlot === undefined && !userForSchedule.scheduleForThisUser[i]){
+              //oppSchedule[i] = userId;
+              oppSchedule[i] = userId;
+              //userForSchedule[scheduleForThisUser][i] = oppId;
+              userForSchedule.scheduleForThisUser[i] = oppId;
+              //wasScheduled = true;
+              wasScheduled = true;
+              //userForSchedule[numberOfRounds]++;
+              userForSchedule.numberOfRounds++;
+              //break (from for loop)
+              break;
+            }
+          }
+          //if !wasScheduled
+          if(!wasScheduled){
+            //for each j in oppSchedule
+            for(var j = 0; j < oppSchedule.length; j++){
+              //if wasScheduled
+              if(wasScheduled){
+                //break
+                break;
+              }
+              var timeSlot2 = oppSchedule[j];
+              //if j is undefined
+              if(timeSlot2 === undefined){
+                //var emptySpaceIndex = j
+                var emptySpaceIndex = j;
+                //for each k in oppSchedule
+                for(var k = 0; k < oppSchedule.length; k++){
+                  var timeSlot3 = oppSchedule[k];
+                  //if timeSlot3 is not undefined
+                  if(timeSlot3 !== undefined)
+                    //var possibleSwitchIndex = k
+                    var possibleSwitchIndex = k;
+                    //wasScheduled = switch(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)
+                    wasScheduled = switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule);
+                    //if wasScheduled
+                    if(wasScheduled) {
+                      //break
+                      break;
+                    }
+                  }
+                }
+              }
+            }
+          };
+
+
         //////scheduleAllMatches()/////////////////
         var scheduleAllMatches =function() {
           //for everything interestLevel
@@ -180,31 +280,23 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             var numberOfRoundsScheduledTicker = 0;
             //while matchesSortedByInterest at this interestLevel has keys
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
-            while ( matchesForThisInterestLevel !== undefined && Object.keys(matchesForThisInterestLevel).length !== 0 ) {
+            while ( matchesForThisInterestLevel ) {
               //for each interestLevel starting at the lowest
               for(var numberOfRequests in matchesForThisInterestLevel){
                 //for each userId
                 for(var userId in matchesForThisInterestLevel[numberOfRequests]){
                   //if interestLevel is less than 11
-                  // debugger;
                   if( interestLevel < 11 ){
                     //if # for this user equals numberOfRoundsScheduledTicker
-                    console.log(usersForSchedule[userId].numberOfRounds);
-                    console.log(numberOfRoundsScheduledTicker);
                     if(usersForSchedule[userId].numberOfRounds === numberOfRoundsScheduledTicker) {
                       //pop oppId and schedule it(schedule it is a helper function)
                       oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
-                      //!!!!!!THIS LINE IS ONLY HERE TO MOCK OPPTOSCHEDULE CALL
-                      usersForSchedule[userId].numberOfRounds++;
-                      //scheduleSingleOpp(oppToSchedule, userId);
+                      scheduleSingleOpp(oppToSchedule, userId);
                     }
-                  }
-                  else{
+                  }else{
                     //pop oppId and schedule it(schedule it is a helper function)
                     oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
-                    //!!!!!!THIS LINE IS ONLY HERE TO MOCK OPPTOSCHEDULE CALL
-                    usersForSchedule[userId].numberOfRounds++;
-                    //scheduleSingleOpp(oppToSchedule, userId);
+                    scheduleSingleOpp(oppToSchedule, userId);
                   }
 
                   //check if userId's value is empty
@@ -221,17 +313,18 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               numberOfRoundsScheduledTicker++;
               //if the matchesForThisInterestLevel has no properties, delete it
               if( Object.keys(matchesForThisInterestLevel).length === 0 ) {
-                delete matchesForThisInterestLevel;
+                delete matchesSortedByInterest[interestLevel];
               }
             }
           }
         };
-        scheduleAllMatches();
-        console.log(2);
-        console.dir(matchesSortedByInterest);
-
         // setTimeout(scheduleAllMatches, 3000);
-      })
+
+
+        //test call
+        scheduleAllMatches();
+        console.log(scheduleMatrix)
+      });
     });
 
     return {
