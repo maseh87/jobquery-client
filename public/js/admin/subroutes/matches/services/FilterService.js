@@ -175,8 +175,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         //makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
         //////scheduleAllMatches()/////////////////
-        console.log(1);
-        console.dir(matchesSortedByInterest);
         var scheduleAllMatches =function() {
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 1; interestLevel--){
@@ -192,14 +190,21 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                   // debugger;
                   if( interestLevel < 11 ){
                     //if # for this user equals numberOfRoundsScheduledTicker
+                    console.log(usersForSchedule[userId].numberOfRounds);
+                    console.log(numberOfRoundsScheduledTicker);
                     if(usersForSchedule[userId].numberOfRounds === numberOfRoundsScheduledTicker) {
                       //pop oppId and schedule it(schedule it is a helper function)
                       oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
+                      //!!!!!!THIS LINE IS ONLY HERE TO MOCK OPPTOSCHEDULE CALL
+                      usersForSchedule[userId].numberOfRounds++;
                       //scheduleSingleOpp(oppToSchedule, userId);
                     }
-                  }else{
+                  }
+                  else{
                     //pop oppId and schedule it(schedule it is a helper function)
                     oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
+                    //!!!!!!THIS LINE IS ONLY HERE TO MOCK OPPTOSCHEDULE CALL
+                    usersForSchedule[userId].numberOfRounds++;
                     //scheduleSingleOpp(oppToSchedule, userId);
                   }
 
