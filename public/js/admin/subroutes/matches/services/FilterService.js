@@ -138,8 +138,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               interestValue[newKey][k].push(opportunitiesId);
               delete interestValue[k];
             }
-            return preMatch;
           }
+          return preMatch;
         };
 
 
@@ -177,6 +177,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var scheduleAllMatches =function() {
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 1; interestLevel--){
+            debugger;
             var numberOfRoundsScheduledTicker = 0;
             //while matchesSortedByInterest at this interestLevel has keys
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
