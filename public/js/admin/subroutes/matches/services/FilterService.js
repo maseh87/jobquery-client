@@ -131,11 +131,13 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           for(var key in preMatch){
             var interestValue = preMatch[key];
             for(var k in interestValue){
-              var opportunitiesId = interestValue[k];
-              var newKey = opportunitiesId.length;
+              var opportunitiesIds = interestValue[k];
+              var newKey = opportunitiesIds.length;
               interestValue[newKey] = interestValue[newKey] || {};
               interestValue[newKey][k] = interestValue[newKey][k] || [];
-              interestValue[newKey][k].push(opportunitiesId);
+              for(var i = 0; i < opportunitiesIds.length; i++){
+                interestValue[newKey][k].push(opportunitiesIds[i]);
+              }
               delete interestValue[k];
             }
           }
@@ -148,7 +150,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           makePreMatchObject(match, calculatedLevel);
         });
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
-        debugger;
 
         var opportunityAppointment = [];
         var userSchedule = {};
@@ -174,19 +175,21 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         //makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
         //////scheduleAllMatches()/////////////////
+        console.log(1);
+        console.dir(matchesSortedByInterest);
         var scheduleAllMatches =function() {
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 1; interestLevel--){
-            debugger;
             var numberOfRoundsScheduledTicker = 0;
             //while matchesSortedByInterest at this interestLevel has keys
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
-            while ( matchesForThisInterestLevel ) {
+            while ( matchesForThisInterestLevel !== undefined && Object.keys(matchesForThisInterestLevel).length !== 0 ) {
               //for each interestLevel starting at the lowest
               for(var numberOfRequests in matchesForThisInterestLevel){
                 //for each userId
                 for(var userId in matchesForThisInterestLevel[numberOfRequests]){
                   //if interestLevel is less than 11
+                  // debugger;
                   if( interestLevel < 11 ){
                     //if # for this user equals numberOfRoundsScheduledTicker
                     if(usersForSchedule[userId].numberOfRounds === numberOfRoundsScheduledTicker) {
@@ -214,11 +217,15 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               numberOfRoundsScheduledTicker++;
               //if the matchesForThisInterestLevel has no properties, delete it
               if( Object.keys(matchesForThisInterestLevel).length === 0 ) {
-                delete matchesSortedByInterest[interestLevel];
+                delete matchesForThisInterestLevel;
               }
             }
           }
         };
+        scheduleAllMatches();
+        console.log(2);
+        console.dir(matchesSortedByInterest);
+
         // setTimeout(scheduleAllMatches, 3000);
       })
     });
