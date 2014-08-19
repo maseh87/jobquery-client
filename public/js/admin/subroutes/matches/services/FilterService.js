@@ -227,6 +227,61 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
           }
         };
+
+        /////scheduler function//////
+        // inputs oppId, userId
+        var scheduleSingleMatch = function(oppId, userId){
+          
+
+          //userForSchedule = usersForSchedule[userId];
+          //oppSchedule = scheduleMatrix[oppId];
+
+          //var wasScheduled = false;
+          //for each timeSlot in oppSchdedule
+
+            //if it is empty && !userForSchedule[scheduleForThisUser][timeSlot]
+              //oppSchedule[timeSlot] = userId;
+              //userForSchedule[scheduleForThisUser][timeSlot] = oppId;
+              //wasScheduled = true;
+              //userForSchedule[numberOfRounds]++;
+              //break (from for loop)
+          //if !wasScheduled
+            //for each timeSlot in oppSchedule
+              //if wasScheduled
+                //break
+
+              //if timeSlot is undefined
+                //var emptySpaceIndex = timeSlot
+                //for each tiemSlot2 in oppSchedule
+                  //if timeSlot2 is not undefined
+                    //var possibleSwitchIndex = timeSlot2
+                    //wasScheduled = switch(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)
+                    //if wasScheduled
+                      //break
+
+
+          /////switch(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)////
+          //if userForSchedule[scheduleForThisUser][possibleSwitchIndex]
+            //return false
+
+          //var possibleUserToSwitchWith = oppSchdedule[possibleSwitchIndex]
+          //var isBreak = possibleUserToSwitchWith === 'BREAK'
+          //if !isBreak && usersForSchedule[possibleUserToSwitchWith][scheduleForThisUser][emptySpaceIndex]
+            //return false
+
+          //oppSchedule[emptySpaceIndex] = possibleUserToSwitchWith
+          //if !isBreak
+            //usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser.emptySpaceIndex = oppId;
+            //delete usersForSchedule[possibleUserToSwitchWith].scheduleForThisUser.possibleSwitchIndex;
+
+          //oppSchedule[possibleSwitchIndex] = userId
+          //userForSchedule.scheduleForThisUser.possibleSwitchIndex = oppId;
+          //userForSchedule.numberOfRounds++;
+
+          //return true
+        }
+
+          
         scheduleAllMatches();
         console.log(2);
         console.dir(matchesSortedByInterest);
