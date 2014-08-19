@@ -171,7 +171,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         };
 
         var scheduleMatrix = createScheduleMatrix();
-
+        console.log(scheduleMatrix)
         //makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
         /////switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)////
@@ -261,6 +261,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                   if(timeSlot3 !== undefined)
                     //var possibleSwitchIndex = k
                     var possibleSwitchIndex = k;
+
                     //wasScheduled = switch(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)
                     wasScheduled = switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule);
                     //if wasScheduled
@@ -282,7 +283,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             var numberOfRoundsScheduledTicker = 0;
             //while matchesSortedByInterest at this interestLevel has keys
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
-            while ( matchesForThisInterestLevel ) {
+            while ( matchesForThisInterestLevel !== undefined && Object.keys(matchesForThisInterestLevel).length !== 0 ) {
               //for each interestLevel starting at the lowest
               for(var numberOfRequests in matchesForThisInterestLevel){
                 //for each userId
