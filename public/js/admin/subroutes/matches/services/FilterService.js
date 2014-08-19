@@ -215,6 +215,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         /////scheduleSingleOpp function//////
         var scheduleSingleOpp = function(oppId, userId) {
           //userForSchedule = usersForSchedule[userId];
+          debugger;
           var userForSchedule = usersForSchedule[userId];
           //oppSchedule = scheduleMatrix[oppId];
           var oppSchedule = scheduleMatrix[oppId];
