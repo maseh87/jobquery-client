@@ -151,7 +151,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           var calculatedLevel = caculateUserInterestLevel(match);
           makePreMatchObject(match, calculatedLevel);
         });
-        //matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
+        matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
 
         var opportunityAppointment = [];
         var userSchedule = {};
@@ -172,7 +172,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           return scheduleMatrix;
         };
 
-        //scheduleMatrix = createScheduleMatrix();
+        scheduleMatrix = createScheduleMatrix();
 
         /////scheduleSingleOpp function//////
         var scheduleSingleOpp = function(oppId, userId, scheduleMatrix) {
@@ -221,6 +221,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           var oppSchedule = scheduleMatrix[oppId];
           //var wasScheduled = false;
           var wasScheduled = false;
+
+
+
           //for each timeSlot in oppSchdedule
           for(var i = 0; i < oppSchedule.length; i++){
             var timeSlot = oppSchedule[i];
@@ -229,10 +232,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             if(timeSlot === undefined && !userForSchedule.scheduleForThisUser[i]){
               //oppSchedule[i] = userId;
               oppSchedule[i] = userId;
+
               //userForSchedule[scheduleForThisUser][i] = oppId;
               userForSchedule.scheduleForThisUser[i] = oppId;
               //wasScheduled = true;
               wasScheduled = true;
+              counterYes++;
               //console.log("scheduled", counterYes++);
               //userForSchedule[numberOfRounds]++;
               userForSchedule.numberOfRounds++;
@@ -269,13 +274,18 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     //if wasScheduled
                     if(wasScheduled) {
                       //break
-                      //console.log("scheduled after switch", counterYes++)
+                      counterYes++;
+                      // console.log("scheduled after switch", counterYes++)
                       break;
                     }
                   }
                 }
               }
             }
+          }
+          if(!wasScheduled){
+            counterNo++;
+          //  console.log("not scheduled ", counterNo++)
           }
           scheduleMatrix[oppId] = oppSchedule;
           //return oppSchedule;
@@ -286,8 +296,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 1; interestLevel--){
 
-            //console.log(interestLevel)
-
+            console.log(interestLevel)
+            counterYes = 0;
+            counterNo = 0;
             var numberOfRoundsScheduledTicker = 0;
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
             //while matchesSortedByInterest at this interestLevel has keys, and also numberOfRoundsScheduledTicker is less than 11
@@ -296,20 +307,24 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               for(var numberOfRequests in matchesForThisInterestLevel){
                 //for each userId
                 for(var userId in matchesForThisInterestLevel[numberOfRequests]){
+
                   //if interestLevel is less than 11
                   if( interestLevel < 11){
-                    //debugger;
                     //if # for this user equals numberOfRoundsScheduledTicker
                     if(usersForSchedule[userId].numberOfRounds === numberOfRoundsScheduledTicker) {
                       //pop oppId and schedule it(schedule it is a helper function)
                       oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
-                      scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                      if(usersForSchedule[userId].numberOfRounds < 9) {
+                        scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                      }
                       // usersForSchedule[userId].numberOfRounds++;
                     }
                   }else{
                     //pop oppId and schedule it(schedule it is a helper function)
                     oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
-                    scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                    if(usersForSchedule[userId].numberOfRounds < 9) {
+                      scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                    }
                     // usersForSchedule[userId].numberOfRounds++;
                   }
 
@@ -331,20 +346,21 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               }
                 numberOfRoundsScheduledTicker++;
             }
+            console.log("In interest", interestLevel,  "scheduled ",counterYes);
+            console.log("In interest",interestLevel , "not scheduled ",counterNo);
           }
         };
 
-        // scheduleAllMatches(scheduleMatrix);
-        // matrixData = scheduleMatrix;
-        // console.log(scheduleMatrix);
+        scheduleAllMatches(scheduleMatrix);
+        // console.log(usersForSchedule)
+          console.log(scheduleMatrix);
       });
     });
 
     return {
       //usersForSchedule: usersForSchedule,
       //matchesSortedByInterest: matchesSortedByInterest,
-      columnData: columnData,
-      matrixData: matrixData
+      columnData: columnData
       //opportunities: opportunities
     };
 }]);
