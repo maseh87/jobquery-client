@@ -214,7 +214,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             //return true
              return true;
           };
-
           //userForSchedule = usersForSchedule[userId];
           var userForSchedule = usersForSchedule[userId];
           //oppSchedule = scheduleMatrix[oppId];
@@ -225,7 +224,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           for(var i = 0; i < oppSchedule.length; i++){
             var timeSlot = oppSchedule[i];
 
-            //if timeSlot is empty && !userForSchedule[scheduleForThisUser][i]
+            // if timeSlot is empty && !userForSchedule[scheduleForThisUser][i]
             if(timeSlot === undefined && !userForSchedule.scheduleForThisUser[i]){
               //oppSchedule[i] = userId;
               oppSchedule[i] = userId;
@@ -240,6 +239,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               break;
             }
           }
+
           // !wasScheduled
           if(!wasScheduled){
             console.log("not scheduled", counterNo++)
@@ -285,7 +285,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var scheduleAllMatches =function() {
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 1; interestLevel--){
+
             console.log(interestLevel)
+
             var numberOfRoundsScheduledTicker = 0;
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
             //while matchesSortedByInterest at this interestLevel has keys, and also numberOfRoundsScheduledTicker is less than 11
