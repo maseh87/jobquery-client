@@ -151,7 +151,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           var calculatedLevel = caculateUserInterestLevel(match);
           makePreMatchObject(match, calculatedLevel);
         });
-        //matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
+        // matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
 
         var opportunityAppointment = [];
         var userSchedule = {};
@@ -172,7 +172,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           return scheduleMatrix;
         };
 
-        //scheduleMatrix = createScheduleMatrix();
+        // scheduleMatrix = createScheduleMatrix();
 
         /////scheduleSingleOpp function//////
         var scheduleSingleOpp = function(oppId, userId, scheduleMatrix) {
@@ -281,12 +281,20 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           //return oppSchedule;
         };
 
+        var shuffleSchedule = function(scheduleMatrix, userForSchedule){
+          var baseArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+          var outsideRounds = [0, 1, 2, 8, 9, 10];
+          var insideRounds = [3, 4, 5, 6, 7];
+
+          var newOutsideRounds = _.shuffle(outsideRounds);
+          var newInsideRounds = _.shuffle(insideRounds);
+        };
+        shuffleSchedule();
+
         //////scheduleAllMatches()/////////////////
         var scheduleAllMatches = function (scheduleMatrix) {
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 1; interestLevel--){
-
-            //console.log(interestLevel)
 
             var numberOfRoundsScheduledTicker = 0;
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
@@ -336,15 +344,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         // scheduleAllMatches(scheduleMatrix);
         // matrixData = scheduleMatrix;
-        // console.log(scheduleMatrix);
       });
     });
 
     return {
       //usersForSchedule: usersForSchedule,
       //matchesSortedByInterest: matchesSortedByInterest,
-      columnData: columnData,
-      matrixData: matrixData
       //opportunities: opportunities
     };
 }]);
