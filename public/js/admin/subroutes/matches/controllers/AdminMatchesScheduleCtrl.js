@@ -24,8 +24,7 @@
          //Scheduler.opportunitySchedule();
          console.log(FilterService.columnData);
           // $scope.myData = Scheduler.scheduleData;
-          $scope.gridOptions = {
-            data: 'myData',
+          $scope.grid = {
             columnDefs: FilterService.columnData,
             showGroupPanel: true,
             enablePinning: true
