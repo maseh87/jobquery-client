@@ -12,7 +12,9 @@
     "angular-bootstrap": "~0.11.0",
     "ng-videosharing-embed": "~0.2.1",
     "lodash": "~2.4.1",
-    "ng-grid": "~2.0.12"
+    "ng-grid": "~2.0.12",
+    "ngReactGrid": "~0.6.5",
+    "react": "~0.11.1"
   },
   "resolutions": {
     "angular": "1.2.21"
