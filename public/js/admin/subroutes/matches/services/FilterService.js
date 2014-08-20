@@ -7,7 +7,15 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var matches = {};
     var opportunities = {};
     var usersForSchedule = {};
+    //an array of all the objects that will populate the header of the schedule grid
     var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
+    //an array of all the objects that will populate the cells inside the grid
+    var cellData = [];
+
+
+
+
+
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
       var makeUsersForScheduleObject = function(user){
@@ -337,6 +345,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         console.log('matchesSortedByInterest ', matchesSortedByInterest);
         console.log('scheduleMatrix ', scheduleMatrix);
         console.log('!!!!!');
+
+
       });
     });
 
