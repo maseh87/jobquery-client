@@ -171,7 +171,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         };
 
         var scheduleMatrix = createScheduleMatrix();
-        console.log(scheduleMatrix)
         //makeScheduleData(usersForSchedule, opportunities, matchesSortedByInterest);
 
         /////switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)////
@@ -226,7 +225,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           for(var i = 0; i < oppSchedule.length; i++){
             var timeSlot = oppSchedule[i];
 
-            //if timeSlot is empty && !userForSchedule[scheduleForThisUser][i]
+            // if timeSlot is empty && !userForSchedule[scheduleForThisUser][i]
             if(timeSlot === undefined && !userForSchedule.scheduleForThisUser[i]){
               //oppSchedule[i] = userId;
               oppSchedule[i] = userId;
@@ -240,46 +239,52 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               break;
             }
           }
-          //if !wasScheduled
+          if(wasScheduled){
+            console.log('scheduled');
+          }
+          // if !wasScheduled
           if(!wasScheduled){
-            //for each j in oppSchedule
-            for(var j = 0; j < oppSchedule.length; j++){
-              //if wasScheduled
-              if(wasScheduled){
-                //break
-                break;
-              }
-              var timeSlot2 = oppSchedule[j];
-              //if j is undefined
-              if(timeSlot2 === undefined){
-                //var emptySpaceIndex = j
-                var emptySpaceIndex = j;
-                //for each k in oppSchedule
-                for(var k = 0; k < oppSchedule.length; k++){
-                  var timeSlot3 = oppSchedule[k];
-                  //if timeSlot3 is not undefined
-                  if(timeSlot3 !== undefined)
-                    //var possibleSwitchIndex = k
-                    var possibleSwitchIndex = k;
+            console.log('not initially scheduled');
+          //   //for each j in oppSchedule
+          //   for(var j = 0; j < oppSchedule.length; j++){
+          //     //if wasScheduled
+          //     if(wasScheduled){
+          //       //break
+          //       break;
+          //     }
+          //     var timeSlot2 = oppSchedule[j];
+          //     //if j is undefined
+          //     if(timeSlot2 === undefined){
+          //       //var emptySpaceIndex = j
+          //       var emptySpaceIndex = j;
+          //       //for each k in oppSchedule
+          //       for(var k = 0; k < oppSchedule.length; k++){
+          //         var timeSlot3 = oppSchedule[k];
+          //         //if timeSlot3 is not undefined
+          //         if(timeSlot3 !== undefined)
+          //           //var possibleSwitchIndex = k
+          //           var possibleSwitchIndex = k;
 
-                    //wasScheduled = switch(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)
-                    wasScheduled = switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule);
-                    //if wasScheduled
-                    if(wasScheduled) {
-                      //break
-                      break;
-                    }
-                  }
-                }
-              }
-            }
-          };
+          //           //wasScheduled = switch(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)
+          //           wasScheduled = switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule);
+          //           //if wasScheduled
+          //           if(wasScheduled) {
+          //             //break
+          //             break;
+          //           }
+          //         }
+          //       }
+          //     }
+          //   }
+          }
+        };
 
 
         //////scheduleAllMatches()/////////////////
         var scheduleAllMatches =function() {
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 1; interestLevel--){
+            console.log('interestLevel: ' + interestLevel);
             var numberOfRoundsScheduledTicker = 0;
             //while matchesSortedByInterest at this interestLevel has keys
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
@@ -294,12 +299,14 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     if(usersForSchedule[userId].numberOfRounds === numberOfRoundsScheduledTicker) {
                       //pop oppId and schedule it(schedule it is a helper function)
                       oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
+                      usersForSchedule[userId].numberOfRounds++;
                       scheduleSingleOpp(oppToSchedule, userId);
                     }
                   }else{
                     //pop oppId and schedule it(schedule it is a helper function)
                     oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
-                    scheduleSingleOpp(oppToSchedule, userId);
+                      usersForSchedule[userId].numberOfRounds++;
+                      scheduleSingleOpp(oppToSchedule, userId);
                   }
 
                   //check if userId's value is empty
@@ -326,7 +333,11 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         //test call
         scheduleAllMatches();
-        console.log(scheduleMatrix)
+        console.log('matchesSortedByInterest');
+        console.dir(matchesSortedByInterest);
+        console.log('scheduleMatrix');
+        console.dir(scheduleMatrix);
+        console.log('!!!!!');
       });
     });
 
