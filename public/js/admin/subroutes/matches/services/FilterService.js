@@ -336,7 +336,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         scheduleAllMatches(scheduleMatrix);
         matrixData = scheduleMatrix;
-        console.log(matrixData);
+        console.log(scheduleMatrix);
       });
     });
 
