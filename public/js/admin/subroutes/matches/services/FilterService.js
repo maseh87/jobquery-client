@@ -27,10 +27,11 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
       });
       _.forEach(filteredUsers, function(user) {
         makeUsersForScheduleObject(user);
+        //make the column definitions for the grid in the controller
         var columnDef = {field: '', displayName: ''};
         userObj[user._id] = user;
         columnDef.field = user._id;
-        columnDef.displayName = user.name;
+        columnDef.displayName = user.name || user.email;
         columnDef.width = '10%';
         columnData.push(columnDef);
       });
@@ -333,10 +334,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         //test call
         scheduleAllMatches();
-        console.log('matchesSortedByInterest');
-        console.dir(matchesSortedByInterest);
-        console.log('scheduleMatrix');
-        console.dir(scheduleMatrix);
+        console.log('matchesSortedByInterest ', matchesSortedByInterest);
+        console.log('scheduleMatrix ', scheduleMatrix);
         console.log('!!!!!');
       });
     });
@@ -344,7 +343,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     return {
       usersForSchedule: usersForSchedule,
       matchesSortedByInterest: matchesSortedByInterest,
-      // columnData: columnData,
+      columnData: columnData,
       opportunities: opportunities
     };
 

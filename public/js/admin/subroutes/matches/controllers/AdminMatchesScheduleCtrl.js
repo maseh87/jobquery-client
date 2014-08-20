@@ -22,8 +22,8 @@
          //      // ]
          //  };
          //Scheduler.opportunitySchedule();
-
-          $scope.myData = Scheduler.scheduleData;
+         console.log(FilterService.columnData);
+          // $scope.myData = Scheduler.scheduleData;
           $scope.gridOptions = {
             data: 'myData',
             columnDefs: FilterService.columnData,
