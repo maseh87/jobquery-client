@@ -23,9 +23,11 @@
          //  };
          //Scheduler.opportunitySchedule();
 
-          $scope.myData = Scheduler.scheduleData;
+          $scope.data = FilterService.matrixData;
+
+          console.log(FilterService.matrixData)
           $scope.gridOptions = {
-            data: 'myData',
+            data: 'data',
             columnDefs: FilterService.columnData,
             showGroupPanel: true,
             enablePinning: true
