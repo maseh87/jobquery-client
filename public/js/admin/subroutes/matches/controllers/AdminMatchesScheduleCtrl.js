@@ -26,8 +26,8 @@
           // $scope.myData = Scheduler.scheduleData;
           $scope.grid = {
             columnDefs: FilterService.columnData,
-            showGroupPanel: true,
-            enablePinning: true
+            horizontalScroll: true,
+            pageSize: '100'
            };
       // console.log(FilterService.users, " users");
       // console.log(FilterService.opportunities, ' opportunities');
