@@ -9,7 +9,10 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var matches = {};
     var opportunities = {};
     var usersForSchedule = {};
+    //an array of all the objects that will populate the header of the schedule grid
     var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
+    //an array of all the objects that will populate the cells inside the grid
+    var cellData = [];
     var matrixData;
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
@@ -291,14 +294,54 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           //return oppSchedule;
         };
 
+        var shuffleSchedule = function(scheduleMatrix, usersForSchedule){
+
+            var baseArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            var outsideRounds = [0, 1, 2, 8, 9, 10];
+            var insideRounds = [3, 4, 5, 6, 7];
+            var shuffledScheduleObject = {};
+
+            var newOutsideRounds = _.shuffle(outsideRounds);
+            var newInsideRounds = _.shuffle(insideRounds);
+
+            while( outsideRounds.length > 0 ){
+              var oldRound = outsideRounds.pop();
+              var newRound = newOutsideRounds.pop();
+              shuffledScheduleObject[oldRound] = newRound;
+            }
+            while( insideRounds.length > 0 ){
+              var oldRound = insideRounds.pop();
+              var newRound = newInsideRounds.pop();
+              shuffledScheduleObject[oldRound] = newRound;
+            }
+
+          for(var oppId in scheduleMatrix){
+            var oldRoundsForOpp = scheduleMatrix[oppId];
+            var newRoundsForOpp = new Array(11);
+            for(var oldRoundNumber in shuffledScheduleObject){
+              var newRoundNumber = shuffledScheduleObject[oldRoundNumber];
+              newRoundsForOpp[newRoundNumber] = oldRoundsForOpp[oldRoundNumber];
+            }
+            scheduleMatrix[oppId] = newRoundsForOpp;
+          }
+
+          for(var userId in usersForSchedule){
+            var oldRoundsForUser = usersForSchedule[userId].scheduleForThisUser;
+            var newRoundsForUser = {};
+            for(var oldRoundNumber in shuffledScheduleObject){
+              var newRoundNumber = shuffledScheduleObject[oldRoundNumber];
+              newRoundsForUser[newRoundNumber] = oldRoundsForUser[oldRoundNumber];
+            }
+            usersForSchedule[userId].scheduleForThisUser = newRoundsForUser;
+          }
+
+
+        };
+
         //////scheduleAllMatches()/////////////////
         var scheduleAllMatches = function (scheduleMatrix) {
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 1; interestLevel--){
-
-            console.log(interestLevel)
-            counterYes = 0;
-            counterNo = 0;
             var numberOfRoundsScheduledTicker = 0;
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
             //while matchesSortedByInterest at this interestLevel has keys, and also numberOfRoundsScheduledTicker is less than 11
@@ -352,15 +395,19 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         };
 
         scheduleAllMatches(scheduleMatrix);
-        // console.log(usersForSchedule)
-          console.log(scheduleMatrix);
+        console.log(1);
+        console.log(scheduleMatrix);
+        debugger;
+        shuffleSchedule(scheduleMatrix, usersForSchedule);
+        console.log(2);
+        console.log(scheduleMatrix);
+        // matrixData = scheduleMatrix;
       });
     });
 
     return {
       //usersForSchedule: usersForSchedule,
       //matchesSortedByInterest: matchesSortedByInterest,
-      columnData: columnData
       //opportunities: opportunities
     };
 }]);
