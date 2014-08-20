@@ -285,9 +285,22 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           var baseArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
           var outsideRounds = [0, 1, 2, 8, 9, 10];
           var insideRounds = [3, 4, 5, 6, 7];
+          var shuffledScheduleObject = {};
 
           var newOutsideRounds = _.shuffle(outsideRounds);
           var newInsideRounds = _.shuffle(insideRounds);
+
+          while( outsideRounds.length > 0 ){
+            var oldRound = outsideRounds.pop();
+            var newRound = newOutsideRounds.pop();
+            shuffledScheduleObject[oldRound] = newRound;
+          }
+          while( insideRounds.length > 0 ){
+            var oldRound = insideRounds.pop();
+            var newRound = newInsideRounds.pop();
+            shuffledScheduleObject[oldRound] = newRound;
+          }
+
         };
         shuffleSchedule();
 
