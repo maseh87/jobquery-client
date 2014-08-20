@@ -151,7 +151,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           var calculatedLevel = caculateUserInterestLevel(match);
           makePreMatchObject(match, calculatedLevel);
         });
-        matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
+        //matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
 
         var opportunityAppointment = [];
         var userSchedule = {};
@@ -172,7 +172,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           return scheduleMatrix;
         };
 
-        scheduleMatrix = createScheduleMatrix();
+        //scheduleMatrix = createScheduleMatrix();
 
         /////scheduleSingleOpp function//////
         var scheduleSingleOpp = function(oppId, userId, scheduleMatrix) {
@@ -334,9 +334,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
         };
 
-        scheduleAllMatches(scheduleMatrix);
-        matrixData = scheduleMatrix;
-        console.log(scheduleMatrix);
+        // scheduleAllMatches(scheduleMatrix);
+        // matrixData = scheduleMatrix;
+        // console.log(scheduleMatrix);
       });
     });
 
