@@ -30,12 +30,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
       });
       _.forEach(filteredUsers, function(user) {
         makeUsersForScheduleObject(user);
-        var columnDef = {field: '', displayName: ''};
+        // var columnDef = {field: '', displayName: ''};
         userObj[user._id] = user;
-        columnDef.field = user._id;
-        columnDef.displayName = user.name;
-        columnDef.width = '10%';
-        columnData.push(columnDef);
+        // columnDef.field = user._id;
+        // columnDef.displayName = user.name;
+        // columnDef.width = '10%';
+        // columnData.push(columnDef);
       });
       Match.getAll().then(function(matchData) {
         var filteredOpps = matchData.opportunities.filter(function (opportunity) {
@@ -145,7 +145,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
           return preMatch;
         };
-
 
         _.forEach(matchesArray, function(match) {
           var calculatedLevel = caculateUserInterestLevel(match);
@@ -377,13 +376,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         };
 
         scheduleAllMatches(scheduleMatrix);
-        console.log(1);
-        console.log(scheduleMatrix);
-        debugger;
         shuffleSchedule(scheduleMatrix, usersForSchedule);
-        console.log(2);
         console.log(scheduleMatrix);
-        // matrixData = scheduleMatrix;
       });
     });
 
