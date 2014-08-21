@@ -21,6 +21,12 @@ app.factory('Opportunity', ['OpportunityResource', function(OpportunityResource)
   opportunityMethods.update = function (opportunity) {
     return OpportunityResource.update({_id: opportunity._id}, opportunity).$promise;
   };
-
   return opportunityMethods;
+}]);
+
+app.factory('CacheFactory', ['$cacheFactory', function($cacheFactory) {
+  var users = $cacheFactory();
+  return {
+    users: users
+  };
 }]);
