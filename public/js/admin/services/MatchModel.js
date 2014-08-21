@@ -55,7 +55,7 @@ app
 
 (function(){
   var matches;
-  app.factory('MatchCache', ['$cacheFactory', '$http', 'SERVER_URL', function($cacheFactory, $http, SERVER_URL) {
+  app.factory('MatchCache', ['$http', 'SERVER_URL', function($http, SERVER_URL) {
     matches = $http({
         method: 'GET',
         url: SERVER_URL + '/api/matches'
