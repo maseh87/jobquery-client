@@ -9,7 +9,11 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var usersForSchedule = {};
     var userInterestsForOpportunites = {};
     var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
+    //an array of all the objects that will populate the cells inside the grid
+    var cellData = [];
     var matrixData;
+    var counterNo = 0;
+
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
       var makeUsersForScheduleObject = function(user){
@@ -224,6 +228,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           var oppSchedule = scheduleMatrix[oppId];
           //var wasScheduled = false;
           var wasScheduled = false;
+
+
+
           //for each timeSlot in oppSchdedule
           for(var i = 0; i < oppSchedule.length; i++){
             var timeSlot = oppSchedule[i];
@@ -232,6 +239,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             if(timeSlot === undefined && !userForSchedule.scheduleForThisUser[i]){
               //oppSchedule[i] = userId;
               oppSchedule[i] = userId;
+
               //userForSchedule[scheduleForThisUser][i] = oppId;
               userForSchedule.scheduleForThisUser[i] = oppId;
               //wasScheduled = true;
@@ -276,6 +284,10 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                 }
               }
             }
+          }
+          if(!wasScheduled){
+            counterNo++;
+          //  console.log("not scheduled ", counterNo++)
           }
           scheduleMatrix[oppId] = oppSchedule;
           //return oppSchedule;
@@ -327,7 +339,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var scheduleAllMatches = function (scheduleMatrix) {
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 1; interestLevel--){
-
             var numberOfRoundsScheduledTicker = 0;
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
             //while matchesSortedByInterest at this interestLevel has keys, and also numberOfRoundsScheduledTicker is less than 11
@@ -336,20 +347,24 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               for(var numberOfRequests in matchesForThisInterestLevel){
                 //for each userId
                 for(var userId in matchesForThisInterestLevel[numberOfRequests]){
+
                   //if interestLevel is less than 11
                   if( interestLevel < 11){
-                    //debugger;
                     //if # for this user equals numberOfRoundsScheduledTicker
                     if(usersForSchedule[userId].numberOfRounds === numberOfRoundsScheduledTicker) {
                       //pop oppId and schedule it(schedule it is a helper function)
                       oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
-                      scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                      if(usersForSchedule[userId].numberOfRounds < 9) {
+                        scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                      }
                       // usersForSchedule[userId].numberOfRounds++;
                     }
                   }else{
                     //pop oppId and schedule it(schedule it is a helper function)
                     oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
-                    scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                    if(usersForSchedule[userId].numberOfRounds < 9) {
+                      scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                    }
                     // usersForSchedule[userId].numberOfRounds++;
                   }
 
@@ -371,6 +386,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               }
                 numberOfRoundsScheduledTicker++;
             }
+            // console.log("In interest", interestLevel,  "scheduled ",counterYes);
+            // console.log("In interest",interestLevel , "not scheduled ",counterNo);
           }
         };
 
@@ -474,5 +491,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     });
 
     return {
+      // download: download(scheduleSpreadSheet)
     };
 }]);

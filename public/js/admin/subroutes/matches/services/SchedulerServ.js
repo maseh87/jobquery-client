@@ -139,6 +139,5 @@ var later = function(){
     //   scheduleData: scheduleData
     };
   };
-
   //setTimeout(later, 6000);
 }]);

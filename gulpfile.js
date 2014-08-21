@@ -14,7 +14,7 @@ gulp.task('server-config', function () {
     .pipe(preprocess(
       {
         context: {
-          SERVER_URL : process.env.SERVER_URL || 'http://hrhqjobquery.azurewebsites.net'
+          SERVER_URL : process.env.SERVER_URL || 'http://localhost:9000'
         }
       }
     ))
@@ -43,13 +43,18 @@ gulp.task('html-prod', function () {
 gulp.task('concatbower-prod',['minify-prod'], function () {
   return gulp.src([
     'public/bower_components/angular/angular.min.js',
+    'public/bower_components/jquery/jquery.js',
+    'public/bower_components/angular-animate/angular-animate.js',
     'public/bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'public/bower_components/angular-resource/angular-resource.min.js',
     'public/bower_components/angular-bootstrap/ui-bootstrap.min.js',
     'public/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
     'public/bower_components/angular-local-storage/angular-local-storage.min.js',
     'public/bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js',
-    'public/lib/jobquery.min.js'],
+    "public/bower_components/lodash/dist/lodash.min.js",
+    // 'public/bower_components/react/react.js',
+    // 'public/bower_components/ngReactGrid/build/js/ngReactGrid.js',
+    'public/lib/jobquery.min.js',],
     {  base: 'public/'  })
       .pipe(concat('jobquery.master.min.js'))
       .pipe(gulp.dest('public/lib/'));
