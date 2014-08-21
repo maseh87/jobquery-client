@@ -12,6 +12,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     //an array of all the objects that will populate the cells inside the grid
     var cellData = [];
     var matrixData;
+    var counterNo = 0;
+
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
       var makeUsersForScheduleObject = function(user){
