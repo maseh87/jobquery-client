@@ -66,54 +66,58 @@ app.controller('AdminOpportunitiesDetailCtrl',
     // declared = user tags
     $scope.interestThreeOrAbove = 0;
     $scope.interestResponses = 0;
-    var declared = matchData.map(function (matchModel) {
-      if (matchModel.userInterest > 0) {
-        $scope.interestResponses += 1;
-      }
-      if (matchModel.userInterest >= 3) {
-        $scope.interestThreeOrAbove +=1 ;
-      }
+    var declared = function() {
+      var result = matchData.map(function (matchModel) {
+        if (matchModel.userInterest > 0) {
+          $scope.interestResponses += 1;
+        }
+        if (matchModel.userInterest >= 3) {
+          $scope.interestThreeOrAbove +=1 ;
+        }
 
-      //Normalize question and answer arrays.
-      matchModel.answers = matchModel.answers || [];
-      var numQuestions = guidance.questions.length;
-      var numAnswers = matchModel.answers.length;
-      var difference = numQuestions - numAnswers;
-      for(var i = 0; i < difference; i++){
-        matchModel.answers.push({answer: ''});
-      }
-      if(!matchModel || !matchModel.user) {
-        return;
-      }
-      return {
-        _id: matchModel.user._id,
-        name: matchModel.user.name,
-        email: matchModel.user.email,
-        star: matchModel.star,
-        upVote: matchModel.upVote,
-        downVote: matchModel.downVote,
-        noGo: matchModel.noGo,
-        interest: matchModel.userInterest,
-        answers: matchModel.answers,
-        category: matchModel.user.category ? matchModel.user.category.name : 'N/A',
-        searchStage: matchModel.user.searchStage,
-        adminOverride: matchModel.adminOverride,
-        points: [0, 0], // default: [points, possible points]
-        score: 0, // points[0] / points[1]
-        tags: (function () {
-          var tagsByKeys = {};
-          matchModel.user.tags.forEach(function (tag) {
-            tagsByKeys[tag.tag._id] = tag.tag.isPublic ? tag.value : tag.privateValue;
-          });
-          return tagsByKeys;
-        })()
-      };
-    }).filter(function(match) {
-      if(match && match.user) {
-        return match;
-      }
-    });
-    $scope.declared = declared;
+        //Normalize question and answer arrays.
+        matchModel.answers = matchModel.answers || [];
+        var numQuestions = guidance.questions.length;
+        var numAnswers = matchModel.answers.length;
+        var difference = numQuestions - numAnswers;
+        for(var i = 0; i < difference; i++){
+          matchModel.answers.push({answer: ''});
+        }
+        if(!matchModel || !matchModel.user) {
+          return;
+        }
+        return {
+          _id: matchModel.user._id,
+          name: matchModel.user.name,
+          email: matchModel.user.email,
+          star: matchModel.star,
+          upVote: matchModel.upVote,
+          downVote: matchModel.downVote,
+          noGo: matchModel.noGo,
+          interest: matchModel.userInterest,
+          answers: matchModel.answers,
+          category: matchModel.user.category ? matchModel.user.category.name : 'N/A',
+          searchStage: matchModel.user.searchStage,
+          adminOverride: matchModel.adminOverride,
+          points: [0, 0], // default: [points, possible points]
+          score: 0, // points[0] / points[1]
+          tags: (function () {
+            var tagsByKeys = {};
+            matchModel.user.tags.forEach(function (tag) {
+              tagsByKeys[tag.tag._id] = tag.tag.isPublic ? tag.value : tag.privateValue;
+            });
+            return tagsByKeys;
+          })()
+        };
+      });
+      result = result.filter(function(match) {
+        if(match) {
+          return match;
+        }
+      });
+      return result;
+    };
+    $scope.declared = declared();
     $scope.updateGuidance();
   };
 
