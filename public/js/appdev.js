@@ -11,12 +11,11 @@ app.config(['$httpProvider', function($httpProvider) {
 
 }]);
 
-app.run(function($rootScope) {
+app.run(['$rootScope', function($rootScope) {
   $rootScope.notifications = {
     loading: false
   };
-
-});
+}]);
 
 app.factory('LoadingInterceptor', ['$rootScope', function($rootScope) {
   return {
@@ -31,7 +30,7 @@ app.factory('LoadingInterceptor', ['$rootScope', function($rootScope) {
   };
 }]);
 
-app.animation('.overlay', function() {
+app.animation('.overlay', [function() {
   return {
     enter: function(elem, callback) {
       $(elem).animate({
@@ -44,4 +43,4 @@ app.animation('.overlay', function() {
       }, 500, callback);
     }
   };
-});
+}]);
