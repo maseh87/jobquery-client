@@ -1,5 +1,4 @@
 app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scope, Match, User) {
-
   var matches, users, opportunities, candidateCategories, opportunityCategories, sorter, reverse;
   reverse = false;
   $scope.candidateCategoryQuery = {};

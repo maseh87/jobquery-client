@@ -3,10 +3,12 @@ app
     var matchMethods = {};
 
     matchMethods.getAll = function (queryParams) {
+
       return $http({
         method: 'GET',
         url: SERVER_URL + '/api/matches',
-        params: queryParams
+        params: queryParams,
+        cache: true
       }).then(function (response) {
         return response.data;
       });
@@ -15,6 +17,7 @@ app
     matchMethods.getUsers = function (opportunityId) {
       return $http({
         method: 'GET',
+        cache: true,
         url: SERVER_URL + '/api/matches/opportunities/' + opportunityId
       }).then(function (response) {
         return response.data;
@@ -24,6 +27,7 @@ app
     matchMethods.getOpportunities = function (userId) {
       return $http({
         method: 'GET',
+        cache: true,
         url: SERVER_URL + '/api/matches/users/' + userId
       }).then(function (response) {
         return response.data;
@@ -52,3 +56,23 @@ app
 
     return matchMethods;
   }]);
+
+(function(){
+  var matches;
+  app.factory('MatchCache', ['$http', 'SERVER_URL', function($http, SERVER_URL) {
+    matches = $http({
+        method: 'GET',
+        cache: true,
+        url: SERVER_URL + '/api/matches'
+      }).then(function (response) {
+        return response.data;
+      });
+
+    return {
+      matches: matches
+    };
+  }]);
+}());
+
+
+
