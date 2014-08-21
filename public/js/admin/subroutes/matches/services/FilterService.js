@@ -452,7 +452,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
         // download(scheduleSpreadSheet);
-        download(bossSpreadsheet);
+        // download(bossSpreadsheet);
       });
     });
 
