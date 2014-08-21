@@ -157,7 +157,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var createScheduleMatrix = function() {
           var scheduleMatrix = {};
           var indexNumber = 0;
-          var breakRounds = [4,5,6,7,8];
+          var breakRounds = [3,4,5,6,7];
           _.forEach(opportunities, function(opportunity, oppId) {
             var roundsForThisOpportunity = new Array(11);
             var breakRound = breakRounds[indexNumber % 5];
