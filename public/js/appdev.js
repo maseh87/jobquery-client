@@ -1,4 +1,4 @@
-var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule', 'ui.bootstrap', 'ui.bootstrap.tpls', 'videosharing-embed']);
+var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule', 'ui.bootstrap', 'ui.bootstrap.tpls', 'videosharing-embed', 'ngAnimate']);
 
 app.constant('SERVER_URL', 'http://localhost:9000');
 
@@ -21,15 +21,27 @@ app.run(function($rootScope) {
 app.factory('LoadingInterceptor', ['$rootScope', function($rootScope) {
   return {
     response: function(obj) {
-      console.log('response');
       $rootScope.notifications.loading = false;
       return obj;
     },
     request: function(obj) {
-      console.log('request');
-
       $rootScope.notifications.loading = true;
       return obj;
     }
   };
 }]);
+
+app.animation('.overlay', function() {
+  return {
+    enter: function(elem, callback) {
+      $(elem).animate({
+        opacity: '0.4'
+      }, 500, callback);
+    },
+    leave: function(elem, callback) {
+      $(elem).animate({
+        opacity: '0'
+      }, 500, callback);
+    }
+  };
+});
