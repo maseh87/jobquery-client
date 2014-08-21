@@ -23,19 +23,3 @@ app.factory('Opportunity', ['OpportunityResource', function(OpportunityResource)
   };
   return opportunityMethods;
 }]);
-
-// (function(){
-//   var users;
-//   app.factory('CacheFactory', ['$cacheFactory', '$http', 'SERVER_URL', function($cacheFactory, $http, SERVER_URL) {
-//     users = $http({
-//         method: 'GET',
-//         url: SERVER_URL + '/api/matches'
-//       }).then(function (response) {
-//         return response.data;
-//       });
-
-//     return {
-//       users: users
-//     };
-//   }]);
-// }());

@@ -1,10 +1,13 @@
-app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', 'MatchCache', function ($scope, Match, User, MatchCache) {
+app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', 'MatchCache', 'UserCache', function ($scope, Match, User, MatchCache, UserCache) {
   var matches, users, opportunities, candidateCategories, opportunityCategories, sorter, reverse;
   reverse = false;
   $scope.candidateCategoryQuery = {};
 
   MatchCache.matches.then(function(results) {
     console.log(results);
+  });
+  UserCache.users.then(function(results) {
+    console.log(results, ' results');
   });
 
 

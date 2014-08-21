@@ -35,3 +35,16 @@ app.factory('User', ['UserResource', 'SERVER_URL', '$http' ,function (UserResour
 
   return userMethods;
 }]);
+
+(function(){
+  var users;
+  app.factory('UserCache', ['$http', 'SERVER_URL', 'User', function($http, SERVER_URL, User) {
+    users = User.getAll();
+
+    return {
+      users: users
+    };
+  }]);
+}());
+
+
