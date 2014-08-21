@@ -382,8 +382,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               }
                 numberOfRoundsScheduledTicker++;
             }
-            console.log("In interest", interestLevel,  "scheduled ",counterYes);
-            console.log("In interest",interestLevel , "not scheduled ",counterNo);
+            // console.log("In interest", interestLevel,  "scheduled ",counterYes);
+            // console.log("In interest",interestLevel , "not scheduled ",counterNo);
           }
         };
 
@@ -466,7 +466,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
 
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
-        // download(scheduleSpreadSheet);
+        download(scheduleSpreadSheet);
         // download(bossSpreadsheet);
       });
     });
