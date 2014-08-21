@@ -1,8 +1,5 @@
 app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'DialogueService',
   function ($state, Match, Opportunity, User, DialogueService) {
-    var counterYes = 0;
-    var counterNo = 0;
-
     var preMatch = {};
     var matchesSortedByInterest;
     var userObj = {};
@@ -30,12 +27,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
       });
       _.forEach(filteredUsers, function(user) {
         makeUsersForScheduleObject(user);
-        // var columnDef = {field: '', displayName: ''};
         userObj[user._id] = user;
-        // columnDef.field = user._id;
-        // columnDef.displayName = user.name;
-        // columnDef.width = '10%';
-        // columnData.push(columnDef);
       });
       Match.getAll().then(function(matchData) {
         var filteredOpps = matchData.opportunities.filter(function (opportunity) {
@@ -46,7 +38,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         });
         _.forEach(filteredOpps, function(opportunity) {
           opportunities[opportunity._id] = opportunity;
-          // columnData.unshift({field: opportunity._id, displayName: "Opportunity"});
         });
         //filter matches based on if user and opportunity is attending hiring day
         var matchesArray = matchData.matches.filter(function (match) {
@@ -345,13 +336,11 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                       //pop oppId and schedule it(schedule it is a helper function)
                       oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
                       scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
-                      // usersForSchedule[userId].numberOfRounds++;
                     }
                   }else{
                     //pop oppId and schedule it(schedule it is a helper function)
                     oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
                     scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
-                    // usersForSchedule[userId].numberOfRounds++;
                   }
 
                   //check if userId's value is empty
@@ -382,8 +371,5 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     });
 
     return {
-      //usersForSchedule: usersForSchedule,
-      //matchesSortedByInterest: matchesSortedByInterest,
-      //opportunities: opportunities
     };
 }]);
