@@ -2,7 +2,12 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', 'CacheFactory',
   var matches, users, opportunities, candidateCategories, opportunityCategories, sorter, reverse;
   reverse = false;
   $scope.candidateCategoryQuery = {};
-  console.log(CacheFactory.users);
+
+  CacheFactory.users.then(function(results) {
+    console.log(results);
+  });
+
+
   $scope.humanifyDate = function(date){
     var newDate = new Date(date);
     return newDate.toDateString();
