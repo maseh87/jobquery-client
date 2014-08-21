@@ -376,6 +376,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         var makeScheduleSpreadsheet = function(scheduleMatrix){
           var spreadSheetArray = [];
+          var topRow = ['','1','2','3','4','5','6','7','8','9','10','11'];
+          spreadSheetArray.push(topRow);
           for(var oppId in scheduleMatrix){
             var rowArray = [];
             var oppName = opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle;
@@ -390,16 +392,32 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               }
               rowArray.push(userName);
             }
+            spreadSheetArray.push(rowArray);
           }
 
-
-          // return spreadSheetString;
+          return spreadSheetArray.join('\n');
         }
 
         scheduleAllMatches(scheduleMatrix);
         shuffleSchedule(scheduleMatrix, usersForSchedule);
-        makeScheduleSpreadsheet(scheduleMatrix);
-        // matrixData = scheduleMatrix;
+        var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
+        console.dir(scheduleSpreadSheet);
+
+        
+        // var download = function(str) {
+        //  var f = D.createElement("iframe");
+        //  D.body.appendChild(f);
+        //  f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
+        // }
+        var download = function(str) {
+         var f = document.createElement("iframe");
+         document.body.appendChild(f);
+         f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
+        }
+
+        download(scheduleSpreadSheet);
+
+
       });
     });
 
