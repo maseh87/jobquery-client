@@ -321,8 +321,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
             usersForSchedule[userId].scheduleForThisUser = newRoundsForUser;
           }
-
-
         };
 
         //////scheduleAllMatches()/////////////////
@@ -376,13 +374,31 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
         };
 
+        var makeScheduleSpreadsheet = function(scheduleMatrix){
+          var spreadSheetArray = [];
+          for(var oppId in scheduleMatrix){
+            var rowArray = [];
+            var oppName = opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle;
+            rowArray.push(oppName);
+            var scheduleForOppId = scheduleMatrix[oppId];
+            for(var i = 0; i < scheduleForOppId.length; i++){
+              var userId = scheduleForOppId[i];
+              if( userId === undefined || userId === 'BREAK' ){
+                userName = 'BREAK';
+              }else{
+                var userName = userObj[userId].name || userObj[userId].email;
+              }
+              rowArray.push(userName);
+            }
+          }
+
+
+          // return spreadSheetString;
+        }
+
         scheduleAllMatches(scheduleMatrix);
-        console.log(1);
-        console.log(scheduleMatrix);
-        debugger;
         shuffleSchedule(scheduleMatrix, usersForSchedule);
-        console.log(2);
-        console.log(scheduleMatrix);
+        makeScheduleSpreadsheet(scheduleMatrix);
         // matrixData = scheduleMatrix;
       });
     });
