@@ -21,13 +21,10 @@ app.run(function($rootScope) {
 app.factory('LoadingInterceptor', ['$rootScope', function($rootScope) {
   return {
     response: function(obj) {
-      console.log('response');
       $rootScope.notifications.loading = false;
       return obj;
     },
     request: function(obj) {
-      console.log('request');
-
       $rootScope.notifications.loading = true;
       return obj;
     }

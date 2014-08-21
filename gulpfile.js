@@ -52,6 +52,8 @@ gulp.task('concatbower-prod',['minify-prod'], function () {
     "public/bower_components/lodash/dist/lodash.min.js",
     'public/bower_components/react/react.js',
     'public/bower_components/ngReactGrid/build/js/ngReactGrid.js',
+    'public/bower_components/jquery/jquery.js',
+    'public/bower_components/angular-animate/angular-animate.js',
     'public/lib/jobquery.min.js',],
     {  base: 'public/'  })
       .pipe(concat('jobquery.master.min.js'))
