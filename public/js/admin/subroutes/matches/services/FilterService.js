@@ -7,7 +7,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var matches = {};
     var opportunities = {};
     var usersForSchedule = {};
-    //an array of all the objects that will populate the header of the schedule grid
+    var userInterestsForOpportunites = {};
     var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
     //an array of all the objects that will populate the cells inside the grid
     var cellData = [];
@@ -126,6 +126,10 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           preMatch[calculatedLevel][user] = preMatch[calculatedLevel][user] || [];
 
           preMatch[calculatedLevel][user].push(match.opportunity);
+
+          //we need this object for when we make adrian's list
+          userInterestsForOpportunites[user] = userInterestsForOpportunites[user] || {};
+          userInterestsForOpportunites[user][match.opportunity] = calculatedLevel;
         };
 
         var makeMatchesSortedByInterest = function(preMatch){
@@ -160,7 +164,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var createScheduleMatrix = function() {
           var scheduleMatrix = {};
           var indexNumber = 0;
-          var breakRounds = [4,5,6,7,8];
+          var breakRounds = [3,4,5,6,7];
           _.forEach(opportunities, function(opportunity, oppId) {
             var roundsForThisOpportunity = new Array(11);
             var breakRound = breakRounds[indexNumber % 5];
@@ -405,11 +409,54 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
 
           return spreadSheetArray.join('\n');
-        }
+        };
+
+        var makeBossSpreadsheet = function(scheduleMatrix){
+          var spreadSheetArray = [];
+          var topArray = [''];
+          var userIds = [];
+          for(var user in userObj){
+            topArray.push(userObj[user].name || userObj[user].email);
+            userIds.push(user);
+          }
+          topArray.push('BREAKS');
+          spreadSheetArray.push(topArray);
+          for(var oppId in scheduleMatrix){
+            var breakRounds = [];
+            var rowArray = [];
+            rowArray.push(opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle);
+            for(var j = 0; j < scheduleMatrix[oppId].length; j++){
+              if( scheduleMatrix[oppId][j] === 'BREAK' || scheduleMatrix[oppId][j] === undefined ){
+                breakRounds.push('R' + (Number(j) + 1));
+              }
+            }
+            for(var i = 0; i < userIds.length; i++){
+              var userId = userIds[i];
+              var thisUserSchedule = usersForSchedule[userId].scheduleForThisUser;
+              var hasAppointment = false;
+              for(var roundNumber in thisUserSchedule){
+                if( thisUserSchedule[roundNumber] === oppId ){
+                  rowArray.push('R' + (Number(roundNumber) + 1));
+                  hasAppointment = true;
+                  break;
+                }
+              }
+              if(!hasAppointment){
+                var interestLevel = userInterestsForOpportunites[userId][oppId];
+                rowArray.push(interestLevel);
+              }
+            }
+            rowArray.push(breakRounds.join(' '));
+            spreadSheetArray.push(rowArray);
+          }
+          return spreadSheetArray.join('\n');
+        };
 
         scheduleAllMatches(scheduleMatrix);
         shuffleSchedule(scheduleMatrix, usersForSchedule);
         var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
+        var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
+        // console.dir(bossSpreadsheet);
 
         var download = function(str) {
          var f = document.createElement("iframe");
@@ -420,6 +467,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
         // download(scheduleSpreadSheet);
+        // download(bossSpreadsheet);
       });
     });
 
