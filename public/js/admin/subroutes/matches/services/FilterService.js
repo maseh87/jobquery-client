@@ -153,6 +153,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           makePreMatchObject(match, calculatedLevel);
         });
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
+        console.dir(matchesSortedByInterest);
+        
 
         var opportunityAppointment = [];
         var userSchedule = {};
@@ -281,24 +283,24 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         var shuffleSchedule = function(scheduleMatrix, usersForSchedule){
 
-            var baseArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-            var outsideRounds = [0, 1, 2, 8, 9, 10];
-            var insideRounds = [3, 4, 5, 6, 7];
-            var shuffledScheduleObject = {};
+          var baseArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+          var outsideRounds = [0, 1, 2, 8, 9, 10];
+          var insideRounds = [3, 4, 5, 6, 7];
+          var shuffledScheduleObject = {};
 
-            var newOutsideRounds = _.shuffle(outsideRounds);
-            var newInsideRounds = _.shuffle(insideRounds);
+          var newOutsideRounds = _.shuffle(outsideRounds);
+          var newInsideRounds = _.shuffle(insideRounds);
 
-            while( outsideRounds.length > 0 ){
-              var oldRound = outsideRounds.pop();
-              var newRound = newOutsideRounds.pop();
-              shuffledScheduleObject[oldRound] = newRound;
-            }
-            while( insideRounds.length > 0 ){
-              var oldRound = insideRounds.pop();
-              var newRound = newInsideRounds.pop();
-              shuffledScheduleObject[oldRound] = newRound;
-            }
+          while( outsideRounds.length > 0 ){
+            var oldRound = outsideRounds.pop();
+            var newRound = newOutsideRounds.pop();
+            shuffledScheduleObject[oldRound] = newRound;
+          }
+          while( insideRounds.length > 0 ){
+            var oldRound = insideRounds.pop();
+            var newRound = newInsideRounds.pop();
+            shuffledScheduleObject[oldRound] = newRound;
+          }
 
           for(var oppId in scheduleMatrix){
             var oldRoundsForOpp = scheduleMatrix[oppId];
@@ -401,6 +403,13 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           var topArray = [''];
           var userIds = [];
           for(var user in userObj){
+
+
+            // if(userObj[user].name === 'Xianhui Feng'){
+            //   console.log('user: ' + user);
+            // }
+
+
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
@@ -410,6 +419,14 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             var breakRounds = [];
             var rowArray = [];
             rowArray.push(opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle);
+
+
+            // if(opportunities[oppId].company.name === 'Creativebug'){
+            //   console.log('cb');
+            //   console.log(oppId);
+            // }
+
+
             for(var j = 0; j < scheduleMatrix[oppId].length; j++){
               if( scheduleMatrix[oppId][j] === 'BREAK' || scheduleMatrix[oppId][j] === undefined ){
                 breakRounds.push('R' + (Number(j) + 1));
