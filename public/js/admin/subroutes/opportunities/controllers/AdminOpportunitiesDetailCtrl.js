@@ -82,7 +82,10 @@ app.controller('AdminOpportunitiesDetailCtrl',
       for(var i = 0; i < difference; i++){
         matchModel.answers.push({answer: ''});
       }
-
+      if(!matchModel || !matchModel.user) {
+        console.warn('matchModel fucking up', matchModel || 'no Model');
+        return;
+      }
       return {
         _id: matchModel.user._id,
         name: matchModel.user.name,
@@ -106,6 +109,10 @@ app.controller('AdminOpportunitiesDetailCtrl',
           return tagsByKeys;
         })()
       };
+    }).filter(function(match) {
+      if(match && match.user) {
+        return match;
+      }
     });
     $scope.declared = declared;
     $scope.updateGuidance();

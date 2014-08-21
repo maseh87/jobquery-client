@@ -1,6 +1,5 @@
 var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule', 'ui.bootstrap', 'ui.bootstrap.tpls', 'videosharing-embed']);
 
-
 app.constant('SERVER_URL', '/* @echo SERVER_URL */');
 
 app.config(['$httpProvider', function($httpProvider) {
@@ -9,3 +8,9 @@ app.config(['$httpProvider', function($httpProvider) {
   // Remove the header used to identify ajax call that would prevent CORS from working
   // http://thibaultdenizet.com/tutorial/cors-with-angular-js-and-sinatra/
 }]);
+
+
+app.run(function($rootScope) {
+  // $rootScope.root = {};
+
+});
