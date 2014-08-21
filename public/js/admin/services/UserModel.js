@@ -1,12 +1,20 @@
 app.factory('UserResource', ['$resource', 'SERVER_URL', function($resource, SERVER_URL) {
-  return $resource(SERVER_URL + '/api/users/:_id', null, {update: {method: 'PUT'}});
+  return $resource(SERVER_URL + '/api/users/:_id', null, {update: {method: 'PUT'}, get: {cache: true}});
 }]);
 
 app.factory('User', ['UserResource', 'SERVER_URL', '$http' ,function (UserResource, SERVER_URL, $http) {
   var userMethods = {};
 
   userMethods.getAll = function () {
-    return UserResource.query().$promise;
+    // return UserResource.query().$promise;
+    return $http({
+      method: 'GET',
+      cache: true,
+      url: SERVER_URL + '/api/users'
+    })
+    .then(function(response) {
+      return response.data;
+    });
   };
 
   userMethods.get = function (id) {
@@ -40,7 +48,6 @@ app.factory('User', ['UserResource', 'SERVER_URL', '$http' ,function (UserResour
   var users;
   app.factory('UserCache', ['$http', 'SERVER_URL', 'User', function($http, SERVER_URL, User) {
     users = User.getAll();
-
     return {
       users: users
     };

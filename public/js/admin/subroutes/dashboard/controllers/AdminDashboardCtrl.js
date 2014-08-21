@@ -3,14 +3,6 @@ app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', 'MatchCache', '
   reverse = false;
   $scope.candidateCategoryQuery = {};
 
-  MatchCache.matches.then(function(results) {
-    console.log(results);
-  });
-  UserCache.users.then(function(results) {
-    console.log(results, ' results');
-  });
-
-
   $scope.humanifyDate = function(date){
     var newDate = new Date(date);
     return newDate.toDateString();

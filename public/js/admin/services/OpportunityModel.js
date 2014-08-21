@@ -1,5 +1,5 @@
 app.factory('OpportunityResource', ['$resource', 'SERVER_URL', function ($resource, SERVER_URL) {
-  return $resource(SERVER_URL + '/api/opportunities/:_id', null, {update: {method: 'PUT'}});
+  return $resource(SERVER_URL + '/api/opportunities/:_id', null, {update: {method: 'PUT'}, get: {cache: true}});
 }]);
 
 app.factory('Opportunity', ['OpportunityResource', function(OpportunityResource) {
