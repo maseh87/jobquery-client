@@ -1,9 +1,9 @@
-app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', 'CacheFactory', function ($scope, Match, User, CacheFactory) {
+app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', 'MatchCache', function ($scope, Match, User, MatchCache) {
   var matches, users, opportunities, candidateCategories, opportunityCategories, sorter, reverse;
   reverse = false;
   $scope.candidateCategoryQuery = {};
 
-  CacheFactory.users.then(function(results) {
+  MatchCache.matches.then(function(results) {
     console.log(results);
   });
 

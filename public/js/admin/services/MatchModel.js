@@ -52,3 +52,22 @@ app
 
     return matchMethods;
   }]);
+
+(function(){
+  var matches;
+  app.factory('MatchCache', ['$cacheFactory', '$http', 'SERVER_URL', function($cacheFactory, $http, SERVER_URL) {
+    matches = $http({
+        method: 'GET',
+        url: SERVER_URL + '/api/matches'
+      }).then(function (response) {
+        return response.data;
+      });
+
+    return {
+      matches: matches
+    };
+  }]);
+}());
+
+
+
