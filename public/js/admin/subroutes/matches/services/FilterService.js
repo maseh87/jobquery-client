@@ -1,7 +1,5 @@
 app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'DialogueService',
   function ($state, Match, Opportunity, User, DialogueService) {
-    var counterYes = 0;
-    var counterNo = 0;
 
     var preMatch = {};
     var matchesSortedByInterest;
@@ -9,7 +7,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var matches = {};
     var opportunities = {};
     var usersForSchedule = {};
-    //an array of all the objects that will populate the header of the schedule grid
+    var userInterestsForOpportunites = {};
     var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
     //an array of all the objects that will populate the cells inside the grid
     var cellData = [];
@@ -49,7 +47,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         });
         _.forEach(filteredOpps, function(opportunity) {
           opportunities[opportunity._id] = opportunity;
-          // columnData.unshift({field: opportunity._id, displayName: "Opportunity"});
         });
         //filter matches based on if user and opportunity is attending hiring day
         var matchesArray = matchData.matches.filter(function (match) {
@@ -129,6 +126,10 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           preMatch[calculatedLevel][user] = preMatch[calculatedLevel][user] || [];
 
           preMatch[calculatedLevel][user].push(match.opportunity);
+
+          //we need this object for when we make adrian's list
+          userInterestsForOpportunites[user] = userInterestsForOpportunites[user] || {};
+          userInterestsForOpportunites[user][match.opportunity] = calculatedLevel;
         };
 
         var makeMatchesSortedByInterest = function(preMatch){
@@ -139,7 +140,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               var newKey = opportunitiesIds.length;
               interestValue[newKey] = interestValue[newKey] || {};
               interestValue[newKey][k] = interestValue[newKey][k] || [];
-              // interestValue[newKey][k].push(opportunitiesId);
               for(var i = 0; i< opportunitiesIds.length; i++){
                 interestValue[newKey][k].push(opportunitiesIds[i]);
               }
@@ -164,7 +164,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var createScheduleMatrix = function() {
           var scheduleMatrix = {};
           var indexNumber = 0;
-          var breakRounds = [4,5,6,7,8];
+          var breakRounds = [3,4,5,6,7];
           _.forEach(opportunities, function(opportunity, oppId) {
             var roundsForThisOpportunity = new Array(11);
             var breakRound = breakRounds[indexNumber % 5];
@@ -240,8 +240,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               userForSchedule.scheduleForThisUser[i] = oppId;
               //wasScheduled = true;
               wasScheduled = true;
-              counterYes++;
-              //console.log("scheduled", counterYes++);
               //userForSchedule[numberOfRounds]++;
               userForSchedule.numberOfRounds++;
               //break (from for loop)
@@ -251,7 +249,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
           // !wasScheduled
           if(!wasScheduled){
-            //console.log("not scheduled", counterNo++)
             //for each j in oppSchedule
             for(var j = 0; j < oppSchedule.length; j++){
               //if wasScheduled
@@ -277,8 +274,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     //if wasScheduled
                     if(wasScheduled) {
                       //break
-                      counterYes++;
-                      // console.log("scheduled after switch", counterYes++)
                       break;
                     }
                   }
@@ -334,8 +329,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
             usersForSchedule[userId].scheduleForThisUser = newRoundsForUser;
           }
-
-
         };
 
         //////scheduleAllMatches()/////////////////
@@ -394,20 +387,90 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
         };
 
+        var makeScheduleSpreadsheet = function(scheduleMatrix){
+          var spreadSheetArray = [];
+          var topRow = ['','1','2','3','4','5','6','7','8','9','10','11'];
+          spreadSheetArray.push(topRow);
+          for(var oppId in scheduleMatrix){
+            var rowArray = [];
+            var oppName = opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle;
+            rowArray.push(oppName);
+            var scheduleForOppId = scheduleMatrix[oppId];
+            for(var i = 0; i < scheduleForOppId.length; i++){
+              var userId = scheduleForOppId[i];
+              if( userId === undefined || userId === 'BREAK' ){
+                userName = 'BREAK';
+              }else{
+                var userName = userObj[userId].name || userObj[userId].email;
+              }
+              rowArray.push(userName);
+            }
+            spreadSheetArray.push(rowArray);
+          }
+
+          return spreadSheetArray.join('\n');
+        };
+
+        var makeBossSpreadsheet = function(scheduleMatrix){
+          var spreadSheetArray = [];
+          var topArray = [''];
+          var userIds = [];
+          for(var user in userObj){
+            topArray.push(userObj[user].name || userObj[user].email);
+            userIds.push(user);
+          }
+          topArray.push('BREAKS');
+          spreadSheetArray.push(topArray);
+          for(var oppId in scheduleMatrix){
+            var breakRounds = [];
+            var rowArray = [];
+            rowArray.push(opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle);
+            for(var j = 0; j < scheduleMatrix[oppId].length; j++){
+              if( scheduleMatrix[oppId][j] === 'BREAK' || scheduleMatrix[oppId][j] === undefined ){
+                breakRounds.push('R' + (Number(j) + 1));
+              }
+            }
+            for(var i = 0; i < userIds.length; i++){
+              var userId = userIds[i];
+              var thisUserSchedule = usersForSchedule[userId].scheduleForThisUser;
+              var hasAppointment = false;
+              for(var roundNumber in thisUserSchedule){
+                if( thisUserSchedule[roundNumber] === oppId ){
+                  rowArray.push('R' + (Number(roundNumber) + 1));
+                  hasAppointment = true;
+                  break;
+                }
+              }
+              if(!hasAppointment){
+                var interestLevel = userInterestsForOpportunites[userId][oppId];
+                rowArray.push(interestLevel);
+              }
+            }
+            rowArray.push(breakRounds.join(' '));
+            spreadSheetArray.push(rowArray);
+          }
+          return spreadSheetArray.join('\n');
+        };
+
         scheduleAllMatches(scheduleMatrix);
-        console.log(1);
-        console.log(scheduleMatrix);
-        debugger;
         shuffleSchedule(scheduleMatrix, usersForSchedule);
-        console.log(2);
-        console.log(scheduleMatrix);
-        // matrixData = scheduleMatrix;
+        var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
+        var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
+        // console.dir(bossSpreadsheet);
+
+        var download = function(str) {
+         var f = document.createElement("iframe");
+         document.body.appendChild(f);
+         f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
+        };
+
+
+        //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
+        // download(scheduleSpreadSheet);
+        // download(bossSpreadsheet);
       });
     });
 
     return {
-      //usersForSchedule: usersForSchedule,
-      //matchesSortedByInterest: matchesSortedByInterest,
-      //opportunities: opportunities
     };
 }]);
