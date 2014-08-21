@@ -157,7 +157,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           makePreMatchObject(match, calculatedLevel);
         });
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
-        console.dir(matchesSortedByInterest);
         
 
         var opportunityAppointment = [];
@@ -350,8 +349,11 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
                   //if interestLevel is less than 11
                   if( interestLevel < 11){
+                    if( userId === '53d984fb1e4c45681343d4a6' ){
+                      // debugger;
+                    }
                     //if # for this user equals numberOfRoundsScheduledTicker
-                    if(usersForSchedule[userId].numberOfRounds === numberOfRoundsScheduledTicker) {
+                    if(usersForSchedule[userId].numberOfRounds <= numberOfRoundsScheduledTicker) {
                       //pop oppId and schedule it(schedule it is a helper function)
                       oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
                       if(usersForSchedule[userId].numberOfRounds < 9) {
@@ -485,8 +487,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
 
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
-        // download(scheduleSpreadSheet);
-        // download(bossSpreadsheet);
+        download(scheduleSpreadSheet);
+        download(bossSpreadsheet);
       });
     });
 
