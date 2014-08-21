@@ -1,7 +1,5 @@
 app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'DialogueService',
   function ($state, Match, Opportunity, User, DialogueService) {
-    var counterYes = 0;
-    var counterNo = 0;
 
     var preMatch = {};
     var matchesSortedByInterest;
@@ -46,7 +44,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         });
         _.forEach(filteredOpps, function(opportunity) {
           opportunities[opportunity._id] = opportunity;
-          // columnData.unshift({field: opportunity._id, displayName: "Opportunity"});
         });
         //filter matches based on if user and opportunity is attending hiring day
         var matchesArray = matchData.matches.filter(function (match) {
@@ -136,7 +133,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               var newKey = opportunitiesIds.length;
               interestValue[newKey] = interestValue[newKey] || {};
               interestValue[newKey][k] = interestValue[newKey][k] || [];
-              // interestValue[newKey][k].push(opportunitiesId);
               for(var i = 0; i< opportunitiesIds.length; i++){
                 interestValue[newKey][k].push(opportunitiesIds[i]);
               }
@@ -233,7 +229,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               userForSchedule.scheduleForThisUser[i] = oppId;
               //wasScheduled = true;
               wasScheduled = true;
-              //console.log("scheduled", counterYes++);
               //userForSchedule[numberOfRounds]++;
               userForSchedule.numberOfRounds++;
               //break (from for loop)
@@ -243,7 +238,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
           // !wasScheduled
           if(!wasScheduled){
-            //console.log("not scheduled", counterNo++)
             //for each j in oppSchedule
             for(var j = 0; j < oppSchedule.length; j++){
               //if wasScheduled
@@ -269,7 +263,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     //if wasScheduled
                     if(wasScheduled) {
                       //break
-                      //console.log("scheduled after switch", counterYes++)
                       break;
                     }
                   }
@@ -401,29 +394,19 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         scheduleAllMatches(scheduleMatrix);
         shuffleSchedule(scheduleMatrix, usersForSchedule);
         var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
-        console.dir(scheduleSpreadSheet);
 
-        
-        // var download = function(str) {
-        //  var f = D.createElement("iframe");
-        //  D.body.appendChild(f);
-        //  f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
-        // }
         var download = function(str) {
          var f = document.createElement("iframe");
          document.body.appendChild(f);
          f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
-        }
-
-        download(scheduleSpreadSheet);
+        };
 
 
+        //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
+        // download(scheduleSpreadSheet);
       });
     });
 
     return {
-      //usersForSchedule: usersForSchedule,
-      //matchesSortedByInterest: matchesSortedByInterest,
-      //opportunities: opportunities
     };
 }]);
