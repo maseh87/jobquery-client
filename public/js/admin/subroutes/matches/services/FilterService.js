@@ -1,7 +1,5 @@
 app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'DialogueService',
   function ($state, Match, Opportunity, User, DialogueService) {
-    var counterYes = 0;
-    var counterNo = 0;
 
     var preMatch = {};
     var matchesSortedByInterest;
@@ -49,7 +47,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         });
         _.forEach(filteredOpps, function(opportunity) {
           opportunities[opportunity._id] = opportunity;
-          // columnData.unshift({field: opportunity._id, displayName: "Opportunity"});
         });
         //filter matches based on if user and opportunity is attending hiring day
         var matchesArray = matchData.matches.filter(function (match) {
@@ -139,7 +136,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               var newKey = opportunitiesIds.length;
               interestValue[newKey] = interestValue[newKey] || {};
               interestValue[newKey][k] = interestValue[newKey][k] || [];
-              // interestValue[newKey][k].push(opportunitiesId);
               for(var i = 0; i< opportunitiesIds.length; i++){
                 interestValue[newKey][k].push(opportunitiesIds[i]);
               }
@@ -240,8 +236,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               userForSchedule.scheduleForThisUser[i] = oppId;
               //wasScheduled = true;
               wasScheduled = true;
-              counterYes++;
-              //console.log("scheduled", counterYes++);
               //userForSchedule[numberOfRounds]++;
               userForSchedule.numberOfRounds++;
               //break (from for loop)
@@ -251,7 +245,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
           // !wasScheduled
           if(!wasScheduled){
-            //console.log("not scheduled", counterNo++)
             //for each j in oppSchedule
             for(var j = 0; j < oppSchedule.length; j++){
               //if wasScheduled
@@ -277,8 +270,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     //if wasScheduled
                     if(wasScheduled) {
                       //break
-                      counterYes++;
-                      // console.log("scheduled after switch", counterYes++)
                       break;
                     }
                   }
@@ -334,8 +325,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
             usersForSchedule[userId].scheduleForThisUser = newRoundsForUser;
           }
-
-
         };
 
         //////scheduleAllMatches()/////////////////
@@ -394,20 +383,46 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
         };
 
+        var makeScheduleSpreadsheet = function(scheduleMatrix){
+          var spreadSheetArray = [];
+          var topRow = ['','1','2','3','4','5','6','7','8','9','10','11'];
+          spreadSheetArray.push(topRow);
+          for(var oppId in scheduleMatrix){
+            var rowArray = [];
+            var oppName = opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle;
+            rowArray.push(oppName);
+            var scheduleForOppId = scheduleMatrix[oppId];
+            for(var i = 0; i < scheduleForOppId.length; i++){
+              var userId = scheduleForOppId[i];
+              if( userId === undefined || userId === 'BREAK' ){
+                userName = 'BREAK';
+              }else{
+                var userName = userObj[userId].name || userObj[userId].email;
+              }
+              rowArray.push(userName);
+            }
+            spreadSheetArray.push(rowArray);
+          }
+
+          return spreadSheetArray.join('\n');
+        }
+
         scheduleAllMatches(scheduleMatrix);
-        console.log(1);
-        console.log(scheduleMatrix);
-        debugger;
         shuffleSchedule(scheduleMatrix, usersForSchedule);
-        console.log(2);
-        console.log(scheduleMatrix);
-        // matrixData = scheduleMatrix;
+        var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
+
+        var download = function(str) {
+         var f = document.createElement("iframe");
+         document.body.appendChild(f);
+         f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
+        };
+
+
+        //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
+        // download(scheduleSpreadSheet);
       });
     });
 
     return {
-      //usersForSchedule: usersForSchedule,
-      //matchesSortedByInterest: matchesSortedByInterest,
-      //opportunities: opportunities
     };
 }]);
