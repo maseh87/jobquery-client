@@ -83,7 +83,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
         matchModel.answers.push({answer: ''});
       }
       if(!matchModel || !matchModel.user) {
-        console.warn('matchModel fucking up', matchModel || 'no Model');
         return;
       }
       return {
