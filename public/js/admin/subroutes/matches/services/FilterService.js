@@ -465,12 +465,13 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var makeBossSpreadsheet = function(scheduleMatrix){
           var spreadSheetArray = [];
           var topArray = [''];
+          var breakStrings = ['BREAK1', 'BREAK2', 'BREAK3', 'BREAK4', 'BREAK5', 'BREAK6', 'BREAK7', 'BREAK8', 'BREAK9', 'BREAK10']
           var userIds = [];
           for(var user in userObj){
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
-          topArray.push('BREAKS');
+          topArray.push('BREAK1');
           spreadSheetArray.push(topArray);
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
@@ -523,7 +524,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
 
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
-        download(scheduleSpreadSheet);
+        // download(scheduleSpreadSheet);
         download(bossSpreadsheet);
       });
     });
