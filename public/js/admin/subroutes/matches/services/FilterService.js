@@ -1,6 +1,5 @@
-app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'DialogueService',
-  function ($state, Match, Opportunity, User, DialogueService) {
-
+app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
+  function ($state, Match, Opportunity, User) {
     var preMatch = {};
     var matchesSortedByInterest;
     var userObj = {};
@@ -13,6 +12,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var cellData = [];
     var matrixData;
     var counterNo = 0;
+    var download = function(){};
 
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
@@ -33,12 +33,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
       });
       _.forEach(filteredUsers, function(user) {
         makeUsersForScheduleObject(user);
-        var columnDef = {field: '', displayName: ''};
         userObj[user._id] = user;
-        columnDef.field = user._id;
-        columnDef.displayName = user.name;
-        columnDef.width = '10%';
-        columnData.push(columnDef);
       });
       Match.getAll().then(function(matchData) {
         var filteredOpps = matchData.opportunities.filter(function (opportunity) {
@@ -132,6 +127,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           //we need this object for when we make adrian's list
           userInterestsForOpportunites[user] = userInterestsForOpportunites[user] || {};
           userInterestsForOpportunites[user][match.opportunity] = calculatedLevel;
+
         };
 
         var makeMatchesSortedByInterest = function(preMatch){
@@ -142,6 +138,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               var newKey = opportunitiesIds.length;
               interestValue[newKey] = interestValue[newKey] || {};
               interestValue[newKey][k] = interestValue[newKey][k] || [];
+              // interestValue[newKey][k].push(opportunitiesId);
               for(var i = 0; i< opportunitiesIds.length; i++){
                 interestValue[newKey][k].push(opportunitiesIds[i]);
               }
@@ -151,13 +148,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           return preMatch;
         };
 
-
         _.forEach(matchesArray, function(match) {
           var calculatedLevel = caculateUserInterestLevel(match);
           makePreMatchObject(match, calculatedLevel);
         });
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
-        
+
 
         var opportunityAppointment = [];
         var userSchedule = {};
@@ -249,6 +245,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               userForSchedule.scheduleForThisUser[i] = oppId;
               //wasScheduled = true;
               wasScheduled = true;
+              //console.log("scheduled", counterYes++);
               //userForSchedule[numberOfRounds]++;
               userForSchedule.numberOfRounds++;
               usersForSchedule[userId][interestLevel].fulfilled++;
@@ -259,6 +256,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
           // !wasScheduled
           if(!wasScheduled){
+            //console.log("not scheduled", counterNo++)
             //for each j in oppSchedule
             for(var j = 0; j < oppSchedule.length; j++){
               //if wasScheduled
@@ -284,6 +282,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     //if wasScheduled
                     if(wasScheduled) {
                       //break
+                      //console.log("scheduled after switch", counterYes++)
                       break;
                     }
                   }
@@ -337,6 +336,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
             usersForSchedule[userId].scheduleForThisUser = newRoundsForUser;
           }
+
+
         };
 
         //////scheduleAllMatches()/////////////////
@@ -371,6 +372,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                   }else{
                     //pop oppId and schedule it(schedule it is a helper function)
                     oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
+
                     if(usersForSchedule[userId].numberOfRounds < 9) {
                       scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix, interestLevel);
                     }
@@ -604,13 +606,13 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
         var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
 
-        var download = function(str) {
+        download = function(str) {
          var f = document.createElement("iframe");
          document.body.appendChild(f);
          f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
         };
 
-
+        //  console.log(scheduleMatrix)
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
         download(scheduleSpreadSheet);
         download(bossSpreadsheet);
@@ -618,6 +620,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     });
 
     return {
-      // download: download(scheduleSpreadSheet)
+      download: download
     };
 }]);
