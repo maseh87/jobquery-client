@@ -11,12 +11,11 @@ app.config(['$httpProvider', function($httpProvider) {
 
 }]);
 
-app.run(function($rootScope) {
-  $rootScope.notifications = {
-    loading: false
-  };
-
-});
+app.run(['$rootScope', function($rootScope) {
+ $rootScope.notifications = {
+   loading: false
+ };
+}]);
 
 app.factory('LoadingInterceptor', ['$rootScope', function($rootScope) {
   return {
