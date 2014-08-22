@@ -6,7 +6,6 @@ app.factory('Tag', ['TagResource', '$http', 'SERVER_URL', function (TagResource,
   var tagMethods = {};
 
   tagMethods.getAll = function (id) {
-    // return TagResource.query().$promise;
     var url = SERVER_URL + '/api/tags';
     if(id) {
       url += '/' + id;
@@ -22,7 +21,6 @@ app.factory('Tag', ['TagResource', '$http', 'SERVER_URL', function (TagResource,
   };
 
   tagMethods.get = function (id) {
-    // return TagResource.get({_id: id}).$promise;
     return tagMethods.getAll(id);
   };
 
