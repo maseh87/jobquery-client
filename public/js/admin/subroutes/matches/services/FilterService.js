@@ -9,7 +9,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           usersForSchedule[user._id] = {};
           usersForSchedule[user._id].scheduleForThisUser = {};
           usersForSchedule[user._id].numberOfRounds = 0;
-
         };
 
         var filterCandidates = function (candidate){
@@ -40,23 +39,23 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
         };
 
-          /*
-           Before we run the schedule, we have to calculate the number that represents
-           the precise user interest. This number comes as a result of the userInterest (1 throuh 4),
-           the possible presence of an adminOverride of the userInterest, and also, the presence of any of
-           the four 'Scheduling Preferences' (star, upVote, downVote, noGo). All the possible combinations
-           of these factors results in one of 14 possible values. Therefore, we take all these values into
-           account, and calculate a number between 1 and 14 to represent the 'calculatedUserInterestLevel'.
+        /*
+         Before we run the schedule, we have to calculate the number that represents
+         the precise user interest. This number comes as a result of the userInterest (1 throuh 4),
+         the possible presence of an adminOverride of the userInterest, and also, the presence of any of
+         the four 'Scheduling Preferences' (star, upVote, downVote, noGo). All the possible combinations
+         of these factors results in one of 14 possible values. Therefore, we take all these values into
+         account, and calculate a number between 1 and 14 to represent the 'calculatedUserInterestLevel'.
 
-           Here are the ideas behind the calculation.
-           1) If admin has supplied an adminOverride number, this number overwrites the userInterest.
-           2) If the interest has a 'star' the value is automatically the highest value (14).
-           3) If the interest has a 'noGo', the value is automatically the lowest value (1).
-           4) Otherwise we take the userInterest, or adminOverride value [ see 1) ], multiply it by 3
-              and then add 1 to it if there is an 'upVote' or subtract 1 if there is a downVote.
+         Here are the ideas behind the calculation.
+         1) If admin has supplied an adminOverride number, this number overwrites the userInterest.
+         2) If the interest has a 'star' the value is automatically the highest value (14).
+         3) If the interest has a 'noGo', the value is automatically the lowest value (1).
+         4) Otherwise we take the userInterest, or adminOverride value [ see 1) ], multiply it by 3
+            and then add 1 to it if there is an 'upVote' or subtract 1 if there is a downVote.
 
-           These steps provide all possible combinations between 1 and 14.
-          */
+         These steps provide all possible combinations between 1 and 14.
+        */
         var caculateUserInterestLevel = function(match){
           var calculatedUserInterest;
           var userInterest = match.userInterest;
@@ -145,7 +144,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           });
           return scheduleMatrix;
         };
-
 
         var scheduleSingleOpp = function(oppId, userId, scheduleMatrix){
           /////switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)////
@@ -318,7 +316,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                       var currentRoundsForUser = usersForSchedule[userId].numberOfRounds;
                       while( usersForSchedule[userId].numberOfRounds === currentRoundsForUser && matchesForThisInterestLevel[numberOfRequests][userId].length > 0){
                         //pop oppId and schedule it(schedule it is a helper function)
-                        oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
+                        var oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
                         if(usersForSchedule[userId].numberOfRounds < 9) {
                           scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
                         }
@@ -485,29 +483,26 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
 
         var preMatch = {};
-        var matchesSortedByInterest;
         var userObj = {};
         var matches = {};
         var opportunities = {};
         var usersForSchedule = {};
         var userInterestsForOpportunites = {};
-        var opportunityAppointment = [];
         var userSchedule = {};
+        var opportunityAppointment = [];
         var scheduleData = [];
-        var oppToSchedule;
+        var matchesSortedByInterest;
 
         var filteredUsers = users.filter(filterCandidates);
-
         _.forEach(filteredUsers, processUserForDataStructures);
 
         var filteredOpps = matchData.opportunities.filter(filterOpportunities);
-
         _.forEach(filteredOpps, populateOpportunitiesObject);
 
         //filter matches based on if user and opportunity is attending hiring day
         var matchesArray = matchData.matches.filter(filterMatches);
-
         _.forEach(matchesArray, addMatchToPrematchObject);
+
 
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
 
