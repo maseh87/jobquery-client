@@ -121,6 +121,11 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           preMatch[calculatedLevel][user] = preMatch[calculatedLevel][user] || [];
 
           preMatch[calculatedLevel][user].push(match.opportunity);
+
+          //we need this object for when we make adrian's list
+          userInterestsForOpportunites[user] = userInterestsForOpportunites[user] || {};
+          userInterestsForOpportunites[user][match.opportunity] = calculatedLevel;
+
         };
 
         var makeMatchesSortedByInterest = function(preMatch){
