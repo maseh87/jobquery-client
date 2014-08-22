@@ -354,12 +354,14 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     }
                     //if # for this user equals numberOfRoundsScheduledTicker
                     if(usersForSchedule[userId].numberOfRounds <= numberOfRoundsScheduledTicker) {
-                      //pop oppId and schedule it(schedule it is a helper function)
-                      oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
-                      if(usersForSchedule[userId].numberOfRounds < 9) {
-                        scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                      var currentRoundsForUser = usersForSchedule[userId].numberOfRounds;
+                      while( usersForSchedule[userId].numberOfRounds === currentRoundsForUser && matchesForThisInterestLevel[numberOfRequests][userId].length > 0){
+                        //pop oppId and schedule it(schedule it is a helper function)
+                        oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
+                        if(usersForSchedule[userId].numberOfRounds < 9) {
+                          scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                        }
                       }
-                      // usersForSchedule[userId].numberOfRounds++;
                     }
                   }else{
                     //pop oppId and schedule it(schedule it is a helper function)
@@ -367,7 +369,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     if(usersForSchedule[userId].numberOfRounds < 9) {
                       scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
                     }
-                    // usersForSchedule[userId].numberOfRounds++;
                   }
 
                   //check if userId's value is empty
