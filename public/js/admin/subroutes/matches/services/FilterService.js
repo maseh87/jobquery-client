@@ -481,7 +481,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             topArray.push('brk');
           }
           spreadSheetArray.push(topArray);
+
           //STUFF HERE FOR NUMBER OF 4'S FULFILLED ETC
+
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
             var rowArray = [];
@@ -515,6 +517,17 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
             spreadSheetArray.push(rowArray);
           }
+
+          for(var i = 0; i < userIds.length; i++){
+            var userId = userIds[i];
+            var numberOfConvos = usersForSchedule[userId].numberOfRounds;
+            var numberOfBreaks = 11 - numberOfConvos;
+            numberOfConvosRow.push(numberOfConvos);
+            numberOfBreaksRow.push(numberOfBreaks);
+          }
+
+          spreadSheetArray.push(numberOfConvosRow);
+          spreadSheetArray.push(numberOfBreaksRow);
 
           return spreadSheetArray.join('\n');
         };
