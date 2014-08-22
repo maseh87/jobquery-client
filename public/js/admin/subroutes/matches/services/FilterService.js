@@ -6,6 +6,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var matches = {};
     var opportunities = {};
     var usersForSchedule = {};
+    var userInterestsForOpportunites = {};
     var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
     //an array of all the objects that will populate the cells inside the grid
     var cellData = [];
@@ -161,7 +162,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var createScheduleMatrix = function() {
           var scheduleMatrix = {};
           var indexNumber = 0;
-          var breakRounds = [4,5,6,7,8];
+          var breakRounds = [3,4,5,6,7];
           _.forEach(opportunities, function(opportunity, oppId) {
             var roundsForThisOpportunity = new Array(11);
             var breakRound = breakRounds[indexNumber % 5];
@@ -486,10 +487,10 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
          f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
         };
 
-
+        console.log(scheduleMatrix)
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
-        download(scheduleSpreadSheet);
-        download(bossSpreadsheet);
+        // download(scheduleSpreadSheet);
+        // download(bossSpreadsheet);
       });
     });
 
