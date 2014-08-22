@@ -389,10 +389,56 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               }
                 numberOfRoundsScheduledTicker++;
             }
-            // console.log("In interest", interestLevel,  "scheduled ",counterYes);
-            // console.log("In interest",interestLevel , "not scheduled ",counterNo);
           }
         };
+
+        var translateInterestLevel = function(interestLevel){
+          if( interestLevel === 14 ){
+            return '*';
+          }
+          if( interestLevel === 13 ){
+            return '4^';
+          }
+          if( interestLevel === 12 ){
+            return '4';
+          }
+          if( interestLevel === 11 ){
+            return '4v';
+          }
+          if( interestLevel === 10 ){
+            return '3^';
+          }
+          if( interestLevel === 9 ){
+            return '3';
+          }
+          if( interestLevel === 8 ){
+            return '3v';
+          }
+          if( interestLevel === 7 ){
+            return '2^';
+          }
+          if( interestLevel === 6 ){
+            return '2';
+          }
+          if( interestLevel === 5 ){
+            return '2v';
+          }
+          if( interestLevel === 4 ){
+            return '1^';
+          }
+          if( interestLevel === 3 ){
+            return '1';
+          }
+          if( interestLevel === 2 ){
+            return '1v';
+          }
+          if( interestLevel === 1 ){
+            return 'X';
+          }
+          if( interestLevel === 0 ){
+            return 0;
+          }
+        }
 
         var makeScheduleSpreadsheet = function(scheduleMatrix){
           var spreadSheetArray = [];
@@ -423,13 +469,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           var topArray = [''];
           var userIds = [];
           for(var user in userObj){
-
-
-            // if(userObj[user].name === 'Xianhui Feng'){
-            //   console.log('user: ' + user);
-            // }
-
-
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
@@ -439,14 +478,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             var breakRounds = [];
             var rowArray = [];
             rowArray.push(opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle);
-
-
-            // if(opportunities[oppId].company.name === 'Creativebug'){
-            //   console.log('cb');
-            //   console.log(oppId);
-            // }
-
-
             for(var j = 0; j < scheduleMatrix[oppId].length; j++){
               if( scheduleMatrix[oppId][j] === 'BREAK' || scheduleMatrix[oppId][j] === undefined ){
                 breakRounds.push('R' + (Number(j) + 1));
@@ -465,7 +496,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               }
               if(!hasAppointment){
                 var interestLevel = userInterestsForOpportunites[userId][oppId];
-                rowArray.push(interestLevel);
+                var translatedInterestLevel = translateInterestLevel(interestLevel);
+                rowArray.push(translatedInterestLevel);
               }
             }
             rowArray.push(breakRounds.join(' '));
@@ -476,9 +508,14 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         scheduleAllMatches(scheduleMatrix);
         shuffleSchedule(scheduleMatrix, usersForSchedule);
+        for(var k in scheduleMatrix){
+          for(var j in scheduleMatrix[k]){
+            if(scheduleMatrix[k][j] === "BREAK"){
+            }
+          }
+        }
         var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
         var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
-        // console.dir(bossSpreadsheet);
 
         var download = function(str) {
          var f = document.createElement("iframe");
