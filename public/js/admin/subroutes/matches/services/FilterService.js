@@ -466,6 +466,13 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           var spreadSheetArray = [];
           var topArray = [''];
           var userIds = [];
+          var numberOfConvosRow = ['Convos Scheduled'];
+          var numberOfBreaksRow = ['Breaks Scheduled'];
+          var userStarsScheduledRow = ['Stars Scheduled'];
+          var userStarsFulfilledRow = ['Stars Fulfilled'];
+          var userFoursScheduledRow = ['Fours Scheduled'];
+          var userFoursFulfilledRow = ['Fours Fulfilled'];
+
           for(var user in userObj){
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
@@ -474,10 +481,13 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             topArray.push('brk');
           }
           spreadSheetArray.push(topArray);
+          //STUFF HERE FOR NUMBER OF 4'S FULFILLED ETC
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
             var rowArray = [];
+
             rowArray.push(opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle);
+
             for(var j = 0; j < scheduleMatrix[oppId].length; j++){
               if( scheduleMatrix[oppId][j] === 'BREAK' || scheduleMatrix[oppId][j] === undefined ){
                 breakRounds.push('R' + (Number(j) + 1));
@@ -505,6 +515,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
             spreadSheetArray.push(rowArray);
           }
+
           return spreadSheetArray.join('\n');
         };
 
