@@ -286,8 +286,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
             }
           }
           if(!wasScheduled){
-            counterNo++;
-          //  console.log("not scheduled ", counterNo++)
           }
           scheduleMatrix[oppId] = oppSchedule;
           //return oppSchedule;
@@ -340,7 +338,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
         //////scheduleAllMatches()/////////////////
         var scheduleAllMatches = function (scheduleMatrix) {
           //for everything interestLevel
-          for(var interestLevel = 14; interestLevel > 1; interestLevel--){
+          for(var interestLevel = 14; interestLevel > 3; interestLevel--){
             var numberOfRoundsScheduledTicker = 0;
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
             //while matchesSortedByInterest at this interestLevel has keys, and also numberOfRoundsScheduledTicker is less than 11
@@ -393,10 +391,56 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
               }
                 numberOfRoundsScheduledTicker++;
             }
-            // console.log("In interest", interestLevel,  "scheduled ",counterYes);
-            // console.log("In interest",interestLevel , "not scheduled ",counterNo);
           }
         };
+
+        var translateInterestLevel = function(interestLevel){
+          if( interestLevel === 14 ){
+            return '*';
+          }
+          if( interestLevel === 13 ){
+            return '4^';
+          }
+          if( interestLevel === 12 ){
+            return '4';
+          }
+          if( interestLevel === 11 ){
+            return '4v';
+          }
+          if( interestLevel === 10 ){
+            return '3^';
+          }
+          if( interestLevel === 9 ){
+            return '3';
+          }
+          if( interestLevel === 8 ){
+            return '3v';
+          }
+          if( interestLevel === 7 ){
+            return '2^';
+          }
+          if( interestLevel === 6 ){
+            return '2';
+          }
+          if( interestLevel === 5 ){
+            return '2v';
+          }
+          if( interestLevel === 4 ){
+            return '1^';
+          }
+          if( interestLevel === 3 ){
+            return '1';
+          }
+          if( interestLevel === 2 ){
+            return '1v';
+          }
+          if( interestLevel === 1 ){
+            return 'X';
+          }
+          if( interestLevel === 0 ){
+            return 0;
+          }
+        }
 
         var makeScheduleSpreadsheet = function(scheduleMatrix){
           var spreadSheetArray = [];
@@ -426,30 +470,29 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
           var spreadSheetArray = [];
           var topArray = [''];
           var userIds = [];
+          var numberOfConvosRow = ['Convos Scheduled'];
+          var numberOfBreaksRow = ['Breaks Scheduled'];
+          var userStarsScheduledRow = ['Stars Scheduled'];
+          var userStarsFulfilledRow = ['Stars Fulfilled'];
+          var userFoursScheduledRow = ['Fours Scheduled'];
+          var userFoursFulfilledRow = ['Fours Fulfilled'];
+
           for(var user in userObj){
-
-
-            // if(userObj[user].name === 'Xianhui Feng'){
-            //   console.log('user: ' + user);
-            // }
-
-
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
-          topArray.push('BREAKS');
+          for(var breakStringIndex = 0; breakStringIndex < 10; breakStringIndex++){
+            topArray.push('brk');
+          }
           spreadSheetArray.push(topArray);
+
+          //STUFF HERE FOR NUMBER OF 4'S FULFILLED ETC
+
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
             var rowArray = [];
+
             rowArray.push(opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle);
-
-
-            // if(opportunities[oppId].company.name === 'Creativebug'){
-            //   console.log('cb');
-            //   console.log(oppId);
-            // }
-
 
             for(var j = 0; j < scheduleMatrix[oppId].length; j++){
               if( scheduleMatrix[oppId][j] === 'BREAK' || scheduleMatrix[oppId][j] === undefined ){
@@ -461,28 +504,48 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
               var thisUserSchedule = usersForSchedule[userId].scheduleForThisUser;
               var hasAppointment = false;
               for(var roundNumber in thisUserSchedule){
+              var interestLevel = userInterestsForOpportunites[userId][oppId];
+              var translatedInterestLevel = translateInterestLevel(interestLevel);
                 if( thisUserSchedule[roundNumber] === oppId ){
-                  rowArray.push('R' + (Number(roundNumber) + 1));
+                  rowArray.push('R' + (Number(roundNumber) + 1) + ': ' + translatedInterestLevel);
                   hasAppointment = true;
                   break;
                 }
               }
               if(!hasAppointment){
-                var interestLevel = userInterestsForOpportunites[userId][oppId];
-                rowArray.push(interestLevel);
+                rowArray.push(translatedInterestLevel);
               }
             }
-            rowArray.push(breakRounds.join(' '));
+            for(var roundIndex = 0; roundIndex < breakRounds.length; roundIndex++){
+              rowArray.push(breakRounds[roundIndex]);
+            }
             spreadSheetArray.push(rowArray);
           }
+
+          for(var i = 0; i < userIds.length; i++){
+            var userId = userIds[i];
+            var numberOfConvos = usersForSchedule[userId].numberOfRounds;
+            var numberOfBreaks = 11 - numberOfConvos;
+            numberOfConvosRow.push(numberOfConvos);
+            numberOfBreaksRow.push(numberOfBreaks);
+          }
+
+          spreadSheetArray.push(numberOfConvosRow);
+          spreadSheetArray.push(numberOfBreaksRow);
+
           return spreadSheetArray.join('\n');
         };
 
         scheduleAllMatches(scheduleMatrix);
         shuffleSchedule(scheduleMatrix, usersForSchedule);
+        for(var k in scheduleMatrix){
+          for(var j in scheduleMatrix[k]){
+            if(scheduleMatrix[k][j] === "BREAK"){
+            }
+          }
+        }
         var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
         var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
-        // console.dir(bossSpreadsheet);
 
         download = function(str) {
          var f = document.createElement("iframe");
