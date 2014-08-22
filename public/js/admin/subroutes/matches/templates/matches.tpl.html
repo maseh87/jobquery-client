@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div>
+   <!--  <div>
         <h4>Schedule Parameters</h4>
         <form ng-submit="downloadSchedule()">
             <div><input ng-model="config.rounds" type="number" min="0" max="15" required></input> # of Rounds</div>
@@ -24,16 +24,16 @@
             <div><input ng-model="config.minInterviews" type="number" min="0" max="15" required></input> Min # of Interviews</div>
             <input class="content-action" type="submit" value="Download Schedule"></input>
         </form>
-    </div>
+    </div> -->
 
-    <div class="content-section container-fluid">
+    <!-- <div class="content-section container-fluid">
         <div class="row">
         <div class="gridbox-title">Candidate - Opportunity Match Grid</div>
         <div class="content-scrollable">
         <table class="matchTable">
             <thead>
                 <tr class="gridbox-header">
-                    <th style="min-width: 200px; max-width: 200px"></th><!-- empty table header-->
+                    <th style="min-width: 200px; max-width: 200px"></th>
                     <th class="pointer" style="min-width: 100px; max-width: 100px" ng-repeat-start="(key, opportunity) in opportunities">
                         {{ opportunity.company.name }}: {{ opportunity.jobTitle }}
                     </th>
@@ -51,7 +51,7 @@
                     </td>
                 </tr>
                 <tr class="gridbox-header"ng-repeat-end ng-if="$index > 0 && $index % 10 === 0 && !$last">
-                    <th style="min-width: 200px; max-width: 200px"></th><!-- empty table header-->
+                    <th style="min-width: 200px; max-width: 200px"></th>
                     <th style="min-width: 100px; max-width: 100px" ng-repeat-start="(key, opportunity) in opportunities">
                         {{ opportunity.company.name }}: {{ opportunity.jobTitle }}
                     </th>
@@ -62,5 +62,5 @@
         </table>
         </div>
         </div>
-    </div>
+    </div> -->
 </div>
