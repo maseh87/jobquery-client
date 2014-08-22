@@ -612,10 +612,10 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
          f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
         };
 
-        console.log(scheduleMatrix)
+        //  console.log(scheduleMatrix)
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
-        // download(scheduleSpreadSheet);
-        // download(bossSpreadsheet);
+        download(scheduleSpreadSheet);
+        download(bossSpreadsheet);
       });
     });
 
