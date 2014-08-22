@@ -510,6 +510,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
+
+          topArray.push('Stars Scheduled')
+
           for(var breakStringIndex = 0; breakStringIndex < 10; breakStringIndex++){
             topArray.push('brk');
           }
@@ -540,6 +543,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
             var rowArray = [];
+            var numberOfStars = 0;
 
             rowArray.push(opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle);
 
@@ -553,9 +557,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               var thisUserSchedule = usersForSchedule[userId].scheduleForThisUser;
               var hasAppointment = false;
               for(var roundNumber in thisUserSchedule){
-              var interestLevel = userInterestsForOpportunites[userId][oppId];
-              var translatedInterestLevel = translateInterestLevel(interestLevel);
+                var interestLevel = userInterestsForOpportunites[userId][oppId];
+                var translatedInterestLevel = translateInterestLevel(interestLevel);
                 if( thisUserSchedule[roundNumber] === oppId ){
+                  if( interestLevel === 14 ){
+                    numberOfStars++;
+                  }
                   rowArray.push('R' + (Number(roundNumber) + 1) + ': ' + translatedInterestLevel);
                   hasAppointment = true;
                   break;
@@ -565,6 +572,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                 rowArray.push(translatedInterestLevel);
               }
             }
+            rowArray.push(numberOfStars);
             for(var roundIndex = 0; roundIndex < breakRounds.length; roundIndex++){
               rowArray.push(breakRounds[roundIndex]);
             }
