@@ -12,11 +12,6 @@ describe('Unit: FilterService', function(){
 
   describe('FilterService methods', function(){
 
-    it('should have a download method', function(){
-      expect(FilterService.download).toBeDefined();
-      expect(typeof FilterService.download).toBe('function');
-    });
-
   });
 
 });

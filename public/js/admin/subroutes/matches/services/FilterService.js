@@ -12,9 +12,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
     var cellData = [];
     var matrixData;
     var counterNo = 0;
-    var download = function(){
-      console.log("blah");
-    };
+    var download = function(){};
 
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
