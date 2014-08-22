@@ -285,8 +285,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
           }
           if(!wasScheduled){
-            counterNo++;
-          //  console.log("not scheduled ", counterNo++)
           }
           scheduleMatrix[oppId] = oppSchedule;
           //return oppSchedule;
@@ -488,15 +486,15 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               var thisUserSchedule = usersForSchedule[userId].scheduleForThisUser;
               var hasAppointment = false;
               for(var roundNumber in thisUserSchedule){
+              var interestLevel = userInterestsForOpportunites[userId][oppId];
+              var translatedInterestLevel = translateInterestLevel(interestLevel);
                 if( thisUserSchedule[roundNumber] === oppId ){
-                  rowArray.push('R' + (Number(roundNumber) + 1));
+                  rowArray.push('R' + (Number(roundNumber) + 1) + ': ' + translatedInterestLevel);
                   hasAppointment = true;
                   break;
                 }
               }
               if(!hasAppointment){
-                var interestLevel = userInterestsForOpportunites[userId][oppId];
-                var translatedInterestLevel = translateInterestLevel(interestLevel);
                 rowArray.push(translatedInterestLevel);
               }
             }
