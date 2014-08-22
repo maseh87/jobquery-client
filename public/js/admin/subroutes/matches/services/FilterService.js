@@ -8,14 +8,11 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
     var opportunities = {};
     var usersForSchedule = {};
     var userInterestsForOpportunites = {};
-    var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
-    //an array of all the objects that will populate the cells inside the grid
-    var cellData = [];
-    var matrixData;
-    var counterNo = 0;
 
     //Grab Users and filter accordingly
+
     User.getAll().then(function(users) {
+
       var makeUsersForScheduleObject = function(user){
 
         usersForSchedule[user._id] = {};
@@ -24,41 +21,41 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
       };
 
-      var filteredUsers = users.filter(function (candidate) {
+      var filterCandidates = function (candidate) {
         if (candidate.isAdmin) return false;
         if (!candidate.attending) return false;
         if (!candidate.isRegistered) return false;
         if ((candidate.searchStage === 'Out') || (candidate.searchStage === 'Accepted')) return false;
         return true;
-      });
-      _.forEach(filteredUsers, function(user) {
+      };
+
+      var processUserForDataStructures = function(user) {
         makeUsersForScheduleObject(user);
-        var columnDef = {field: '', displayName: ''};
         userObj[user._id] = user;
-        columnDef.field = user._id;
-        columnDef.displayName = user.name;
-        columnDef.width = '10%';
-        columnData.push(columnDef);
-      });
-      Match.getAll().then(function(matchData) {
-        var filteredOpps = matchData.opportunities.filter(function (opportunity) {
+      };
+
+      var filterOpportunities = function (opportunity) {
           if (!opportunity.active) return false;
           if (!opportunity.approved) return false;
           if (opportunity.category.name === "Not Attending Hiring Day") return false;
           return true;
-        });
-        _.forEach(filteredOpps, function(opportunity) {
-          opportunities[opportunity._id] = opportunity;
-        });
-        //filter matches based on if user and opportunity is attending hiring day
-        var matchesArray = matchData.matches.filter(function (match) {
+      };
+
+      var filteredUsers = users.filter(filterCandidates);
+
+      _.forEach(filteredUsers, processUserForDataStructures);
+
+
+      Match.getAll().then(function(matchData) {
+
+        var filterMatches = function (match) {
           if (userObj[match.user] && opportunities[match.opportunity]) {
             return true;
           } else {
             return false;
           }
-        });
-        //for each match in matchesArray
+        };
+
           /*
            Before we run the schedule, we have to calculate the number that represents
            the precise user interest. This number comes as a result of the userInterest (1 throuh 4),
@@ -152,17 +149,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         };
 
 
-        _.forEach(matchesArray, function(match) {
-          var calculatedLevel = caculateUserInterestLevel(match);
-          makePreMatchObject(match, calculatedLevel);
-        });
-        matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
-        
-
-        var opportunityAppointment = [];
-        var userSchedule = {};
-        var scheduleData = [];
-        var oppToSchedule;
 
         var createScheduleMatrix = function() {
           var scheduleMatrix = {};
@@ -178,9 +164,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           return scheduleMatrix;
         };
 
-        scheduleMatrix = createScheduleMatrix();
 
-        /////scheduleSingleOpp function//////
         var scheduleSingleOpp = function(oppId, userId, scheduleMatrix) {
           /////switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)////
           var switchSlots = function(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule) {
@@ -284,10 +268,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               }
             }
           }
-          if(!wasScheduled){
-            counterNo++;
-          //  console.log("not scheduled ", counterNo++)
-          }
           scheduleMatrix[oppId] = oppSchedule;
           //return oppSchedule;
         };
@@ -334,7 +314,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
         };
 
-        //////scheduleAllMatches()/////////////////
         var scheduleAllMatches = function (scheduleMatrix) {
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 1; interestLevel--){
@@ -506,31 +485,50 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           return spreadSheetArray.join('\n');
         };
 
-        scheduleAllMatches(scheduleMatrix);
-        shuffleSchedule(scheduleMatrix, usersForSchedule);
-        for(var k in scheduleMatrix){
-          for(var j in scheduleMatrix[k]){
-            if(scheduleMatrix[k][j] === "BREAK"){
-            }
-          }
-        }
-        var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
-        var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
-
-        var download = function(str) {
+        var downloadSpreadsheet = function(csvString) {
          var f = document.createElement("iframe");
          document.body.appendChild(f);
-         f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
+         f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(csvString);
         };
 
 
-        //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
-        download(scheduleSpreadSheet);
-        download(bossSpreadsheet);
+        var filteredOpps = matchData.opportunities.filter(filterOpportunities);
+
+        _.forEach(filteredOpps, function(opportunity) {
+          opportunities[opportunity._id] = opportunity;
+        });
+
+        //filter matches based on if user and opportunity is attending hiring day
+        var matchesArray = matchData.matches.filter(filterMatches);
+
+        _.forEach(matchesArray, function(match) {
+          var calculatedLevel = caculateUserInterestLevel(match);
+          makePreMatchObject(match, calculatedLevel);
+        });
+        matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
+        
+
+        var opportunityAppointment = [];
+        var userSchedule = {};
+        var scheduleData = [];
+        var oppToSchedule;
+
+
+        scheduleMatrix = createScheduleMatrix();
+
+        scheduleAllMatches(scheduleMatrix);
+        shuffleSchedule(scheduleMatrix, usersForSchedule);
+
+        var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
+        var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
+
+
+
+        downloadSpreadsheet(scheduleSpreadSheet);
+        downloadSpreadsheet(bossSpreadsheet);
       });
     });
 
     return {
-      // download: download(scheduleSpreadSheet)
     };
 }]);
