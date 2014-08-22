@@ -1,5 +1,5 @@
-app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'DialogueService',
-  function ($state, Match, Opportunity, User, DialogueService) {
+app.factory('FilterService', ['Match', 'User',
+  function (Match, User) {
 
     User.getAll().then(function(users){
       Match.getAll().then(function(matchData){
@@ -425,11 +425,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
           }
           return [totalRequested, totalFulfilled];
-
-        };
-
-        var calculateNumberFulfilledFor = function(interestLevelClass, userId){
-
         };
 
         var makeScheduleSpreadsheet = function(scheduleMatrix){
@@ -580,16 +575,16 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var userSchedule = {};
         var opportunityAppointment = [];
         var scheduleData = [];
-        var matchesSortedByInterest;
+        var matchesSortedByInterest, filteredUsers, filteredOpps, matchesArray, scheduleSpreadSheet, bossSpreadsheet;
 
-        var filteredUsers = users.filter(filterCandidates);
+        filteredUsers = users.filter(filterCandidates);
         _.forEach(filteredUsers, processUserForDataStructures);
 
-        var filteredOpps = matchData.opportunities.filter(filterOpportunities);
+        filteredOpps = matchData.opportunities.filter(filterOpportunities);
         _.forEach(filteredOpps, populateOpportunitiesObject);
 
         //filter matches based on if user and opportunity is attending hiring day
-        var matchesArray = matchData.matches.filter(filterMatches);
+        matchesArray = matchData.matches.filter(filterMatches);
         _.forEach(matchesArray, addMatchToPrematchObject);
 
 
@@ -601,13 +596,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         scheduleAllMatches(scheduleMatrix);
         shuffleSchedule(scheduleMatrix, usersForSchedule);
 
-        var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
-        var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
-
-
+        scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
+        bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
 
         downloadSpreadsheet(scheduleSpreadSheet);
         downloadSpreadsheet(bossSpreadsheet);
+
       });
     });
 
