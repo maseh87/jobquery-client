@@ -181,7 +181,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         scheduleMatrix = createScheduleMatrix();
 
         /////scheduleSingleOpp function//////
-        var scheduleSingleOpp = function(oppId, userId, scheduleMatrix) {
+        var scheduleSingleOpp = function(oppId, userId, scheduleMatrix, interestLevel) {
+
           /////switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)////
           var switchSlots = function(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule) {
 
@@ -218,9 +219,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             userForSchedule.scheduleForThisUser[possibleSwitchIndex] = oppId;
             //userForSchedule.numberOfRounds++;
             userForSchedule.numberOfRounds++;
+            userForSchedule[interestLevel].fulfilled++;
+
             //return true
              return true;
           };
+
           //userForSchedule = usersForSchedule[userId];
           var userForSchedule = usersForSchedule[userId];
           //oppSchedule = scheduleMatrix[oppId];
@@ -228,6 +232,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           //var wasScheduled = false;
           var wasScheduled = false;
 
+          userForSchedule[interestLevel] = usersForSchedule[userId][interestLevel] || {requested: 0, fulfilled: 0};
+          userForSchedule[interestLevel].requested++;
 
 
           //for each timeSlot in oppSchdedule
@@ -245,6 +251,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               wasScheduled = true;
               //userForSchedule[numberOfRounds]++;
               userForSchedule.numberOfRounds++;
+              usersForSchedule[userId][interestLevel].fulfilled++;
               //break (from for loop)
               break;
             }
@@ -357,7 +364,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                         //pop oppId and schedule it(schedule it is a helper function)
                         oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
                         if(usersForSchedule[userId].numberOfRounds < 9) {
-                          scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                          scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix, interestLevel);
                         }
                       }
                     }
@@ -365,7 +372,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     //pop oppId and schedule it(schedule it is a helper function)
                     oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
                     if(usersForSchedule[userId].numberOfRounds < 9) {
-                      scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                      scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix, interestLevel);
                     }
                   }
 
@@ -482,7 +489,10 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
           spreadSheetArray.push(topArray);
 
-          //STUFF HERE FOR NUMBER OF 4'S FULFILLED ETC
+          for(var i = 0; i < userIds.length; i++){
+            var userId = userIds[i];
+
+          }
 
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
@@ -542,6 +552,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         }
         var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
         var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
+        debugger;
 
         var download = function(str) {
          var f = document.createElement("iframe");
@@ -551,7 +562,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
 
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
-        download(scheduleSpreadSheet);
+        // download(scheduleSpreadSheet);
         download(bossSpreadsheet);
       });
     });
