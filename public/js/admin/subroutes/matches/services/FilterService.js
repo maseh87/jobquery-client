@@ -614,8 +614,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
 
         //  console.log(scheduleMatrix)
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
-        download(scheduleSpreadSheet);
-        download(bossSpreadsheet);
+        // download(scheduleSpreadSheet);
+        // download(bossSpreadsheet);
       });
     });
 
