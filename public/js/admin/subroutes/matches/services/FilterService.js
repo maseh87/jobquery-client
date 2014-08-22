@@ -465,12 +465,16 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var makeBossSpreadsheet = function(scheduleMatrix){
           var spreadSheetArray = [];
           var topArray = [''];
+          var breakStrings = ['BREAK1', 'BREAK2', 'BREAK3', 'BREAK4', 'BREAK5', 'BREAK6', 'BREAK7', 'BREAK8', 'BREAK9', 'BREAK10']
           var userIds = [];
           for(var user in userObj){
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
-          topArray.push('BREAKS');
+          for(var breakStringIndex = 0; breakStringIndex < breakStrings.length; breakStringIndex++){
+            var breakString = breakStrings[breakStringIndex];
+            topArray.push(breakString);
+          }
           spreadSheetArray.push(topArray);
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
@@ -498,7 +502,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                 rowArray.push(translatedInterestLevel);
               }
             }
-            rowArray.push(breakRounds.join(' '));
+            for(var roundIndex = 0; roundIndex < breakRounds.length; roundIndex++){
+              rowArray.push(breakRounds[roundIndex]);
+            }
             spreadSheetArray.push(rowArray);
           }
           return spreadSheetArray.join('\n');
