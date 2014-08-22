@@ -157,7 +157,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           makePreMatchObject(match, calculatedLevel);
         });
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
-        
+
 
         var opportunityAppointment = [];
         var userSchedule = {};
@@ -523,7 +523,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
 
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
-        // download(scheduleSpreadSheet);
+        download(scheduleSpreadSheet);
         download(bossSpreadsheet);
       });
     });

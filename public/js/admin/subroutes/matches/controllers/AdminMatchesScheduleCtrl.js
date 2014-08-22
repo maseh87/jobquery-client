@@ -1,7 +1,7 @@
-// app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'DialogueService',
-//   function ($scope, $state, Match, Opportunity, User, Scheduler, DialogueService) {
-  app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'Scheduler', 'FilterService', 'DialogueService',
-    function ($scope, $state, Match, Opportunity, User, Scheduler, FilterService, DialogueService) {
+// app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'DialogueService',
+//   function ($scope, $state, Match, Opportunity, User, DialogueService) {
+  app.controller('AdminMatchesScheduleCtrl', ['$scope', '$state', 'Match', 'Opportunity', 'User', 'FilterService', 'DialogueService',
+    function ($scope, $state, Match, Opportunity, User, FilterService, DialogueService) {
          // $scope.mySelections = [];
          // $scope.myData = [
          //                   // {1: 'Beats', 10: 'R1', 11: '4', 12: 'R2'},
@@ -21,9 +21,7 @@
          //      //   {field: 12, displayName: 'James'}
          //      // ]
          //  };
-         //Scheduler.opportunitySchedule();
          console.log(FilterService.columnData);
-          // $scope.myData = Scheduler.scheduleData;
           $scope.grid = {
             columnDefs: FilterService.columnData,
             horizontalScroll: true,
@@ -32,31 +30,10 @@
       // console.log(FilterService.users, " users");
       // console.log(FilterService.opportunities, ' opportunities');
       // console.log(FilterService.columnData, ' columnData');
-      // console.log(Scheduler.scheduleData, ' scheduleData');
-      // console.log(Scheduler.interests, ' schedule');
-      // console.log(Scheduler.userSchedule, ' userSchedule');
 
 
-      //         var schedulerOutput = Scheduler.schedule(11, 10, 6, function(output) {
-      //           $scope.opportunities = output.opportunities;
-      //           $scope.schedule = output.schedule;
-      //           console.log($scope.schedule);
-      //           $scope.candidates = output.candidates;
 
-      //           // console.log("$scope.opportunities",$scope.opportunities)
-      //           for (var can = 0; can < $scope.candidates.length; can++) {
-      //             $scope.userMap[$scope.candidates[can]._id] = $scope.candidates[can].name || $scope.candidates[can].email;
-      //           }
-      //           // reformat opportunities so lookup by id
-      //           var oppsById = {};
-      //           $scope.opportunities.forEach(function (opp) {
-      //             oppsById[opp._id] = opp;
-      //           });
-      //           $scope.opportunities = oppsById;
-      //           readyData();
-      //         });
-      //       });
-      //     });
+
 
 
 //     $scope.slots = 6;
@@ -145,35 +122,12 @@
 //   $scope.downloadSchedule = function () {
 //     // show dialogue
 //     var title = "Schedule Processing in Progress";
-//     var message = "The scheduler can take up to 5 minutes to complete. Please wait while the scheduler is at work!"
+//     var message = "The  can take up to 5 minutes to complete. Please wait while the  is at work!"
 //
 //     DialogueService.setMessage(title, message);
 //     DialogueService.show();
 //
-//     Scheduler.schedule(
-//       $scope.config.rounds,
-//       $scope.config.maxInterviews,
-//       $scope.config.minInterviews,
-//       function(output) {
-//         // hide dialogue
-//         DialogueService.clearAndHide();
-//         $scope.opportunities = output.opportunities;
-//         $scope.schedule = output.schedule;
-//         $scope.candidates = output.candidates;
-//         $scope.candidateSchedule = output.candidateSchedule;
-//
-//         // reformat opportunities so lookup by id
-//         var oppsById = {};
-//         $scope.opportunities.forEach(function (opp) {
-//           oppsById[opp._id] = opp;
-//         });
-//
-//         $scope.opportunities = oppsById;
-//
-//       readyData();
-//     });
-//
-//   };
+
 //
 //
 //   function download(strData, strFileName, strMimeType) {

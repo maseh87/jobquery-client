@@ -1,6 +1,6 @@
 app.controller('AdminMatchesCtrl',
-  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'Scheduler', 'SERVER_URL', 'DialogueService',
-  function ($scope, $state, $http, Match, Opportunity, User, Scheduler, SERVER_URL, DialogueService) {
+  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'SERVER_URL', 'DialogueService',
+  function ($scope, $state, $http, Match, Opportunity, User, SERVER_URL, DialogueService) {
 
   // Match.getAll().then(function (matchData) {
   //   User.getAll().then(function (users) {
@@ -120,34 +120,11 @@ app.controller('AdminMatchesCtrl',
   // $scope.downloadSchedule = function () {
   //   // show dialogue
   //   var title = "Schedule Processing in Progress";
-  //   var message = "The scheduler can take up to 5 minutes to complete. Please wait while the scheduler is at work!"
+  //   var message = "The can take up to 5 minutes to complete. Please wait while the  is at work!"
 
   //   DialogueService.setMessage(title, message);
   //   DialogueService.show();
 
-  //   Scheduler.schedule(
-  //     $scope.config.rounds,
-  //     $scope.config.maxInterviews,
-  //     $scope.config.minInterviews,
-  //     function(output) {
-  //       // hide dialogue
-  //       DialogueService.clearAndHide();
-  //       $scope.opportunities = output.opportunities;
-  //       $scope.schedule = output.schedule;
-  //       $scope.candidates = output.candidates;
-  //       $scope.candidateSchedule = output.candidateSchedule;
-
-  //       // reformat opportunities so lookup by id
-  //       var oppsById = {};
-  //       $scope.opportunities.forEach(function (opp) {
-  //         oppsById[opp._id] = opp;
-  //       });
-
-  //       $scope.opportunities = oppsById;
-
-  //     readyData();
-  //   });
-  // };
 
   // function download(strData, strFileName, strMimeType) {
   //   var D = document,
@@ -184,7 +161,6 @@ app.controller('AdminMatchesCtrl',
   //   return true;
   // } /* end download() */
 
-  // /* SCHEDULER */
 
   // $scope.slots = [
   //   {time: '09:00am'},
