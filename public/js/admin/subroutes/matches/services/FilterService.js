@@ -177,7 +177,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
         scheduleMatrix = createScheduleMatrix();
 
         /////scheduleSingleOpp function//////
-        var scheduleSingleOpp = function(oppId, userId, scheduleMatrix) {
+        var scheduleSingleOpp = function(oppId, userId, scheduleMatrix, interestLevel) {
+
           /////switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)////
           var switchSlots = function(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule) {
 
@@ -214,9 +215,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
             userForSchedule.scheduleForThisUser[possibleSwitchIndex] = oppId;
             //userForSchedule.numberOfRounds++;
             userForSchedule.numberOfRounds++;
+            userForSchedule[interestLevel].fulfilled++;
+
             //return true
              return true;
           };
+
           //userForSchedule = usersForSchedule[userId];
           var userForSchedule = usersForSchedule[userId];
           //oppSchedule = scheduleMatrix[oppId];
@@ -224,6 +228,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
           //var wasScheduled = false;
           var wasScheduled = false;
 
+          userForSchedule[interestLevel] = usersForSchedule[userId][interestLevel] || {requested: 0, fulfilled: 0};
+          userForSchedule[interestLevel].requested++;
 
 
           //for each timeSlot in oppSchdedule
@@ -242,6 +248,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
               //console.log("scheduled", counterYes++);
               //userForSchedule[numberOfRounds]++;
               userForSchedule.numberOfRounds++;
+              usersForSchedule[userId][interestLevel].fulfilled++;
               //break (from for loop)
               break;
             }
@@ -358,7 +365,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
                         //pop oppId and schedule it(schedule it is a helper function)
                         oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
                         if(usersForSchedule[userId].numberOfRounds < 9) {
-                          scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                          scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix, interestLevel);
                         }
                       }
                     }
@@ -367,7 +374,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
                     oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
 
                     if(usersForSchedule[userId].numberOfRounds < 9) {
-                      scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                      scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix, interestLevel);
                     }
                   }
 
@@ -438,7 +445,33 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
           if( interestLevel === 0 ){
             return 0;
           }
-        }
+        };
+
+        var calculateNumberFulfillment = function(interestLevelClass, userId){
+          var actualInterestLevels;
+          var userInterestsRequested = usersForSchedule[userId];
+          var totalRequested = 0;
+          var totalFulfilled = 0;
+          if( interestLevelClass === 'fours' ){
+            actualInterestLevels = [13, 12, 11];
+          }
+          if( interestLevelClass === 'stars' ){
+            actualInterestLevels = [14];
+          }
+          for(var i = 0; i < actualInterestLevels.length; i++){
+            var actualInterestLevel = actualInterestLevels[i];
+            if( userInterestsRequested[actualInterestLevel] ){
+              totalRequested += userInterestsRequested[actualInterestLevel].requested;
+              totalFulfilled += userInterestsRequested[actualInterestLevel].fulfilled;
+            }
+          }
+          return [totalRequested, totalFulfilled];
+
+        };
+
+        var calculateNumberFulfilledFor = function(interestLevelClass, userId){
+
+        };
 
         var makeScheduleSpreadsheet = function(scheduleMatrix){
           var spreadSheetArray = [];
@@ -470,25 +503,49 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
           var userIds = [];
           var numberOfConvosRow = ['Convos Scheduled'];
           var numberOfBreaksRow = ['Breaks Scheduled'];
-          var userStarsScheduledRow = ['Stars Scheduled'];
+          var userStarsRequestedRow = ['Stars Scheduled'];
           var userStarsFulfilledRow = ['Stars Fulfilled'];
-          var userFoursScheduledRow = ['Fours Scheduled'];
+          var userFoursRequestedRow = ['Fours Scheduled'];
           var userFoursFulfilledRow = ['Fours Fulfilled'];
 
           for(var user in userObj){
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
+
+          topArray.push('Stars Scheduled')
+
           for(var breakStringIndex = 0; breakStringIndex < 10; breakStringIndex++){
             topArray.push('brk');
           }
           spreadSheetArray.push(topArray);
 
-          //STUFF HERE FOR NUMBER OF 4'S FULFILLED ETC
+          for(var i = 0; i < userIds.length; i++){
+            var userId = userIds[i];
+
+            var userStarsFulfillment = calculateNumberFulfillment('stars', userId);
+            var starsRequested = userStarsFulfillment[0];
+            var starsFulfilled = userStarsFulfillment[1];
+            userStarsRequestedRow.push(starsRequested);
+            userStarsFulfilledRow.push(starsFulfilled);
+
+            var userFoursFulfillment = calculateNumberFulfillment('fours', userId);
+            var foursRequested = userFoursFulfillment[0];
+            var foursFulfilled = userFoursFulfillment[1];
+            userFoursRequestedRow.push(foursRequested);
+            userFoursFulfilledRow.push(foursFulfilled);
+
+          }
+
+          spreadSheetArray.push(userStarsRequestedRow);
+          spreadSheetArray.push(userStarsFulfilledRow);
+          spreadSheetArray.push(userFoursRequestedRow);
+          spreadSheetArray.push(userFoursFulfilledRow);
 
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
             var rowArray = [];
+            var numberOfStars = 0;
 
             rowArray.push(opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle);
 
@@ -502,9 +559,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
               var thisUserSchedule = usersForSchedule[userId].scheduleForThisUser;
               var hasAppointment = false;
               for(var roundNumber in thisUserSchedule){
-              var interestLevel = userInterestsForOpportunites[userId][oppId];
-              var translatedInterestLevel = translateInterestLevel(interestLevel);
+                var interestLevel = userInterestsForOpportunites[userId][oppId];
+                var translatedInterestLevel = translateInterestLevel(interestLevel);
                 if( thisUserSchedule[roundNumber] === oppId ){
+                  if( interestLevel === 14 ){
+                    numberOfStars++;
+                  }
                   rowArray.push('R' + (Number(roundNumber) + 1) + ': ' + translatedInterestLevel);
                   hasAppointment = true;
                   break;
@@ -514,6 +574,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
                 rowArray.push(translatedInterestLevel);
               }
             }
+            rowArray.push(numberOfStars);
             for(var roundIndex = 0; roundIndex < breakRounds.length; roundIndex++){
               rowArray.push(breakRounds[roundIndex]);
             }
