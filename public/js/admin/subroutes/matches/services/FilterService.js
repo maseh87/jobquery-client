@@ -465,15 +465,13 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         var makeBossSpreadsheet = function(scheduleMatrix){
           var spreadSheetArray = [];
           var topArray = [''];
-          var breakStrings = ['BREAK1', 'BREAK2', 'BREAK3', 'BREAK4', 'BREAK5', 'BREAK6', 'BREAK7', 'BREAK8', 'BREAK9', 'BREAK10']
           var userIds = [];
           for(var user in userObj){
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
-          for(var breakStringIndex = 0; breakStringIndex < breakStrings.length; breakStringIndex++){
-            var breakString = breakStrings[breakStringIndex];
-            topArray.push(breakString);
+          for(var breakStringIndex = 0; breakStringIndex < 10; breakStringIndex++){
+            topArray.push('brk');
           }
           spreadSheetArray.push(topArray);
           for(var oppId in scheduleMatrix){
