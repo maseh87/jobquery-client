@@ -335,7 +335,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         //////scheduleAllMatches()/////////////////
         var scheduleAllMatches = function (scheduleMatrix) {
           //for everything interestLevel
-          for(var interestLevel = 14; interestLevel > 1; interestLevel--){
+          for(var interestLevel = 14; interestLevel > 3; interestLevel--){
             var numberOfRoundsScheduledTicker = 0;
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
             //while matchesSortedByInterest at this interestLevel has keys, and also numberOfRoundsScheduledTicker is less than 11
