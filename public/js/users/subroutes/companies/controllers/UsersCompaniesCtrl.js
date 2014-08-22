@@ -7,7 +7,6 @@ app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersO
 
   UsersCompany.getAll().then(function (companies) {
     $scope.companies = companies;
-    console.log($scope.companies);
   });
   $scope.num = function(index) {
     if($scope.companies[index].opportunities.length === 1) {
@@ -20,10 +19,8 @@ app.controller('UsersCompaniesCtrl', ['$scope', 'UsersCompany', '$http', 'UsersO
   };
   $scope.location = function(index) {
       if($scope.companies[index].city) {
-        console.log($scope.companies[index])
         return true;
       } else {
-      //  console.log($scope.companies[index])
         return false;
       }
   };
