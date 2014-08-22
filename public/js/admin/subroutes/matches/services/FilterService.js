@@ -471,7 +471,10 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
-          topArray.push('BREAK1');
+          for(var breakStringIndex = 0; breakStringIndex < breakStrings.length; breakStringIndex++){
+            var breakString = breakStrings[breakStringIndex];
+            topArray.push(breakString);
+          }
           spreadSheetArray.push(topArray);
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
@@ -499,7 +502,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                 rowArray.push(translatedInterestLevel);
               }
             }
-            rowArray.push(breakRounds.join(' '));
+            for(var roundIndex = 0; roundIndex < breakRounds.length; roundIndex++){
+              rowArray.push(breakRounds[roundIndex]);
+            }
             spreadSheetArray.push(rowArray);
           }
           return spreadSheetArray.join('\n');
