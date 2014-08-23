@@ -12,7 +12,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
     var cellData = [];
     var matrixData;
     var counterNo = 0;
-    var download = function(){};
 
     //Grab Users and filter accordingly
     User.getAll().then(function(users) {
@@ -469,9 +468,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
 
         };
 
-        var calculateNumberFulfilledFor = function(interestLevelClass, userId){
-
-        };
 
         var makeScheduleSpreadsheet = function(scheduleMatrix){
           var spreadSheetArray = [];
@@ -606,7 +602,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
         var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
         var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
 
-        download = function(str) {
+        var download = function(str) {
          var f = document.createElement("iframe");
          document.body.appendChild(f);
          f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
