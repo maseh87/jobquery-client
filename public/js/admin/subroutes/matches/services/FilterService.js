@@ -49,7 +49,11 @@
  *    day rounds scheduled. This way, we hope, there is an even distribution of how many hiring day
  *    rounds each user has scheduled.
  *
- * 3) usersForSchedule: an object.
+ * 3) scheduleMatrix: an object. This contains all the opportunity ids for the opportunities attending
+ *    hiring day, with an 11 length array for each one which represents its schedule for the day
+ *
+ *
+ * 4) usersForSchedule: an object. This object is populated during the scheduleAllMatches() function call
  *
  *    usersForSchedule = {
  *      UserId: {
@@ -70,8 +74,16 @@
  *    by users who have the fewest number of rounds scheduled, and give the administration data about
  *    how many requests at certain levels were fulfilled
  *
- * 4) scheduleMatrix: an object. This contains all the opportunity ids for the opportunities attending
- *    hiring day
+ * After creating the first 3 of these structures we run scheduleAllMatches(). This function call creates
+ * the usersForSchedule object and also populates the scheduleMatrix.
+ *
+ * Because of the way we populate the schedule, the earlier appointments are consistently of a higher
+ * interest level than the lower ones. To alleviate this we run shuffle schedule.
+ *
+ * We know take the information we have and use it to populate two different spreadsheets for use by the
+ * hiring team: scheduleSpreadsheet is an actual schedule for hiring day; bossSpreadsheet presents a lot
+ * more of the data to the admin and helps them to make any adjustments that they might need to make on the
+ * automated schedule.
  *    
  */
 
@@ -667,9 +679,7 @@ app.factory('FilterService', ['Match', 'User',
         matchesArray = matchData.matches.filter(filterMatches);
         _.forEach(matchesArray, addMatchToPrematchObject);
 
-
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
-
 
         scheduleMatrix = createScheduleMatrix();
 
