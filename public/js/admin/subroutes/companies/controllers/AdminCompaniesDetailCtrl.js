@@ -27,7 +27,6 @@
   $scope.update = function () {
     removeEmptyFields();
     Company.update($scope.company).then(function (data) {
-      console.log('Update successful');
     });
   };
 
