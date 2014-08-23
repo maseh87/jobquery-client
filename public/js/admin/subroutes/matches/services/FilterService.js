@@ -1,82 +1,154 @@
-app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'DialogueService',
-  function ($state, Match, Opportunity, User, DialogueService) {
+/*
+ * This module fetches all the users and all the matches from the database and then filters out the 
+ * users and matches that are actually attending hiring day.
+ *
+ * Then we create 4 data structures from this filtered data that will allow us to quickly and easily
+ * populate the hiring day schedule.
+ *
+ * 1) preMatch: an object. The sole purpose of this object is as a transitional data structure between 
+ *    our filtered data and the matchesSortedByInterest object
+ *
+ * 2) matchesSortedByInterest: an object. It contains all matches from the database, each representing
+ *    the possibility of an appointment between a candidate and a hiring opportunity. Because of the
+ *    particular needs of scheduling hiring day, this object may appear to have a peculiar structure.
+ *    Here is a description of the object and its contents with descriptive key and property values rather
+ *    than the actual property values:
+ *
+ *    matchesSortedByInterest = {
+ *      InterestLevelCadidatesHaveExpressed: {
+ *        NumberOfOpportunitiesUsersHaveExpressedInterestForAtThisLevel: {
+ *          UserIdOfOneOfTheUsers: [OppId1, OppId2, etc]
+ *        }
+ *      }
+ *    }
+ *
+ *    The basic idea behind the scheduling algorithm is that we should try to schedule the matches
+ *    users have expressed the highest level of interest for first. This is why the first nested level
+ *    inside of matchesSortedByInterestLevel is an actual interest level number.
+ *
+ *    Within all the matches for any given interest level, we believe it is sensible to prioritize
+ *    trying to schedule matches for the users who have the fewest number of matches requested at this
+ *    interest level. For example, if Sue has expressed a level 4 interest in 12 opportunities, and 
+ *    Rachael has only expressed level 4 interest for 1 opportunity, Rachael should get one of her
+ *    level 4 opportunities scheduled with higher priority than Sue. This is why the second nested level
+ *    inside of matchesSortedByInterestLevel is the number of interests a particular user has expressed
+ *    at this interest level.
+ *
+ *    The third nested level are user ids for all the users that fall into the category of having this 
+ *    number of interestes expressed for this particular interest level. Each user id key has a value of
+ *    an array containing the opportunity ids of all the opportunities they have expressed interest for 
+ *    at this interest level.
+ *
+ *    To populate the schedule, we will go to the highest interest level and try to schedule each user
+ *    one opportunity that they have expressed interest for at this level, prioritizing the users who 
+ *    have the fewest interests expressed at this level. After we have iterated through all the users once,
+ *    we will iterate again, continuing until we have tried to schedule every opportunity at this level.
+ *
+ *    The above is true for scheduling all the 4's. For every interest level before 4, we do it just a
+ *    a little differently. We give even higher priority to users who have the fewest number of hiring
+ *    day rounds scheduled. This way, we hope, there is an even distribution of how many hiring day
+ *    rounds each user has scheduled.
+ *
+ * 3) scheduleMatrix: an object. This contains all the opportunity ids for the opportunities attending
+ *    hiring day, with an 11 length array for each one which represents its schedule for the day
+ *
+ *
+ * 4) usersForSchedule: an object. This object is populated during the scheduleAllMatches() function call
+ *
+ *    usersForSchedule = {
+ *      UserId: {
+ *        thisUsersSchedule: {
+ *          RoundNumber: OpportunityId (or undefined if not scheduled)
+ *        }
+ *        NumberOfRoundScheduled: a number showing how many rounds this user has been scheduled successfully
+ *        RequestsFulfilled: {
+ *          AnInterestLevel:{
+ *            Requested: a number showing how many opportunities this user requested at this level
+ *            Fulfilled: a number showing how many of these requests have been fulfilled
+ *          }
+ *        }
+ *      }
+ *    }
+ *
+ *    We use the information in this data structure avoid scheduling conflicts, prioritize scheduling
+ *    by users who have the fewest number of rounds scheduled, and give the administration data about
+ *    how many requests at certain levels were fulfilled
+ *
+ * After creating the first 3 of these structures we run scheduleAllMatches(). This function call creates
+ * the usersForSchedule object and also populates the scheduleMatrix.
+ *
+ * Because of the way we populate the schedule, the earlier appointments are consistently of a higher
+ * interest level than the lower ones. To alleviate this we run shuffle schedule.
+ *
+ * We know take the information we have and use it to populate two different spreadsheets for use by the
+ * hiring team: scheduleSpreadsheet is an actual schedule for hiring day; bossSpreadsheet presents a lot
+ * more of the data to the admin and helps them to make any adjustments that they might need to make on the
+ * automated schedule.
+ *    
+ */
 
-    var preMatch = {};
-    var matchesSortedByInterest;
-    var userObj = {};
-    var matches = {};
-    var opportunities = {};
-    var usersForSchedule = {};
-    var userInterestsForOpportunites = {};
-    var columnData = [{field: 'opportunity', displayName: 'Opportunity', width: '20%'}];
-    //an array of all the objects that will populate the cells inside the grid
-    var cellData = [];
-    var matrixData;
-    var counterNo = 0;
 
-    //Grab Users and filter accordingly
-    User.getAll().then(function(users) {
-      var makeUsersForScheduleObject = function(user){
+app.factory('FilterService', ['Match', 'User',
+  function (Match, User) {
 
-        usersForSchedule[user._id] = {};
-        usersForSchedule[user._id].scheduleForThisUser = {};
-        usersForSchedule[user._id].numberOfRounds = 0;
+    User.getAll().then(function(users){
+      Match.getAll().then(function(matchData){
 
-      };
+        var makeUsersForScheduleObject = function(user){
 
-      var filteredUsers = users.filter(function (candidate) {
-        if (candidate.isAdmin) return false;
-        if (!candidate.attending) return false;
-        if (!candidate.isRegistered) return false;
-        if ((candidate.searchStage === 'Out') || (candidate.searchStage === 'Accepted')) return false;
-        return true;
-      });
-      _.forEach(filteredUsers, function(user) {
-        makeUsersForScheduleObject(user);
-        var columnDef = {field: '', displayName: ''};
-        userObj[user._id] = user;
-        columnDef.field = user._id;
-        columnDef.displayName = user.name;
-        columnDef.width = '10%';
-        columnData.push(columnDef);
-      });
-      Match.getAll().then(function(matchData) {
-        var filteredOpps = matchData.opportunities.filter(function (opportunity) {
-          if (!opportunity.active) return false;
-          if (!opportunity.approved) return false;
-          if (opportunity.category.name === "Not Attending Hiring Day") return false;
+          usersForSchedule[user._id] = {};
+          usersForSchedule[user._id].scheduleForThisUser = {};
+          usersForSchedule[user._id].numberOfRounds = 0;
+        };
+
+        var filterCandidates = function (candidate){
+          if (candidate.isAdmin) return false;
+          if (!candidate.attending) return false;
+          if (!candidate.isRegistered) return false;
+          if ((candidate.searchStage === 'Out') || (candidate.searchStage === 'Accepted')) return false;
           return true;
-        });
-        _.forEach(filteredOpps, function(opportunity) {
-          opportunities[opportunity._id] = opportunity;
-        });
-        //filter matches based on if user and opportunity is attending hiring day
-        var matchesArray = matchData.matches.filter(function (match) {
+        };
+
+        var processUserForDataStructures = function(user){
+          makeUsersForScheduleObject(user);
+          userObj[user._id] = user;
+        };
+
+        var filterOpportunities = function (opportunity){
+            if (!opportunity.active) return false;
+            if (!opportunity.approved) return false;
+            if (opportunity.category.name === "Not Attending Hiring Day") return false;
+            return true;
+        };
+
+        var filterMatches = function (match){
           if (userObj[match.user] && opportunities[match.opportunity]) {
             return true;
           } else {
             return false;
           }
-        });
-        //for each match in matchesArray
+        };
+
+        var caculateUserInterestLevel = function(match){
+
           /*
-           Before we run the schedule, we have to calculate the number that represents
-           the precise user interest. This number comes as a result of the userInterest (1 throuh 4),
-           the possible presence of an adminOverride of the userInterest, and also, the presence of any of
-           the four 'Scheduling Preferences' (star, upVote, downVote, noGo). All the possible combinations
-           of these factors results in one of 14 possible values. Therefore, we take all these values into
-           account, and calculate a number between 1 and 14 to represent the 'calculatedUserInterestLevel'.
+           * Before we run the schedule, we have to calculate the number that represents
+           * the precise user interest. This number comes as a result of the userInterest (1 through 4),
+           * the possible presence of an adminOverride of the userInterest, and also, the presence of any of
+           * the four 'Scheduling Preferences' (star, upVote, downVote, noGo). All the possible combinations
+           * of these factors results in one of 14 possible values. Therefore, we take all these values into
+           * account, and calculate a number between 1 and 14 to represent the 'calculatedUserInterestLevel'.
+           * 
+           * Here are the ideas behind the calculation.
+           * 1) If admin has supplied an adminOverride number, this number overwrites the userInterest.
+           * 2) If the interest has a 'star' the value is automatically the highest value (14).
+           * 3) If the interest has a 'noGo', the value is automatically the lowest value (1).
+           * 4) Otherwise we take the userInterest, or adminOverride value [ see 1) ], multiply it by 3
+           *    and then add 1 to it if there is an 'upVote' or subtract 1 if there is a downVote.
+           * 
+           * These steps provide all possible combinations between 1 and 14.
+           */
 
-           Here are the ideas behind the calculation.
-           1) If admin has supplied an adminOverride number, this number overwrites the userInterest.
-           2) If the interest has a 'star' the value is automatically the highest value (14).
-           3) If the interest has a 'noGo', the value is automatically the lowest value (1).
-           4) Otherwise we take the userInterest, or adminOverride value [ see 1) ], multiply it by 3
-              and then add 1 to it if there is an 'upVote' or subtract 1 if there is a downVote.
-
-           These steps provide all possible combinations between 1 and 14.
-          */
-        var caculateUserInterestLevel = function(match) {
           var calculatedUserInterest;
           var userInterest = match.userInterest;
           var adminOverride = match.adminOverride;
@@ -151,20 +223,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           return preMatch;
         };
 
-
-        _.forEach(matchesArray, function(match) {
-          var calculatedLevel = caculateUserInterestLevel(match);
-          makePreMatchObject(match, calculatedLevel);
-        });
-        matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
-        
-
-        var opportunityAppointment = [];
-        var userSchedule = {};
-        var scheduleData = [];
-        var oppToSchedule;
-
-        var createScheduleMatrix = function() {
+        var createScheduleMatrix = function(){
           var scheduleMatrix = {};
           var indexNumber = 0;
           var breakRounds = [3,4,5,6,7];
@@ -178,10 +237,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           return scheduleMatrix;
         };
 
-        scheduleMatrix = createScheduleMatrix();
+        var scheduleSingleOpp = function(oppId, userId, scheduleMatrix, interestLevel){
 
-        /////scheduleSingleOpp function//////
-        var scheduleSingleOpp = function(oppId, userId, scheduleMatrix) {
           /////switchSlots(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule)////
           var switchSlots = function(emptySpaceIndex, possibleSwitchIndex, oppSchedule, userForSchedule) {
 
@@ -218,9 +275,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             userForSchedule.scheduleForThisUser[possibleSwitchIndex] = oppId;
             //userForSchedule.numberOfRounds++;
             userForSchedule.numberOfRounds++;
+            userForSchedule[interestLevel].fulfilled++;
+
             //return true
              return true;
           };
+
           //userForSchedule = usersForSchedule[userId];
           var userForSchedule = usersForSchedule[userId];
           //oppSchedule = scheduleMatrix[oppId];
@@ -228,6 +288,8 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           //var wasScheduled = false;
           var wasScheduled = false;
 
+          userForSchedule[interestLevel] = usersForSchedule[userId][interestLevel] || {requested: 0, fulfilled: 0};
+          userForSchedule[interestLevel].requested++;
 
 
           //for each timeSlot in oppSchdedule
@@ -245,6 +307,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               wasScheduled = true;
               //userForSchedule[numberOfRounds]++;
               userForSchedule.numberOfRounds++;
+              usersForSchedule[userId][interestLevel].fulfilled++;
               //break (from for loop)
               break;
             }
@@ -283,8 +346,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                 }
               }
             }
-          }
-          if(!wasScheduled){
           }
           scheduleMatrix[oppId] = oppSchedule;
           //return oppSchedule;
@@ -332,8 +393,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           }
         };
 
-        //////scheduleAllMatches()/////////////////
-        var scheduleAllMatches = function (scheduleMatrix) {
+        var scheduleAllMatches = function (scheduleMatrix){
           //for everything interestLevel
           for(var interestLevel = 14; interestLevel > 3; interestLevel--){
             var numberOfRoundsScheduledTicker = 0;
@@ -355,9 +415,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                       var currentRoundsForUser = usersForSchedule[userId].numberOfRounds;
                       while( usersForSchedule[userId].numberOfRounds === currentRoundsForUser && matchesForThisInterestLevel[numberOfRequests][userId].length > 0){
                         //pop oppId and schedule it(schedule it is a helper function)
-                        oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
+                        var oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
                         if(usersForSchedule[userId].numberOfRounds < 9) {
-                          scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                          scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix, interestLevel);
                         }
                       }
                     }
@@ -365,7 +425,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     //pop oppId and schedule it(schedule it is a helper function)
                     oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
                     if(usersForSchedule[userId].numberOfRounds < 9) {
-                      scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                      scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix, interestLevel);
                     }
                   }
 
@@ -436,7 +496,28 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           if( interestLevel === 0 ){
             return 0;
           }
-        }
+        };
+
+        var calculateNumberFulfillment = function(interestLevelClass, userId){
+          var actualInterestLevels;
+          var userInterestsRequested = usersForSchedule[userId];
+          var totalRequested = 0;
+          var totalFulfilled = 0;
+          if( interestLevelClass === 'fours' ){
+            actualInterestLevels = [13, 12, 11];
+          }
+          if( interestLevelClass === 'stars' ){
+            actualInterestLevels = [14];
+          }
+          for(var i = 0; i < actualInterestLevels.length; i++){
+            var actualInterestLevel = actualInterestLevels[i];
+            if( userInterestsRequested[actualInterestLevel] ){
+              totalRequested += userInterestsRequested[actualInterestLevel].requested;
+              totalFulfilled += userInterestsRequested[actualInterestLevel].fulfilled;
+            }
+          }
+          return [totalRequested, totalFulfilled];
+        };
 
         var makeScheduleSpreadsheet = function(scheduleMatrix){
           var spreadSheetArray = [];
@@ -466,18 +547,54 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           var spreadSheetArray = [];
           var topArray = [''];
           var userIds = [];
+          var numberOfConvosRow = ['Convos Scheduled'];
+          var numberOfBreaksRow = ['Breaks Scheduled'];
+          var userStarsRequestedRow = ['Stars Scheduled'];
+          var userStarsFulfilledRow = ['Stars Fulfilled'];
+          var userFoursRequestedRow = ['Fours Scheduled'];
+          var userFoursFulfilledRow = ['Fours Fulfilled'];
+
           for(var user in userObj){
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
+
+          topArray.push('Stars Scheduled')
+
           for(var breakStringIndex = 0; breakStringIndex < 10; breakStringIndex++){
             topArray.push('brk');
           }
           spreadSheetArray.push(topArray);
+
+          for(var i = 0; i < userIds.length; i++){
+            var userId = userIds[i];
+
+            var userStarsFulfillment = calculateNumberFulfillment('stars', userId);
+            var starsRequested = userStarsFulfillment[0];
+            var starsFulfilled = userStarsFulfillment[1];
+            userStarsRequestedRow.push(starsRequested);
+            userStarsFulfilledRow.push(starsFulfilled);
+
+            var userFoursFulfillment = calculateNumberFulfillment('fours', userId);
+            var foursRequested = userFoursFulfillment[0];
+            var foursFulfilled = userFoursFulfillment[1];
+            userFoursRequestedRow.push(foursRequested);
+            userFoursFulfilledRow.push(foursFulfilled);
+
+          }
+
+          spreadSheetArray.push(userStarsRequestedRow);
+          spreadSheetArray.push(userStarsFulfilledRow);
+          spreadSheetArray.push(userFoursRequestedRow);
+          spreadSheetArray.push(userFoursFulfilledRow);
+
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
             var rowArray = [];
+            var numberOfStars = 0;
+
             rowArray.push(opportunities[oppId].company.name + ': ' + opportunities[oppId].jobTitle);
+
             for(var j = 0; j < scheduleMatrix[oppId].length; j++){
               if( scheduleMatrix[oppId][j] === 'BREAK' || scheduleMatrix[oppId][j] === undefined ){
                 breakRounds.push('R' + (Number(j) + 1));
@@ -488,9 +605,12 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               var thisUserSchedule = usersForSchedule[userId].scheduleForThisUser;
               var hasAppointment = false;
               for(var roundNumber in thisUserSchedule){
-              var interestLevel = userInterestsForOpportunites[userId][oppId];
-              var translatedInterestLevel = translateInterestLevel(interestLevel);
+                var interestLevel = userInterestsForOpportunites[userId][oppId];
+                var translatedInterestLevel = translateInterestLevel(interestLevel);
                 if( thisUserSchedule[roundNumber] === oppId ){
+                  if( interestLevel === 14 ){
+                    numberOfStars++;
+                  }
                   rowArray.push('R' + (Number(roundNumber) + 1) + ': ' + translatedInterestLevel);
                   hasAppointment = true;
                   break;
@@ -500,39 +620,82 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                 rowArray.push(translatedInterestLevel);
               }
             }
+            rowArray.push(numberOfStars);
             for(var roundIndex = 0; roundIndex < breakRounds.length; roundIndex++){
               rowArray.push(breakRounds[roundIndex]);
             }
             spreadSheetArray.push(rowArray);
           }
+
+          for(var i = 0; i < userIds.length; i++){
+            var userId = userIds[i];
+            var numberOfConvos = usersForSchedule[userId].numberOfRounds;
+            var numberOfBreaks = 11 - numberOfConvos;
+            numberOfConvosRow.push(numberOfConvos);
+            numberOfBreaksRow.push(numberOfBreaks);
+          }
+
+          spreadSheetArray.push(numberOfConvosRow);
+          spreadSheetArray.push(numberOfBreaksRow);
+
           return spreadSheetArray.join('\n');
         };
 
-        scheduleAllMatches(scheduleMatrix);
-        shuffleSchedule(scheduleMatrix, usersForSchedule);
-        for(var k in scheduleMatrix){
-          for(var j in scheduleMatrix[k]){
-            if(scheduleMatrix[k][j] === "BREAK"){
-            }
-          }
-        }
-        var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
-        var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
-
-        var download = function(str) {
+        var downloadSpreadsheet = function(csvString){
          var f = document.createElement("iframe");
          document.body.appendChild(f);
-         f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
+         f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(csvString);
+        };
+
+        var populateOpportunitiesObject = function(opportunity){
+
+          opportunities[opportunity._id] = opportunity;
+        };
+
+        var addMatchToPrematchObject = function(match){
+          var calculatedLevel = caculateUserInterestLevel(match);
+          makePreMatchObject(match, calculatedLevel);
         };
 
 
-        //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
-        // download(scheduleSpreadSheet);
-        download(bossSpreadsheet);
+        var preMatch = {};
+        var userObj = {};
+        var matches = {};
+        var opportunities = {};
+        var usersForSchedule = {};
+        var userInterestsForOpportunites = {};
+        var userSchedule = {};
+        var opportunityAppointment = [];
+        var scheduleData = [];
+        var matchesSortedByInterest, filteredUsers, filteredOpps, matchesArray, scheduleMatrix, scheduleSpreadSheet, bossSpreadsheet;
+
+        filteredUsers = users.filter(filterCandidates);
+        _.forEach(filteredUsers, processUserForDataStructures);
+
+        filteredOpps = matchData.opportunities.filter(filterOpportunities);
+        _.forEach(filteredOpps, populateOpportunitiesObject);
+
+        //filter matches based on if user and opportunity is attending hiring day
+        matchesArray = matchData.matches.filter(filterMatches);
+        _.forEach(matchesArray, addMatchToPrematchObject);
+
+        matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
+
+        scheduleMatrix = createScheduleMatrix();
+
+        scheduleAllMatches(scheduleMatrix);
+        shuffleSchedule(scheduleMatrix, usersForSchedule);
+
+        scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
+        bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
+
+        downloadSpreadsheet(scheduleSpreadSheet);
+        downloadSpreadsheet(bossSpreadsheet);
+
       });
     });
 
     return {
-      // download: download(scheduleSpreadSheet)
     };
 }]);
+This looks like a JavaScript file. Click this bar to format it.

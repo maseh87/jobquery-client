@@ -6,7 +6,6 @@ app.factory('User', ['UserResource', 'SERVER_URL', '$http' ,function (UserResour
   var userMethods = {};
 
   userMethods.getAll = function (id) {
-    // return UserResource.query().$promise;
     var url = SERVER_URL + '/api/users';
     if(id) {
       url += '/' + id;
@@ -22,7 +21,6 @@ app.factory('User', ['UserResource', 'SERVER_URL', '$http' ,function (UserResour
   };
 
   userMethods.get = function (id) {
-    // return UserResource.get({_id: id}).$promise;
     return userMethods.getAll(id);
   };
 
@@ -48,5 +46,3 @@ app.factory('User', ['UserResource', 'SERVER_URL', '$http' ,function (UserResour
 
   return userMethods;
 }]);
-
-

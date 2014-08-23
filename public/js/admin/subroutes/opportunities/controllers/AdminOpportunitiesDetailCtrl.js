@@ -9,7 +9,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
   $scope.seePreview = function() {
     $state.go("admin.opportunities.preview", {_id: $scope.oppData._id});
   };
-// ui-sref="admin.opportunities.preview({_id: oppData._id})"
   Company.getAll().then(function (companies) {
     $scope.companies = companies;
 
@@ -375,7 +374,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
     for(var glyphName in glyphs){
       user[glyphName] = false;
     }
-    console.dir(user);
     $scope.edit(user);
   };
 
