@@ -611,8 +611,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
          document.body.appendChild(f);
          f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
         };
-
-        //  console.log(scheduleMatrix)
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
         download(scheduleSpreadSheet);
         download(bossSpreadsheet);
@@ -620,6 +618,5 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User',
     });
 
     return {
-      download: download
     };
 }]);
