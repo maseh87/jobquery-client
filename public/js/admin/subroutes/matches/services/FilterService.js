@@ -1,3 +1,81 @@
+/*
+ * This module fetches all the users and all the matches from the database and then filters out the 
+ * users and matches that are actually attending hiring day.
+ *
+ * Then we create 4 data structures from this filtered data that will allow us to quickly and easily
+ * populate the hiring day schedule.
+ *
+ * 1) preMatch: an object. The sole purpose of this object is as a transitional data structure between 
+ *    our filtered data and the matchesSortedByInterest object
+ *
+ * 2) matchesSortedByInterest: an object. It contains all matches from the database, each representing
+ *    the possibility of an appointment between a candidate and a hiring opportunity. Because of the
+ *    particular needs of scheduling hiring day, this object may appear to have a peculiar structure.
+ *    Here is a description of the object and its contents with descriptive key and property values rather
+ *    than the actual property values:
+ *
+ *    matchesSortedByInterest = {
+ *      InterestLevelCadidatesHaveExpressed: {
+ *        NumberOfOpportunitiesUsersHaveExpressedInterestForAtThisLevel: {
+ *          UserIdOfOneOfTheUsers: [OppId1, OppId2, etc]
+ *        }
+ *      }
+ *    }
+ *
+ *    The basic idea behind the scheduling algorithm is that we should try to schedule the matches
+ *    users have expressed the highest level of interest for first. This is why the first nested level
+ *    inside of matchesSortedByInterestLevel is an actual interest level number.
+ *
+ *    Within all the matches for any given interest level, we believe it is sensible to prioritize
+ *    trying to schedule matches for the users who have the fewest number of matches requested at this
+ *    interest level. For example, if Sue has expressed a level 4 interest in 12 opportunities, and 
+ *    Rachael has only expressed level 4 interest for 1 opportunity, Rachael should get one of her
+ *    level 4 opportunities scheduled with higher priority than Sue. This is why the second nested level
+ *    inside of matchesSortedByInterestLevel is the number of interests a particular user has expressed
+ *    at this interest level.
+ *
+ *    The third nested level are user ids for all the users that fall into the category of having this 
+ *    number of interestes expressed for this particular interest level. Each user id key has a value of
+ *    an array containing the opportunity ids of all the opportunities they have expressed interest for 
+ *    at this interest level.
+ *
+ *    To populate the schedule, we will go to the highest interest level and try to schedule each user
+ *    one opportunity that they have expressed interest for at this level, prioritizing the users who 
+ *    have the fewest interests expressed at this level. After we have iterated through all the users once,
+ *    we will iterate again, continuing until we have tried to schedule every opportunity at this level.
+ *
+ *    The above is true for scheduling all the 4's. For every interest level before 4, we do it just a
+ *    a little differently. We give even higher priority to users who have the fewest number of hiring
+ *    day rounds scheduled. This way, we hope, there is an even distribution of how many hiring day
+ *    rounds each user has scheduled.
+ *
+ * 3) usersForSchedule: an object.
+ *
+ *    usersForSchedule = {
+ *      UserId: {
+ *        thisUsersSchedule: {
+ *          RoundNumber: OpportunityId (or undefined if not scheduled)
+ *        }
+ *        NumberOfRoundScheduled: a number showing how many rounds this user has been scheduled successfully
+ *        RequestsFulfilled: {
+ *          AnInterestLevel:{
+ *            Requested: a number showing how many opportunities this user requested at this level
+ *            Fulfilled: a number showing how many of these requests have been fulfilled
+ *          }
+ *        }
+ *      }
+ *    }
+ *
+ *    We use the information in this data structure avoid scheduling conflicts, prioritize scheduling
+ *    by users who have the fewest number of rounds scheduled, and give the administration data about
+ *    how many requests at certain levels were fulfilled
+ *
+ * 4) scheduleMatrix: an object. This contains all the opportunity ids for the opportunities attending
+ *    hiring day
+ *    
+ */
+
+
 app.factory('FilterService', ['Match', 'User',
   function (Match, User) {
 
@@ -39,24 +117,26 @@ app.factory('FilterService', ['Match', 'User',
           }
         };
 
-        /*
-         Before we run the schedule, we have to calculate the number that represents
-         the precise user interest. This number comes as a result of the userInterest (1 throuh 4),
-         the possible presence of an adminOverride of the userInterest, and also, the presence of any of
-         the four 'Scheduling Preferences' (star, upVote, downVote, noGo). All the possible combinations
-         of these factors results in one of 14 possible values. Therefore, we take all these values into
-         account, and calculate a number between 1 and 14 to represent the 'calculatedUserInterestLevel'.
-
-         Here are the ideas behind the calculation.
-         1) If admin has supplied an adminOverride number, this number overwrites the userInterest.
-         2) If the interest has a 'star' the value is automatically the highest value (14).
-         3) If the interest has a 'noGo', the value is automatically the lowest value (1).
-         4) Otherwise we take the userInterest, or adminOverride value [ see 1) ], multiply it by 3
-            and then add 1 to it if there is an 'upVote' or subtract 1 if there is a downVote.
-
-         These steps provide all possible combinations between 1 and 14.
-        */
         var caculateUserInterestLevel = function(match){
+
+          /*
+           * Before we run the schedule, we have to calculate the number that represents
+           * the precise user interest. This number comes as a result of the userInterest (1 through 4),
+           * the possible presence of an adminOverride of the userInterest, and also, the presence of any of
+           * the four 'Scheduling Preferences' (star, upVote, downVote, noGo). All the possible combinations
+           * of these factors results in one of 14 possible values. Therefore, we take all these values into
+           * account, and calculate a number between 1 and 14 to represent the 'calculatedUserInterestLevel'.
+           * 
+           * Here are the ideas behind the calculation.
+           * 1) If admin has supplied an adminOverride number, this number overwrites the userInterest.
+           * 2) If the interest has a 'star' the value is automatically the highest value (14).
+           * 3) If the interest has a 'noGo', the value is automatically the lowest value (1).
+           * 4) Otherwise we take the userInterest, or adminOverride value [ see 1) ], multiply it by 3
+           *    and then add 1 to it if there is an 'upVote' or subtract 1 if there is a downVote.
+           * 
+           * These steps provide all possible combinations between 1 and 14.
+           */
+
           var calculatedUserInterest;
           var userInterest = match.userInterest;
           var adminOverride = match.adminOverride;
@@ -575,7 +655,7 @@ app.factory('FilterService', ['Match', 'User',
         var userSchedule = {};
         var opportunityAppointment = [];
         var scheduleData = [];
-        var matchesSortedByInterest, filteredUsers, filteredOpps, matchesArray, scheduleSpreadSheet, bossSpreadsheet;
+        var matchesSortedByInterest, filteredUsers, filteredOpps, matchesArray, scheduleMatrix, scheduleSpreadSheet, bossSpreadsheet;
 
         filteredUsers = users.filter(filterCandidates);
         _.forEach(filteredUsers, processUserForDataStructures);
