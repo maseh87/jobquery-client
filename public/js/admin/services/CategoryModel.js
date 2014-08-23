@@ -5,6 +5,7 @@ app.factory('Category', ['$http', 'SERVER_URL', function ($http, SERVER_URL) {
       if(!type){
         return $http({
           method: 'GET',
+          cache: true,
           url: SERVER_URL + '/api/categories'
         }).then(function (response) {
           return response.data;
@@ -12,6 +13,7 @@ app.factory('Category', ['$http', 'SERVER_URL', function ($http, SERVER_URL) {
       } else {
         return $http({
           method: 'GET',
+          cache: true,
           url: SERVER_URL + '/api/categories/type/' + type
         }).then(function (response) {
           return response.data;

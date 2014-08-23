@@ -2,15 +2,26 @@ app.factory('TagResource', ['$resource', 'SERVER_URL', function($resource, SERVE
   return $resource(SERVER_URL + '/api/tags/:_id', null, {update: {method: 'PUT'}});
 }]);
 
-app.factory('Tag', ['TagResource', function (TagResource) {
+app.factory('Tag', ['TagResource', '$http', 'SERVER_URL', function (TagResource, $http, SERVER_URL) {
   var tagMethods = {};
 
-  tagMethods.getAll = function () {
-    return TagResource.query().$promise;
+  tagMethods.getAll = function (id) {
+    var url = SERVER_URL + '/api/tags';
+    if(id) {
+      url += '/' + id;
+    }
+    return $http({
+      method: 'GET',
+      url: url,
+      cache: true
+    })
+    .then(function(response) {
+      return response.data;
+    });
   };
 
   tagMethods.get = function (id) {
-    return TagResource.get({_id: id}).$promise;
+    return tagMethods.getAll(id);
   };
 
   tagMethods.create = function (newTag) {
