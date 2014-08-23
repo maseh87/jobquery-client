@@ -4,7 +4,7 @@ describe('Unit: AdminMatchesCtrl', function(){
   // Load the module with MainController
   beforeEach(module('jobQuery'));
 
-  var ctrl, scope, FilterService, Match, Opportunity, User, Scheduler, DialogueService, document;
+  var ctrl, scope, FilterService, Match, Opportunity, User, DialogueService, document;
   // inject the $controller and $rootScope services
   // in the beforeEach block
   beforeEach(inject(function($controller, $rootScope, $injector, $document) {
@@ -14,7 +14,6 @@ describe('Unit: AdminMatchesCtrl', function(){
     Match = $injector.get('Match');
     Opportunity = $injector.get('Opportunity');
     User = $injector.get('User');
-    Scheduler = $injector.get('Scheduler');
     DialogueService = $injector.get('DialogueService');
 
     // Create a new scope that's a child of the $rootScope
@@ -26,7 +25,6 @@ describe('Unit: AdminMatchesCtrl', function(){
       Match: Match,
       Opportunity: Opportunity,
       User: User,
-      Scheduler: Scheduler,
       DialogueService: DialogueService,
       $document: document
     });
