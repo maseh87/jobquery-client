@@ -691,3 +691,4 @@ app.factory('FilterService', ['Match', 'User',
     return {
     };
 }]);
+This looks like a JavaScript file. Click this bar to format it.
