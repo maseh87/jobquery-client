@@ -18,14 +18,12 @@ var later = function(){
   //   var indexNumber = 0;
   //   var breakRounds = [4,5,6,7,8];
   //   _.forEach(opportunities, function(opportunity, oppId) {
-  //     //console.log("HERERERERERERERERRRRRRRRRR");
   //     var roundsForThisOpportunity = new Array(11);
   //     var breakRound = breakRounds[indexNumber % 5];
   //     roundsForThisOpportunity[breakRound] = 'BREAK';
   //     scheduleMatrix[oppId] = roundsForThisOpportunity;
   //     indexNumber++;
   //   });
-  //     console.dir(scheduleMatrix);
   //   return scheduleMatrix;
   // };
   //
@@ -51,13 +49,11 @@ var later = function(){
   //               //pop oppId and schedule it(schedule it is a helper function)
   //               oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
   //               //scheduleSingleOpp(oppToSchedule, userId);
-  //               console.log("Calling scheduleSingleOpp()");
   //             }
   //           }else{
   //             //pop oppId and schedule it(schedule it is a helper function)
   //             oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
   //             //scheduleSingleOpp(oppToSchedule, userId);
-  //             console.log("Calling scheduleSingleOpp()");
   //           }
   //
   //           //check if userId's value is empty
@@ -80,7 +76,6 @@ var later = function(){
   //   }
   // };
   // scheduleAllMatches();
-  ///console.dir(matchesSortedByInterest);
   /////scheduler function//////
   // inputs oppId, userId
 

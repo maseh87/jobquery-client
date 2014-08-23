@@ -47,7 +47,6 @@ app.controller('AdminMatchesCtrl',
   //     $scope.users.forEach(function (user, i) {
   //       if (user.name) {
   //         userMap[user._id] = user.name;
-  //         // console.log(user);
   //       } else {
   //         // default to email if user has not filled in name
   //         userMap[user._id] = user.email;
@@ -110,7 +109,6 @@ app.controller('AdminMatchesCtrl',
   // $scope.downloadData = function () {
   //   $http.get(SERVER_URL + '/api/matches/download')
   //   .success(function (results) {
-  //     console.log(results);
   //     if (arguments[1] === 200) {
   //       $scope.dataToDownload = arguments[0];
   //       download(arguments[0], 'exported', 'text/csv');
@@ -246,7 +244,6 @@ app.controller('AdminMatchesCtrl',
   //     for (var j=0; j < userOrder.length; j++) {
   //       var uid = userOrder[j];
   //       if (!emptySchedule[j]) {
-  //         //console.log("what is matrix", $scope.matrix[uid])
   //         for (var k=0; k < $scope.matrix[uid].length; k++) {
   //           var matrixMap = $scope.matrix[uid][k];
   //           if (matrixMap.user === uid && matrixMap.opportunity === oppId) {
