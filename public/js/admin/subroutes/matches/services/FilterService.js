@@ -8,14 +8,14 @@
  * 1) preMatch: an object. The sole purpose of this object is as a transitional data structure between 
  *    our filtered data and the matchesSortedByInterest object
  *
- * 2) matchesSortedByInterest: an object. It contains all matches from the database, each representing
+ * 2) matchesSortedByInterest: an object. It contains all filtered matches from the database, each representing
  *    the possibility of an appointment between a candidate and a hiring opportunity. Because of the
- *    particular needs of scheduling hiring day, this object may appear to have a peculiar structure.
+ *    particular needs of scheduling hiring day, this object has a particular structure.
  *    Here is a description of the object and its contents with descriptive key and property values rather
  *    than the actual property values:
  *
  *    matchesSortedByInterest = {
- *      InterestLevelCadidatesHaveExpressed: {
+ *      InterestLevelsForOpportunities: {
  *        NumberOfOpportunitiesUsersHaveExpressedInterestForAtThisLevel: {
  *          UserIdOfOneOfTheUsers: [OppId1, OppId2, etc]
  *        }
@@ -35,7 +35,7 @@
  *    at this interest level.
  *
  *    The third nested level are user ids for all the users that fall into the category of having this 
- *    number of interestes expressed for this particular interest level. Each user id key has a value of
+ *    number of interests expressed for this particular interest level. Each user id key has a value of
  *    an array containing the opportunity ids of all the opportunities they have expressed interest for 
  *    at this interest level.
  *
@@ -46,8 +46,8 @@
  *
  *    The above is true for scheduling all the 4's. For every interest level before 4, we do it just a
  *    a little differently. We give even higher priority to users who have the fewest number of hiring
- *    day rounds scheduled. This way, we hope, there is an even distribution of how many hiring day
- *    rounds each user has scheduled.
+ *    day rounds scheduled (<- this information is located in 'usersForSchedule', see below).
+ *    This way, we hope, there is an even distribution of how many hiring day rounds each user has scheduled.
  *
  * 3) scheduleMatrix: an object. This contains all the opportunity ids for the opportunities attending
  *    hiring day, with an 11 length array for each one which represents its schedule for the day
@@ -58,9 +58,10 @@
  *    usersForSchedule = {
  *      UserId: {
  *        thisUsersSchedule: {
- *          RoundNumber: OpportunityId (or undefined if not scheduled)
+ *          RoundNumber1: OpportunityId (or undefined if not scheduled)
+ *          RoundNumber2: OpportunityId (or undefined if not scheduled)
  *        }
- *        NumberOfRoundScheduled: a number showing how many rounds this user has been scheduled successfully
+ *        NumberOfRoundScheduled: a number showing how many rounds this user has been successfully scheduled
  *        RequestsFulfilled: {
  *          AnInterestLevel:{
  *            Requested: a number showing how many opportunities this user requested at this level
@@ -70,17 +71,17 @@
  *      }
  *    }
  *
- *    We use the information in this data structure avoid scheduling conflicts, prioritize scheduling
+ *    We use the information in this data structure to avoid scheduling conflicts, prioritize scheduling
  *    by users who have the fewest number of rounds scheduled, and give the administration data about
- *    how many requests at certain levels were fulfilled
+ *    how many requests at certain levels were fulfilled.
  *
  * After creating the first 3 of these structures we run scheduleAllMatches(). This function call creates
  * the usersForSchedule object and also populates the scheduleMatrix.
  *
- * Because of the way we populate the schedule, the earlier appointments are consistently of a higher
- * interest level than the lower ones. To alleviate this we run shuffle schedule.
+ * Because of the way we populate the schedule, the earlier appointments in the day are consistently of a 
+ * higher interest level than the later ones. To alleviate this we run shuffleSchedule().
  *
- * We know take the information we have and use it to populate two different spreadsheets for use by the
+ * We now take the information we have and use it to populate two different spreadsheets for use by the
  * hiring team: scheduleSpreadsheet is an actual schedule for hiring day; bossSpreadsheet presents a lot
  * more of the data to the admin and helps them to make any adjustments that they might need to make on the
  * automated schedule.
@@ -115,10 +116,10 @@ app.factory('FilterService', ['Match', 'User',
         };
 
         var filterOpportunities = function (opportunity){
-            if (!opportunity.active) return false;
-            if (!opportunity.approved) return false;
-            if (opportunity.category.name === "Not Attending Hiring Day") return false;
-            return true;
+          if (!opportunity.active) return false;
+          if (!opportunity.approved) return false;
+          if (opportunity.category.name === "Not Attending Hiring Day") return false;
+          return true;
         };
 
         var filterMatches = function (match){
