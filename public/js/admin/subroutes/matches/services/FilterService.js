@@ -407,9 +407,6 @@ app.factory('FilterService', ['Match', 'User',
 
                   //if interestLevel is less than 11
                   if( interestLevel < 11){
-                    if( userId === '53d984fb1e4c45681343d4a6' ){
-                      // debugger;
-                    }
                     //if # for this user equals numberOfRoundsScheduledTicker
                     if(usersForSchedule[userId].numberOfRounds <= numberOfRoundsScheduledTicker) {
                       var currentRoundsForUser = usersForSchedule[userId].numberOfRounds;

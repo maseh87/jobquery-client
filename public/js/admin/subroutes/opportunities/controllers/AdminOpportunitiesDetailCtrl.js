@@ -375,7 +375,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
     for(var glyphName in glyphs){
       user[glyphName] = false;
     }
-    console.dir(user);
     $scope.edit(user);
   };
 
