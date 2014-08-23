@@ -157,6 +157,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
           makePreMatchObject(match, calculatedLevel);
         });
         matchesSortedByInterest = makeMatchesSortedByInterest(preMatch);
+        
 
         var opportunityAppointment = [];
         var userSchedule = {};
@@ -284,8 +285,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             }
           }
           if(!wasScheduled){
-            counterNo++;
-          //  console.log("not scheduled ", counterNo++)
           }
           scheduleMatrix[oppId] = oppSchedule;
           //return oppSchedule;
@@ -293,24 +292,24 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         var shuffleSchedule = function(scheduleMatrix, usersForSchedule){
 
-            var baseArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-            var outsideRounds = [0, 1, 2, 8, 9, 10];
-            var insideRounds = [3, 4, 5, 6, 7];
-            var shuffledScheduleObject = {};
+          var baseArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+          var outsideRounds = [0, 1, 2, 8, 9, 10];
+          var insideRounds = [3, 4, 5, 6, 7];
+          var shuffledScheduleObject = {};
 
-            var newOutsideRounds = _.shuffle(outsideRounds);
-            var newInsideRounds = _.shuffle(insideRounds);
+          var newOutsideRounds = _.shuffle(outsideRounds);
+          var newInsideRounds = _.shuffle(insideRounds);
 
-            while( outsideRounds.length > 0 ){
-              var oldRound = outsideRounds.pop();
-              var newRound = newOutsideRounds.pop();
-              shuffledScheduleObject[oldRound] = newRound;
-            }
-            while( insideRounds.length > 0 ){
-              var oldRound = insideRounds.pop();
-              var newRound = newInsideRounds.pop();
-              shuffledScheduleObject[oldRound] = newRound;
-            }
+          while( outsideRounds.length > 0 ){
+            var oldRound = outsideRounds.pop();
+            var newRound = newOutsideRounds.pop();
+            shuffledScheduleObject[oldRound] = newRound;
+          }
+          while( insideRounds.length > 0 ){
+            var oldRound = insideRounds.pop();
+            var newRound = newInsideRounds.pop();
+            shuffledScheduleObject[oldRound] = newRound;
+          }
 
           for(var oppId in scheduleMatrix){
             var oldRoundsForOpp = scheduleMatrix[oppId];
@@ -336,7 +335,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
         //////scheduleAllMatches()/////////////////
         var scheduleAllMatches = function (scheduleMatrix) {
           //for everything interestLevel
-          for(var interestLevel = 14; interestLevel > 1; interestLevel--){
+          for(var interestLevel = 14; interestLevel > 3; interestLevel--){
             var numberOfRoundsScheduledTicker = 0;
             var matchesForThisInterestLevel = matchesSortedByInterest[interestLevel];
             //while matchesSortedByInterest at this interestLevel has keys, and also numberOfRoundsScheduledTicker is less than 11
@@ -348,14 +347,19 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
                   //if interestLevel is less than 11
                   if( interestLevel < 11){
+                    if( userId === '53d984fb1e4c45681343d4a6' ){
+                      // debugger;
+                    }
                     //if # for this user equals numberOfRoundsScheduledTicker
-                    if(usersForSchedule[userId].numberOfRounds === numberOfRoundsScheduledTicker) {
-                      //pop oppId and schedule it(schedule it is a helper function)
-                      oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
-                      if(usersForSchedule[userId].numberOfRounds < 9) {
-                        scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                    if(usersForSchedule[userId].numberOfRounds <= numberOfRoundsScheduledTicker) {
+                      var currentRoundsForUser = usersForSchedule[userId].numberOfRounds;
+                      while( usersForSchedule[userId].numberOfRounds === currentRoundsForUser && matchesForThisInterestLevel[numberOfRequests][userId].length > 0){
+                        //pop oppId and schedule it(schedule it is a helper function)
+                        oppToSchedule = matchesForThisInterestLevel[numberOfRequests][userId].pop();
+                        if(usersForSchedule[userId].numberOfRounds < 9) {
+                          scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
+                        }
                       }
-                      // usersForSchedule[userId].numberOfRounds++;
                     }
                   }else{
                     //pop oppId and schedule it(schedule it is a helper function)
@@ -363,7 +367,6 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
                     if(usersForSchedule[userId].numberOfRounds < 9) {
                       scheduleSingleOpp(oppToSchedule, userId, scheduleMatrix);
                     }
-                    // usersForSchedule[userId].numberOfRounds++;
                   }
 
                   //check if userId's value is empty
@@ -384,10 +387,56 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               }
                 numberOfRoundsScheduledTicker++;
             }
-            // console.log("In interest", interestLevel,  "scheduled ",counterYes);
-            // console.log("In interest",interestLevel , "not scheduled ",counterNo);
           }
         };
+
+        var translateInterestLevel = function(interestLevel){
+          if( interestLevel === 14 ){
+            return '*';
+          }
+          if( interestLevel === 13 ){
+            return '4^';
+          }
+          if( interestLevel === 12 ){
+            return '4';
+          }
+          if( interestLevel === 11 ){
+            return '4v';
+          }
+          if( interestLevel === 10 ){
+            return '3^';
+          }
+          if( interestLevel === 9 ){
+            return '3';
+          }
+          if( interestLevel === 8 ){
+            return '3v';
+          }
+          if( interestLevel === 7 ){
+            return '2^';
+          }
+          if( interestLevel === 6 ){
+            return '2';
+          }
+          if( interestLevel === 5 ){
+            return '2v';
+          }
+          if( interestLevel === 4 ){
+            return '1^';
+          }
+          if( interestLevel === 3 ){
+            return '1';
+          }
+          if( interestLevel === 2 ){
+            return '1v';
+          }
+          if( interestLevel === 1 ){
+            return 'X';
+          }
+          if( interestLevel === 0 ){
+            return 0;
+          }
+        }
 
         var makeScheduleSpreadsheet = function(scheduleMatrix){
           var spreadSheetArray = [];
@@ -421,7 +470,9 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
             topArray.push(userObj[user].name || userObj[user].email);
             userIds.push(user);
           }
-          topArray.push('BREAKS');
+          for(var breakStringIndex = 0; breakStringIndex < 10; breakStringIndex++){
+            topArray.push('brk');
+          }
           spreadSheetArray.push(topArray);
           for(var oppId in scheduleMatrix){
             var breakRounds = [];
@@ -437,18 +488,21 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
               var thisUserSchedule = usersForSchedule[userId].scheduleForThisUser;
               var hasAppointment = false;
               for(var roundNumber in thisUserSchedule){
+              var interestLevel = userInterestsForOpportunites[userId][oppId];
+              var translatedInterestLevel = translateInterestLevel(interestLevel);
                 if( thisUserSchedule[roundNumber] === oppId ){
-                  rowArray.push('R' + (Number(roundNumber) + 1));
+                  rowArray.push('R' + (Number(roundNumber) + 1) + ': ' + translatedInterestLevel);
                   hasAppointment = true;
                   break;
                 }
               }
               if(!hasAppointment){
-                var interestLevel = userInterestsForOpportunites[userId][oppId];
-                rowArray.push(interestLevel);
+                rowArray.push(translatedInterestLevel);
               }
             }
-            rowArray.push(breakRounds.join(' '));
+            for(var roundIndex = 0; roundIndex < breakRounds.length; roundIndex++){
+              rowArray.push(breakRounds[roundIndex]);
+            }
             spreadSheetArray.push(rowArray);
           }
           return spreadSheetArray.join('\n');
@@ -456,9 +510,14 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         scheduleAllMatches(scheduleMatrix);
         shuffleSchedule(scheduleMatrix, usersForSchedule);
+        for(var k in scheduleMatrix){
+          for(var j in scheduleMatrix[k]){
+            if(scheduleMatrix[k][j] === "BREAK"){
+            }
+          }
+        }
         var scheduleSpreadSheet = makeScheduleSpreadsheet(scheduleMatrix);
         var bossSpreadsheet = makeBossSpreadsheet(scheduleMatrix);
-        // console.dir(bossSpreadsheet);
 
         var download = function(str) {
          var f = document.createElement("iframe");
@@ -469,7 +528,7 @@ app.factory('FilterService', ['$state', 'Match', 'Opportunity', 'User', 'Dialogu
 
         //!!!!UNCOMMENT THE LINE BELOW TO DOWNLOAD SCHEDULE SPREADSHEET
         // download(scheduleSpreadSheet);
-        // download(bossSpreadsheet);
+        download(bossSpreadsheet);
       });
     });
 
