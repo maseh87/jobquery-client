@@ -1,18 +1,5 @@
 app.controller('AdminDashboardCtrl', ['$scope', 'Match', 'User', function ($scope, Match, User) {
 
-  $scope.data = {
-    columns: [
-      ['Profile Completion', 100, 90, 75, 88, 12, 40],
-      ['Interests Declared', 75, 99, 65, 12, 24, 63]
-    ]
-  };
-   $scope.axis = {
-    x: {
-      type: 'category',
-      categories: ['Josh', 'Mase', 'Xianhui', 'James', 'Joe', 'That One Guy']
-    }
-  };
-
   var matches, users, opportunities, candidateCategories, opportunityCategories, sorter, reverse;
   reverse = false;
   $scope.candidateCategoryQuery = {};
