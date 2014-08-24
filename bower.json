@@ -12,6 +12,7 @@
     "angular-bootstrap": "~0.11.0",
     "ng-videosharing-embed": "~0.2.1",
     "lodash": "~2.4.1",
+    "Oxford": "~0.0.0"
   },
   "resolutions": {
     "angular": "1.2.22"

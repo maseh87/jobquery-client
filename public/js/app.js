@@ -1,4 +1,4 @@
-var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule', 'ui.bootstrap', 'ui.bootstrap.tpls', 'videosharing-embed', 'ngAnimate']);
+var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule', 'ui.bootstrap', 'ui.bootstrap.tpls', 'videosharing-embed', 'ngAnimate', 'oxford']);
 
 app.constant('SERVER_URL', '/* @echo SERVER_URL */');
 
