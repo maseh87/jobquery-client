@@ -12,7 +12,6 @@ app.controller('AdminSidebarCtrl', ['$scope', '$rootScope', '$state', function (
         'candidates': 'sidebar-candidates',
         'matches': 'sidebar-matches',
         'tags': 'sidebar-tags',
-        'completionInfo': 'sidebar-completionInfo'
     };
 
     $scope.currentStateHeading = $state.current.name.split('.')[1];

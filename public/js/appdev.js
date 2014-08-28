@@ -1,4 +1,4 @@
-var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule', 'ui.bootstrap', 'ui.bootstrap.tpls', 'videosharing-embed', 'ngAnimate', 'oxford']);
+var app = angular.module('jobQuery', ['ui.router', 'ngResource', 'LocalStorageModule', 'ui.bootstrap', 'ui.bootstrap.tpls', 'videosharing-embed', 'ngAnimate']);
 
 app.constant('SERVER_URL', 'http://localhost:9000');
 
@@ -12,9 +12,9 @@ app.config(['$httpProvider', function($httpProvider) {
 }]);
 
 app.run(['$rootScope', function($rootScope) {
-  $rootScope.notifications = {
-    loading: false
-  };
+ $rootScope.notifications = {
+   loading: false
+ };
 }]);
 
 app.factory('LoadingInterceptor', ['$rootScope', function($rootScope) {
@@ -30,7 +30,7 @@ app.factory('LoadingInterceptor', ['$rootScope', function($rootScope) {
   };
 }]);
 
-app.animation('.overlay', [function() {
+app.animation('.overlay', function() {
   return {
     enter: function(elem, callback) {
       $(elem).animate({
@@ -43,4 +43,4 @@ app.animation('.overlay', [function() {
       }, 500, callback);
     }
   };
-}]);
+});
