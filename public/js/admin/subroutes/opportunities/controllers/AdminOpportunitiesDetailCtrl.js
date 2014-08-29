@@ -394,7 +394,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
       if(user.name) {
         result.push(user.name, user.category || '', user.searchStage || '', user.interest || '', user.adminOverride || '');
       }
-      if(user.category === "HR14/15") {
+      if(user.category === "HR14/15" && user.searchStage !== 'Out') {
         result.push('Yes', '\n');
       } else {
         result.push('\n');
