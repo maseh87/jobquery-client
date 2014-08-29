@@ -61,7 +61,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
     var guidance = {};
     guidance.questions = oppData.questions;
     guidance.tags = oppData.tags.map(function (tagData) {
-      interestGrid.push(tagData.tag.name);
+      // interestGrid.push(tagData.tag.name);
 
       return {data: tagData.tag, value: tagData.value, importance: tagData.importance};
     });
