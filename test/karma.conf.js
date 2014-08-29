@@ -128,7 +128,6 @@ module.exports = function(config) {
         'public/js/admin/subroutes/matches/state.js',
         'public/js/admin/subroutes/matches/controllers/AdminMatchesCtrl.js',
         'public/js/admin/subroutes/matches/controllers/AdminMatchesScheduleCtrl.js',
-        'public/js/admin/subroutes/matches/services/SchedulerServ.js',
         'public/js/admin/subroutes/matches/services/FilterService.js',
 
         // admin.messages

@@ -6,7 +6,6 @@ app.factory('Company', ['CompanyResource', 'SERVER_URL', '$http', function (Comp
   var companyMethods = {};
 
   companyMethods.getAll = function (id) {
-    // return CompanyResource.query().$promise;
     var url = SERVER_URL + '/api/companies';
     if(id) {
       url += '/' + id;
@@ -22,7 +21,6 @@ app.factory('Company', ['CompanyResource', 'SERVER_URL', '$http', function (Comp
   };
 
   companyMethods.get = function (id) {
-    // return CompanyResource.get({_id: id}).$promise;
     return companyMethods.getAll(id);
   };
 
