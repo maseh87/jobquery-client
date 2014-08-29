@@ -388,10 +388,8 @@ app.controller('AdminOpportunitiesDetailCtrl',
   };
   //fill up the interest grid array
   $scope.matchGrid = function() {
-    console.log('Yoooo');
     var csvString = '';
     _.each($scope.declared, function(user) {
-      console.log(user, ' users');
       var result = [];
       if(user.name) {
         result.push(user.name, user.category || '', user.searchStage || '', user.interest || '', user.adminOverride || '');
@@ -407,7 +405,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
     interestGrid.push('\n');
     var str = interestGrid.join(',');
     str += csvString;
-    // console.log(csvString);
     var f = document.createElement("iframe");
     document.body.appendChild(f);
     f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
