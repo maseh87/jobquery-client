@@ -6,6 +6,9 @@ app.controller('AdminOpportunitiesDetailCtrl',
   var originalCompanyId;
   $scope.oppData = {};
 
+  //array to create the downloadable grid
+  var interestGrid = ['Name', 'Group', 'Stage', 'Interest', 'Admin Override', 'Attending'];
+
   $scope.seePreview = function() {
     $state.go("admin.opportunities.preview", {_id: $scope.oppData._id});
   };
@@ -58,8 +61,11 @@ app.controller('AdminOpportunitiesDetailCtrl',
     var guidance = {};
     guidance.questions = oppData.questions;
     guidance.tags = oppData.tags.map(function (tagData) {
+      interestGrid.push(tagData.tag.name);
+
       return {data: tagData.tag, value: tagData.value, importance: tagData.importance};
     });
+
     $scope.guidance = guidance;
 
     // declared = user tags
@@ -380,6 +386,36 @@ app.controller('AdminOpportunitiesDetailCtrl',
   var toggleOffDbGlyph = function(user, glyph){
     user[glyph] = false;
   };
+  //fill up the interest grid array
+  $scope.matchGrid = function() {
+    console.log('Yoooo');
+    var csvString = '';
+    _.each($scope.declared, function(user) {
+      console.log(user, ' users');
+      var result = [];
+      if(user.name) {
+        result.push(user.name, user.category || '', user.searchStage || '', user.interest || '', user.adminOverride || '');
+      }
+      if(user.category === "HR14/15") {
+        result.push('Yes', '\n');
+      } else {
+        result.push('\n');
+      }
+      csvString += result.join(',');
+    });
+
+    interestGrid.push('\n');
+    var str = interestGrid.join(',');
+    str += csvString;
+    // console.log(csvString);
+    var f = document.createElement("iframe");
+    document.body.appendChild(f);
+    f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
+    setTimeout(function() {
+      document.body.removeChild(f);
+    }, 333);
+  };
+
 
 
 }]);

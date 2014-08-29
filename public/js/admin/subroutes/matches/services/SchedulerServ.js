@@ -1,7 +1,6 @@
 //app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opportunity, User, Match, $q) {
-app.factory('Scheduler', ['Opportunity', 'FilterService', 'User', 'Match', '$q', function (Opportunity, FilterService, User, Match, $q) {
+app.factory('Scheduler', ['Opportunity', 'User', 'Match', '$q', function (Opportunity, User, Match, $q) {
 
-var later = function(){
 
   // var matchesSortedByInterest = FilterService.matchesSortedByInterest;
   // var usersForSchedule = FilterService.usersForSchedule;
@@ -133,6 +132,5 @@ var later = function(){
     //   //interests: opportunityAppointment,
     //   scheduleData: scheduleData
     };
-  };
   //setTimeout(later, 6000);
 }]);

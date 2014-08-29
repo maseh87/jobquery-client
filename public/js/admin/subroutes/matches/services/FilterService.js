@@ -644,9 +644,9 @@ app.factory('FilterService', ['Match', 'User',
         };
 
         var downloadSpreadsheet = function(csvString){
-         var f = document.createElement("iframe");
-         document.body.appendChild(f);
-         f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(csvString);
+          var f = document.createElement("iframe");
+          document.body.appendChild(f);
+          f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(csvString);
         };
 
 
