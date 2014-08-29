@@ -61,7 +61,7 @@ app.controller('AdminOpportunitiesDetailCtrl',
     var guidance = {};
     guidance.questions = oppData.questions;
     guidance.tags = oppData.tags.map(function (tagData) {
-      interestGrid.push(tagData.tag.name);
+      // interestGrid.push(tagData.tag.name);
 
       return {data: tagData.tag, value: tagData.value, importance: tagData.importance};
     });
@@ -388,15 +388,13 @@ app.controller('AdminOpportunitiesDetailCtrl',
   };
   //fill up the interest grid array
   $scope.matchGrid = function() {
-    console.log('Yoooo');
     var csvString = '';
     _.each($scope.declared, function(user) {
-      console.log(user, ' users');
       var result = [];
       if(user.name) {
         result.push(user.name, user.category || '', user.searchStage || '', user.interest || '', user.adminOverride || '');
       }
-      if(user.category === "HR14/15") {
+      if(user.category === "HR14/15" && user.searchStage !== 'Out') {
         result.push('Yes', '\n');
       } else {
         result.push('\n');
@@ -407,7 +405,6 @@ app.controller('AdminOpportunitiesDetailCtrl',
     interestGrid.push('\n');
     var str = interestGrid.join(',');
     str += csvString;
-    // console.log(csvString);
     var f = document.createElement("iframe");
     document.body.appendChild(f);
     f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
