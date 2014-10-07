@@ -4,3 +4,5 @@ npm-debug.log
 .DS_Store
 public/lib
 public/index.html
+coverage
+public/dist/app.js

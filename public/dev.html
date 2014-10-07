@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/stylesheets/main.css">
     <link rel="stylesheet" href="assets/stylesheets/login.css">
-    <link rel="stylesheet" href="assets/stylesheets/widgets.css">
     <link rel="stylesheet" href="assets/stylesheets/tablebox.css">
     <link rel="stylesheet" href="assets/stylesheets/formbox.css">
     <link rel="stylesheet" href="assets/stylesheets/gridbox.css">
@@ -21,10 +20,16 @@
 
     <!-- build:remove -->
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="bower_components/ng-videosharing-embed/build/ng-videosharing-embed.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/angular-local-storage/angular-local-storage.min.js"></script>
+    <script src="bower_components/lodash/dist/lodash.min.js"></script>
     <!-- /build -->
 
 
@@ -142,8 +147,7 @@
     <script src="js/admin/subroutes/matches/state.js"></script>
     <script src="js/admin/subroutes/matches/controllers/AdminMatchesCtrl.js"></script>
     <script src="js/admin/subroutes/matches/controllers/AdminMatchesScheduleCtrl.js"></script>
-    <script src="js/admin/subroutes/matches/services/SchedulerServ.js"></script>
-
+    <script src="js/admin/subroutes/matches/services/FilterService.js"></script>
     <!-- admin.messages -->
     <script src="js/admin/subroutes/messages/state.js"></script>
     <script src="js/admin/subroutes/messages/controllers/AdminMessagesCtrl.js"></script>
@@ -156,7 +160,9 @@
 
     <!-- admin.opportunities -->
     <script src="js/admin/subroutes/opportunities/state.js"></script>
+    <script src="js/admin/subroutes/opportunities/controllers/AdminOpportunitiesPreviewCtrl.js"></script>
     <script src="js/admin/subroutes/opportunities/controllers/AdminOpportunitiesCtrl.js"></script>
+    <script src="js/admin/subroutes/opportunities/controllers/AdminOpportunitiesPreviewCtrl.js"></script>
 
     <!-- admin.opportunities.detail -->
     <script src="js/admin/subroutes/opportunities/controllers/AdminOpportunitiesDetailCtrl.js"></script>
@@ -182,6 +188,9 @@
     <div ui-view="sidebar"></div>
 </div>
 <div class="content-container">
+    <div class="overlay loading" ng-if="notifications.loading">
+        <!-- <h1>Loading</h1> -->
+    </div>
     <div ui-view="main"></div>
 </div>
 

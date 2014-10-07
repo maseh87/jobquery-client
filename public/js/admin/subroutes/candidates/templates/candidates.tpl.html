@@ -1,41 +1,24 @@
 <div ui-view>
+    <div class="content-section">
+        <span>Exclude Accepted/Opt-Out Candidates</span>
+        <input type="checkbox" ng-init="config.exclude = true" ng-model="config.exclude" ng-click="config.exclude = !config.exclude; toggleAccepted(config.exclude)" />
+    </div>
     <div class="content-header">
         <div class="content-header-block text-left">
             <span class="content-action" ui-sref="admin.candidates.new">
                 <span class="glyphicon glyphicon-plus"></span>
                 <span>Invite Candidates</span>
             </span>
-            <span class="content-action" ng-click="downloadData()">
+            <span class="content-action" ng-click="downloadData(config.exclude)">
                 <span class="glyphicon glyphicon-download"></span>
                 <span>Download Data</span>
             </span>
-        </span>
         </div>
         <div class="content-header-block">
             <div class="content-title">Candidates</div>
             <div class="content-tagline">View, invite, or edit candidates</div>
         </div>
     </div>
-    <span>Exclude Accepted/Opt-Out Candidates</span>
-    <input type="checkbox" ng-init="config.exclude = true" ng-model="config.exclude" ng-click="config.exclude = !config.exclude; toggleAccepted(config.exclude)">
-
-<!--     <div class="content-section container-fluid">
-        <div class="formbox-title">Filter Candidates</div>
-        <table class="formbox formbox-basic">
-            <tr>
-                <th>All</th>
-                <td><input type="radio" id="radioBox" value="all" ng-model="query"></td>
-            </tr>
-            <tr>
-                <th>Attending Hiring Day</th>
-                <td><input type="radio" id="radioBox" ng-value="true" ng-model="query"></td>
-            </tr>
-            <tr>
-                <th>Not Attending Hiring Day</th>
-                <td><input type="radio" id="radioBox" ng-value="false" ng-model="query"></td>
-            </tr>
-        </table>
-    </div> -->
 
     <div class="row">
     <div ng-repeat="group in groups" class="content-section container-fluid">
@@ -44,25 +27,30 @@
             <thead>
                 <tr class="tablebox-header">
                     <th width="12%" class="pointer" ng-click="sorter='name'; reverse=!reverse">Name</th>
-                    <th width="9%" class="pointer" ng-click="sorter='attending'; reverse=!reverse">Attending</th>
-                    <th width="9%" class="pointer" ng-click="sorter='interestDeclared'; reverse=!reverse">Interest Declared</th>
-                    <th width="9%" class="pointer" ng-click="sorter='interestThreeOrGreater'; reverse=!reverse">Interest > 3 Count</th>
+                    <th width="7%" class="pointer" ng-click="sorter='attending'; reverse=!reverse">Attending</th>
+                    <th width="7%" class="pointer" ng-click="sorter='interestDeclared'; reverse=!reverse">Interest Declared</th>
+                    <th width="7%" class="pointer" ng-click="sorter='interestThreeOrGreater'; reverse=!reverse">Interest > 3 Count</th>
                     <th width="15%" class="pointer" ng-click="sorter='github'; reverse=!reverse">Github</th>
                     <th width="20%" class="pointer" ng-click="sorter='email'; reverse=!reverse">Email</th>
                     <th width="14%" class="pointer" ng-click="sorter='city'; reverse=!reverse">Location</th>
+                    <th width="7%" class="pointer" ng-click="sorter='profilePercentage'; reverse=!reverse">Survey Completed</th>
                     <th width="12%" class="pointer" ng-click="sorter='searchStage'; reverse=!reverse">Job Search Stage</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in group | orderBy:sorter:reverse" class="tablebox-content" ui-sref="admin.candidates.detail({_id: user._id})">
-                    <td class="name">{{user.name}}</td>
-                    <td>{{user.attending ? 'Yes' : 'No'}}</td>
-                    <td class="interestDeclared">{{user.interestDeclared}}</td>
-                    <td class="interestThreeOrGreater">{{user.interestThreeOrGreater}}</td>
-                    <td class="github"><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
-                    <td class="email"><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
-                    <td class="location">{{user.city}}</td>
-                    <td class="stage">{{user.searchStage === 'Out' ? 'Opted Out' : user.searchStage}}</td>
+                <tr ng-repeat="user in group | orderBy:sorter:reverse" class="tablebox-content">
+                    <td ui-sref="admin.candidates.detail({_id: user._id})" class="name">{{user.name}}</td>
+
+                    <td><input type="checkbox" ng-model="user.attending" ng-click="toggleCheckbox(user, 'attending')"></td>
+
+                    <td ui-sref="admin.candidates.detail({_id: user._id})" class="interestDeclared">{{user.interestDeclared}}</td>
+                    <td ui-sref="admin.candidates.detail({_id: user._id})" class="interestThreeOrGreater">{{user.interestThreeOrGreater}}</td>
+                    <td ui-sref="admin.candidates.detail({_id: user._id})" class="github"><a ng-href="{{user.github}}"a>{{user.github}}</a></td>
+                    <td ui-sref="admin.candidates.detail({_id: user._id})" class="email"><a ng-href="mailto:{{user.email}}">{{user.email}}</a></td>
+                    <td ui-sref="admin.candidates.detail({_id: user._id})" class="location">{{user.city}}</td>
+                    <!-- profilePercentage is an added feature and some users may not have this field populated in the datebase, thus the need for a fallback message -->
+                    <td ui-sref="admin.candidates.detail({_id: user._id})" class="profilePercentage">{{user.surveyPercent || noPercentMessage}}</td>
+                    <td ui-sref="admin.candidates.detail({_id: user._id})" class="stage">{{user.searchStage === 'Out' ? 'Opted Out' : user.searchStage}}</td>
                 </tr>
             </tbody>
         </table>

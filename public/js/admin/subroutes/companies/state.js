@@ -1,6 +1,7 @@
 app.config(['$stateProvider', function($stateProvider){
 
   $stateProvider
+
     .state('admin.companies', {
       abstract: true,
       url: '/companies',

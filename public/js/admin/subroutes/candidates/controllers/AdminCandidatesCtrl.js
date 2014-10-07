@@ -5,11 +5,13 @@ app.controller('AdminCandidatesCtrl',
   $scope.query = '';
   $scope.config = {};
   $scope.config.exclude = true;
+  $scope.sorter = 'name';
+  $scope.noPercentMessage = 'n/a'
 
   $scope.toggleAccepted = function(exclude){
     exclude ? $scope.excludeAccepted() : $scope.includeAccepted();
   };
-  
+
   $scope.excludeAccepted = function () {
     var results = {};
     for(var key in $scope.allGroups){
@@ -23,6 +25,13 @@ app.controller('AdminCandidatesCtrl',
 
   $scope.includeAccepted = function(){
     $scope.groups = angular.copy($scope.allGroups);
+  };
+
+  $scope.toggleCheckbox = function (user, property) {
+    var userToUpdate = {};
+    userToUpdate._id = user._id;
+    userToUpdate[property] = !user[property];
+    User.update(userToUpdate);
   };
 
   User.getAll().then(function (users) {
@@ -67,8 +76,8 @@ app.controller('AdminCandidatesCtrl',
 
   });
 
-  $scope.downloadData = function () {
-    $http.get(SERVER_URL + '/api/users/download')
+  $scope.downloadData = function (excludeAccepted) {
+    $http.get(SERVER_URL + '/api/users/download?excludeAccepted=' + excludeAccepted)
     .success(function () {
       if (arguments[1] === 200) {
         $scope.dataToDownload = arguments[0];
@@ -112,7 +121,7 @@ app.controller('AdminCandidatesCtrl',
     return true;
   } /* end download() */
 
-  
+
 
 
 }]);

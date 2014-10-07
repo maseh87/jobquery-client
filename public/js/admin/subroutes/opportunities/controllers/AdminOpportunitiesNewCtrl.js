@@ -157,7 +157,6 @@ app.controller('AdminOpportunitiesNewCtrl',
       return handleCategory();
     }).then(function(){
       var oppData = {};
-      // no _id; need to create opportunity first
       oppData.active = $scope.basic.active;
       oppData.approved = $scope.basic.approved;
       oppData.description = $scope.basic.description;

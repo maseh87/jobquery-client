@@ -7,18 +7,21 @@
     "express": "*",
     "faker": "^1.0.0",
     "gulp": "^3.8.0",
+    "gulp-concat": "^2.2.0",
+    "gulp-ignore": "^1.1.0",
     "gulp-jshint": "^1.6.2",
     "gulp-nodemon": "^1.0.4",
+    "gulp-preprocess": "^1.1.1",
     "gulp-processhtml": "0.0.4",
-    "gulp-concat": "^2.2.0",
-    "gulp-uglify": "^0.3.1",
-    "gulp-ignore": "^1.1.0",
-    "gulp-rename": "^1.2.0"
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^0.3.1"
   },
   "devDependencies": {
-    "karma": "~0.10",
-    "protractor": "~0.20.1",
-    "http-server": "^0.6.1"
+    "http-server": "^0.6.1",
+    "karma": "^0.12.21",
+    "karma-jasmine": "^0.1.5",
+    "karma-unicorn-reporter": "^0.1.4",
+    "karma-coverage": "^0.2.6"
   },
   "scripts": {
     "test": "karma start test/karma.conf.js",

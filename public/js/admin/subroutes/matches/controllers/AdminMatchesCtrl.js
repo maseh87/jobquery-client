@@ -1,6 +1,6 @@
 app.controller('AdminMatchesCtrl',
-  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'Scheduler', 'SERVER_URL', 'DialogueService',
-  function ($scope, $state, $http, Match, Opportunity, User, Scheduler, SERVER_URL, DialogueService) {
+  ['$scope', '$state', '$http', 'Match', 'Opportunity', 'User', 'SERVER_URL', 'DialogueService',
+  function ($scope, $state, $http, Match, Opportunity, User, SERVER_URL, DialogueService) {
 
   Match.getAll().then(function (matchData) {
     User.getAll().then(function (users) {
@@ -9,7 +9,7 @@ app.controller('AdminMatchesCtrl',
       var filteredUserIds = {};
       var filteredUsers = users.filter(function (candidate) {
         if (candidate.isAdmin) return false;
-        if (!candidate.attending) return false;
+        // if (!candidate.attending) return false;
         if (!candidate.isRegistered) return false;
         if ((candidate.searchStage === 'Out') || (candidate.searchStage === 'Accepted')) return false;
         filteredUserIds[candidate._id] = true;
@@ -22,12 +22,14 @@ app.controller('AdminMatchesCtrl',
       var filteredOpps = matchData.opportunities.filter(function (opportunity) {
         if (!opportunity.active) return false;
         if (!opportunity.approved) return false;
-        if (opportunity.category.name === "Not Attending Hiring Day") return false;
+        // if (opportunity.category.name === "Not Attending Hiring Day") {
+        //   // console.log(opportunity);
+        //   return false;
+        // }
         filteredOppIds[opportunity._id] = true;
         return true;
       });
       $scope.opportunities = filteredOpps;
-
       // filter our matches
       var filteredMatches = matchData.matches.filter(function (match) {
         if (filteredUserIds[match.user] && filteredOppIds[match.opportunity]) {
@@ -42,7 +44,6 @@ app.controller('AdminMatchesCtrl',
       var oppColumnMap = {};
       var userMap = {};
       var matrix = {};
-
       // generate key map
       $scope.opportunities.forEach(function (opportunity, i) { oppColumnMap[opportunity._id] = i; });
       $scope.users.forEach(function (user, i) {
@@ -68,8 +69,6 @@ app.controller('AdminMatchesCtrl',
     });
   });
 
-
-
   $scope.edit = function(match) {
     // if user leaves blank, clear adminOverride and reverse to userInterest
     if (match.value === undefined) {
@@ -79,10 +78,8 @@ app.controller('AdminMatchesCtrl',
       // set adminOverride to be the new value
       match.adminOverride = match.value;
     }
-
     // save update to server
     Match.update(match);
-
   };
 
   $scope.isOverridden = function (match) {
@@ -113,14 +110,13 @@ app.controller('AdminMatchesCtrl',
 
   $scope.downloadData = function () {
     $http.get(SERVER_URL + '/api/matches/download')
-    .success(function () {
+    .success(function (results) {
       if (arguments[1] === 200) {
         $scope.dataToDownload = arguments[0];
         download(arguments[0], 'exported', 'text/csv');
       }
     });
   };
-
   $scope.downloadSchedule = function () {
     // show dialogue
     var title = "Schedule Processing in Progress";
@@ -151,7 +147,6 @@ app.controller('AdminMatchesCtrl',
 
       readyData();
     });
-
   };
 
   function download(strData, strFileName, strMimeType) {
@@ -245,7 +240,18 @@ app.controller('AdminMatchesCtrl',
           var userId = scheduleObj.id;
           var idx = userOrder.indexOf(userId);
           // then replace that value in the emptySchedule array with (i) + 1
-          emptySchedule[idx] = i + 1;
+          emptySchedule[idx] = "R" + (i + 1);
+        }
+      }
+      for (var j=0; j < userOrder.length; j++) {
+        var uid = userOrder[j];
+        if (!emptySchedule[j]) {
+          for (var k=0; k < $scope.matrix[uid].length; k++) {
+            var matrixMap = $scope.matrix[uid][k];
+            if (matrixMap.user === uid && matrixMap.opportunity === oppId) {
+              emptySchedule[j] = $scope.matrix[uid][k].value;
+            }
+          }
         }
       }
       // join emptySchedule array together with commas, plus new line
@@ -274,7 +280,6 @@ app.controller('AdminMatchesCtrl',
     });
     download(output, 'exported', 'text/csv');
   };
-
 
 
   $scope.slots = 6;

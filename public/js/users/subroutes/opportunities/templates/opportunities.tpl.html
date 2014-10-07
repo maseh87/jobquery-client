@@ -17,17 +17,21 @@
             <thead>
                 <tr class="tablebox-header">
                     <th class="pointer" ng-click="sorter = 'company.name'; reverse = !reverse">Company</th>
+                    <th class="pointer" ng-click="sorter = 'company.name'; reverse = !reverse">City</th>
                     <th class="pointer" ng-click="sorter = 'match'; reverse = !reverse">Match</th>
                     <th class="pointer" ng-click="sorter = 'interest'; reverse = !reverse">Interest</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="tablebox-content" ng-repeat="opportunity in category.opportunities | orderBy:sorter:reverse" ui-sref="users.opportunities.detail({_id: opportunity._id})">
-                    <td width="50%">
+                    <td width="30%">
                         <div class="tablebox-leader"><a ui-sref="users.opportunities.detail({_id: opportunity._id})">{{ opportunity.company.name }}</a></div>
                         <div>{{ opportunity.jobTitle }}</div>
                     </td>
-                    <td width="30%" class="tablebox-tag" style="vertical-align: middle">
+                    <td width="20%">
+                        <div class="tablebox-tag">San Francisco</div>
+                    </td>
+                    <td width="20%" class="tablebox-tag" style="vertical-align: middle">
                         <div class="graph-box">
                             <div class="graph-bar" style="width: {{ opportunity.match }}%">&nbsp;</div>
                         </div>
@@ -42,4 +46,3 @@
         </table>
     </div>
 </div>
-

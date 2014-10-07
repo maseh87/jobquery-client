@@ -1,15 +1,22 @@
 app.controller('AdminOpportunitiesDetailCtrl',
-  ['$scope', '$stateParams', 'Opportunity', 'Match', 'Tag', 'Category', 'Company', 'generateGlyphs',
-  function ($scope, $stateParams, Opportunity, Match, Tag, Category, Company, generateGlyphs) {
-
+  ['$scope', '$stateParams', '$state','Opportunity', 'Match', 'Tag', 'Category', 'Company', 'generateGlyphs', 'User',
+  function ($scope, $stateParams, $state, Opportunity, Match, Tag, Category, Company, generateGlyphs, User) {
   $scope.sorter = 'score';
   $scope.reverse = true;
   var originalCompanyId;
+  $scope.oppData = {};
 
+  //array to create the downloadable grid
+  var interestGrid = ['Name', 'Group', 'Stage', 'Interest', 'Admin Override', 'Attending'];
+
+  $scope.seePreview = function() {
+    $state.go("admin.opportunities.preview", {_id: $scope.oppData._id});
+  };
   Company.getAll().then(function (companies) {
     $scope.companies = companies;
 
     Match.getUsers($stateParams._id).then(function (data) {
+
       $scope.mapToView(data.opportunity, data.matches);
       $scope.oppData = data.opportunity;
       $scope.matchData = data.matches;
@@ -54,53 +61,72 @@ app.controller('AdminOpportunitiesDetailCtrl',
     var guidance = {};
     guidance.questions = oppData.questions;
     guidance.tags = oppData.tags.map(function (tagData) {
+      // interestGrid.push(tagData.tag.name);
+
       return {data: tagData.tag, value: tagData.value, importance: tagData.importance};
     });
+
     $scope.guidance = guidance;
 
     // declared = user tags
     $scope.interestThreeOrAbove = 0;
     $scope.interestResponses = 0;
-    var declared = matchData.map(function (matchModel) {
-      if (matchModel.userInterest > 0) {
-        $scope.interestResponses += 1;
-      }
-      if (matchModel.userInterest >= 3) {
-        $scope.interestThreeOrAbove +=1 ;
-      }
+    var declared = function() {
+      var result = matchData.map(function (matchModel) {
+        if (matchModel.userInterest > 0) {
+          $scope.interestResponses += 1;
+        }
+        if (matchModel.userInterest >= 3) {
+          $scope.interestThreeOrAbove +=1 ;
+        }
 
-      //Normalize question and answer arrays.
-      matchModel.answers = matchModel.answers || [];
-      var numQuestions = guidance.questions.length;
-      var numAnswers = matchModel.answers.length;
-      var difference = numQuestions - numAnswers;
-      for(var i = 0; i < difference; i++){
-        matchModel.answers.push({answer: ''});
-      }
-
-      return {
-        _id: matchModel.user._id,
-        name: matchModel.user.name,
-        email: matchModel.user.email,
-        interest: matchModel.userInterest,
-        answers: matchModel.answers,
-        category: matchModel.user.category ? matchModel.user.category.name : 'N/A',
-        searchStage: matchModel.user.searchStage,
-        points: [0, 0], // default: [points, possible points]
-        score: 0, // points[0] / points[1]
-        tags: (function () {
-          var tagsByKeys = {};
-          matchModel.user.tags.forEach(function (tag) {
-            tagsByKeys[tag.tag._id] = tag.tag.isPublic ? tag.value : tag.privateValue;
-          });
-          return tagsByKeys;
-        })()
-      };
-    });
-    $scope.declared = declared;
-
+        //Normalize question and answer arrays.
+        matchModel.answers = matchModel.answers || [];
+        var numQuestions = guidance.questions.length;
+        var numAnswers = matchModel.answers.length;
+        var difference = numQuestions - numAnswers;
+        for(var i = 0; i < difference; i++){
+          matchModel.answers.push({answer: ''});
+        }
+        if(!matchModel || !matchModel.user) {
+          return;
+        }
+        return {
+          _id: matchModel.user._id,
+          name: matchModel.user.name,
+          email: matchModel.user.email,
+          star: matchModel.star,
+          upVote: matchModel.upVote,
+          downVote: matchModel.downVote,
+          noGo: matchModel.noGo,
+          interest: matchModel.userInterest,
+          answers: matchModel.answers,
+          category: matchModel.user.category ? matchModel.user.category.name : 'N/A',
+          searchStage: matchModel.user.searchStage,
+          adminOverride: matchModel.adminOverride,
+          points: [0, 0], // default: [points, possible points]
+          score: 0, // points[0] / points[1]
+          tags: (function () {
+            var tagsByKeys = {};
+            matchModel.user.tags.forEach(function (tag) {
+              tagsByKeys[tag.tag._id] = tag.tag.isPublic ? tag.value : tag.privateValue;
+            });
+            return tagsByKeys;
+          })()
+        };
+      });
+      result = result.filter(function(match) {
+        if(match) {
+          return match;
+        }
+      });
+      return result;
+    };
+    $scope.declared = declared();
     $scope.updateGuidance();
   };
+
+
 
   $scope.save = function () {
     // remove any empty tags and duplicate tags (preference for higher order)
@@ -181,6 +207,37 @@ app.controller('AdminOpportunitiesDetailCtrl',
       originalCompanyId = oppData.company;
     }
     $scope.updateGuidance();
+  };
+
+  $scope.edit = function (user) {
+    //user.adminOverride = user.value;
+    Match.update(user);
+  };
+
+  $scope.isOverridden = function (user) {
+    // no adminOverride
+    if (user.adminOverride === 0) {
+      if (user.interest ===4) {
+        return 'gridbox-highlight-4';
+      } else if (user.interest === 3) {
+        return 'gridbox-highlight-3';
+      } else if (user.interest === 2) {
+        return 'gridbox-highlight-2';
+      } else if (user.interest === 1) {
+        return 'gridbox-highlight-1';
+      } else if (user.interest === 0) {
+        return 'gridbox-highlight-0';
+      }
+    // with adminOverride
+    } else {
+      if (user.adminOverride > user.interest) {
+        return 'gridbox-highlight-green';
+      } else if (user.adminOverride === user.interest) {
+        return 'gridbox-highlight-grey';
+      } else if (user.adminOverride < user.interest) {
+        return 'gridbox-highlight-red';
+      }
+    }
   };
 
   $scope.removeFrom = function (index, array) {
@@ -295,5 +352,67 @@ app.controller('AdminOpportunitiesDetailCtrl',
     };
   };
 
-}]);
+  $scope.highlightedGlyph = {};
 
+  //Toggle or highlight glyphicon when click only on the current ng-repeat index
+  $scope.adjustGlyphHighlighting = function(glyphName, index, user) {
+    if (!user[glyphName]){
+      toggleOnDbGlyph(user, glyphName);
+    }else{
+      toggleOffDbGlyph(user, glyphName);
+    }
+  };
+
+  var toggleOnDbGlyph = function(user, glyph){
+    //Only One Glyph can be true at once. We will set the selected glyph to true and then iterate
+    //over the rest of them to make sure they are all false
+    var glyphs = {
+      'star': true,
+      'upVote': true,
+      'downVote': true,
+      'noGo': true
+    };
+    //
+    user[glyph] = true;
+
+    delete glyphs[glyph];
+
+    for(var glyphName in glyphs){
+      user[glyphName] = false;
+    }
+    $scope.edit(user);
+  };
+
+  var toggleOffDbGlyph = function(user, glyph){
+    user[glyph] = false;
+  };
+  //fill up the interest grid array
+  $scope.matchGrid = function() {
+    var csvString = '';
+    _.each($scope.declared, function(user) {
+      var result = [];
+      if(user.name) {
+        result.push(user.name, user.category || '', user.searchStage || '', user.interest || '', user.adminOverride || '');
+      }
+      if(user.category === "HR14/15" && user.searchStage !== 'Out') {
+        result.push('Yes', '\n');
+      } else {
+        result.push('\n');
+      }
+      csvString += result.join(',');
+    });
+
+    interestGrid.push('\n');
+    var str = interestGrid.join(',');
+    str += csvString;
+    var f = document.createElement("iframe");
+    document.body.appendChild(f);
+    f.src = "data:" +  'text/csv'   + "," + encodeURIComponent(str);
+    setTimeout(function() {
+      document.body.removeChild(f);
+    }, 333);
+  };
+
+
+
+}]);

@@ -1,10 +1,13 @@
 app.controller('UsersDashboardCtrl',
-  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', 'DialogueService', 
-  function ($scope, UsersOpportunity, GuidanceService, generateGlyphs, DialogueService) {
+  ['$scope', 'UsersOpportunity', 'GuidanceService', 'generateGlyphs', '$sce',
+  function ($scope, UsersOpportunity, GuidanceService, generateGlyphs, $sce) {
 
-  var matches;
+  var matches, matchesWithInterest;
   $scope.submitText = '✔ Submit Preferences';
   $scope.pendingRequests = 0;
+  $scope.slides = [];
+  $scope.default = true;
+  $scope.isVideo = false;
 
   var objectify = function(arrayOfObjects){
     var object = {};
@@ -22,7 +25,13 @@ app.controller('UsersDashboardCtrl',
       matches = data.matches.filter(function(match){
         return (match.userInterest === 0) && opps[match.opportunity];
       });
+      matchesWithInterest = data.matches.filter(function(match){
+        return (match.userInterest !== 0) && opps[match.opportunity];
+      });
       $scope.matches = matches;
+      $scope.matchesWithInterestLength = matchesWithInterest.length;
+      $scope.opps = opps;
+      $scope.numberOfOpps = Object.keys(opps).length;
       if(matches.length){
         getNextOpportunity();
       }
@@ -58,6 +67,12 @@ app.controller('UsersDashboardCtrl',
       var opportunity = match.opportunity;
       var questions = opportunity.questions;
       var user = data.user;
+      $scope.user = user;
+      $scope.completedUserTags = user.tags.filter(function(tag){
+        return tag.value !== null;
+      }).length;
+
+      $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
 
       var numQuestions = questions.length;
       var numAnswers = match.answers.length;
@@ -79,20 +94,58 @@ app.controller('UsersDashboardCtrl',
       $scope.score = guidanceResult[1];
       $scope.processedTags = [processedTags.must, processedTags.nice];
       $scope.calculateFit = generateGlyphs.calculateFit;
+
+      if(opportunity.company.media.length === 0) {
+        $scope.defaultImage = "http://thesimplephysicist.com/wp-content/uploads/2014/05/default-avatar.jpg";
+      }
+
+      for (var j = 0; j < opportunity.company.media.length; j++) {
+        $scope.defaultImage = opportunity.company.media[0].url;
+        //check if the midea is video or image, if it match youtube, it is video
+        if ( opportunity.company.media[j].url.match(/youtube/)){
+          $scope.slides.push({
+            video: opportunity.company.media[j].url,
+            caption: opportunity.company.media[j].caption
+          });
+        } else {
+          $scope.slides.push({
+            image: opportunity.company.media[j].url,
+            caption: opportunity.company.media[j].caption
+          });
+        }
+      }
     });
   };
 
+
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+  };
+
+  $scope.setImage = function(imageUrl) {
+    $scope.mainImageUrl = imageUrl;
+    if(imageUrl.match(/youtube/)) {
+      $scope.isVideo = true;
+    }
+    else{
+      $scope.default = false;
+      $scope.isVideo = false;
+    }
+  };
 
   $scope.updateInterest = function (value) {
     if (!$scope.match) { return undefined; }
 
     $scope.match.answers = $scope.match.answers.map(function(answerObj){
-      if(answerObj.answer === '') answerObj.answer = ' ';
+      if(answerObj.answer === ''){
+        answerObj.answer = ' ';
+      }
       return answerObj;
     });
 
     $scope.match.userInterest = value;
     UsersOpportunity.update($scope.match).then(function () { });
+
   };
 
   $scope.hasInterest = function (value) {
@@ -103,15 +156,29 @@ app.controller('UsersDashboardCtrl',
   $scope.submit = function(){
     $scope.submitText = 'Submitting...';
     $scope.pendingRequests++;
+    $scope.default = true;
+    $scope.isVideo = false;
 
     UsersOpportunity.update($scope.match).then(function(){
       $scope.submitText = 'Fetching Next';
       $scope.matches.splice(0, 1);
+      //delete medias from last opportunity
+      while ($scope.slides.length) {
+        $scope.slides.shift();
+      }
+
       if($scope.matches.length > 0){
         getNextOpportunity();
       }
     });
+    initialize();
   };
+
+  $scope.tips = ['You have zero interest in this opportunity or already have a conversation in progress. We will actively avoid introducing you.',
+    'You\'re not that interested right now but you\'d be open to conversation, especially if they\'re interested in you.',
+    'Your interest is piqued and you\'d like to learn more. This opportunity could be pretty high on your list.',
+    'You are very interested in this opportunity and it stands among the top of your list. You have to meet this team!'
+  ];
 
   initialize();
 

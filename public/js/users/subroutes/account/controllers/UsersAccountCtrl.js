@@ -1,14 +1,21 @@
 app.controller('UsersAccountCtrl',
-  ['$scope', '$timeout', 'UsersAccount', 'UserTag', 'DialogueService', 
+  ['$scope', '$timeout', 'UsersAccount', 'UserTag', 'DialogueService',
   function ($scope, $timeout, UsersAccount, UserTag, DialogueService) {
 
   var SURVEY_LINK = 'https://docs.google.com/forms/d/1TgmSj5Wnu9Cbwi4xl42Gp3bEWxCFw4lD-pdNiaYTKOI/viewform';
+
   $scope.pendingRequests = 0;
   $scope.submitText = '✔ Save Your Profile';
   $scope.passwordText = '✎ Change Password';
 
+
   UsersAccount.get().then(function (user) {
+    //user is the $promise I just returned from UsersAccount.get()
     $scope.user = user;
+    $scope.completedUserTags = user.tags.filter(function(tag){
+      return tag.value !== null;
+    }).length;
+    $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
     $scope.binary = user.tags.filter(function (item) { return item.tag.type === 'binary'; });
     $scope.scale = user.tags.filter(function (item) { return item.tag.type === 'scale'; });
     $scope.text = user.tags.filter(function (item) { return item.tag.type === 'text'; });
@@ -31,14 +38,14 @@ app.controller('UsersAccountCtrl',
     });
   });
 
-  $scope.updateSearchStage = function (value) { 
+  $scope.updateSearchStage = function (value) {
     if (value === "Accepted") {
       var title = "Job Stage: Accepted - Survey Link";
       var message = "<div>Congratulations on finding a job! <br> Please take a few minutes and fill out a short survey.<br>Your information will help us improve the job search experience for the next cohort.<br><br><button class='content-button'><a href='" + SURVEY_LINK + "' target='_blank'>✔ Take me to the survey!</a></button></div>";
       DialogueService.setMessage(title, message);
       DialogueService.show();
     }
-    $scope.user.searchStage = value; 
+    $scope.user.searchStage = value;
   };
   $scope.isSearchStage = function (value) { return $scope.user.searchStage === value; };
 
@@ -47,6 +54,14 @@ app.controller('UsersAccountCtrl',
     if(user.password) delete user.password;
     if(user.newPassword) delete user.newPassword;
     if(user.newPasswordConfirm) delete user.newPasswordConfirm;
+
+    // update status bar
+    $scope.completedUserTags = user.tags.filter(function(tag){
+      return tag.value !== null;
+    }).length;
+    $scope.percentageOfSurveyCompleted = Math.floor(($scope.completedUserTags / $scope.user.tags.length) * 100).toString() + '%';
+    $scope.user.surveyPercent = $scope.percentageOfSurveyCompleted;
+
     // re-compile tags
     var compiledTags = [];
     for (var key in $scope.tags) {
@@ -57,13 +72,13 @@ app.controller('UsersAccountCtrl',
       }
     }
     $scope.user.tags = compiledTags;
+    
     // send for update
     $scope.pendingRequests++;
     $scope.submitText = 'Saving...';
     UsersAccount.update($scope.user).then(function (response) {
       $scope.submitText = '✔ Save Successful';
       $scope.pendingRequests--;
-      console.log('User account information updated successfully');
       $timeout(function () {
         $scope.submitText = '✔ Save Your Profile';
       }, 2000);
